@@ -1,25 +1,22 @@
-// Change all these images
-
 import logo from "../../images/zinelogo.png";
 import hamburger from "../../images/hamburger.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import home from "../../images/home.png";
 
-// Change this code as much 
 const Navbar = () => {
   const [Hide, setHide] = useState(false);
   const [scroll, setscroll] = useState(false);
   let scrollpos = 0;
 
   useEffect(() => {
-    window.addEventListener("scroll", listenToScroll);
+    window.addEventListener("scroll", listenScroll);
     return () => {
-      window.removeEventListener("scroll", listenToScroll);
+      window.removeEventListener("scroll", listenScroll);
     };
   }, []);
 
-  const listenToScroll = () => {
+  const listenScroll = () => {
     const currentScrollPos = document.documentElement.scrollTop;
     const visible = scrollpos < currentScrollPos && scrollpos > 30;
     scrollpos = currentScrollPos;
