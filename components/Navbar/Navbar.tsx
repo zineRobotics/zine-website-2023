@@ -83,7 +83,7 @@ const Navbar = () => {
             </div>
             <div>
               {Navbardata.map((item, index) => (
-                <div key={index} className="bg-yellow-500 rounded-xl w-88 mx-4 my-4">
+                <div key={index} className="bg-blue-300 hover:bg-blue-500 rounded-xl w-88 mx-4 my-4">
                   <h1 className="text-blue-800 text-3xl px-20 py-6">
                     <Image src={item.image} width="24" height="24"></Image>
                     <a href={item.href}> {item.text}</a>

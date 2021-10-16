@@ -1,18 +1,19 @@
 import type { NextPage } from "next";
 import {
-  // import files for homepage here.
-
+  AboutZine,
+  ZineActivities
 
 } from "../components/Home";
-import { Footer_Main } from "../components/Footer";
+import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 
 const Home: NextPage = () => {
   return (
     <>
       <Navbar />
-      <h1 className="text-red-500 text-center text-4xl pt-20">Hello, this is the new project.</h1>
-      <Footer_Main />
+      <AboutZine />
+      <ZineActivities />
+      <Footer />
     </>
   );
 };

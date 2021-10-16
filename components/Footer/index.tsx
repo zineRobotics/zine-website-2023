@@ -1,3 +1,3 @@
-import Footer_Main from './Footer_Main';
+import Footer from './Footer';
 
-export {Footer_Main};
+export {Footer};
