@@ -62,7 +62,7 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`sticky top-0 bg-blue-500 pt-4 h-14 md:h-18 xl:h-22 z-10 overflow-hidden ${
+        className={`sticky top-0 bg-blue-500 pt-2 xl:pt-4 h-14 md:h-18 xl:h-22 z-10 overflow-hidden ${
           scroll ? "hiddenNav" : "activeNav" }
         }`}
       >

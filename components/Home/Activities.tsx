@@ -7,7 +7,7 @@ import workshop from "../../images/workshop.jpg"
 
 const ZineActivities = () => {
     return(
-        <div className="px-16 pb-8 pt-16 lg:px-24 xl:px-32">
+        <div className="z-20 bg-white px-16 pb-8 pt-16 lg:px-24 xl:px-32">
             <h1 className="text-4xl text-blue-900 font-light mb-4">ZINE Activities</h1><br />
             <div className="grid grid-cols-3 gap-4">
                 <div className="">
