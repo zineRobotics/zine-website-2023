@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-const AboutZine = () => {
+const About = () => {
     return(
         <div className="bg-white min-h-screen flex items-center justify-center px-16">
   <div className="fixed w-full max-w-lg">
@@ -21,7 +21,7 @@ const AboutZine = () => {
   </div>
   <div className="relative grid grid-cols-3 gap m-8 gap-8 text-2xl font-nunito text-black">
       <button className="transition duration-500 ease-in-out bg-purple-200 px-20 py-8 hover:bg-red-600 hover:text-white transform hover:-translate-y-1 hover:scale-110 ...">
-      <Link href="/about"><h1>About Zine</h1></Link>
+      <Link href="/"><h1>About Zine</h1></Link>
       </button>
       <button className="transition duration-500 ease-in-out bg-yellow-200 px-20 py-8 hover:bg-red-600 hover:text-white transform hover:-translate-y-1 hover:scale-110 ...">
       <Link href="/team"><h1>Team</h1></Link>
@@ -43,4 +43,4 @@ const AboutZine = () => {
     )
 }
 
-export default AboutZine;
+export default About;
