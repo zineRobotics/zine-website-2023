@@ -38,9 +38,6 @@ const AboutZine = () => {
       <button className="transition duration-500 ease-in-out bg-purple-200 px-20 py-8 hover:bg-red-600 hover:text-white transform hover:-translate-y-1 hover:scale-110 ...">
       <Link href="/blogs"><h1>Blogs</h1></Link>
       </button>
-      <button className="transition duration-500 ease-in-out bg-purple-200 px-20 py-8 hover:bg-red-600 hover:text-white transform hover:-translate-y-1 hover:scale-110 ...">
-      <Link href=""><h1>This is the home page.</h1></Link>
-      </button>
     </div>
 </div>
     )
