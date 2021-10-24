@@ -7,7 +7,7 @@ import { faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-
 
 const Footer_Main = () => {
     return(
-        <div className="sticky bg-blue-500 bg-cover bg-center z-30 flex justify-evenly items-start pb-8 pt-16 mt-96">
+        <div className="sticky bg-footer-bg bg-cover bg-center z-30 flex justify-evenly items-start pb-8 pt-16 mt-96">
             <div>
                 <div className="w-32 h-32 mb-16"><Image src={logo}></Image></div>
                 <h1 className="text-4xl text-blue-900 font-light mb-4">Connect With <br /> Zine</h1><br />

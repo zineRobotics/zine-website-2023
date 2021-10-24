@@ -10,13 +10,13 @@ import { Navbar } from "../components/Navbar";
 
 const Home: NextPage = () => {
   return (
-    <>
+    <div className="bg-body-bg">
       <Navbar />
       <Video />
       <RobotAnimation />
       <ZineActivities />
       <Footer />
-    </>
+    </div>
   );
 };
 
