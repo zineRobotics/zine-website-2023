@@ -9,6 +9,7 @@ const AboutZine = () => {
           </video>
           <br />
           <br />
+          <h1 className="text-white text-4xl text-center">Zine Robotics and Research</h1>
           <br />
           <br />
           <br />
