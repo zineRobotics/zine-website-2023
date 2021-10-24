@@ -1,28 +1,51 @@
 import React from "react";
 import Link from "next/link";
 
+const togglePageFlip = async (el:any) => {
+  await setAllPagesBack();
+  await setClickedPageForward(el);
+  if (el.classList) {
+    el.classList.toggle('turn');
+  }
+}
+
+const setAllPagesBack = async () => {
+  var pages = await document.querySelectorAll<HTMLElement>("page");
+  for(var i=0; i<pages.length; i++){
+    if(pages[i].classList) {
+      pages[i].classList.remove('z-50');
+    }
+  }
+}
+
+
+const setClickedPageForward = async (el:any) => {
+  if (el.classList) {
+    await el.classList.add('z-50');
+  }
+}
+
 const Projects = () => {
     return(
-        <div className="bg-white min-h-screen flex items-center justify-center px-16">
-  <div className="fixed w-full max-w-lg">
-    <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div className="absolute top-20 left-80 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div className="absolute bottom-20 left-140 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    <div className="absolute bottom-20 right-120 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div className="absolute -bottom-120 left-150 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div className="absolute bottom-40 left-160 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    <div className="absolute bottom-40 right-160 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div className="absolute -bottom-120 right-160 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div className="absolute -bottom-40 right-140 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    <div className="absolute bottom-20 left-80 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div className="absolute bottom-60 left-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div className="absolute -bottom-120 right-120 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    <div className="absolute -bottom-40 left-130 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-  </div>
-  <div className="relative grid grid-cols-3 gap m-8 gap-8 text-2xl font-nunito text-black">
-      <button className="transition duration-500 ease-in-out bg-purple-200 px-20 py-8 hover:bg-red-600 hover:text-white transform hover:-translate-y-1 hover:scale-110 ...">
-      <Link href=""><h1>This is the Projects page.</h1></Link>
-      </button>
+      <div className="perspective text-white bg-black w-screen h-screen flex justify-end">
+
+    <div className="page absolute duration-1000 flex items-end origin-left w-1/2 transition h-screen transform" data-page="2" onClick={() => togglePageFlip(this)}>
+        <div className="front text-xl sm:text-3xl md:text-5xl flex items-center justify-start px-2 sm:px-5 md:px-20 font-bold bg-gray-900 h-screen absolute right-0 w-full h-full">
+            Page 3
+        </div>
+        <div className="back text-xl sm:text-3xl md:text-5xl font-bold flex items-center justify-start px-2 sm:px-5 md:px-20 bg-gray-800 h-screen absolute w-full h-full">
+            Page 4
+        </div>
+    </div>
+
+    <div className="page absolute duration-1000 flex items-end origin-left w-1/2 transition h-screen transform" data-page="1" onClick={() => togglePageFlip(this)}>
+        <div className="front text-xl sm:text-3xl md:text-5xl flex flex-col items-start justify-center px-2 sm:px-5 md:px-20 font-bold bg-gray-900 h-screen absolute right-0 w-full h-full">
+            Welcome to this Page
+            <p className="text-sm text-gray-500">Click me to open</p>
+        </div>
+        <div className="back text-xl sm:text-3xl md:text-5xl font-bold flex items-center justify-start px-2 sm:px-5 md:px-20 bg-gray-800 h-screen absolute w-full h-full">
+            This is Page 2
+        </div>
     </div>
 </div>
     )

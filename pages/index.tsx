@@ -10,6 +10,7 @@ import { Navbar } from "../components/Navbar";
 const Home: NextPage = () => {
   return (
     <>
+      <Navbar />
       <AboutZine />
       <Footer />
     </>

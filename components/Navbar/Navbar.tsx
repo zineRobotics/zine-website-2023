@@ -1,26 +1,25 @@
-import logo from "../../images/zinelogo.png";
-import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import logo from "../../images/zinelogo.png";
+import hamburger from "../../images/hamburger.svg";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import home from "../../images/home-icon.png";
-import team from "../../images/team-icon.png";
-import project from "../../images/project-icon.png"
-import achievement from "../../images/badge-icon.png"
-import about from "../../images/about.png"
-import blog from "../../images/blog.png"
+import about from "../../images/about.png";
+import Project from "../../images/project-icon.png";
 
 const Navbar = () => {
+  const [Hide, setHide] = useState(false);
   const [scroll, setscroll] = useState(false);
   let scrollpos = 0;
 
   useEffect(() => {
-    window.addEventListener("scroll", listenScroll);
+    window.addEventListener("scroll", listenToScroll);
     return () => {
-      window.removeEventListener("scroll", listenScroll);
+      window.removeEventListener("scroll", listenToScroll);
     };
   }, []);
 
-  const listenScroll = () => {
+  const listenToScroll = () => {
     const currentScrollPos = document.documentElement.scrollTop;
     const visible = scrollpos < currentScrollPos && scrollpos > 30;
     scrollpos = currentScrollPos;
@@ -28,57 +27,91 @@ const Navbar = () => {
   };
 
   interface nav_detail {
+    text: string;
     image: StaticImageData;
-    href: string;
+    link: string;
   }
 
-  const Navbardata: nav_detail[] = [
+  const data3: nav_detail[] = [
     {
+      text: "Home",
       image: home,
-      href: "/",
+      link: "/"
     },
     {
-      image: team,
-      href: "/team",
-    },
-    {
-      image: project,
-      href: "/projects",
-    },
-    {
-      image: achievement,
-      href: "/achievements",
-    },
-    {
+      text: "About",
       image: about,
-      href: "/about",
+      link: "/about"
     },
     {
-      image: blog,
-      href: "/blogs",
+      text: "Projects",
+      image: Project,
+      link: "/projects"
     },
   ];
+
+  function Nav_Out() {
+    return (
+      <>
+        <div className="z-30 top-0 flex fixed w-full h-full animate-navbar">
+          <div
+            className="z-20 bg-cover bg-gray-800 opacity-50 w-full h-full transparent"
+            onClick={() => {
+              setHide(false);
+            }}
+          ></div>
+          <div className="top-0 right-0 w-auto bg-gray-800 fixed h-full overflow-auto z-30 shadow-nav_custom">
+            <div className="py-6 px-20">
+              <button className="bg-gray-200 hover:bg-gray-100 rounded py-2 px-6 font-nunito text-xl font-bold">
+                <h1>Zine</h1>
+              </button>
+            </div>
+            <div>
+              {data3.map((item, index) => (
+                <div key={index}>
+                  <Link href={item.link}>
+                  <h1 className="text-white text-xl px-20 py-2 font-nunito">
+                    <Image src={item.image} width="16" height="16"></Image>
+                    <a href="#"> {item.text}</a>
+                  </h1>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <hr className="mt-6" />
+      </>
+    );
+  }
 
   return (
     <>
       <div
-        className={`sticky top-0 bg-blue-500 opacity-70 blur-lg pt-2 xl:pt-4 h-14 md:h-18 xl:h-22 z-10 overflow-hidden ${
-          scroll ? "hiddenNav" : "activeNav" }
+        className={`sticky top-0 bg-black pt-4 h-24 z-10 overflow-hidden ${
+          scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-16 flex gap-16 justify-between">
-          <div className="w-8 h-8 md:w-12 md:h-12 xl:w-16 xl:h-16 mb-4">
+        <div className="mx-32 flex justify-between text-white text-4xl">
+          <div className="w-16 h-16">
             <Image src={logo} />
           </div>
-          <div className="grid grid-cols-6 gap-4">
-              {Navbardata.map((item, index) => (
-                <div key={index} className="col-span-1 rounded-xl mx-4 w-8 h-8 md:w-12 md:h-12 xl:w-16 xl:h-16 cursor-pointer">
-                  <Link href={item.href}><Image src={item.image} ></Image></Link>
-                </div>
-              ))}
-            </div>
+          <Link href="/"><div className="my-2 cursor-pointer">Home</div></Link>
+          <Link href="/about"><div className="my-2 cursor-pointer">About</div></Link>
+          <Link href="/team"><div className="my-2 cursor-pointer">Team</div></Link>
+          <Link href="/blogs"><div className="my-2 cursor-pointer">Blogs</div></Link>
+          <Link href="/projects"><div className="my-2 cursor-pointer">Projects</div></Link>
+          <div className="w-12 h-12">
+            <Image
+              src={hamburger}
+              onClick={() => {
+                setHide(true);
+              }}
+            />
+          </div>
         </div>
       </div>
+      {Hide ? <Nav_Out /> : null}
     </>
   );
 };
