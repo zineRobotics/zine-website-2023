@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import {
-  AboutZine,
+  RobotAnimation,
+  Video,
   ZineActivities
 
 } from "../components/Home";
@@ -11,7 +12,9 @@ const Home: NextPage = () => {
   return (
     <>
       <Navbar />
-      <AboutZine />
+      <Video />
+      <RobotAnimation />
+      <ZineActivities />
       <Footer />
     </>
   );

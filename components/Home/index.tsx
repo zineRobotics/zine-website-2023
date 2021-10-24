@@ -1,4 +1,5 @@
-import AboutZine from "./aboutzine";
+import Video from "./aboutzine";
 import ZineActivities from "./Activities"
+import RobotAnimation from "./RobotAnimation";
 
-export { AboutZine, ZineActivities };
+export { Video, ZineActivities, RobotAnimation };
