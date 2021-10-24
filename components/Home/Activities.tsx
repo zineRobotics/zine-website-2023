@@ -12,7 +12,7 @@ const ZineActivities = () => {
                 </div>
 
                 <div className="col-span-4">
-                    <div className="mr-32 ml-16 text-3xl h-72 bg-purple-300 rounded-lg">
+                    <div className="mr-32 ml-16 text-3xl h-72 text-white rounded-lg">
                     <div className="text-3xl pt-8 mx-8 text-center">Our team has participated and emerged victorious in various national and international robotics events for the past decade owing to the skills and commitment of our members. We firmly believe that having participated in various national and international level events has lended us valuable experience and a knack for victory competing alongside the most premiere robotics teams of India.</div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ const ZineActivities = () => {
                 </div>
 
                 <div className="col-span-4 pl-16">
-                    <div className="mr-16 text-3xl h-72 bg-purple-300 rounded-lg">
+                    <div className="mr-16 text-3xl h-72 text-white rounded-lg">
                     <div className="text-3xl pt-8 mx-4 text-center">Our team has participated and emerged victorious in various national and international robotics events for the past decade owing to the skills and commitment of our members. We firmly believe that having participated in various national and international level events has lended us valuable experience and a knack for victory competing alongside the most premiere robotics teams of India.</div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@ const ZineActivities = () => {
                 </div>
 
                 <div className="col-span-4">
-                    <div className="mr-32 ml-16 text-3xl h-72 bg-purple-300 rounded-lg">
+                    <div className="mr-32 ml-16 text-3xl h-72 text-white rounded-lg">
                     <div className="text-3xl pt-8 mx-8 text-center">Our team has participated and emerged victorious in various national and international robotics events for the past decade owing to the skills and commitment of our members. We firmly believe that having participated in various national and international level events has lended us valuable experience and a knack for victory competing alongside the most premiere robotics teams of India.</div>
                     </div>
                 </div>
