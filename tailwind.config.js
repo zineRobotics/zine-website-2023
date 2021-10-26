@@ -45,7 +45,9 @@ module.exports = {
           1000: "#0B0B0B",
           1100: "#252525",
           1200: "#121212",
-          1300: "#808080"
+          1300: "#808080",
+          1400: "#353535",
+          1500: "#FFFFFF",
         },
       },
       fontFamily: {
@@ -63,6 +65,10 @@ module.exports = {
         'footer-bg': "url('../images/footer.jpg')",
         'body-bg': "url('../images/bg.png')"
       },
+      fontSize: {
+        base: ['50px', '75px'],
+        
+      }
     },
   },
   variants: {
