@@ -194,3 +194,42 @@
 		* {
 			cursor: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' style='enable-background:new 0 0 512.011 512.011;' xml:space='preserve'%3E %3Cpath fill='DeepSkyBlue' d='M434.215,344.467L92.881,3.134c-4.16-4.171-10.914-4.179-15.085-0.019  c-2.011,2.006-3.139,4.731-3.134,7.571v490.667c0.003,4.382,2.685,8.316,6.763,9.92c4.081,1.603,8.727,0.545,11.712-2.667  l135.509-145.92h198.016c5.891,0.011,10.675-4.757,10.686-10.648C437.353,349.198,436.226,346.473,434.215,344.467z'/%3E %3C/svg%3E"), pointer;
 		  }
+		  
+		  body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			background: radial-gradient(#f2761e, #ef4921, #262626);
+		  }
+		  
+		  .box {
+			display: flex;
+		  }
+		  
+		  .box .eye {
+			position: relative;
+			width: 120px;
+			height: 120px;
+			display: block;
+			background: #fff;
+			margin: 0 20px;
+			border-radius: 50%;
+			box-shadow: 0 5px 45px rgba(0, 0, 0, .2),
+						inset 0 0 15px #f2761e,
+						inset 0 0 25px #f2761e;
+		  }
+		  
+		  .box .eye:before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 35px;
+			transform: translate(-50%, -50%);
+			width: 45px;
+			height: 45px;
+			border-radius: 50%;
+			background: #000;
+			border: 10px solid #2196f3;
+			box-sizing: border-box;
+		  }

@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Script from "next/script";
 
 const ZineActivities = () => {
     return(
         <div className="text-black text-center -mt-120">
+            {/* <Script src="./scripter.js"/> */}
             <div className="grid grid-cols-5 pb-32">
                 <div className="col-span-1 pl-8 -mt-24">
                     <Link href="https://github.com/"><div className="cursor-pointer w-72 h-72 bg-purple-300 rounded-full">
@@ -21,7 +23,10 @@ const ZineActivities = () => {
             {/* 3-D eye animation here. */}
             <div className="grid grid-cols-6">
                 <div className="col-span-1">
-                    {/* here is the code for the animation */}
+                <div className="box mt-16">
+                    <div className="eye"></div>
+                    <div className="eye"></div>
+                </div>
                 </div>
 
                 <div className="col-span-5">
