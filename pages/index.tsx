@@ -2,7 +2,8 @@ import type { NextPage } from "next";
 import {
   RobotAnimation,
   Video,
-  ZineActivities
+  ZineActivities,
+  LandingPage
 
 } from "../components/Home";
 import { Footer } from "../components/Footer";
@@ -13,7 +14,8 @@ const Home: NextPage = () => {
     <div className="bg-body-bg">
       <Navbar />
       <Video />
-      <RobotAnimation />
+      <LandingPage />
+      <RobotAnimation />   { /* Hover effect on this animation. About Zine. */}
       <ZineActivities />
       <Footer />
     </div>

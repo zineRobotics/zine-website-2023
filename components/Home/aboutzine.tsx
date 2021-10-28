@@ -4,7 +4,7 @@ import Link from "next/link";
 const Video = () => {
     return (
         <div className="">
-          <video autoPlay loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+          <video autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
             <source src="/video.webm"/>
           </video>
         </div>

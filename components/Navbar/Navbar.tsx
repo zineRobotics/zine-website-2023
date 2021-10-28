@@ -97,10 +97,11 @@ const Navbar = () => {
             <Image src={logo} />
           </div>
           <Link href="/"><div className="my-2 cursor-pointer">Home</div></Link>
-          <Link href="/about"><div className="my-2 cursor-pointer">About</div></Link>
-          <Link href="/team"><div className="my-2 cursor-pointer">Team</div></Link>
-          <Link href="/blogs"><div className="my-2 cursor-pointer">Blogs</div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer">Projects</div></Link>
+          <Link href="/about"><div className="my-2 cursor-pointer">Team</div></Link>
+          <Link href="/team"><div className="my-2 cursor-pointer">Projects</div></Link>
+          <Link href="/blogs"><div className="my-2 cursor-pointer">Achievements</div></Link>
+          <Link href="/projects"><div className="my-2 cursor-pointer">About</div></Link>
+          <Link href="/projects"><div className="my-2 cursor-pointer">Blogs</div></Link>
           <div className="w-12 h-12">
             <Image
               src={hamburger}
