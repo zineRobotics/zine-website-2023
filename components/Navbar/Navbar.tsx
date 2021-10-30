@@ -39,14 +39,29 @@ const Navbar = () => {
       link: "/"
     },
     {
-      text: "About",
+      text: "Team",
       image: about,
-      link: "/about"
+      link: "/team"
     },
     {
       text: "Projects",
       image: Project,
       link: "/projects"
+    },
+    {
+      text: "Achievements",
+      image: Project,
+      link: "/achievements"
+    },
+    {
+      text: "About",
+      image: Project,
+      link: "/about"
+    },
+    {
+      text: "Blogs",
+      image: Project,
+      link: "/blogs"
     },
   ];
 
@@ -92,17 +107,17 @@ const Navbar = () => {
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-32 flex justify-between text-white text-4xl">
+        <div className="mx-32 flex justify-between text-white text-3xl xl:text-4xl">
           <div className="w-16 h-16">
             <Image src={logo} />
           </div>
-          <Link href="/"><div className="my-2 cursor-pointer">Home</div></Link>
-          <Link href="/about"><div className="my-2 cursor-pointer">Team</div></Link>
-          <Link href="/team"><div className="my-2 cursor-pointer">Projects</div></Link>
-          <Link href="/blogs"><div className="my-2 cursor-pointer">Achievements</div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer">About</div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer">Blogs</div></Link>
-          <div className="w-12 h-12">
+          <Link href="/"><div className="my-2 cursor-pointer invisible lg:visible">Home</div></Link>
+          <Link href="/about"><div className="my-2 cursor-pointer invisible lg:visible">Team</div></Link>
+          <Link href="/team"><div className="my-2 cursor-pointer invisible lg:visible">Projects</div></Link>
+          <Link href="/blogs"><div className="my-2 cursor-pointer invisible lg:visible">Achievements</div></Link>
+          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">About</div></Link>
+          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">Blogs</div></Link>
+          <div className="w-12 h-12 visible lg:invisible">
             <Image
               src={hamburger}
               onClick={() => {
