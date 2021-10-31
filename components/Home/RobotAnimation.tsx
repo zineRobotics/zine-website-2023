@@ -2,7 +2,8 @@ import React from "react";
 
 const RobotAnimation = () => {
     return(
-        <div className="robot mt-60"><svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <div className="robot mt-60 bg-cover bg-blue-bg"><svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+			
 	<g id="hover">
 		<ellipse id="shadow_2_" opacity="0.4" fill="#2C3332" cx="300" cy="703.375" rx="88.971" ry="30.625"></ellipse>
 	</g>
@@ -118,10 +119,8 @@ const RobotAnimation = () => {
 			</g>
 		</g>
 	</g>
-</svg></div>
-/* {} <div class="credit">
-  <p><a href="https://www.projectlist.com">Project List</a> robot mascot. <a href="https://dribbble.com/shots/1675390-Project-List-Robot?list=following&offset=1">Vector</a> by <a href="https://dribbble.com/johnmears">John Mears</a></p>
-</div> }*/
+</svg>
+</div>
     )
 }
 

@@ -111,12 +111,31 @@ const Navbar = () => {
           <div className="w-16 h-16">
             <Image src={logo} />
           </div>
-          <Link href="/"><div className="my-2 cursor-pointer invisible lg:visible">Home</div></Link>
-          <Link href="/about"><div className="my-2 cursor-pointer invisible lg:visible">Team</div></Link>
-          <Link href="/team"><div className="my-2 cursor-pointer invisible lg:visible">Projects</div></Link>
-          <Link href="/blogs"><div className="my-2 cursor-pointer invisible lg:visible">Achievements</div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">About</div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">Blogs</div></Link>
+          <Link href="/"><div className="my-2 cursor-pointer invisible lg:visible">
+            <div className="link link-underline">
+            Home
+            </div>
+            </div></Link>
+          <Link href="/about"><div className="my-2 cursor-pointer invisible lg:visible">
+          <div className="link link-underline">
+            Team
+            </div></div></Link>
+          <Link href="/team"><div className="my-2 cursor-pointer invisible lg:visible">
+          <div className="link link-underline">
+            Projects
+            </div></div></Link>
+          <Link href="/blogs"><div className="my-2 cursor-pointer invisible lg:visible">
+          <div className="link link-underline">
+            Achievements
+            </div></div></Link>
+          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">
+          <div className="link link-underline">
+            About
+            </div></div></Link>
+          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">
+          <div className="link link-underline">
+            Blogs
+            </div></div></Link>
           <div className="w-12 h-12 visible lg:invisible">
             <Image
               src={hamburger}
