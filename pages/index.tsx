@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <LandingPage />
       <RobotAnimation />   { /* Hover effect on this animation. About Zine. */}
       <ZineActivities />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
