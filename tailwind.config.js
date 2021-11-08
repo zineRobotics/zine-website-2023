@@ -17,6 +17,7 @@ module.exports = {
         '120': "30rem",
         '130': "40rem",
         '140': "45rem",
+        '145': "48rem",
         '150': "60rem",
         '160': "67.5rem",
       },
@@ -69,6 +70,11 @@ module.exports = {
       fontSize: {
         base: ['50px', '75px'],
         
+      },
+
+      screens: {
+        'custom': '900px',
+        'xsm': '300px'
       }
     },
   },
