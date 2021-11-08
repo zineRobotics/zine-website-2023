@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import home from "../../images/home-icon.png";
 import about from "../../images/about.png";
 import Project from "../../images/project-icon.png";
+import Team from "../../images/team-icon.png";
+import Blog from "../../images/blog.png";
+import Achievements from "../../images/badge-icon.png";
 
 const Navbar = () => {
   const [Hide, setHide] = useState(false);
@@ -40,7 +43,7 @@ const Navbar = () => {
     },
     {
       text: "Team",
-      image: about,
+      image: Team,
       link: "/team"
     },
     {
@@ -50,17 +53,17 @@ const Navbar = () => {
     },
     {
       text: "Achievements",
-      image: Project,
+      image: Achievements,
       link: "/achievements"
     },
     {
       text: "About",
-      image: Project,
+      image: about,
       link: "/about"
     },
     {
       text: "Blogs",
-      image: Project,
+      image: Blog,
       link: "/blogs"
     },
   ];
@@ -116,23 +119,23 @@ const Navbar = () => {
             Home
             </div>
             </div></Link>
-          <Link href="/about"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/team"><div className="my-2 cursor-pointer invisible lg:visible">
           <div className="link link-underline">
             Team
             </div></div></Link>
-          <Link href="/team"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">
           <div className="link link-underline">
             Projects
             </div></div></Link>
-          <Link href="/blogs"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/achievements"><div className="my-2 cursor-pointer invisible lg:visible">
           <div className="link link-underline">
             Achievements
             </div></div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/about"><div className="my-2 cursor-pointer invisible lg:visible">
           <div className="link link-underline">
             About
             </div></div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/blogs"><div className="my-2 cursor-pointer invisible lg:visible">
           <div className="link link-underline">
             Blogs
             </div></div></Link>
