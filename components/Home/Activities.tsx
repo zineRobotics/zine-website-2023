@@ -6,7 +6,7 @@ const ZineActivities = () => {
     return(
         <div className="text-center -mt-120 leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed bg-body-bg">
             <div className="lg:grid lg:grid-cols-5 pb-16 rounded-lg rounded-lg 
-            transform hover:bg-blue-600 transition duration-500 hover:scale-110">
+            transform transition duration-500 hover:scale-110">
                 <div className="col-span-1 pl-8 -mt-24">
                 <div className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500 text-3xl lg:text-4xl xl:text-6xl mt-40">
                     Events
@@ -21,7 +21,7 @@ const ZineActivities = () => {
                 </div>
             </div>
             <div className="lg:grid lg:grid-cols-5 pb-16 rounded-lg
-            transform hover:bg-blue-600 transition duration-500 hover:scale-110">
+            transform transition duration-500 hover:scale-110">
                 <div className="col-span-1 pl-8 -mt-24">
                 <div className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500 text-3xl lg:text-3xl xl:text-4xl mt-40">
                     Research and Development
@@ -36,7 +36,7 @@ const ZineActivities = () => {
                 </div>
             </div>
             <div className="lg:grid lg:grid-cols-5 pb-16 rounded-lg
-            transform hover:bg-blue-600 transition duration-500 hover:scale-110">
+            transform transition duration-500 hover:scale-110">
                 <div className="col-span-1 pl-8 -mt-24">
                 <div className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500 text-3xl lg:text-4xl xl:text-5xl mt-40">
                     Workshop
