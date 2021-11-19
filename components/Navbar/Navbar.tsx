@@ -111,8 +111,8 @@ const Navbar = () => {
         }`}
       >
         <div className="mx-32 flex justify-between text-white text-3xl xl:text-4xl">
-          <div className="w-16 h-16">
-            <Image src={logo} />
+          <div className="w-16 h-16 cursor-pointer">
+            <Link href="/"><Image src={logo} /></Link>
           </div>
           <Link href="/"><div className="my-2 cursor-pointer invisible lg:visible">
             <div className="link link-underline">
