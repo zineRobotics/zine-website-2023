@@ -5,8 +5,8 @@ import Image from "next/image";
 
 const LandingPage = () => {
     return (
-        <div className="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed bg-body-bg">
-          <h1 className="my-4 text-2xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center">
+        <div className="leading-normal tracking-normal text-indigo-400 pt-4 bg-cover bg-fixed bg-white">
+          <h1 className="my-4 text-2xl md:text-5xl text-black opacity-75 font-bold leading-tight text-center">
             Welcome to 
             <br />
             <div className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500 text-3xl sm:text-4xl md:text-7xl lg:text-8xl">

@@ -64,9 +64,7 @@ module.exports = {
       },
       backgroundImage: {
         'footer-bg': "url('../images/footer.jpg')",
-        'body-bg': "url('../images/bg.png')",
-        'blue-bg': "url('../images/blue-bg.png')",
-        'smblue-bg': "url('../images/smblue-bg.png')"
+        'body-bg': "url('../images/bg.jpeg')",
       },
       fontSize: {
         base: ['50px', '75px'],

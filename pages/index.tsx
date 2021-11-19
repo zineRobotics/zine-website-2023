@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import {
-  RobotAnimation,
   Video,
   ZineActivities,
-  LandingPage
+  LandingPage,
+  ZineText
 
 } from "../components/Home";
 import { Footer } from "../components/Footer";
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       <Navbar />
       <Video />
       <LandingPage />
-      <RobotAnimation />   { /* Hover effect on this animation. About Zine. */}
+      <ZineText />
       <ZineActivities />
       <Footer />
     </div>
