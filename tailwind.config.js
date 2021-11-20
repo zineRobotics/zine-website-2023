@@ -65,6 +65,20 @@ module.exports = {
       backgroundImage: {
         'footer-bg': "url('../images/footer.jpg')",
         'body-bg': "url('../images/bg.jpeg')",
+        'bg-a1': "url('../images/project/a1.jpg')",
+        'bg-a2': "url('../images/project/a2.jpg')",
+        'bg-a3': "url('../images/project/a3.jpg')",
+        'bg-a4': "url('../images/project/a4.jpg')",
+        'bg-a5': "url('../images/project/a5.jpg')",
+        'bg-a6': "url('../images/project/a6.jpg')",
+        'bg-a7': "url('../images/project/a7.jpg')",
+        'bg-a8': "url('../images/project/a8.jpg')",
+        'bg-a9': "url('../images/project/a9.jpg')",
+        'bg-a10': "url('../images/project/a10.jpg')",
+        'bg-a11': "url('../images/project/a11.jpg')",
+        'bg-a12': "url('../images/project/a12.jpg')",
+        'bg-a13': "url('../images/project/a13.jpg')",
+        'bg-a14': "url('../images/project/a14.jpg')",
       },
       fontSize: {
         base: ['50px', '75px'],
@@ -78,7 +92,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      display: ["group-hover"],
+    },
   },
   plugins: [],
 }

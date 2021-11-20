@@ -1,53 +1,99 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import Script from "next/script";
 
-const togglePageFlip = async (el:any) => {
-  await setAllPagesBack();
-  await setClickedPageForward(el);
-  if (el.classList) {
-    el.classList.toggle('turn');
-  }
-}
-
-const setAllPagesBack = async () => {
-  var pages = await document.querySelectorAll<HTMLElement>("page");
-  for(var i=0; i<pages.length; i++){
-    if(pages[i].classList) {
-      pages[i].classList.remove('z-50');
-    }
-  }
-}
-
-
-const setClickedPageForward = async (el:any) => {
-  if (el.classList) {
-    await el.classList.add('z-50');
-  }
-}
 
 const Projects = () => {
     return(
-      <div className="perspective text-white bg-black w-screen h-screen flex justify-end">
-
-    <div className="page absolute duration-1000 flex items-end origin-left w-1/2 transition h-screen transform" data-page="2" onClick={() => togglePageFlip(this)}>
-        <div className="front text-xl sm:text-3xl md:text-5xl flex items-center justify-start px-2 sm:px-5 md:px-20 font-bold bg-gray-900 h-screen absolute right-0 w-full h-full">
-            Page 3
+      <div className="text-black bg-white w-screen h-screen">
+        <div className="grid grid-cols-2">
+          <div className="group bg-bg-a1 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>BCI (Brain Computing Interface)</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a2 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Intelligent Home Energy Management System</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a3 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Autonomous Quadcopter</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a4 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Automotive Wheelchair</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a5 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Prosthetics Arm</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a6 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Gait Analysis</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a7 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Multi Actuator Switch Mode Hydraulic System</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a8 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Human Computer Interface (HCI)</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a9 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Robotic Technology for High Voltage Line Inspection and Repair</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a10 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Sun Tracker</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a11 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Smart Grid</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a12 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Exoskeleton</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a13 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>A.G.A.S.T.U.T.I</p>
+            <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button>
+          </div>
+          <div className="group bg-bg-a14 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
+            <p>Hand Gesture Recognition</p>
+            <Link href="https://www.google.co.in"><button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
+              VIEW MORE
+            </button></Link>
+          </div>
         </div>
-        <div className="back text-xl sm:text-3xl md:text-5xl font-bold flex items-center justify-start px-2 sm:px-5 md:px-20 bg-gray-800 h-screen absolute w-full h-full">
-            Page 4
-        </div>
-    </div>
-
-    <div className="page absolute duration-1000 flex items-end origin-left w-1/2 transition h-screen transform" data-page="1" onClick={() => togglePageFlip(this)}>
-        <div className="front text-xl sm:text-3xl md:text-5xl flex flex-col items-start justify-center px-2 sm:px-5 md:px-20 font-bold bg-gray-900 h-screen absolute right-0 w-full h-full">
-            Welcome to this Page
-            <p className="text-sm text-gray-500">Click me to open</p>
-        </div>
-        <div className="back text-xl sm:text-3xl md:text-5xl font-bold flex items-center justify-start px-2 sm:px-5 md:px-20 bg-gray-800 h-screen absolute w-full h-full">
-            This is Page 2
-        </div>
-    </div>
-</div>
+      </div>
     )
 }
 

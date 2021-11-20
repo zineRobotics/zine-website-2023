@@ -13,178 +13,178 @@ const founders: pic_detail[] = [
   {
     name: "HIMANSHU GOTHWAL",
     image: RajeshSir,
-    desc: "/"
+    desc: "Software Developer Epic"
   },
   {
     name: "ARPIT JAIN",
     image: RajeshSir,
-    desc: "/team"
+    desc: "Co-Founder Engineer's Garage"
   },
   {
     name: "ANUPAM KUMAR",
     image: RajeshSir,
-    desc: "/projects"
+    desc: "Signal Engineer Indian Railway Services"
   },
   {
     name: "SONIYA JAIN",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Works at DRDO"
   }
 ];
 
 const finalyear: pic_detail[] = [
   {
-    name: "TANMAY AGARWAL",
+    name: "BHANU MOHINDRA",
     image: RajeshSir,
-    desc: "/"
+    desc: "Mechanical Engineering"
   },
   {
-    name: "PAARTH BIR",
+    name: "BRIRAJ",
     image: RajeshSir,
-    desc: "/team"
+    desc: "Mechanical Engineering"
   },
   {
-    name: "VIBHOR RAWAL",
+    name: "CHARU",
     image: RajeshSir,
-    desc: "/projects"
+    desc: "Chemical Engineering"
   },
   {
-    name: "VISHAL KOTHARI",
+    name: "DHRUV GOYAL",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Computer Science"
   },
   {
-    name: "TANISHK DUDI",
+    name: "HARSH CHAUDHARY",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Mechanical Engineering"
   },
   {
-    name: "PRANAV KULSHESHTRA",
+    name: "MUSKAN GARG",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Civil Engineering"
   },
   {
-    name: "SUMIT SONI",
+    name: "NIKITA RAULA",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Mechanical Engineering"
   },
   {
-    name: "KESHAV",
+    name: "PRAVESH SINGH",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Computer Science"
+  },
+  {
+    name: "RAJAT AGRAWAL",
+    image: RajeshSir,
+    desc: "Electrical Engineering"
+  },
+  {
+    name: "SNEHA YADAV",
+    image: RajeshSir,
+    desc: "Electrical Engineering"
   }
 ];
 
 const thirdyear: pic_detail[] = [
   {
-    name: "BHANU MOHINDRA",
+    name: "APOORVA RAJ",
     image: RajeshSir,
-    desc: "/"
+    desc: "Mechanical Engineering"
   },
   {
-    name: "BRIRAJ",
+    name: "ARYAMAN SINGH",
     image: RajeshSir,
-    desc: "/team"
+    desc: "Electrical Engineering"
   },
   {
-    name: "CHARU",
+    name: "CHIRAYU RANKAWAT",
     image: RajeshSir,
-    desc: "/projects"
+    desc: "Mechanical Engineering"
   },
   {
-    name: "DHRUV GOYAL",
+    name: "DARSHAN DUSAD",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Computer Science"
   },
   {
-    name: "HARSH CHAUDHARY",
+    name: "DEVANSH GARG",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Mechanical"
   },
   {
-    name: "MUSKAN GARG",
+    name: "HARSHIT GARG",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Mechanical"
   },
   {
-    name: "NIKITA RAULA",
+    name: "ISHIKA PANWAR",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Computer Science"
   },
   {
-    name: "PRAVESH SINGH",
+    name: "PAVNESH CHATURVEDI",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Electronics and Communication Engineering"
   },
   {
-    name: "RAJAT AGRAWAL",
+    name: "PUNEET SINGH",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Electronics and Communication Engineering"
   },
   {
-    name: "SNEHA YADAV",
+    name: "RAHUL RAJ",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Mechanical Engineering"
+  },
+  {
+    name: "RUSHIL MAKKAR",
+    image: RajeshSir,
+    desc: "Electronics and Communication Engineering"
   }
 ];
 
 const secondyear: pic_detail[] = [
   {
-    name: "APOORVA RAJ",
+    name: "VINAMRA VASHISHTH",
     image: RajeshSir,
-    desc: "/"
+    desc: "Computer Science and Engineering"
   },
   {
-    name: "ARYAMAN SINGH",
+    name: "NISHANT GARG",
     image: RajeshSir,
-    desc: "/team"
+    desc: "Computer Science and Engineering"
   },
   {
-    name: "CHIRAYU RANKAWAT",
+    name: "DIVYANSH GARG",
     image: RajeshSir,
-    desc: "/projects"
+    desc: "Electronics and Communication Engineering"
   },
   {
-    name: "DARSHAN DUSAD",
+    name: "ABHINAV KUMAR",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Electrical Engineering"
   },
   {
-    name: "DEVANSH GARG",
+    name: "SUDESHNA SONKAR",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Mechanical Engineering"
   },
   {
-    name: "HARSHIT GARG",
+    name: "PRANJALI SRIVASTAVA",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Mechanical Engineering"
   },
   {
-    name: "ISHIKA PANWAR",
+    name: "MAHAK GARG",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Electrical Engineering"
   },
   {
-    name: "PAVNESH CHATURVEDI",
+    name: "AMAN MITTAL",
     image: RajeshSir,
-    desc: "/achievements"
+    desc: "Computer Science and Engineering"
   },
-  {
-    name: "PUNEET SINGH",
-    image: RajeshSir,
-    desc: "/achievements"
-  },
-  {
-    name: "RAHUL RAJ",
-    image: RajeshSir,
-    desc: "/achievements"
-  },
-  {
-    name: "RUSHIL MAKKAR",
-    image: RajeshSir,
-    desc: "/achievements"
-  }
-];
+]
 
 const Team = () => {
     return(
@@ -205,6 +205,7 @@ const Team = () => {
                   <h1 className="text-black text-xl py-2 font-nunito">
                     <div className=""><Image className="rounded-full" src={item.image}></Image></div>
                     <p className="text-center">{item.name}</p>
+                    <p className="text-center">{item.desc}</p>
                   </h1>
                 </div>
               ))}
@@ -216,6 +217,7 @@ const Team = () => {
             <h1 className="text-black text-xl py-2 font-nunito">
               <div className=""><Image className="rounded-full" src={item.image}></Image></div>
               <p className="text-center">{item.name}</p>
+              <p className="text-center">{item.desc}</p>
             </h1>
           </div>
         ))}
@@ -227,17 +229,19 @@ const Team = () => {
             <h1 className="text-black text-xl py-2 font-nunito">
               <div className=""><Image className="rounded-full" src={item.image}></Image></div>
               <p className="text-center">{item.name}</p>
+              <p className="text-center">{item.desc}</p>
             </h1>
           </div>
         ))}
         </div>
         <h1 className="pt-32 text-center font-bold text-4xl">SECOND YEAR</h1>
         <div className="grid grid-cols-4 pt-16">
-        {thirdyear.map((item, index) => (
+        {secondyear.map((item, index) => (
           <div key={index} className="w-64">
             <h1 className="text-black text-xl py-2 font-nunito">
               <div className=""><Image className="rounded-full" src={item.image}></Image></div>
               <p className="text-center">{item.name}</p>
+              <p className="text-center">{item.desc}</p>
             </h1>
           </div>
         ))}
