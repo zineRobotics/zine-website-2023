@@ -1,30 +1,444 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+
+interface achievement {
+  name: string;
+  date: string;
+  info: string;
+  author: string;
+  desc: string;
+}
+
+const achievements: achievement[] = [
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "A research paper on 'Shortest Path Evaluation with Enhanced Linear Graph and Dijkstra Algorithm' was presented at 59th Annual Conference of SICE",
+    author: "Tanishk Dudi",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+  {
+    name: "IEEE Research Paper",
+    date: "November 2020",
+    info: "Software Developer Epic",
+    author: "",
+    desc: "",
+  },
+];
 
 const Achievements = () => {
     return(
-        <div className="bg-white min-h-screen flex items-center justify-center px-16">
-  <div className="fixed w-full max-w-lg">
-    <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div className="absolute top-20 left-80 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div className="absolute bottom-20 left-140 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    <div className="absolute bottom-20 right-120 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div className="absolute -bottom-120 left-150 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div className="absolute bottom-40 left-160 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    <div className="absolute bottom-40 right-160 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div className="absolute -bottom-120 right-160 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div className="absolute -bottom-40 right-140 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    <div className="absolute bottom-20 left-80 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div className="absolute bottom-60 left-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div className="absolute -bottom-120 right-120 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    <div className="absolute -bottom-40 left-130 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-  </div>
-  <div className="relative grid grid-cols-3 gap m-8 gap-8 text-2xl font-nunito text-black">
-      <button className="transition duration-500 ease-in-out bg-purple-200 px-20 py-8 hover:bg-red-600 hover:text-white transform hover:-translate-y-1 hover:scale-110 ...">
-      <Link href=""><h1>This is the achievements page.</h1></Link>
-      </button>
-    </div>
-</div>
+        <div className="text-black bg-white w-screen px-32">
+          {achievements.map((item, index) => (
+            <div className="grid grid-cols-2">
+              <div key={index} className="bg-white col-span-1">
+                <h1 className="text-2xl text-center font-bold pt-8">{item.name}</h1>
+                <p className="pt-4 text-gray-600">{item.info}</p>
+                <p className="text-gray-600">Author: {item.author}</p>
+                <hr />
+            </div>
+            <div className="col-span-1 text-center">
+              1st prize
+              <br />
+              {item.date}
+            </div>
+            <hr />
+            </div>
+          ))}
+        </div>
     )
 }
 
