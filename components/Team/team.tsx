@@ -189,14 +189,14 @@ const secondyear: pic_detail[] = [
 const Team = () => {
     return(
       // first div mein h-screen ki problem hai. Change it everywhere.
-      <div className="text-black bg-white w-screen justify-center px-24">
+      <div className="text-black bg-white w-screen justify-center px-12 lg:px-24 xl:px-48">
         <h1 className="pt-8 text-4xl text-center">Our Founders: The Roots Of Our Tree</h1>
-        <div className="pt-16 pl-48 grid grid-cols-2">
-          <div className="col-span-1 w-80 right-0"><Image className="rounded-full" src={RajeshSir} /></div>
-          <div className="col-span-1 -ml-32 mt-24">
-            <h1 className="text-2xl">DR. RAJESH KUMAR</h1>
-            <p>Ph.D., PDF(NUS, Singapore) SMIEEE, FIETE, MIE (I),SMIACSIT, LMISTE, MIAENG,</p>
-            <p>Professor of Elec. Engg.</p>
+        <div className="pt-16 grid grid-cols-1 lg:grid-cols-2">
+          <div className="col-span-1 w-48 lg:w-80 justify-self-center"><Image className="rounded-full" src={RajeshSir} /></div>
+          <div className="col-span-1">
+            <h1 className="text-2xl text-center">DR. RAJESH KUMAR</h1>
+            <p className="text-center">Ph.D., PDF(NUS, Singapore) SMIEEE, FIETE, MIE (I),SMIACSIT, LMISTE, MIAENG,</p>
+            <p className="text-center">Professor of Elec. Engg.</p>
           </div>
         </div>
         <div className="grid grid-cols-4 pt-16">
@@ -210,7 +210,7 @@ const Team = () => {
                 </div>
               ))}
         </div>
-        <h1 className="pt-32 text-center font-bold text-4xl">FINAL YEAR</h1>
+        {/* <h1 className="pt-32 text-center font-bold text-4xl">FINAL YEAR</h1>
         <div className="grid grid-cols-4 pt-16">
         {finalyear.map((item, index) => (
           <div key={index} className="w-64">
@@ -245,7 +245,7 @@ const Team = () => {
             </h1>
           </div>
         ))}
-        </div>
+        </div> */}
       </div>
     )
 }
