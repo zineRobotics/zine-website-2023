@@ -110,8 +110,8 @@ const Navbar = () => {
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-32 flex text-white justify-between text-3xl xl:text-4xl">
-          <div className="w-16 h-16 cursor-pointer">
+        <div className="mx-8 flex text-white justify-between text-3xl xl:text-4xl">
+          <div className="w-12 h-12 cursor-pointer">
             <Link href="/"><Image src={logo} /></Link>
           </div>
           <Link href="/"><div className="my-2 cursor-pointer hidden lg:inline-block">
