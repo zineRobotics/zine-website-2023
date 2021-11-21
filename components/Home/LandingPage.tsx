@@ -20,5 +20,5 @@ const LandingPage = () => {
         </div>
       )
 }
-
+// Responsiveness done
 export default LandingPage;

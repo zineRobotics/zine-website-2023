@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   return (
     <div className="bg-body-bg">
       <Navbar />
-      {/* <Video /> */}
+      <Video />
       <LandingPage />
       <ZineText />
       <ZineActivities />

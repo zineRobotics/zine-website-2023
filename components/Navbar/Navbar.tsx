@@ -110,36 +110,36 @@ const Navbar = () => {
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-32 flex justify-between text-white text-3xl xl:text-4xl">
+        <div className="mx-32 flex text-white justify-between text-3xl xl:text-4xl">
           <div className="w-16 h-16 cursor-pointer">
             <Link href="/"><Image src={logo} /></Link>
           </div>
-          <Link href="/"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/"><div className="my-2 cursor-pointer hidden lg:inline-block">
             <div className="link link-underline">
             Home
             </div>
             </div></Link>
-          <Link href="/team"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/team"><div className="my-2 cursor-pointer hidden lg:inline-block">
           <div className="link link-underline">
             Team
             </div></div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/projects"><div className="my-2 cursor-pointer hidden lg:inline-block">
           <div className="link link-underline">
             Projects
             </div></div></Link>
-          <Link href="/achievements"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/achievements"><div className="my-2 cursor-pointer hidden lg:inline-block">
           <div className="link link-underline">
             Achievements
             </div></div></Link>
-          <Link href="/about"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/about"><div className="my-2 cursor-pointer hidden lg:inline-block">
           <div className="link link-underline">
             About
             </div></div></Link>
-          <Link href="/blogs"><div className="my-2 cursor-pointer invisible lg:visible">
+          <Link href="/blogs"><div className="my-2 cursor-pointer hidden lg:inline-block">
           <div className="link link-underline">
             Blogs
             </div></div></Link>
-          <div className="w-12 h-12 visible lg:invisible">
+          <div className="w-12 h-12 inline-block lg:hidden">
             <Image
               src={hamburger}
               onClick={() => {
