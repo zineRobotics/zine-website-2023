@@ -431,8 +431,6 @@ const Achievements = () => {
                 <hr />
             </div>
             <div className="col-span-1 text-center my-auto">
-              1st prize
-              <br />
               {item.date}
             </div>
             <hr />
