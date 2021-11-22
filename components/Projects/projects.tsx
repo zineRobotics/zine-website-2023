@@ -7,7 +7,7 @@ import Script from "next/script";
 const Projects = () => {
     return(
       <div className="text-black bg-white w-screen h-screen">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="group bg-bg-a1 text-white text-center py-48 text-4xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-yellow-500">
             <p>BCI (Brain Computing Interface)</p>
             <button id="a1" className="hidden group-hover:inline-block mt-4 bg-transparent text-2xl hover:border-yellow-500 hover:text-white text-white py-2 px-4 border border-white hover:border-transparent rounded">
