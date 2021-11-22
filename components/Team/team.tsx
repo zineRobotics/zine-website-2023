@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import team from "../../images/team.png"
 import RajeshSir from "../../images/rajeshsir.jpg"
 import anupam from "../../images/founders/anupam.jpg"
 import arpit from "../../images/founders/arpit.jpg"
@@ -214,10 +215,10 @@ const secondyear: pic_detail[] = [
 
 const Team = () => {
     return(
-      // first div mein h-screen ki problem hai. Change it everywhere.
-      <div className="text-black bg-white w-screen justify-center px-12 lg:px-24">
-        <h1 className="pt-8 text-4xl text-center">Our Founders: The Roots Of Our Tree</h1>
-        <div className="pt-16 grid grid-cols-1 lg:grid-cols-2">
+      <div className="text-black bg-white w-screen justify-center">
+        <div className="bg-cover bg-bg-team h-60 md:h-80 lg:h-120 px-12 lg:px-24"></div>
+        <h1 className="pt-8 text-4xl text-center px-12 lg:px-24">Our Founders: The Roots Of Our Tree</h1>
+        <div className="pt-16 grid grid-cols-1 lg:grid-cols-2 px-12 lg:px-24">
           <div className="col-span-1 w-48 lg:w-80 justify-self-center"><Image className="rounded-full" src={RajeshSir} /></div>
           <div className="col-span-1 my-auto">
             <h1 className="text-2xl text-center">DR. RAJESH KUMAR</h1>
@@ -225,7 +226,7 @@ const Team = () => {
             <p className="text-center">Professor of Elec. Engg.</p>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {founders.map((item, index) => (
                 <div key={index} className="col-span-1">
                   <h1 className="text-black text-xl py-2 font-nunito text-center">
@@ -236,8 +237,8 @@ const Team = () => {
                 </div>
               ))}
         </div>
-        <h1 className="pt-32 text-center font-bold text-4xl">FINAL YEAR</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16">
+        <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">FINAL YEAR</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {finalyear.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black text-xl py-2 font-nunito text-center">
@@ -248,8 +249,8 @@ const Team = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-32 text-center font-bold text-4xl">THIRD YEAR</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16">
+        <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">THIRD YEAR</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {thirdyear.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black text-xl py-2 font-nunito text-center">
@@ -260,8 +261,8 @@ const Team = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-32 text-center font-bold text-4xl">SECOND YEAR</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16">
+        <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">SECOND YEAR</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {secondyear.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black text-xl py-2 font-nunito text-center">

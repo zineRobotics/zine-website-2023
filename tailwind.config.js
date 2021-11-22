@@ -79,6 +79,7 @@ module.exports = {
         'bg-a12': "url('../images/project/a12.jpg')",
         'bg-a13': "url('../images/project/a13.jpg')",
         'bg-a14': "url('../images/project/a14.jpg')",
+        'bg-team': "url('../images/team.png')",
       },
       fontSize: {
         base: ['50px', '75px'],
