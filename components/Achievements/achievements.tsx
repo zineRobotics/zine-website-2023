@@ -1,6 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import image from "../../images/compet.jpg";
+import secondimage from "../../images/rajeshsir.jpg";
+import Head from "next/head";
+import Script from "next/script";
+
+// import Slider from "../Slider";
 
 interface achievement {
   name: string;
@@ -420,17 +426,59 @@ const achievements: achievement[] = [
 ];
 
 const Achievements = () => {
+  const images = [image, image, image, image, image];
+  
     return(
-        <div className="text-black bg-white w-screen px-12 md:px-24 lg:px-48">
+        <div className="text-black bg-white w-screen">
+          <Head>
+            <title>My page title</title>
+            <link
+              rel="stylesheet"
+              href="https://unpkg.com/swiper/swiper-bundle.min.css"
+            />
+          </Head>
+
+          <Script src="https://unpkg.com/swiper/swiper-bundle.min.js" />
+          <Script src="./scripter.js" strategy="afterInteractive"/>
+
+          <div className="swiper mySwiper">
+            <div className="swiper-wrapper">
+              <div className="swiper-slide">
+                <Image
+                  className="object-cover w-full"
+                  src={image}
+                  alt="image"
+                />
+              </div>
+              <div className="swiper-slide">
+                <Image
+                  className="object-cover w-full"
+                  src={secondimage}
+                  alt="image"
+                />
+              </div>
+              <div className="swiper-slide">
+                <Image
+                  className="object-cover w-full"
+                  src={image}
+                  alt="image"
+                />
+              </div>
+            </div>
+            <div className="swiper-button-next"></div>
+            <div className="swiper-button-prev"></div>
+            <div className="swiper-pagination"></div>
+          </div>
+
           {achievements.map((item, index) => (
-            <div className="grid grid-cols-1 lg:grid-cols-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2  px-12 md:px-24 lg:px-48">
               <div key={index} className="bg-white col-span-1">
                 <h1 className="text-2xl text-center font-bold pt-8">{item.name}</h1>
                 <p className="pt-4 text-gray-600">{item.info}</p>
                 <p className="text-gray-600">{item.author}</p>
                 <hr />
             </div>
-            <div className="col-span-1 text-center my-auto">
+            <div className="col-span-1 text-center my-auto  px-12 md:px-24 lg:px-48">
               {item.date}
             </div>
             <hr />
