@@ -3,7 +3,7 @@ import {
   Team,
 
 } from "../components/Team";
-import { Footer } from "../components/Footer";
+import { Footer, SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 
 const Home: NextPage = () => {
@@ -11,7 +11,7 @@ const Home: NextPage = () => {
     <>
       <Navbar />
       <Team />
-      <Footer />
+      <SecFooter />
     </>
   );
 };
