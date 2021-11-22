@@ -2,6 +2,32 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import RajeshSir from "../../images/rajeshsir.jpg"
+import anupam from "../../images/founders/anupam.jpg"
+import arpit from "../../images/founders/arpit.jpg"
+import himanshu from "../../images/founders/himanshu.jpg"
+import soniya from "../../images/founders/soniya.jpg"
+import bhanu from "../../images/finalyear/bhanu.jpeg";
+import brijraj from "../../images/finalyear/brijraj.jpeg";
+import charu from "../../images/finalyear/charu.jpg";
+import dhruv from "../../images/finalyear/dhruv.jpg";
+import harsh from "../../images/finalyear/harsh.jpg";
+import muskan from "../../images/finalyear/muskan.jpg";
+import nikita from "../../images/finalyear/nikita.jpg";
+import pravesh from "../../images/finalyear/pravesh.jpg";
+import rajat from "../../images/finalyear/rajat.jpg";
+import sneha from "../../images/finalyear/sneha.jpg";
+import apoorva from "../../images/thirdyear/apoorva.jpg";
+import aryaman from "../../images/thirdyear/aryaman.jpg";
+import chirayu from "../../images/thirdyear/chirayu.jpeg";
+import darshan from "../../images/thirdyear/darshan.jpeg";
+import devansh from "../../images/thirdyear/devansh.jpg";
+import harshit from "../../images/thirdyear/harshit.jpeg";
+import ishika from "../../images/thirdyear/ishika.jpg";
+import pavnesh from "../../images/thirdyear/pavnesh.jpg";
+import puneet from "../../images/thirdyear/puneet.jpg";
+import rahul from "../../images/thirdyear/rahul.jpg";
+import rushil from "../../images/thirdyear/rushil.jpg";
+import vinamra from "../../images/secondyear/vinamra.jpg";
 
 interface pic_detail {
   name: string;
@@ -12,22 +38,22 @@ interface pic_detail {
 const founders: pic_detail[] = [
   {
     name: "HIMANSHU GOTHWAL",
-    image: RajeshSir,
+    image: himanshu,
     desc: "Software Developer Epic"
   },
   {
     name: "ARPIT JAIN",
-    image: RajeshSir,
+    image: arpit,
     desc: "Co-Founder Engineer's Garage"
   },
   {
     name: "ANUPAM KUMAR",
-    image: RajeshSir,
+    image: anupam,
     desc: "Signal Engineer Indian Railway Services"
   },
   {
     name: "SONIYA JAIN",
-    image: RajeshSir,
+    image: soniya,
     desc: "Works at DRDO"
   }
 ];
@@ -35,52 +61,52 @@ const founders: pic_detail[] = [
 const finalyear: pic_detail[] = [
   {
     name: "BHANU MOHINDRA",
-    image: RajeshSir,
+    image: bhanu,
     desc: "Mechanical Engineering"
   },
   {
-    name: "BRIRAJ",
-    image: RajeshSir,
+    name: "BRIJRAJ",
+    image: brijraj,
     desc: "Mechanical Engineering"
   },
   {
     name: "CHARU",
-    image: RajeshSir,
+    image: charu,
     desc: "Chemical Engineering"
   },
   {
     name: "DHRUV GOYAL",
-    image: RajeshSir,
+    image: dhruv,
     desc: "Computer Science"
   },
   {
     name: "HARSH CHAUDHARY",
-    image: RajeshSir,
+    image: harsh,
     desc: "Mechanical Engineering"
   },
   {
     name: "MUSKAN GARG",
-    image: RajeshSir,
+    image: muskan,
     desc: "Civil Engineering"
   },
   {
-    name: "NIKITA RAULA",
-    image: RajeshSir,
+    name: "NIKITA RAUTELA",
+    image: nikita,
     desc: "Mechanical Engineering"
   },
   {
     name: "PRAVESH SINGH",
-    image: RajeshSir,
+    image: pravesh,
     desc: "Computer Science"
   },
   {
     name: "RAJAT AGRAWAL",
-    image: RajeshSir,
+    image: rajat,
     desc: "Electrical Engineering"
   },
   {
     name: "SNEHA YADAV",
-    image: RajeshSir,
+    image: sneha,
     desc: "Electrical Engineering"
   }
 ];
@@ -88,57 +114,57 @@ const finalyear: pic_detail[] = [
 const thirdyear: pic_detail[] = [
   {
     name: "APOORVA RAJ",
-    image: RajeshSir,
+    image: apoorva,
     desc: "Mechanical Engineering"
   },
   {
     name: "ARYAMAN SINGH",
-    image: RajeshSir,
+    image: aryaman,
     desc: "Electrical Engineering"
   },
   {
     name: "CHIRAYU RANKAWAT",
-    image: RajeshSir,
+    image: chirayu,
     desc: "Mechanical Engineering"
   },
   {
     name: "DARSHAN DUSAD",
-    image: RajeshSir,
+    image: darshan,
     desc: "Computer Science"
   },
   {
     name: "DEVANSH GARG",
-    image: RajeshSir,
+    image: devansh,
     desc: "Mechanical"
   },
   {
     name: "HARSHIT GARG",
-    image: RajeshSir,
+    image: harshit,
     desc: "Mechanical"
   },
   {
     name: "ISHIKA PANWAR",
-    image: RajeshSir,
+    image: ishika,
     desc: "Computer Science"
   },
   {
     name: "PAVNESH CHATURVEDI",
-    image: RajeshSir,
+    image: pavnesh,
     desc: "Electronics and Communication Engineering"
   },
   {
     name: "PUNEET SINGH",
-    image: RajeshSir,
+    image: puneet,
     desc: "Electronics and Communication Engineering"
   },
   {
     name: "RAHUL RAJ",
-    image: RajeshSir,
+    image: rahul,
     desc: "Mechanical Engineering"
   },
   {
     name: "RUSHIL MAKKAR",
-    image: RajeshSir,
+    image: rushil,
     desc: "Electronics and Communication Engineering"
   }
 ];
@@ -146,7 +172,7 @@ const thirdyear: pic_detail[] = [
 const secondyear: pic_detail[] = [
   {
     name: "VINAMRA VASHISHTH",
-    image: RajeshSir,
+    image: vinamra,
     desc: "Computer Science and Engineering"
   },
   {
@@ -251,3 +277,5 @@ const Team = () => {
 }
 
 export default Team;
+
+// float effect on image hover.
