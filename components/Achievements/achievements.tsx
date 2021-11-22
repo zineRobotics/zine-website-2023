@@ -421,16 +421,16 @@ const achievements: achievement[] = [
 
 const Achievements = () => {
     return(
-        <div className="text-black bg-white w-screen px-32">
+        <div className="text-black bg-white w-screen px-12 md:px-24 lg:px-48">
           {achievements.map((item, index) => (
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
               <div key={index} className="bg-white col-span-1">
                 <h1 className="text-2xl text-center font-bold pt-8">{item.name}</h1>
                 <p className="pt-4 text-gray-600">{item.info}</p>
                 <p className="text-gray-600">Author: {item.author}</p>
                 <hr />
             </div>
-            <div className="col-span-1 text-center">
+            <div className="col-span-1 text-center my-auto">
               1st prize
               <br />
               {item.date}
