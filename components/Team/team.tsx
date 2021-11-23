@@ -29,9 +29,11 @@ import puneet from "../../images/thirdyear/puneet.jpg";
 import rahul from "../../images/thirdyear/rahul.jpg";
 import rushil from "../../images/thirdyear/rushil.jpg";
 import vinamra from "../../images/secondyear/vinamra.jpg";
-import divyansh from "../../images/secondyear/divyansh.jpg"
-import nishant from "../../images/secondyear/nishant.jpg"
-import abhinav from "../../images/secondyear/abhinav.jpeg"
+import divyansh from "../../images/secondyear/divyansh.jpg";
+import nishant from "../../images/secondyear/nishant.jpg";
+import abhinav from "../../images/secondyear/abhinav.jpeg";
+import sudeshna from "../../images/secondyear/sudeshna.jpg";
+
 interface pic_detail {
   name: string;
   image: StaticImageData;
@@ -195,7 +197,7 @@ const secondyear: pic_detail[] = [
   },
   {
     name: "SUDESHNA SONKAR",
-    image: RajeshSir,
+    image: sudeshna,
     desc: "Mechanical Engineering"
   },
   {
