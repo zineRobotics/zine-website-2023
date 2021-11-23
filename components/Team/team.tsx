@@ -29,7 +29,9 @@ import puneet from "../../images/thirdyear/puneet.jpg";
 import rahul from "../../images/thirdyear/rahul.jpg";
 import rushil from "../../images/thirdyear/rushil.jpg";
 import vinamra from "../../images/secondyear/vinamra.jpg";
-
+import divyansh from "../../images/secondyear/divyansh.jpg"
+import nishant from "../../images/secondyear/nishant.jpg"
+import abhinav from "../../images/secondyear/abhinav.jpeg"
 interface pic_detail {
   name: string;
   image: StaticImageData;
@@ -178,17 +180,17 @@ const secondyear: pic_detail[] = [
   },
   {
     name: "NISHANT GARG",
-    image: RajeshSir,
+    image: nishant,
     desc: "Computer Science and Engineering"
   },
   {
     name: "DIVYANSH GARG",
-    image: RajeshSir,
+    image: divyansh,
     desc: "Electronics and Communication Engineering"
   },
   {
     name: "ABHINAV KUMAR",
-    image: RajeshSir,
+    image: abhinav,
     desc: "Electrical Engineering"
   },
   {
