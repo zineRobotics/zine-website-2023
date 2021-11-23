@@ -42,18 +42,18 @@ const Projects = () => {
             }}
           ></div>
           <div className="top-0 right-0 w-3/4 lg:w-1/2 bg-gray-800 fixed h-full overflow-auto z-30 shadow-nav_custom">
-            <div className="py-6 px-16 mx-auto">
+            <div className="py-6 px-4 md:px-8 lg:px-16 mx-auto">
               <button className="bg-gray-200 hover:bg-gray-100 rounded mx-auto pt-2 px-6 font-nunito text-xl font-bold">
                 <h1>{heading}</h1>
               </button>
             </div>
-            <div id="specialz" className="px-16 text-white pt-8">
+            <div id="specialz" className="px-4 md:px-8 lg:px-16 text-white pt-8">
               {content}
             </div>
-            <div className="px-16 text-white pt-16">
+            <div className="px-4 md:px-8 lg:px-16 text-white pt-16">
               {extracontent}
             </div>
-            <div className="px-16 text-white pt-16">
+            <div className="px-4 md:px-8 lg:px-16 text-white pt-16">
               Team Members
               <br />
               {tm}
