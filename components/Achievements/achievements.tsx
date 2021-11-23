@@ -672,7 +672,7 @@ const Achievements = () => {
           </div>
 
           {achievements.map((item, index) => (
-            <div className="grid grid-cols-1 lg:grid-cols-2  px-12 md:px-24 lg:px-48">
+            <div className="grid grid-cols-1 lg:grid-cols-2 px-12 md:px-24 lg:px-48 pb-8">
               <div key={index} className="bg-white col-span-1">
                 <h1 className="text-2xl text-center font-bold pt-8">{item.name}</h1>
                 <p className="pt-4 text-gray-600">{item.info}</p>
