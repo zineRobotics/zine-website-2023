@@ -2,12 +2,24 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import RajeshSir from "../../images/rajeshsir.jpg";
+import a1 from "../../images/about/1.jpg";
+import a2 from "../../images/about/2.jpg";
+import a3 from "../../images/about/3.jpg";
+import a4 from "../../images/about/4.jpeg";
+import a5 from "../../images/about/5.jpg";
+import a6 from "../../images/about/6.jpg";
+import a7 from "../../images/about/7.jpg";
+import a8 from "../../images/about/8.jpg";
+import a9 from "../../images/about/9.jpg";
+import a10 from "../../images/about/10.jpg";
 
 const About = () => {
     return(
         <div className="text-black bg-white w-screen">
+          <div className="bg-cover bg-about-bg py-16">
             <h1 className="text-3xl pt-8 px-12 lg:px-24 xl:px-48">About ZINE</h1>
             <p className="pt-8 px-12 lg:px-24 xl:px-48">Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur who are together to learn, improve and apply their technical skills to help foster the growth of society and India in the field of technology by utilising their engineering skills to work on real time problems. It is comprised of students from various disciplines working under guidance of Dr. Rajesh Kumar from Electrical Engineering department and various alumni working in reputed firms and doing research in Universities in India and abroad. Zine has been the only active robotics and research group of MNIT for the last 11 years, since its foundation.</p>
+          </div>
 
             <h1 className="text-3xl pt-16 px-12 lg:px-24 xl:px-48">Our Background and Mission</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 pt-8 px-12 lg:px-24 xl:px-48">
@@ -27,14 +39,16 @@ const About = () => {
             </div>
             <h1 className="pt-16 pb-8 text-center text-4xl px-12 lg:px-24 xl:px-48">Memories from ZINE events</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
-              <div className="mx-auto"><Image src={RajeshSir}/></div>
-              <div><Image src={RajeshSir}/></div>
-              <div><Image src={RajeshSir}/></div>
-              <div><Image src={RajeshSir}/></div>
-              <div><Image src={RajeshSir}/></div>
-              <div><Image src={RajeshSir}/></div>
-              <div><Image src={RajeshSir}/></div>
-              <div><Image src={RajeshSir}/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a1} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a2} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a3} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a4} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a5} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a6} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a7} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a8} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a9} className="object-cover"/></div>
+              <div className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"><Image src={a10} className="object-cover"/></div>
             </div>
 
             <h1 className="text-center py-8">Follow our photostreams on Social Platforms for more...</h1>

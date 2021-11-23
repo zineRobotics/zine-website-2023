@@ -5,6 +5,10 @@ import image from "../../images/compet.jpg";
 import secondimage from "../../images/rajeshsir.jpg";
 import Head from "next/head";
 import Script from "next/script";
+import a1 from "../../images/achievements/1.jpg"
+import a2 from "../../images/achievements/2.jpeg"
+import a3 from "../../images/achievements/3.jpeg"
+import a4 from "../../images/achievements/4.jpg"
 
 // import Slider from "../Slider";
 
@@ -426,7 +430,7 @@ const achievements: achievement[] = [
 ];
 
 const Achievements = () => {
-  const images = [image, image, image, image, image];
+  const images = [a1, a2, a3, a4];
   
     return(
         <div className="text-black bg-white w-screen">
@@ -446,21 +450,28 @@ const Achievements = () => {
               <div className="swiper-slide">
                 <Image
                   className="object-cover w-full"
-                  src={image}
+                  src={a1}
                   alt="image"
                 />
               </div>
               <div className="swiper-slide">
                 <Image
                   className="object-cover w-full"
-                  src={secondimage}
+                  src={a2}
                   alt="image"
                 />
               </div>
               <div className="swiper-slide">
                 <Image
                   className="object-cover w-full"
-                  src={image}
+                  src={a3}
+                  alt="image"
+                />
+              </div>
+              <div className="swiper-slide">
+                <Image
+                  className="object-cover w-full"
+                  src={a4}
                   alt="image"
                 />
               </div>

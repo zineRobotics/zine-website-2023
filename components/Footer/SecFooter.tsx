@@ -8,50 +8,41 @@ import instagramlogo from '../../images/instagramicon.png';
 
 const SecFooter = () => {
     return(
-        <div className="bg-black grid grid-cols-1 lg:grid-cols-2 px-16">
+        <div className="bg-black grid grid-cols-1 lg:grid-cols-5 px-16">
             {/* 1st grid */}
-            <div className="sticky custom:bg-black z-30 flex flex-wrap gap-4 justify-center items-center pb-4 pt-10 mt-6">
-                <div id="footerid" className="box-border border-2 border-top pt-4 rounded-lg justify-center">
-                    <div className="w-20 h-20 sm:w-28 sm:h-28 mb-10 mx-32"><Image src={logo}></Image></div>
-                    <div className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500 text-3xl xl:text-4xl text-center">Connect With ZINE!</div>
-                    <div className="flex gap-8 justify-center mb-10">
-                        <div className="lg:w-20 lg:h-20 w-12 h-12 pt-5 transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-                        <Link href = "https://github.com/zine-robotics"><Image className="cursor-pointer w-20 h-20" src={githublogo}/></Link>
-                        </div>
-                        <div className="lg:w-20 lg:h-20 w-12 h-12 pt-5 transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-                        <Link href = "https://www.linkedin.com/company/de-zine-limited/mycompany/"><Image className="cursor-pointer w-20 h-20" src={linkedinlogo}/></Link>
-                        </div>
-                        <div className="lg:w-20 lg:h-20 w-12 h-12 pt-5 transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-                        <Link href = "https://www.instagram.com/zine.robotics/"><Image className="cursor-pointer w-20 h-20" src={instagramlogo}/></Link>
-                        </div>
-                    </div>
-                </div>
+            <div className="text-white col-span-1 pt-16">
+                <Link href="/"><p className="pb-4 cursor-pointer">Home</p></Link>
+                <Link href="/projects"><p className="pb-4 cursor-pointer">Projects</p></Link>
+                <Link href="/team"><p className="pb-4 cursor-pointer">Team</p></Link>
+                <Link href="/achievements"><p className="pb-4 cursor-pointer">Achievements</p></Link>
             </div>
             {/* 2nd grid */}
-            <div className="flex justify-center mt-20">
-          <form className="bg-gray-900 border-2 opacity-75 w-80 md:w-120 lg:w-120 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
-            <div className="mb-4">
-              <label className="block text-blue-300 py-12 text-center font-bold mb-2">
-                Register for our workshop
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                id="emailaddress"
-                type="text"
-                placeholder="2021***@mnit.ac.in"
-              />
+            <div className="col-span-3 text-white pt-16">
+              <h1 className="text-sm pb-4">About ZINE</h1>
+              <p>Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur who are together to learn, improve and apply their technical skills to help foster the growth of society and India in the field of technology by utilising their engineering skills to work on real time problems. It is comprised of students from various disciplines working under the guidance of Dr. Rajesh Kumar from Electrical Engineering department and various alumni working in reputed firms and doing research in esteemed universities in India and abroad. Zine has been the only active robotics and research group of MNIT for the last 12 years, since its foundation.</p>
+              <div className="grid grid-cols-5 py-8 px-32">
+                <div><Link href="">Facebook</Link></div> {/* Here the facebook icon should come */}
+                <div><Link href="">LinkedIn</Link></div> {/* Here the linkedin icon should come */}
+                <div><Link href="">YouTube</Link></div> {/* Here the youtube icon should come */}
+                <div><Link href="">Instagram</Link></div> {/* Here the instagram icon should come */}
+                <div><Link href="">Github</Link></div> {/* Here the github icon should come */}
+              </div>
             </div>
 
-            <div className="flex justify-center">
-              <button
-                className="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                type="button"
-              >
-                Sign Up
-              </button>
+            <div className="col-span-1 text-white">
+              <div className="grid grid-cols-2">
+                <div>mail icon</div>  { /* Here the mail icon should come */}
+                <div className="cursor-pointer"><Link href="mailto:zine@zine.co.in">zine@zine.co.in</Link></div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div>phone icon</div>  { /* Here the phone icon should come */}
+                <div className="cursor-pointer">+91 123456789</div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div>location icon</div>  { /* Here the location icon should come */}
+                <div className="cursor-pointer"><Link href="http://www.google.co.in">ZINE</Link></div>  {/* Here the link to location should come */}
+              </div>
             </div>
-          </form>
-          </div>
         </div>
     )
 }
