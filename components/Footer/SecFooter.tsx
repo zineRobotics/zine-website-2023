@@ -26,9 +26,9 @@ const SecFooter = () => {
               <h1 className="text-sm pb-4">About ZINE</h1>
               <p>Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur who are together to learn, improve and apply their technical skills to help foster the growth of society and India in the field of technology by utilising their engineering skills to work on real time problems. It is comprised of students from various disciplines working under the guidance of Dr. Rajesh Kumar from Electrical Engineering department and various alumni working in reputed firms and doing research in esteemed universities in India and abroad. Zine has been the only active robotics and research group of MNIT for the last 12 years, since its foundation.</p>
               <div className="grid grid-cols-5 py-8">
-                <div className="w-16 md:w-20 xl:w-28"><Link href=""><Image src={facebooklogo} /></Link></div> {/* Here the facebook icon should come */}
+                <div className="w-12 md:w-20 xl:w-28"><Link href=""><Image src={facebooklogo} /></Link></div> {/* Here the facebook icon should come */}
                 <div className="w-8 md:w-12 xl:w-20"><Link href=""><Image src={linkedinlogo} /></Link></div> {/* Here the linkedin icon should come */}
-                <div className="w-16 md:w-20 xl:w-28"><Link href=""><Image src={youtubelogo} /></Link></div> {/* Here the youtube icon should come */}
+                <div className="w-12 md:w-20 xl:w-28"><Link href=""><Image src={youtubelogo} /></Link></div> {/* Here the youtube icon should come */}
                 <div className="w-8 md:w-12 xl:w-20"><Link href=""><Image src={instagramlogo} /></Link></div> {/* Here the instagram icon should come */}
                 <div className="w-8 md:w-12 xl:w-20"><Link href=""><Image src={githublogo} /></Link></div> {/* Here the github icon should come */}
               </div>
