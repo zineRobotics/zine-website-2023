@@ -33,6 +33,7 @@ import divyansh from "../../images/secondyear/divyansh.jpg";
 import nishant from "../../images/secondyear/nishant.jpg";
 import abhinav from "../../images/secondyear/abhinav.jpeg";
 import sudeshna from "../../images/secondyear/sudeshna.jpg";
+import aman from "../../images/secondyear/aman.png";
 
 interface pic_detail {
   name: string;
@@ -212,7 +213,7 @@ const secondyear: pic_detail[] = [
   },
   {
     name: "AMAN MITTAL",
-    image: RajeshSir,
+    image: aman,
     desc: "Computer Science and Engineering"
   },
 ]
