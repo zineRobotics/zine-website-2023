@@ -7,16 +7,19 @@ import linkedinlogo from '../../images/linkedinicon.png';
 import instagramlogo from '../../images/instagramicon.png';
 import facebooklogo from "../../images/facebookicon.jpeg";
 import youtubelogo from "../../images/youtubeicon.png";
+import maillogo from "../../images/mailicon.png";
+import phonelogo from "../../images/phoneicon.png";
+import locationlogo from "../../images/locationicon.png";
 
 const SecFooter = () => {
     return(
         <div className="bg-black grid grid-cols-1 lg:grid-cols-5 px-16">
             {/* 1st grid */}
             <div className="text-white col-span-1 pt-16">
-                <Link href="/"><p className="pb-4 cursor-pointer">Home</p></Link>
-                <Link href="/projects"><p className="pb-4 cursor-pointer">Projects</p></Link>
-                <Link href="/team"><p className="pb-4 cursor-pointer">Team</p></Link>
-                <Link href="/achievements"><p className="pb-4 cursor-pointer">Achievements</p></Link>
+                <Link href="/"><p className="pb-4 cursor-pointer text-center">Home</p></Link>
+                <Link href="/projects"><p className="pb-4 cursor-pointer text-center">Projects</p></Link>
+                <Link href="/team"><p className="pb-4 cursor-pointer text-center">Team</p></Link>
+                <Link href="/achievements"><p className="pb-4 cursor-pointer text-center ">Achievements</p></Link>
             </div>
             {/* 2nd grid */}
             <div className="col-span-3 text-white pt-16">
@@ -31,18 +34,18 @@ const SecFooter = () => {
               </div>
             </div>
 
-            <div className="col-span-1 text-white">
-              <div className="grid grid-cols-2">
-                <div>mail icon</div>  { /* Here the mail icon should come */}
-                <div className="cursor-pointer"><Link href="mailto:zine@zine.co.in">zine@zine.co.in</Link></div>
+            <div className="pt-16 pl-8 col-span-1 text-white">
+              <div className="pb-4 grid grid-cols-2">
+                <div className="w-16"><Image src={maillogo} /></div>  { /* Here the mail icon should come */}
+                <div className="cursor-pointer my-auto text-lg"><Link href="mailto:zine@zine.co.in">zine@zine.co.in</Link></div>
               </div>
-              <div className="grid grid-cols-2">
-                <div>phone icon</div>  { /* Here the phone icon should come */}
-                <div className="cursor-pointer">+91 123456789</div>
+              <div className="pb-4  grid grid-cols-2">
+                <div className="w-16"><Image src={phonelogo} /></div>  { /* Here the phone icon should come */}
+                <div className="cursor-pointer my-auto text-lg">+91 123456789</div>
               </div>
-              <div className="grid grid-cols-2">
-                <div>location icon</div>  { /* Here the location icon should come */}
-                <div className="cursor-pointer"><Link href="http://www.google.co.in">ZINE</Link></div>  {/* Here the link to location should come */}
+              <div className="pb-4 grid grid-cols-2">
+                <div className="w-16"><Image src={locationlogo} /></div>  { /* Here the location icon should come */}
+                <div className="cursor-pointer my-auto text-lg"><Link href="http://www.google.co.in">ZINE</Link></div>  {/* Here the link to location should come */}
               </div>
             </div>
         </div>
