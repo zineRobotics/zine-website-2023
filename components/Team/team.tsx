@@ -34,6 +34,7 @@ import nishant from "../../images/secondyear/nishant.jpg";
 import abhinav from "../../images/secondyear/abhinav.jpeg";
 import sudeshna from "../../images/secondyear/sudeshna.jpg";
 import aman from "../../images/secondyear/aman.png";
+import mahak from "../../images/secondyear/mahak.jpeg";
 
 interface pic_detail {
   name: string;
@@ -208,7 +209,7 @@ const secondyear: pic_detail[] = [
   },
   {
     name: "MAHAK GARG",
-    image: RajeshSir,
+    image: mahak,
     desc: "Electrical Engineering"
   },
   {
