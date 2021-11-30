@@ -268,7 +268,7 @@ const Team = () => {
         ))}
         </div>
         <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">SECOND YEAR</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 py-16 px-12 lg:px-24">
         {secondyear.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black text-xl py-2 font-nunito text-center">
