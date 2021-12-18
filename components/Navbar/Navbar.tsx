@@ -61,11 +61,6 @@ const Navbar = () => {
       image: about,
       link: "/about"
     },
-    {
-      text: "Blogs",
-      image: Blog,
-      link: "/blogs"
-    },
   ];
 
   function Nav_Out() {
@@ -110,7 +105,7 @@ const Navbar = () => {
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-8 flex text-white justify-between text-3xl xl:text-4xl">
+        <div className="mx-24 flex text-white justify-between text-3xl xl:text-4xl">
           <div className="w-12 h-12 lg:w-16 lg:h-16 cursor-pointer">
             <Link href="/"><Image src={logo} /></Link>
           </div>
@@ -134,10 +129,6 @@ const Navbar = () => {
           <Link href="/about"><div className="my-2 cursor-pointer hidden lg:inline-block">
           <div className="link link-underline">
             About
-            </div></div></Link>
-          <Link href="/blogs"><div className="my-2 cursor-pointer hidden lg:inline-block">
-          <div className="link link-underline">
-            Blogs
             </div></div></Link>
           <div className="w-12 h-12 inline-block lg:hidden">
             <Image
