@@ -1,11 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import githublogo from '../../images/github.png';
-import linkedinlogo from '../../images/linkedinicon.png';
-import instagramlogo from '../../images/instagramicon.png';
-import facebooklogo from "../../images/facebookicon.jpeg";
-import youtubelogo from "../../images/youtubeicon.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import maillogo from "../../images/mailicon.png";
 import phonelogo from "../../images/phoneicon.png";
 import locationlogo from "../../images/locationicon.png";
@@ -27,11 +24,11 @@ const SecFooter = () => {
 
 
               <div className="grid grid-cols-5 py-8 mx-28 md:mx-24">
-                <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><Image src={facebooklogo} /></Link></div> {/* Here the facebook icon should come */}
-                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/company/de-zine-limited/mycompany/"><Image src={linkedinlogo} /></Link></div> {/* Here the linkedin icon should come */}
-                <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.youtube.com/channel/UCZgVlbeqVheaTYZP3eSRdMQ/about"><Image src={youtubelogo} /></Link></div> {/* Here the youtube icon should come */}
-                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.instagram.com/zine.robotics/"><Image src={instagramlogo} /></Link></div> {/* Here the instagram icon should come */}
-                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://github.com/zine-robotics"><Image src={githublogo} /></Link></div> {/* Here the github icon should come */}
+                <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faFacebook} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/company/de-zine-limited/mycompany/"><FontAwesomeIcon icon={faLinkedin} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.youtube.com/channel/UCZgVlbeqVheaTYZP3eSRdMQ/about"><FontAwesomeIcon icon={faTwitter} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.instagram.com/zine.robotics/"><FontAwesomeIcon icon={faInstagram} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://github.com/zine-robotics"><FontAwesomeIcon icon={faGithub} className="text-white mr-4" size="2x" /></Link></div>
               </div>
             </div>
 
