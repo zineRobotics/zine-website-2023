@@ -625,7 +625,6 @@ const Achievements = () => {
     return(
         <div className="text-black bg-white w-screen">
           <Head>
-            <title>My page title</title>
             <link
               rel="stylesheet"
               href="https://unpkg.com/swiper/swiper-bundle.min.css"
