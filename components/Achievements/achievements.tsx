@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import image from "../../images/compet.jpg";
-import secondimage from "../../images/rajeshsir.jpg";
 import Head from "next/head";
 import Script from "next/script";
 import a1 from "../../images/achievements/1.jpg"
@@ -669,7 +667,7 @@ const Achievements = () => {
             <div className="swiper-button-prev"></div>
             <div className="swiper-pagination"></div>
           </div>
-
+          
           {achievements.map((item, index) => (
             <div className="grid grid-cols-1 lg:grid-cols-2 px-12 md:px-24 lg:px-48 pb-8">
               <div key={index} className="bg-white col-span-1">

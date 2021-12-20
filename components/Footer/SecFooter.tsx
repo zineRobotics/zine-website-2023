@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faInstagram, faLinkedin, faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import maillogo from "../../images/mailicon.png";
 import phonelogo from "../../images/phoneicon.png";
 import locationlogo from "../../images/locationicon.png";
@@ -26,7 +26,7 @@ const SecFooter = () => {
               <div className="grid grid-cols-5 py-8 mx-28 md:mx-24">
                 <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faFacebook} className="text-white mr-4" size="2x" /></Link></div>
                 <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/company/de-zine-limited/mycompany/"><FontAwesomeIcon icon={faLinkedin} className="text-white mr-4" size="2x" /></Link></div>
-                <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.youtube.com/channel/UCZgVlbeqVheaTYZP3eSRdMQ/about"><FontAwesomeIcon icon={faTwitter} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.youtube.com/channel/UCZgVlbeqVheaTYZP3eSRdMQ/about"><FontAwesomeIcon icon={faYoutube} className="text-white mr-4" size="2x" /></Link></div>
                 <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.instagram.com/zine.robotics/"><FontAwesomeIcon icon={faInstagram} className="text-white mr-4" size="2x" /></Link></div>
                 <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://github.com/zine-robotics"><FontAwesomeIcon icon={faGithub} className="text-white mr-4" size="2x" /></Link></div>
               </div>
