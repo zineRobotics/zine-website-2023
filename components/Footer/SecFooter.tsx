@@ -11,7 +11,7 @@ const SecFooter = () => {
     return(
         <div className="bg-black grid grid-cols-1 lg:grid-cols-5 xl:pl-32 md:pl-16 pr-16">
             {/* 1st grid */}
-            <div className="text-white col-span-1 pt-16">
+            <div className="text-white col-span-1 pt-16 ml-12 md:ml-0 text-center lg:text-left">
                 <Link href="/"><p className="pb-4 cursor-pointer">Home</p></Link>
                 <Link href="/projects"><p className="pb-4 cursor-pointer">Projects</p></Link>
                 <Link href="/team"><p className="pb-4 cursor-pointer">Team</p></Link>
@@ -19,11 +19,11 @@ const SecFooter = () => {
             </div>
             {/* 2nd grid */}
             <div className="col-span-3 text-white pt-16">
-              <h1 className="text-sm pb-4">About ZINE</h1>
-              <p>Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur who are together to learn, improve and apply their technical skills to help foster the growth of society and India in the field of technology by utilising their engineering skills to work on real time problems. It is comprised of students from various disciplines working under the guidance of Dr. Rajesh Kumar from Electrical Engineering department and various alumni working in reputed firms and doing research in esteemed universities in India and abroad. Zine has been the only active robotics and research group of MNIT for the last 12 years, since its foundation.</p>
+              <h1 className="text-sm pb-4 ml-12 md:ml-0">About ZINE</h1>
+              <p className="ml-12 md:ml-0">Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur who are together to learn, improve and apply their technical skills to help foster the growth of society and India in the field of technology by utilising their engineering skills to work on real time problems. It is comprised of students from various disciplines working under the guidance of Dr. Rajesh Kumar from Electrical Engineering department and various alumni working in reputed firms and doing research in esteemed universities in India and abroad. Zine has been the only active robotics and research group of MNIT for the last 12 years, since its foundation.</p>
 
 
-              <div className="grid grid-cols-5 py-8 mx-28 md:mx-24">
+              <div className="grid grid-cols-5 py-8 ml-12 md:mx-24">
                 <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faFacebook} className="text-white mr-4" size="2x" /></Link></div>
                 <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/company/de-zine-limited/mycompany/"><FontAwesomeIcon icon={faLinkedin} className="text-white mr-4" size="2x" /></Link></div>
                 <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.youtube.com/channel/UCZgVlbeqVheaTYZP3eSRdMQ/about"><FontAwesomeIcon icon={faYoutube} className="text-white mr-4" size="2x" /></Link></div>
