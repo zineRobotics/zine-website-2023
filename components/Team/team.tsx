@@ -389,12 +389,11 @@ const Team = () => {
         <div className="pt-16 grid grid-cols-1 lg:grid-cols-2 px-12 lg:px-24">
           <div className="col-span-1 w-48 member-hover lg:w-80 justify-self-center">
             <Image className="rounded-full" src={RajeshSir} />
-            <div className="text-center grid grid-cols-5">
+            <div className="text-center grid grid-cols-4">
               <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div>
-              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faLinkedin} className="text-black mr-4" size="2x" /></Link></div>
-              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faTwitter} className="text-black mr-4" size="2x" /></Link></div>
-              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faInstagram} className="text-black mr-4" size="2x" /></Link></div>
-              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faFacebook} className="text-black mr-4" size="2x" /></Link></div>
+              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
+              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div>
+              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div>
             </div>
           </div>
           <div className="col-span-1 my-auto">
@@ -405,25 +404,24 @@ const Team = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {founders.map((item, index) => (
-                <div key={index} className="col-span-1">
-                  <h1 className="text-black text-xl py-2 font-nunito text-center">
-                    <div className="w-48 mx-auto member-hover">
-                      <Image className="rounded-full" src={item.image} />
-                    </div>
-                    <p className="text-center font-bold">{item.name}</p>
-                    <p className="text-center">{item.desc}</p>
-                    <div className="text-center">
-                    <div className="text-center grid grid-cols-5 w-64 mx-auto">
-                      <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div>
-                      <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
-                      <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faTwitter} className="text-blue-400 mr-4" size="2x" /></Link></div>
-                      <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div>
-                      <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div>
-                    </div>
-                    </div>
-                  </h1>
-                </div>
-              ))}
+          <div key={index} className="col-span-1">
+            <h1 className="text-black text-xl py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} />
+              </div>
+              <p className="text-center font-bold">{item.name}</p>
+              <p className="text-center">{item.desc}</p>
+              <div className="text-center">
+              <div className="text-center grid grid-cols-4 w-64 mx-auto">
+                <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div>
+                <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
+                <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div>
+                <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div>
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
         </div>
         <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">FINAL YEAR</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
@@ -436,10 +434,9 @@ const Team = () => {
               <p className="text-center font-bold">{item.name}</p>
               <p className="text-center">{item.desc}</p>
               <div className="text-center">
-              <div className="text-center grid grid-cols-5 w-64 mx-auto">
+              <div className="text-center grid grid-cols-4 w-64 mx-auto">
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
-                <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faTwitter} className="text-blue-400 mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div>
               </div>
@@ -459,10 +456,9 @@ const Team = () => {
               <p className="text-center font-bold">{item.name}</p>
               <p className="text-center">{item.desc}</p>
               <div className="text-center">
-              <div className="text-center grid grid-cols-5 w-64 mx-auto">
+              <div className="text-center grid grid-cols-4 w-64 mx-auto">
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
-                <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faTwitter} className="text-blue-400 mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div>
               </div>
@@ -482,10 +478,9 @@ const Team = () => {
               <p className="text-center font-bold">{item.name}</p>
               <p className="text-center">{item.desc}</p>
               <div className="text-center">
-              <div className="text-center grid grid-cols-5 w-64 mx-auto">
+              <div className="text-center grid grid-cols-4 w-64 mx-auto">
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
-                <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faTwitter} className="text-blue-400 mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div>
                 <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div>
               </div>
