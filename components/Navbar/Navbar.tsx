@@ -105,7 +105,7 @@ const Navbar = () => {
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-24 flex text-white justify-between text-3xl xl:text-4xl">
+        <div className="mx-12 lg:mx-24 flex text-white justify-between text-3xl xl:text-4xl">
           <div className="w-12 h-12 lg:w-16 lg:h-16 cursor-pointer">
             <Link href="/"><Image src={logo} /></Link>
           </div>
