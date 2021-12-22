@@ -14,7 +14,8 @@ const Home: NextPage = () => {
   return (
     <div className="bg-body-bg">
       <Head>
-        <title>Zine | Home</title>
+        {/* Favicon not working in Safari browser as of now. */}
+        <title>Zine | Home</title>  
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
