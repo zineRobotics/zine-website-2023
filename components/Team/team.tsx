@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import {faFacebook, faTwitter, faInstagram, faLinkedin, faGithub,  faWordpress} from '@fortawesome/free-brands-svg-icons';
 import team from "../../images/team.png"
 import RajeshSir from "../../images/rajeshsir.jpg"
 import anupam from "../../images/founders/anupam.jpg"
@@ -55,10 +55,10 @@ const founders: pic_detail[] = [
     image: himanshu,
     desc: "Software Developer Epic",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/himanshu-gothwal-8a61a816/",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/hims333"
   },
   {
     name: "ARPIT JAIN",
@@ -68,7 +68,7 @@ const founders: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/arpit.jain.37604"
   },
   {
     name: "ANUPAM KUMAR",
@@ -78,7 +78,7 @@ const founders: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/anupamkrmeena"
   },
   {
     name: "SONIYA JAIN",
@@ -88,7 +88,7 @@ const founders: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/soniya.jain.583671"
   }
 ];
 
@@ -101,7 +101,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/bhanu.mohindra?ref=br_rs "
   },
   {
     name: "BRIJRAJ",
@@ -111,7 +111,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/brijraj.jangir.5"
   },
   {
     name: "CHARU",
@@ -131,7 +131,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/dhruv.goyal.37853"
   },
   {
     name: "HARSH CHAUDHARY",
@@ -141,7 +141,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/harsh.chaudhary.39501789"
   },
   {
     name: "MUSKAN GARG",
@@ -151,7 +151,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/profile.php?id=100029074120608"
   },
   {
     name: "NIKITA RAUTELA",
@@ -161,7 +161,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/nikita.rautela"
   },
   {
     name: "PRAVESH SINGH",
@@ -171,7 +171,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/parvesh.sandhu.71"
   },
   {
     name: "RAJAT AGRAWAL",
@@ -181,7 +181,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/rajat.agrawal.524381"
   },
   {
     name: "SNEHA YADAV",
@@ -191,7 +191,7 @@ const finalyear: pic_detail[] = [
     linkedin: "",
     twitter: "",
     instagram: "",
-    facebook: ""
+    facebook: "https://www.facebook.com/profile.php?id=100028068090094"
   }
 ];
 
@@ -201,7 +201,7 @@ const thirdyear: pic_detail[] = [
     image: apoorva,
     desc: "Mechanical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/apoorva-raj-840a871ab",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -211,7 +211,7 @@ const thirdyear: pic_detail[] = [
     image: aryaman,
     desc: "Electrical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/aryaman-singh-kushwaha-a139491b0/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -221,7 +221,7 @@ const thirdyear: pic_detail[] = [
     image: chirayu,
     desc: "Mechanical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://in.linkedin.com/in/chirayu-rankawat",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -231,7 +231,7 @@ const thirdyear: pic_detail[] = [
     image: darshan,
     desc: "Computer Science",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/darshan-dusad-22b96b1ab/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -241,7 +241,7 @@ const thirdyear: pic_detail[] = [
     image: devansh,
     desc: "Mechanical",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/DevanshGarg31",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -251,7 +251,7 @@ const thirdyear: pic_detail[] = [
     image: harshit,
     desc: "Mechanical",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/harshitgrg",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -261,7 +261,7 @@ const thirdyear: pic_detail[] = [
     image: ishika,
     desc: "Computer Science",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/ishika-panwar-23a5551a1/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -271,7 +271,7 @@ const thirdyear: pic_detail[] = [
     image: pavnesh,
     desc: "Electronics and Communication Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/pavnesh-chaturvedi-208b15197/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -281,7 +281,7 @@ const thirdyear: pic_detail[] = [
     image: puneet,
     desc: "Electronics and Communication Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/puneet-singh-2001/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -291,7 +291,7 @@ const thirdyear: pic_detail[] = [
     image: rahul,
     desc: "Mechanical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/rahul-raj-4b6a271ba/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -333,10 +333,10 @@ const secondyear: pic_detail[] = [
     name: "ABHINAV KUMAR",
     image: abhinav,
     desc: "Electrical Engineering",
-    github: "",
-    linkedin: "",
+    github: "https://github.com/54AbhinavKumar",
+    linkedin: "https://www.linkedin.com/in/abhinav-kumar-5b2097205/",
     twitter: "",
-    instagram: "",
+    instagram: "https://www.instagram.com/_magnetrix__/",
     facebook: ""
   },
   {
@@ -346,7 +346,7 @@ const secondyear: pic_detail[] = [
     github: "",
     linkedin: "",
     twitter: "",
-    instagram: "",
+    instagram: "https://www.instagram.com/dopolavita/",
     facebook: ""
   },
   {
@@ -363,10 +363,10 @@ const secondyear: pic_detail[] = [
     name: "MAHAK GARG",
     image: mahak,
     desc: "Electrical Engineering",
-    github: "",
-    linkedin: "",
+    github: "https://github.com/Mahak5457",
+    linkedin: "https://www.linkedin.com/in/mahak-garg-825213212/",
     twitter: "",
-    instagram: "",
+    instagram: "https://www.instagram.com/mahak._1008/",
     facebook: ""
   },
   {
@@ -389,10 +389,9 @@ const Team = () => {
         <div className="pt-16 grid grid-cols-1 lg:grid-cols-2 px-12 lg:px-24">
           <div className="col-span-1 w-48 member-hover lg:w-80 justify-self-center">
             <Image className="rounded-full" src={RajeshSir} />
-            <div className="text-center grid grid-cols-4">
-              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div>
-              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
-              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div>
+            <div className="text-center grid grid-cols-3">
+              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://drrajeshkumar.wordpress.com/"><FontAwesomeIcon icon={faWordpress} className="text-black mr-4" size="2x" /></Link></div>
+              <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/in/drrajeshkumar/"><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
               <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div>
             </div>
           </div>
