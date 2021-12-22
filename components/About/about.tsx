@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import RajeshSir from "../../images/rajeshsir.jpg";
 import a1 from "../../images/about/1.webp";
 import a2 from "../../images/about/2.webp";
 import a3 from "../../images/about/3.webp";
