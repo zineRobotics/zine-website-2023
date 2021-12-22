@@ -3,10 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 import Script from "next/script";
-import a1 from "../../images/achievements/1.jpg"
-import a2 from "../../images/achievements/2.jpeg"
-import a3 from "../../images/achievements/3.jpeg"
-import a4 from "../../images/achievements/4.jpg"
+import a1 from "../../images/achievements/1.webp"
+import a2 from "../../images/achievements/2.webp"
+import a3 from "../../images/achievements/3.webp"
+import a4 from "../../images/achievements/4.webp"
 
  //import Slider from "../Slider";
 

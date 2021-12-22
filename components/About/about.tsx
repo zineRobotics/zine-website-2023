@@ -2,16 +2,16 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import RajeshSir from "../../images/rajeshsir.jpg";
-import a1 from "../../images/about/1.jpg";
-import a2 from "../../images/about/2.jpg";
-import a3 from "../../images/about/3.jpg";
-import a4 from "../../images/about/4.jpeg";
-import a5 from "../../images/about/5.jpg";
-import a6 from "../../images/about/6.jpg";
-import a7 from "../../images/about/7.jpg";
-import a8 from "../../images/about/8.jpg";
-import a9 from "../../images/about/9.jpg";
-import a10 from "../../images/about/10.jpg";
+import a1 from "../../images/about/1.webp";
+import a2 from "../../images/about/2.webp";
+import a3 from "../../images/about/3.webp";
+import a4 from "../../images/about/4.webp";
+import a5 from "../../images/about/5.webp";
+import a6 from "../../images/about/6.webp";
+import a7 from "../../images/about/7.webp";
+import a8 from "../../images/about/8.webp";
+import a9 from "../../images/about/9.webp";
+import a10 from "../../images/about/10.webp";
 
 const About = () => {
     return(
