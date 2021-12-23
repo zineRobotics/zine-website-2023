@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link"
 import Script from "next/script"
 import Image from "next/image"
-import Competition from "../../images/compet.jpg"
-import RandD from "../../images/research.jpg"
-import Workshop from "../../images/workshop.jpg"
+import Competition from "../../images/compet_11zon.webp"
+import RandD from "../../images/research_11zon.webp"
+import Workshop from "../../images/workshop_11zon.webp"
 
 const ZineActivities = () => {
     return(

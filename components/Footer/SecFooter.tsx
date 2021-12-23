@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faLinkedin, faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import maillogo from "../../images/mailicon.png";
-import phonelogo from "../../images/phoneicon.png";
-import locationlogo from "../../images/locationicon.png";
+import maillogo from "../../images/mailicon_11zon.webp";
+import phonelogo from "../../images/phoneicon_11zon.webp";
+import locationlogo from "../../images/locationicon_11zon.webp";
 
 const SecFooter = () => {
     return(

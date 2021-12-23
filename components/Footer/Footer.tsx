@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from '../../images/zinelogo.png';
+import logo from '../../images/zinelogo_11zon.webp';
 import githublogo from '../../images/github.png';
 import linkedinlogo from '../../images/linkedinicon.png';
-import instagramlogo from '../../images/instagramicon.png';
+import instagramlogo from '../../images/instagramicon_11zon (1).webp';
 
 const Footer_Main = () => {
     return(

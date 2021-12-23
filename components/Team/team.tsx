@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFacebook, faTwitter, faInstagram, faLinkedin, faGithub,  faWordpress} from '@fortawesome/free-brands-svg-icons';
-import team from "../../images/team.png"
+import team from "../../images/team_11zon.webp"
 import RajeshSir from "../../images/rajeshsir.webp"
 import anupam from "../../images/founders/anupam.webp"
 import arpit from "../../images/founders/arpit.webp"

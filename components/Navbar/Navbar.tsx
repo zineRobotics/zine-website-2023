@@ -1,5 +1,5 @@
 import Link from "next/link";
-import logo from "../../images/zinelogo.png";
+import logo from "../../images/zinelogo_11zon.webp";
 import hamburger from "../../images/hamburger.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
