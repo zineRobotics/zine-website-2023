@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFacebook, faTwitter, faInstagram, faLinkedin, faGithub,  faWordpress} from '@fortawesome/free-brands-svg-icons';
 import team from "../../images/team.png"
-import RajeshSir from "../../images/rajeshsir.jpg"
+import RajeshSir from "../../images/rajeshsir.webp"
 import anupam from "../../images/founders/anupam.webp"
 import arpit from "../../images/founders/arpit.webp"
 import himanshu from "../../images/founders/himanshu.webp"
@@ -19,24 +19,24 @@ import nikita from "../../images/finalyear/nikita.webp";
 import pravesh from "../../images/finalyear/pravesh.webp";
 import rajat from "../../images/finalyear/rajat.webp";
 import sneha from "../../images/finalyear/sneha.webp";
-import apoorva from "../../images/thirdyear/apoorva.jpg";
-import aryaman from "../../images/thirdyear/aryaman.jpg";
-import chirayu from "../../images/thirdyear/chirayu.jpeg";
-import darshan from "../../images/thirdyear/darshan.jpeg";
-import devansh from "../../images/thirdyear/devansh.jpg";
-import harshit from "../../images/thirdyear/harshit.jpeg";
-import ishika from "../../images/thirdyear/ishika.jpg";
-import pavnesh from "../../images/thirdyear/pavnesh.jpg";
-import puneet from "../../images/thirdyear/puneet.jpg";
-import rahul from "../../images/thirdyear/rahul.jpg";
-import vinamra from "../../images/secondyear/vinamra.jpg";
-import divyansh from "../../images/secondyear/divyansh.jpg";
-import nishant from "../../images/secondyear/nishant.jpg";
-import abhinav from "../../images/secondyear/abhinav.jpeg";
-import sudeshna from "../../images/secondyear/sudeshna.jpg";
-import aman from "../../images/secondyear/aman.png";
-import mahak from "../../images/secondyear/mahak.jpeg";
-import pranjali from "../../images/secondyear/pranjali.jpeg";
+import apoorva from "../../images/thirdyear/apoorva.webp";
+import aryaman from "../../images/thirdyear/aryaman.webp";
+import chirayu from "../../images/thirdyear/chirayu.webp";
+import darshan from "../../images/thirdyear/darshan.webp";
+import devansh from "../../images/thirdyear/devansh.webp";
+import harshit from "../../images/thirdyear/harshit.webp";
+import ishika from "../../images/thirdyear/ishika.webp";
+import pavnesh from "../../images/thirdyear/pavnesh.webp";
+import puneet from "../../images/thirdyear/puneet.webp";
+import rahul from "../../images/thirdyear/rahul.webp";
+import vinamra from "../../images/secondyear/vinamra.webp";
+import divyansh from "../../images/secondyear/divyansh.webp";
+import nishant from "../../images/secondyear/nishant.webp";
+import abhinav from "../../images/secondyear/abhinav.webp";
+import sudeshna from "../../images/secondyear/sudeshna.webp";
+import aman from "../../images/secondyear/aman.webp";
+import mahak from "../../images/secondyear/mahak.webp";
+import pranjali from "../../images/secondyear/pranjali.webp";
 
 interface pic_detail {
   name: string;
