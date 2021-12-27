@@ -621,7 +621,7 @@ const Achievements = () => {
   const images = [a1, a2, a3, a4];
   
     return(
-        <div className="text-black bg-white w-screen">
+        <div className="text-black bg-white w-screen mb-8">
           <Head>
             <link
               rel="stylesheet"
@@ -667,20 +667,33 @@ const Achievements = () => {
             <div className="swiper-button-prev"></div>
             <div className="swiper-pagination"></div>
           </div>
-          
+
           {achievements.map((item, index) => (
-            <div className="grid grid-cols-1 lg:grid-cols-2 px-12 md:px-24 lg:px-48 pb-8">
-              <div key={index} className="bg-white col-span-1">
-                <h1 className="text-2xl text-center font-bold pt-8">{item.name}</h1>
-                <p className="pt-4 text-gray-600">{item.info}</p>
-                <p className="text-gray-600">{item.author}</p>
-                <hr />
+            <div key={index} className="mt-12 md:mt-20 lg:mt-32 xl:mt-40 mx-8 lg:mx-16 grid grid-cols-1 lg:grid-cols-9">
+              {index % 2 === 0 ? <><div className="mb-4 col-span-1 lg:col-span-4 bg-purple-400 text-white rounded-lg shadow-xl mx-auto my-auto px-4 py-4 lg:px-20 lg:py-12 text-xl md:text-2xl lg:text-4xl font-bold">{item.date}</div>
+            <div className="hidden lg:inline-block col-span-1 mx-auto my-auto items-center bg-gray-800 shadow-xl w-8 h-8 rounded-full">
+              <h1 className="mx-auto text-white text-center font-semibold text-lg">{index+1}</h1>
             </div>
-            <div className="col-span-1 text-center my-auto  px-12 md:px-24 lg:px-48">
-              {item.date}
+            <div className="col-span-1 lg:col-span-4 bg-red-400 rounded-lg shadow-xl px-2 lg:px-6 py-4 lg:border-l-4 lg:border-green-400 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+              <h1 className="font-bold text-white text-xl lg:text-2xl text-center">{item.name}</h1>
+              <h3 className="mb-3 font-bold text-white text-lg lg:text-xl text-center">{ item.info }</h3>
+              <p className="text-sm font-medium leading-snug text-center tracking-wide text-white text-opacity-100">{ item.author }</p>
+            </div></> : <><div className="hidden lg:inline-block col-span-4 bg-red-400 rounded-lg shadow-xl px-6 py-4 border-r-4 border-green-400 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+              <h1 className="font-bold text-white text-2xl text-center">{item.name}</h1>
+              <h3 className="mb-3 font-bold text-white text-xl text-center">{ item.info }</h3>
+              <p className="text-sm font-medium leading-snug text-center tracking-wide text-white text-opacity-100">{ item.author }</p>
             </div>
-            <hr />
+            <div className="hidden lg:inline-block col-span-1 mx-auto my-auto items-center bg-gray-800 shadow-xl w-8 h-8 rounded-full">
+              <h1 className="mx-auto text-white text-center font-semibold text-lg">{index+1}</h1>
             </div>
+            <div className="mb-4 col-span-1 lg:col-span-4 bg-purple-400 text-white rounded-lg shadow-xl mx-auto my-auto px-4 py-4 lg:px-20 lg:py-12 text-xl md:text-2xl lg:text-4xl font-bold">{item.date}</div>
+            <div className="inline-block lg:hidden col-span-1 lg:col-span-4 bg-red-400 rounded-lg shadow-xl px-2 lg:px-6 py-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+              <h1 className="font-bold text-white text-xl lg:text-2xl text-center">{item.name}</h1>
+              <h3 className="mb-3 font-bold text-white text-lg lg:text-xl text-center">{ item.info }</h3>
+              <p className="text-sm font-medium leading-snug text-center tracking-wide text-white text-opacity-100">{ item.author }</p>
+            </div>
+            </>}
+          </div>
           ))}
         </div>
     )
