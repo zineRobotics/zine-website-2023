@@ -43,7 +43,7 @@ const SecFooter = () => {
               </div>
               <div className="pb-4 grid grid-cols-2">
                 <div className="w-8 mx-auto"><Image src={locationlogo} /></div>  { /* Here the location icon should come */}
-                <div className="cursor-pointer my-auto text-lg"><Link href="http://www.google.co.in">ZINE</Link></div>  {/* Here the link to location should come */}
+                <div className="cursor-pointer my-auto text-lg"><Link href="https://www.google.com/maps/place/Raman+Lab/@26.8605804,75.8161274,17z/data=!4m5!3m4!1s0x396db6777a9a3ecd:0x74302e6112616971!8m2!3d26.8619742!4d75.8104223">ZINE</Link></div>  {/* Here the link to location should come */}
               </div>
             </div>
         </div>
