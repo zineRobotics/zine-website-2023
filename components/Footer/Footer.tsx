@@ -2,9 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from '../../images/zinelogo_11zon.webp';
-import githublogo from '../../images/github.png';
-import linkedinlogo from '../../images/linkedinicon.png';
-import instagramlogo from '../../images/instagramicon_11zon (1).webp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faFacebook, faTwitter, faInstagram, faLinkedin, faGithub,  faWordpress} from '@fortawesome/free-brands-svg-icons';
 
 const Footer_Main = () => {
     return(
@@ -14,15 +13,15 @@ const Footer_Main = () => {
                 <div id="footerid" className="box-border border-2 border-top pt-4 rounded-lg justify-center">
                     <div className="w-20 h-20 sm:w-28 sm:h-28 mb-10 mx-32"><Image src={logo}></Image></div>
                     <div className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500 text-3xl xl:text-4xl text-center">Connect With ZINE!</div>
-                    <div className="flex gap-8 justify-center mb-10">
+                    <div className="flex gap-8 justify-center mb-10 mx-auto">
                         <div className="lg:w-20 lg:h-20 w-12 h-12 pt-5 transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-                        <Link href = "https://github.com/zine-robotics"><Image className="cursor-pointer w-20 h-20" src={githublogo}/></Link>
+                        <Link href = "https://github.com/zine-robotics"><FontAwesomeIcon icon={faGithub} className="text-white mr-4" size="4x" /></Link>
                         </div>
                         <div className="lg:w-20 lg:h-20 w-12 h-12 pt-5 transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-                        <Link href = "https://www.linkedin.com/company/de-zine-limited/mycompany/"><Image className="cursor-pointer w-20 h-20" src={linkedinlogo}/></Link>
+                        <Link href = "https://www.linkedin.com/company/de-zine-limited/mycompany/"><FontAwesomeIcon icon={faLinkedin} className="text-white mr-4" size="4x" /></Link>
                         </div>
                         <div className="lg:w-20 lg:h-20 w-12 h-12 pt-5 transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-                        <Link href = "https://www.instagram.com/zine.robotics/"><Image className="cursor-pointer w-20 h-20" src={instagramlogo}/></Link>
+                        <Link href = "https://www.instagram.com/zine.robotics/"><FontAwesomeIcon icon={faInstagram} className="text-white mr-4" size="4x" /></Link>
                         </div>
                     </div>
                 </div>
