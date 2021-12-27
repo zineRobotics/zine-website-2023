@@ -79,7 +79,7 @@ module.exports = {
         'bg-a12': "url('../images/project/a12_11zon.webp')",
         'bg-a13': "url('../images/project/a13_11zon.webp')",
         'bg-a14': "url('../images/project/a14_11zon.webp')",
-        'bg-team': "url('../images/team_11zon.webp')",
+        'bg-team': "url('../images/team.jpeg')",
         'about-bg': "url('../images/aboutbg_11zon.webp')",
       },
       fontSize: {

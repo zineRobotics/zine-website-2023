@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFacebook, faTwitter, faInstagram, faLinkedin, faGithub,  faWordpress} from '@fortawesome/free-brands-svg-icons';
-import team from "../../images/team_11zon.webp"
+import team from "../../images/team.jpeg"
 import RajeshSir from "../../images/rajeshsir.webp"
 import anupam from "../../images/founders/anupam.webp"
 import arpit from "../../images/founders/arpit.webp"
@@ -384,7 +384,7 @@ const secondyear: pic_detail[] = [
 const Team = () => {
     return(
       <div className="text-black bg-white w-screen justify-center">
-        <div className="bg-cover bg-bg-team h-60 md:h-80 lg:h-120 px-12 lg:px-24"></div>
+        <div className="bg-cover bg-bg-team h-60 md:h-120 lg:h-140 px-12 lg:px-24"></div>
         <h1 className="pt-8 text-4xl text-center px-12 lg:px-24">Our Founders: The Roots Of Our Tree</h1>
         <div className="pt-16 grid grid-cols-1 lg:grid-cols-2 px-12 lg:px-24">
           <div className="col-span-1 w-48 member-hover lg:w-80 justify-self-center">
