@@ -7,7 +7,7 @@ import {
   ZineText
 
 } from "../components/Home";
-import { Footer } from "../components/Footer";
+import { Footer, SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 
 const Home: NextPage = () => {
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
       <LandingPage />
       <ZineText />
       <ZineActivities />
-      <Footer />
+      <SecFooter />
     </div>
   );
 };

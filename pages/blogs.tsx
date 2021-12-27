@@ -4,7 +4,7 @@ import {
   Blogs,
 
 } from "../components/Blogs";
-import { Footer } from "../components/Footer";
+import { Footer, SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 
 const Home: NextPage = () => {
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       </Head>
       <Navbar />
       <Blogs />
-      <Footer />
+      <SecFooter />
     </>
   );
 };
