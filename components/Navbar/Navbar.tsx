@@ -3,12 +3,11 @@ import logo from "../../images/zinelogo_11zon.webp";
 import hamburger from "../../images/hamburger.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import home from "../../images/home-icon.png";
-import about from "../../images/about.png";
-import Project from "../../images/project-icon.png";
-import Team from "../../images/team-icon.png";
-import Blog from "../../images/blog.png";
-import Achievements from "../../images/badge-icon.png";
+import home from "../../images/home-icon.webp";
+import about from "../../images/about.webp";
+import Project from "../../images/project-icon.webp";
+import Team from "../../images/team-icon.webp";
+import Achievements from "../../images/badge-icon.webp";
 
 const Navbar = () => {
   const [Hide, setHide] = useState(false);
