@@ -5,4 +5,5 @@ module.exports = {
     loader: "imgix",
     path: "http://zine.co.in/",
   },
+  trailingSlash: true,
 }
