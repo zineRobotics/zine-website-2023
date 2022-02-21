@@ -12,9 +12,8 @@ const LandingPage = () => {
             <div className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500 text-3xl sm:text-4xl md:text-7xl lg:text-8xl">
               Zine Robotics and Research
             </div>
-            <br />
           </h1>
-          <p className="leading-normal text-base text-xl md:text-2xl mb-8 -mt-4 text-center">
+          <p className="leading-normal text-base text-xl md:text-4xl mb-8 mt-8 text-center">
             Where Imagination Leads to Creation
           </p>
         </div>
