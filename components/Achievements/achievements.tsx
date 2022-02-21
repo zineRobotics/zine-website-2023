@@ -1,700 +1,627 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Head from "next/head";
-import Script from "next/script";
+import { Chrono } from "react-chrono";
 import a1 from "../../images/achievements/1.webp"
 import a2 from "../../images/achievements/2.webp"
 import a3 from "../../images/achievements/3.webp"
 import a4 from "../../images/achievements/4.webp"
 
- //import Slider from "../Slider";
-
 interface achievement {
-  name: string;
-  date: string;
-  info: string;
-  author: string;
-  desc: string;
+  title: string;
+  cardTitle: string;
+  cardSubtitle: string;
+  cardDetailedText: string;
 }
 
-const achievements: achievement[] = [
+const items: achievement[] = [
   {
-    name: "IEEE Research Paper",
-    date: "November 2020",
-    info: "A research paper on 'Shortest Path Evaluation with Enhanced Linear Graph and Dijkstra Algorithm' was presented at 59th Annual Conference of SICE",
-    author: "Author: Tanishk Dudi",
-    desc: "",
+    cardTitle: "IEEE Research Paper",
+    title: "November 2020",
+    cardDetailedText: "A research paper on 'Shortest Path Evaluation with Enhanced Linear Graph and Dijkstra Algorithm' was presented at 59th Annual Conference of SICE",
+    cardSubtitle: "Author: Tanishk Dudi",
+    
   },
   {
-    name: "CSAW Hack3D Hackathon 2020",
-    date: "November 2020",
-    info: "2nd Place in a global virtual hackathon event",
-    author: "Team Members : Devansh Garg, Chirayu Rankawat",
-    desc: "",
+    cardTitle: "CSAW Hack3D Hackathon 2020",
+    title: "November 2020",
+    cardDetailedText: "2nd Place in a global virtual hackathon event",
+    cardSubtitle: "Team Members : Devansh Garg, Chirayu Rankawat",
+    
   },
   {
-    name: "Indian Drone Racing League StayAtHome Season 2",
-    date: "October 2020",
-    info: "1st Place in Virtual Drone Race conducted on Velocidrone simulator",
-    author: "Team Members : Devnath Nair, Vishal Kothari",
-    desc: "",
+    cardTitle: "Indian Drone Racing League StayAtHome Season 2",
+    title: "October 2020",
+    cardDetailedText: "1st Place in Virtual Drone Race conducted on Velocidrone simulator",
+    cardSubtitle: "Team Members : Devnath Nair, Vishal Kothari",
+    
   },
   {
-    name: "HackJaipur Virtual Hackathon 2020",
-    date: "August 2020",
-    info: "1st Place among 2200+ participants and 360+ teams",
-    author: "Team Members : Kshitiz Kamal, Muskan Garg, Saransh Tayal",
-    desc: "",
+    cardTitle: "HackJaipur Virtual Hackathon 2020",
+    title: "August 2020",
+    cardDetailedText: "1st Place among 2200+ participants and 360+ teams",
+    cardSubtitle: "Team Members : Kshitiz Kamal, Muskan Garg, Saransh Tayal",
+    
   },
   {
-    name: "Indian Drone Racing League 28, NIT Goa",
-    date: "March 2020",
-    info: "2nd Place in Pro Class Race ",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 28, NIT Goa",
+    title: "March 2020",
+    cardDetailedText: "2nd Place in Pro Class Race ",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "India Drone Festival 2.0, ITDA, Dehradun",
-    date: "March 2020",
-    info: "2nd Place in Tie the Knot",
-    author: "Team Members : Vishal Kothari",
-    desc: "",
+    cardTitle: "India Drone Festival 2.0, ITDA, Dehradun",
+    title: "March 2020",
+    cardDetailedText: "2nd Place in Tie the Knot",
+    cardSubtitle: "Team Members : Vishal Kothari",
+    
   },
   {
-    name: "Indian Drone Racing League 27, ITDA, Dehradun",
-    date: "March 2020",
-    info: "1st Place in Pro Class Race",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 27, ITDA, Dehradun",
+    title: "March 2020",
+    cardDetailedText: "1st Place in Pro Class Race",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Indian Drone Racing League 26, BITS PIlani Goa",
-    date: "February 2020",
-    info: "2nd Place in Pro Class Race",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 26, BITS PIlani Goa",
+    title: "February 2020",
+    cardDetailedText: "2nd Place in Pro Class Race",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Kshitij 2020, IIT Kharagpur",
-    date: "January 2020",
-    info: "2nd Place in Tesseract (autonomous event)",
-    author: "Team Members : Devansh Garg, Puneet Singh, Apoorva Raj, Rahul Raj",
-    desc: "",
+    cardTitle: "Kshitij 2020, IIT Kharagpur",
+    title: "January 2020",
+    cardDetailedText: "2nd Place in Tesseract (autonomous event)",
+    cardSubtitle: "Team Members : Devansh Garg, Puneet Singh, Apoorva Raj, Rahul Raj",
+    
   },
   {
-    name: "Indian Drone Racing League 24, VJTI, Mumbai",
-    date: "December 2019",
-    info: "1st Place in Pro Class Race",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 24, VJTI, Mumbai",
+    title: "December 2019",
+    cardDetailedText: "1st Place in Pro Class Race",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Research Paper",
-    date: "December 2019",
-    info: "A research paper on A novel mobile based hybrid skin tone Classification algorithm for Cancer detection was presented at REDSET 19 Conference held at GD Goenka",
-    author: "Author : Paarth Bir",
-    desc: "",
+    cardTitle: "Research Paper",
+    title: "December 2019",
+    cardDetailedText: "A research paper on A novel mobile based hybrid skin tone Classification algorithm for Cancer detection was presented at REDSET 19 Conference held at GD Goenka",
+    cardSubtitle: "Author : Paarth Bir",
+    
   },
   {
-    name: "Indian Drone Racing League 23, PDPU, Gandhinagar",
-    date: "November 2019",
-    info: "1st Place in Pro Class Race 3rd Place in Pro Class Race",
-    author: "Team Members : Devnath Nair, Vishal Kothari",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 23, PDPU, Gandhinagar",
+    title: "November 2019",
+    cardDetailedText: "1st Place in Pro Class Race 3rd Place in Pro Class Race",
+    cardSubtitle: "Team Members : Devnath Nair, Vishal Kothari",
+    
   },
   {
-    name: "Sphinx 2019, MNIT Jaipur",
-    date: "November 2019",
-    info: "1st Place in Robotryst 1st Place in Drone Rush 3rd Place in Drone Rush",
-    author: "Team Members : Harsh Chaudhary, Brijraj, Akash Sharma Team Members : Devnath Nair, Nimesh Khandelwal",
-    desc: "",
+    cardTitle: "Sphinx 2019, MNIT Jaipur",
+    title: "November 2019",
+    cardDetailedText: "1st Place in Robotryst 1st Place in Drone Rush 3rd Place in Drone Rush",
+    cardSubtitle: "Team Members : Harsh Chaudhary, Brijraj, Akash Sharma Team Members : Devnath Nair, Nimesh Khandelwal",
+    
   },
   {
-    name: "Asia Drone League, Malaysia",
-    date: "October 2019",
-    info: "Qualified into Top 32, 18th Overall amongst the top 70 pilots in Asia",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Asia Drone League, Malaysia",
+    title: "October 2019",
+    cardDetailedText: "Qualified into Top 32, 18th Overall amongst the top 70 pilots in Asia",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Indian Drone Racing League 22, IIT Gandhinagar",
-    date: "October 2019",
-    info: "1st Place in Pro Class Race",
-    author: "Team Members : Vishal Kothari",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 22, IIT Gandhinagar",
+    title: "October 2019",
+    cardDetailedText: "1st Place in Pro Class Race",
+    cardSubtitle: "Team Members : Vishal Kothari",
+    
   },
   {
-    name: "Indian Drone Racing League 21, VIT Vellore",
-    date: "October 2019",
-    info: "2nd Place in Pro Class Race ",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 21, VIT Vellore",
+    title: "October 2019",
+    cardDetailedText: "2nd Place in Pro Class Race ",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Indian Drone Racing League 20, GEU Dehradun",
-    date: "June 2019",
-    info: "2nd Place in Pro Class Race",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 20, GEU Dehradun",
+    title: "June 2019",
+    cardDetailedText: "2nd Place in Pro Class Race",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Drone Race, Techidate 2019, Manipal University Jaipur",
-    date: "March 2019",
-    info: "1st Place",
-    author: "Team Members : Nimesh Khandelwal",
-    desc: "",
+    cardTitle: "Drone Race, Techititle 2019, Manipal University Jaipur",
+    title: "March 2019",
+    cardDetailedText: "1st Place",
+    cardSubtitle: "Team Members : Nimesh Khandelwal",
+    
   },
   {
-    name: "Game of Drones, JECRC College, Jaipur",
-    date: "March 2019",
-    info: "1st Place 3rd Place",
-    author: "Team Members : Devnath Nair, Vishal Kothari",
-    desc: "",
+    cardTitle: "Game of Drones, JECRC College, Jaipur",
+    title: "March 2019",
+    cardDetailedText: "1st Place 3rd Place",
+    cardSubtitle: "Team Members : Devnath Nair, Vishal Kothari",
+    
   },
   {
-    name: "Drone TechX,JECRC University,Jaipur",
-    date: "March 2019",
-    info: "2nd Place 3rd Place",
-    author: "Team Members : Devnath Nair, Nimesh Khandelwal",
-    desc: "",
+    cardTitle: "Drone TechX,JECRC University,Jaipur",
+    title: "March 2019",
+    cardDetailedText: "2nd Place 3rd Place",
+    cardSubtitle: "Team Members : Devnath Nair, Nimesh Khandelwal",
+    
   },
   {
-    name: "Indian Drone Racing League 19, IIT Delhi",
-    date: "March 2019",
-    info: "2nd Place in Pro Class Race",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 19, IIT Delhi",
+    title: "March 2019",
+    cardDetailedText: "2nd Place in Pro Class Race",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Aerial Drones, BML Munjal, Delhi NCR",
-    date: "February 2019",
-    info: "1st Place 2nd Place",
-    author: "Team Members : Devnath Nair, Vishal Kothari",
-    desc: "",
+    cardTitle: "Aerial Drones, BML Munjal, Delhi NCR",
+    title: "February 2019",
+    cardDetailedText: "1st Place 2nd Place",
+    cardSubtitle: "Team Members : Devnath Nair, Vishal Kothari",
+    
   },
   {
-    name: "Indian Drone Racing League 17, BITS Pilani, Goa Campus",
-    date: "February 2019",
-    info: "3rd Place in Pro Class Race",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 17, BITS Pilani, Goa Campus",
+    title: "February 2019",
+    cardDetailedText: "3rd Place in Pro Class Race",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Kshitij 2019, IIT-Kharagpur",
-    date: "January 2019",
-    info: "1st Place in Zenith (manual event) 2nd Place in Zenith (manual event)",
-    author: "Team Members : Navdeep Singh, Bhanu Mohindra, Saransh Tayal, Kshitiz Kamal Team Members : Nikita Rautela, Pravesh Sandhu, Rajat Agrawal, Brijraj",
-    desc: "",
+    cardTitle: "Kshitij 2019, IIT-Kharagpur",
+    title: "January 2019",
+    cardDetailedText: "1st Place in Zenith (manual event) 2nd Place in Zenith (manual event)",
+    cardSubtitle: "Team Members : Navdeep Singh, Bhanu Mohindra, Saransh Tayal, Kshitiz Kamal Team Members : Nikita Rautela, Pravesh Sandhu, Rajat Agrawal, Brijraj",
+    
   },
   {
-    name: "Plinth 2019, LNMIIT, Jaipur",
-    date: "November 2020",
-    info: "1st Place in Drone Obstruction 3rd Place in Drone Obstruction",
-    author: "Team Members : Devnath Nair, Vishal Kothari",
-    desc: "",
+    cardTitle: "Plinth 2019, LNMIIT, Jaipur",
+    title: "November 2020",
+    cardDetailedText: "1st Place in Drone Obstruction 3rd Place in Drone Obstruction",
+    cardSubtitle: "Team Members : Devnath Nair, Vishal Kothari",
+    
   },
   {
-    name: "Indian Drone Racing League 14, Chitkara University, Punjab",
-    date: "October 2018",
-    info: "1st Place in Pro Class Race",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 14, Chitkara University, Punjab",
+    title: "October 2018",
+    cardDetailedText: "1st Place in Pro Class Race",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Indian Drone Racing League 13, IIT Gandhinagar, Gujarat",
-    date: "October 2018",
-    info: "3rd Place in Pro Class Race 1st Place in Beginner Class Race",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Indian Drone Racing League 13, IIT Gandhinagar, Gujarat",
+    title: "October 2018",
+    cardDetailedText: "3rd Place in Pro Class Race 1st Place in Beginner Class Race",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Technoxian 2018, Thaygaraj Stadium, Delhi",
-    date: "July 2018",
-    info: "1st Place in World Robotics Championship (Quadcopter)",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Technoxian 2018, Thaygaraj Stadium, Delhi",
+    title: "July 2018",
+    cardDetailedText: "1st Place in World Robotics Championship (Quadcopter)",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "BMU Munjal University, Delhi NCR",
-    date: "April 2018",
-    info: "1st Place in Aerial Drones",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "BMU Munjal University, Delhi NCR",
+    title: "April 2018",
+    cardDetailedText: "1st Place in Aerial Drones",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "JECRC College, Jaipur",
-    date: "March 2018",
-    info: "1st Place in Drone Racing Championship",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "JECRC College, Jaipur",
+    title: "March 2018",
+    cardDetailedText: "1st Place in Drone Racing Championship",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "JECRC University, Jaipur",
-    date: "March 2018",
-    info: "1st Place in Drone TechX",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "JECRC University, Jaipur",
+    title: "March 2018",
+    cardDetailedText: "1st Place in Drone TechX",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "ICECA Conference, Coimbatore",
-    date: "January 2018",
-    info: "Joint Angle Measurement using MEMS based inertial sensors for a biped robot",
-    author: "Author : Rahul Ravichandran",
-    desc: "",
+    cardTitle: "ICECA Conference, Coimbatore",
+    title: "January 2018",
+    cardDetailedText: "Joint Angle Measurement using MEMS based inertial sensors for a biped robot",
+    cardSubtitle: "Author : Rahul Ravichandran",
+    
   },
   {
-    name: "Sphinx 2018, MNIT Jaipur",
-    date: "January 2018",
-    info: "1st Place in Robowar 1st Place in Robostone 2nd Place in Android App Development 2nd Place in Robostone",
-    author: "Team Members : Nimesh Khandelwal, Vikalp Saini Team Members : Nimesh Khandelwal, Vikalp Saini Team Members - Saksham Jain, Gaurav Team Members : Rohan Chauhan, Saksham Jain",
-    desc: "",
+    cardTitle: "Sphinx 2018, MNIT Jaipur",
+    title: "January 2018",
+    cardDetailedText: "1st Place in Robowar 1st Place in Robostone 2nd Place in Android App Development 2nd Place in Robostone",
+    cardSubtitle: "Team Members : Nimesh Khandelwal, Vikalp Saini Team Members : Nimesh Khandelwal, Vikalp Saini Team Members - Saksham Jain, Gaurav Team Members : Rohan Chauhan, Saksham Jain",
+    
   },
   {
-    name: "Plinth 2018, LNMIIT",
-    date: "January 2018",
-    info: "1st Place in Drone Obstruction",
-    author: "Team Members : Devnath Nair",
-    desc: "",
+    cardTitle: "Plinth 2018, LNMIIT",
+    title: "January 2018",
+    cardDetailedText: "1st Place in Drone Obstruction",
+    cardSubtitle: "Team Members : Devnath Nair",
+    
   },
   {
-    name: "Science Conclave 2018, MNIT Jaipur",
-    date: "November 2020",
-    info: "Most Innovative Project (Biped) and Silver for Best College Project (Tricopter)",
-    author: "Team Members : Rahul Ravichandran, Devnath Nair, Nimesh Khandelwal",
-    desc: "",
+    cardTitle: "Science Conclave 2018, MNIT Jaipur",
+    title: "November 2020",
+    cardDetailedText: "Most Innovative Project (Biped) and Silver for Best College Project (Tricopter)",
+    cardSubtitle: "Team Members : Rahul Ravichandran, Devnath Nair, Nimesh Khandelwal",
+    
   },
   {
-    name: "Kshitij’18,  IIT Kharagpur",
-    date: "January 2018",
-    info: "2nd place in Image Processing based Autonomous event Fortress",
-    author: "Team Members : Vishal Kothari, Tanmay Agarwal",
-    desc: "",
+    cardTitle: "Kshitij’18,  IIT Kharagpur",
+    title: "January 2018",
+    cardDetailedText: "2nd place in Image Processing based Autonomous event Fortress",
+    cardSubtitle: "Team Members : Vishal Kothari, Tanmay Agarwal",
+    
   },
   {
-    name: "Blitzshlag 2017, MNIT Jaipur",
-    date: "February 2017",
-    info: "Secured 2nd position in Grid-O-Grinder.",
-    author: "",
-    desc: "",
+    cardTitle: "Blitzshlag 2017, MNIT Jaipur",
+    title: "February 2017",
+    cardDetailedText: "Secured 2nd position in Grid-O-Grinder.",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Kshitij'17 IIT Kharagpur",
-    date: "January 2017",
-    info: "Finalists in Image Processing based Autonomous Event Conquest",
-    author: "",
-    desc: "",
+    cardTitle: "Kshitij'17 IIT Kharagpur",
+    title: "January 2017",
+    cardDetailedText: "Finalists in Image Processing based Autonomous Event Conquest",
+    cardSubtitle: "",
+    
   },
   {
-    name: "GridTech'15, Pragati Maidan, New Delhi",
-    date: "April 2015",
-    info: "-Won 1st prize at Students Innovation Pavillion worth of Rs. 1 lakh in the category Robotic Technology in Inspection of Transmission Lines.",
-    author: "",
-    desc: "",
+    cardTitle: "GridTech'15, Pragati Maidan, New Delhi",
+    title: "April 2015",
+    cardDetailedText: "-Won 1st prize at Students Innovation Pavillion worth of Rs. 1 lakh in the category Robotic Technology in Inspection of Transmission Lines.",
+    cardSubtitle: "",
+    
   },
   
   {
-    name: "GridTech'15, Pragati Maidan, New Delhi",
-    date: "April 2015",
-    info: "-Won 1st prize at Students Innovation Pavillion worth of Rs. 50 thousand in the category Smartmeter.",
-    author: "",
-    desc: "",
+    cardTitle: "GridTech'15, Pragati Maidan, New Delhi",
+    title: "April 2015",
+    cardDetailedText: "-Won 1st prize at Students Innovation Pavillion worth of Rs. 50 thousand in the category Smartmeter.",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Blitzschlag 2015, MNIT jaipur",
-    date: "April 19 2015",
-    info: "Circuit mania blitz 2015 2nd and 4th position",
-    author: "",
-    desc: "",
+    cardTitle: "Blitzschlag 2015, MNIT jaipur",
+    title: "April 19 2015",
+    cardDetailedText: "Circuit mania blitz 2015 2nd and 4th position",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Texas Instruments Analog Design",
-    date: "March 2015",
-    info: "Project Solar tracker reached finals",
-    author: "",
-    desc: "",
+    cardTitle: "Texas Instruments Analog Design",
+    title: "March 2015",
+    cardDetailedText: "Project Solar tracker reached finals",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Kshitij '15 IIT Kharagpur",
-    date: "February 2015",
-    info: "-Won first prize in manual event Skyfall.",
-    author: "",
-    desc: "",
+    cardTitle: "Kshitij '15 IIT Kharagpur",
+    title: "February 2015",
+    cardDetailedText: "-Won first prize in manual event Skyfall.",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Kshitij '15 IIT Kharagpur",
-    date: "February 2015",
-    info: "-Won first prize in semi-autonomous event MINEFIELD.",
-    author: "",
-    desc: "",
+    cardTitle: "Kshitij '15 IIT Kharagpur",
+    title: "February 2015",
+    cardDetailedText: "-Won first prize in semi-autonomous event MINEFIELD.",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Kshitij '15 IIT Kharagpur",
-    date: "February 2015",
-    info: "-Finalist in manual event Cascade.",
-    author: "",
-    desc: "",
+    cardTitle: "Kshitij '15 IIT Kharagpur",
+    title: "February 2015",
+    cardDetailedText: "-Finalist in manual event Cascade.",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Autodesk 3D Student design challenge",
-    date: "2014-15",
-    info: "1st and 3rd position in Regionals held at Noida",
-    author: "",
-    desc: "",
+    cardTitle: "Autodesk 3D Student design challenge",
+    title: "2014-15",
+    cardDetailedText: "1st and 3rd position in Regionals held at Noida",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Autodesk 3D Student design challenge",
-    date: "2014-15",
-    info: "Won the national title held at Mumbai",
-    author: "",
-    desc: "",
+    cardTitle: "Autodesk 3D Student design challenge",
+    title: "2014-15",
+    cardDetailedText: "Won the national title held at Mumbai",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Autodesk 3D Student design challenge",
-    date: "2014-15",
-    info: "Presented the design at the Autodesk Panorama, Held in Shangai, China-9-13th March'15",
-    author: "",
-    desc: "",
+    cardTitle: "Autodesk 3D Student design challenge",
+    title: "2014-15",
+    cardDetailedText: "Presented the design at the Autodesk Panorama, Held in Shangai, China-9-13th March'15",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Projects Approved",
-    date: "2014",
-    info: "5 Projects were approved by the TEQUIP worth of 2.5 lakh from Malaviya National Institute of Tehnology(MNIT Jaipur).",
-    author: "",
-    desc: "",
+    cardTitle: "Projects Approved",
+    title: "2014",
+    cardDetailedText: "5 Projects were approved by the TEQUIP worth of 2.5 lakh from Malaviya National Institute of Tehnology(MNIT Jaipur).",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Projects Approved",
-    date: "2014",
-    info: "7 projects were approved worth of 42 lakh from Ministry of Micro Small and Medium Enterprises(MSME), Govt. of India.",
-    author: "",
-    desc: "",
+    cardTitle: "Projects Approved",
+    title: "2014",
+    cardDetailedText: "7 projects were approved worth of 42 lakh from Ministry of Micro Small and Medium Enterprises(MSME), Govt. of India.",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Blitzschlag 2014, MNIT, Jaipur",
-    date: "April 2014",
-    info: "1st Runner up in Retro Electronics",
-    author: "",
-    desc: "",
+    cardTitle: "Blitzschlag 2014, MNIT, Jaipur",
+    title: "April 2014",
+    cardDetailedText: "1st Runner up in Retro Electronics",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Blitzschlag 2014, MNIT, Jaipur",
-    date: "April 2014",
-    info: "1st Runner up in AUTOQUIZ",
-    author: "",
-    desc: "",
+    cardTitle: "Blitzschlag 2014, MNIT, Jaipur",
+    title: "April 2014",
+    cardDetailedText: "1st Runner up in AUTOQUIZ",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Blitzschlag 2014, MNIT, Jaipur",
-    date: "April 2014",
-    info: "1st Runner up in Circuit Biz",
-    author: "",
-    desc: "",
+    cardTitle: "Blitzschlag 2014, MNIT, Jaipur",
+    title: "April 2014",
+    cardDetailedText: "1st Runner up in Circuit Biz",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Blitzschlag 2014, MNIT, Jaipur",
-    date: "April 2014",
-    info: "1st Runner Up in CADesign",
-    author: "",
-    desc: "",
+    cardTitle: "Blitzschlag 2014, MNIT, Jaipur",
+    title: "April 2014",
+    cardDetailedText: "1st Runner Up in CADesign",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Blitzschlag 2014, MNIT, Jaipur",
-    date: "April 2014",
-    info: "4th place in Piezo Alert",
-    author: "",
-    desc: "",
+    cardTitle: "Blitzschlag 2014, MNIT, Jaipur",
+    title: "April 2014",
+    cardDetailedText: "4th place in Piezo Alert",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Research Papers",
-    date: "2014-15",
-    info: "Short Term Load Forecasting using Artificial Neural Networks: A State of Art ",
-    author: "Author- Jatin Verma",
-    desc: "",
+    cardTitle: "Research Papers",
+    title: "2014-15",
+    cardDetailedText: "Short Term Load Forecasting using Artificial Neural Networks: A State of Art ",
+    cardSubtitle: "Author: Jatin Verma",
+    
   },
   {
-    name: "Research Papers",
-    date: "2014-15",
-    info: "A robust technique for Detection of P300 signals.",
-    author: ", Author- Saatvik Shah, Anirudha Kumar",
-    desc: "",
+    cardTitle: "Research Papers",
+    title: "2014-15",
+    cardDetailedText: "A robust technique for Detection of P300 signals.",
+    cardSubtitle: "Authors: Saatvik Shah, Anirudha Kumar",
+    
   },
   {
-    name: "Research Papers",
-    date: "2014-15",
-    info: "Classification of mental tasks from EEG data using backtracking search optimization based neural classifier at Neurocomputing, Elsevier",
-    author: "",
-    desc: "",
+    cardTitle: "Research Papers",
+    title: "2014-15",
+    cardDetailedText: "Classification of mental tasks from EEG data using backtracking search optimization based neural classifier at Neurocomputing, Elsevier",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Research Papers",
-    date: "2014-15",
-    info: "Group based Swarm evolution algorithm (GSEA) driven mental task classifier at Memetic Computing,Springer",
-    author: "",
-    desc: "",
+    cardTitle: "Research Papers",
+    title: "2014-15",
+    cardDetailedText: "Group based Swarm evolution algorithm (GSEA) driven mental task classifier at Memetic Computing,Springer",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Research Papers",
-    date: "2014-15",
-    info: "Paper presentation on 'use of epoxy resin viscous fiber polymer in turbine blades',IIT ROORKEE ",
-    author: "",
-    desc: "",
+    cardTitle: "Research Papers",
+    title: "2014-15",
+    cardDetailedText: "Paper presentation on 'use of epoxy resin viscous fiber polymer in turbine blades',IIT ROORKEE ",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Research Papers",
-    date: "2014-15",
-    info: "Designed and fabricated an RC S.P.A.D. Airplane",
-    author: "",
-    desc: "",
+    cardTitle: "Research Papers",
+    title: "2014-15",
+    cardDetailedText: "Designed and fabricated an RC S.P.A.D. Airplane",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Research Papers",
-    date: "2014-15",
-    info: "Best Paper Award at International Conference on Advances in Computer Engineering and Applications (ICACEA) 2015, IMS Ghaziabad INDIA",
-    author: "",
-    desc: "",
+    cardTitle: "Research Papers",
+    title: "2014-15",
+    cardDetailedText: "Best Paper Award at International Conference on Advances in Computer Engineering and Applications (ICACEA) 2015, IMS Ghaziabad INDIA",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Research Papers",
-    date: "2014-15",
-    info: "Best Paper Award in 3rd International Conference on 'Advance Trends in Engineering, Technology and Research' (ICATETR) 2014; 22-24 Dec BKIT, Kota Rajasthan.",
-    author: "",
-    desc: "",
+    cardTitle: "Research Papers",
+    title: "2014-15",
+    cardDetailedText: "Best Paper Award in 3rd International Conference on 'Advance Trends in Engineering, Technology and Research' (ICATETR) 2014; 22-24 Dec BKIT, Kota Rajasthan.",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Tech Expo 2014, MNIT, Jaipur",
-    date: "2014",
-    info: "1st prize SmartCopter, Mechanical Category",
-    author: "",
-    desc: "",
+    cardTitle: "Tech Expo 2014, MNIT, Jaipur",
+    title: "2014",
+    cardDetailedText: "1st prize SmartCopter, Mechanical Category",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Tech Expo 2014, MNIT, Jaipur",
-    date: "2014",
-    info: "1st prize Solar Tracker, Electronics Category",
-    author: "",
-    desc: "",
+    cardTitle: "Tech Expo 2014, MNIT, Jaipur",
+    title: "2014",
+    cardDetailedText: "1st prize Solar Tracker, Electronics Category",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Tech Expo 2014, MNIT, Jaipur",
-    date: "2014",
-    info: "1st prize Interactive SmartBoard , Computer Science Category",
-    author: "",
-    desc: "",
+    cardTitle: "Tech Expo 2014, MNIT, Jaipur",
+    title: "2014",
+    cardDetailedText: "1st prize Interactive SmartBoard , Computer Science Category",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Tech Expo 2014, MNIT, Jaipur",
-    date: "2014",
-    info: "2nd Prize Bus Lane with Intermittent Priority, Civil Category",
-    author: "",
-    desc: "",
+    cardTitle: "Tech Expo 2014, MNIT, Jaipur",
+    title: "2014",
+    cardDetailedText: "2nd Prize Bus Lane with Intermittent Priority, Civil Category",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Tech Expo 2014, MNIT, Jaipur",
-    date: "2014",
-    info: "2nd prize Robotic Hand (Robo-Arm) in Open Category",
-    author: "",
-    desc: "",
+    cardTitle: "Tech Expo 2014, MNIT, Jaipur",
+    title: "2014",
+    cardDetailedText: "2nd prize Robotic Hand (Robo-Arm) in Open Category",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Miscellaneous",
-    date: "2014",
-    info: "Participated in Fusion 360 Hackathon, Tongji University, China",
-    author: "",
-    desc: "",
+    cardTitle: "Miscellaneous",
+    title: "2014",
+    cardDetailedText: "Participated in Fusion 360 Hackathon, Tongji University, China",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Miscellaneous",
-    date: "2014",
-    info: "TATA MOTORS mind rover champion.. pre placement interview to KARSH Tharyani,(2nd year)",
-    author: "",
-    desc: "",
+    cardTitle: "Miscellaneous",
+    title: "2014",
+    cardDetailedText: "TATA MOTORS mind rover champion.. pre placement interview to KARSH Tharyani,(2nd year)",
+    cardSubtitle: "",
+    
   },
   {
-    name: "PREVENTIVE GEAR MAINTANENCE",
-    date: "2014",
-    info: "Filed for Patent, Nominated for Best Innovation Award",
-    author: "Team Members: Saatvik Shah, Vaibhav Jain, Sanjay Thakur",
-    desc: "",
+    cardTitle: "PREVENTIVE GEAR MAINTANENCE",
+    title: "2014",
+    cardDetailedText: "Filed for Patent, Nominated for Best Innovation Award",
+    cardSubtitle: "Team Members: Saatvik Shah, Vaibhav Jain, Sanjay Thakur",
+    
   },
   {
-    name: "GridTech'13, Pragati Maidan, New Delhi",
-    date: "2014",
-    info: "Organized by Power Grid Corporation of India Ltd. Is an international event in which companies, colleges and institutes present their prototypes for different real-time problems Our team was awarded 3rd prize in the competition",
-    author: "Team Members: Nikhil Jain, Harshit Saxena, Abhishek Gupta, Avinash Baheti, Arush Pratap Singh Rawat",
-    desc: "",
+    cardTitle: "GridTech'13, Pragati Maidan, New Delhi",
+    title: "2014",
+    cardDetailedText: "Organized by Power Grid Corporation of India Ltd. Is an international event in which companies, colleges and institutes present their prototypes for different real-time problems Our team was awarded 3rd prize in the competition",
+    cardSubtitle: "Team Members: Nikhil Jain, Harshit Saxena, Abhishek Gupta, Avinash Baheti, Arush Pratap Singh Rawat",
+    
   },
   {
-    name: "INSPIRON",
-    date: "2014",
-    info: "Won Third Prize in Kshitij, IIT Kharagpur 2014",
-    author: "Team Members: Devang Darode, Karsh, Bharat",
-    desc: "",
+    cardTitle: "INSPIRON",
+    title: "2014",
+    cardDetailedText: "Won Third Prize in Kshitij, IIT Kharagpur 2014",
+    cardSubtitle: "Team Members: Devang Darode, Karsh, Bharat",
+    
   },
   {
-    name: "JBiofeedback through electronic Goniometer",
-    date: "2012",
-    info: "Patent is sought on the concept as well as on the device. Patent application filed in July 2011 by the Malaviya National Institute of Technology, Jaipur, India, Our team was awarded 3rd prize in the competition",
-    author: "Team Members: Dr. Rajesh Kumar with Alok Agrawal, Anoop Honnekeri Nagraj, Rohit Saxena",
-    desc: "",
+    cardTitle: "JBiofeedback through electronic Goniometer",
+    title: "2012",
+    cardDetailedText: "Patent is sought on the concept as well as on the device. Patent application filed in July 2011 by the Malaviya National Institute of Technology, Jaipur, India, Our team was awarded 3rd prize in the competition",
+    cardSubtitle: "Team Members: Dr. Rajesh Kumar with Alok Agrawal, Anoop Honnekeri Nagraj, Rohit Saxena",
+    
   },
   {
-    name: "Smart Card based Real Time Emission Measurement and Pollution Control Enforcement",
-    date: "2012",
-    info: "Patent application filed in January 2012 by the Malaviya National Institute of Technology, Jaipur, India, Nominated for Best Innovation Award",
-    author: "Team Members: Dr. Rajesh Kumar with Alok Agrawal, Jai Dhariwal, Nirmala Kunwar, Ritika Dhyawala",
-    desc: "",
+    cardTitle: "Smart Card based Real Time Emission Measurement and Pollution Control Enforcement",
+    title: "2012",
+    cardDetailedText: "Patent application filed in January 2012 by the Malaviya National Institute of Technology, Jaipur, India, Nominated for Best Innovation Award",
+    cardSubtitle: "Team Members: Dr. Rajesh Kumar with Alok Agrawal, Jai Dhariwal, Nirmala Kunwar, Ritika Dhyawala",
+    
   },
   {
-    name: "Analog Design Contest 2012",
-    date: "2011",
-    info: "Five teams took part this year and again cleared the three interim stages of the contest, Out of 5 teams, one team was selected for paper presentation for the next round at TIIEC Conference, banglore and two other teams were also selected for poster presentation at the very same. The paper has been later published in the IEEE proceedings, Banglore chapter.",
-    author: "",
-    desc: "",
+    cardTitle: "Analog Design Contest 2012",
+    title: "2011",
+    cardDetailedText: "Five teams took part this year and again cleared the three interim stages of the contest, Out of 5 teams, one team was selected for paper presentation for the next round at TIIEC Conference, banglore and two other teams were also selected for poster presentation at the very same. The paper has been later published in the IEEE proceedings, Banglore chapter.",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Analog Design Contest 2012",
-    date: "2011",
-    info: "Low cost plant fertilizer dispenser aid<",
-    author: "Team Members:Deenbandhu, Prince Jain, Anshul Khandelwal",
-    desc: "",
+    cardTitle: "Analog Design Contest 2012",
+    title: "2011",
+    cardDetailedText: "Low cost plant fertilizer dispenser aid<",
+    cardSubtitle: "Team Members:Deenbandhu, Prince Jain, Anshul Khandelwal",
+    
   },
   {
-    name: "Analog Design Contest 2012",
-    date: "2011",
-    info: "A portable system to prevent tyre bursting",
-    author: "Team Members:Hemant Yadav, Deepank, Mayank ",
-    desc: "",
+    cardTitle: "Analog Design Contest 2012",
+    title: "2011",
+    cardDetailedText: "A portable system to prevent tyre bursting",
+    cardSubtitle: "Team Members:Hemant Yadav, Deepank, Mayank ",
+    
   },
   {
-    name: "Analog Design Contest 2012",
-    date: "2011",
-    info: "Home Automation",
-    author: "Team Members:Himanshu, Nilesh",
-    desc: "",
+    cardTitle: "Analog Design Contest 2012",
+    title: "2011",
+    cardDetailedText: "Home Automation",
+    cardSubtitle: "Team Members:Himanshu, Nilesh",
+    
   },
   {
-    name: "Analog Design Contest 2012",
-    date: "2011",
-    info: "On Line Low cost unbalance Source Identifier",
-    author: "Team Members:Bhanu Pratap Singh, Abhishek Gupta, Saurabh agarwal",
-    desc: "",
+    cardTitle: "Analog Design Contest 2012",
+    title: "2011",
+    cardDetailedText: "On Line Low cost unbalance Source Identifier",
+    cardSubtitle: "Team Members:Bhanu Pratap Singh, Abhishek Gupta, Saurabh agarwal",
+    
   },
   {
-    name: "Analog Design Contest 2012",
-    date: "2011",
-    info: "Potable Medical Meter",
-    author: "Team Members:Umang, Akhil, Dhruv",
-    desc: "",
+    cardTitle: "Analog Design Contest 2012",
+    title: "2011",
+    cardDetailedText: "Potable Medical Meter",
+    cardSubtitle: "Team Members:Umang, Akhil, Dhruv",
+    
   },
   {
-    name: "Paper presentation",
-    date: "2011",
-    info: "On Line Low cost unbalance Source Identifier",
-    author: "",
-    desc: "",
+    cardTitle: "Paper presentation",
+    title: "2011",
+    cardDetailedText: "On Line Low cost unbalance Source Identifier",
+    cardSubtitle: "",
+    
   },
   {
-    name: "Poster Presentation",
-    date: "2011",
-    info: "Low cost plant fertilizer dispenser aid, A portable system to prevent tyre bursting",
-    author: "",
-    desc: "",
+    cardTitle: "Poster Presentation",
+    title: "2011",
+    cardDetailedText: "Low cost plant fertilizer dispenser aid, A portable system to prevent tyre bursting",
+    cardSubtitle: "",
+    
   },
   {
-    name: "JUST A TOUCH",
-    date: "2010",
-    info: "An event organized in IIT-jodhpur during their annual technical function. Our team won First Prize in the competition",
-    author: "Team Members: Bhanu Pratap Singh, Abhishek Gupta, Avinash Baheti, Nikhil Jain",
-    desc: "",
+    cardTitle: "JUST A TOUCH",
+    title: "2010",
+    cardDetailedText: "An event organized in IIT-jodhpur during their annual technical function. Our team won First Prize in the competition",
+    cardSubtitle: "Team Members: Bhanu Pratap Singh, Abhishek Gupta, Avinash Baheti, Nikhil Jain",
+    
   },
   {
-    name: "Nexus 2009",
-    date: "2009",
-    info: "Nexus is the regional competition of the biggest autonomous bot competition i-NEXUS at IIT-Bombay Techfest. The task was to make two autonomous bots which can coordinate among themselves and pick the boxes placed randomly in the arena and then dispose them off at a dumping site. Our team stood 1st at the regional level",
-    author: "",
-    desc: "",
+    cardTitle: "Nexus 2009",
+    title: "2009",
+    cardDetailedText: "Nexus is the regional competition of the biggest autonomous bot competition i-NEXUS at IIT-Bombay Techfest. The task was to make two autonomous bots which can coordinate among themselves and pick the boxes placed randomly in the arena and then dispose them off at a dumping site. Our team stood 1st at the regional level",
+    cardSubtitle: "",
+    
   },
 ];
 
 const Achievements = () => {
-  const images = [a1, a2, a3, a4];
+  // const images = [a1, a2, a3, a4];
   
     return(
         <div className="text-black bg-white w-screen mb-8">
-          <Head>
-            <link
-              rel="stylesheet"
-              href="https://unpkg.com/swiper/swiper-bundle.min.css"
-            />
-          </Head>
-
-          <Script src="https://unpkg.com/swiper/swiper-bundle.min.js" />
-          <Script src="./scripter.js" strategy="afterInteractive"/>
-
-          <div className="swiper mySwiper">
-            <div className="swiper-wrapper">
-              <div className="swiper-slide">
-                <Image
-                  className="object-cover w-full"
-                  src={a1}
-                  alt="image"
-                />
-              </div>
-              <div className="swiper-slide">
-                <Image
-                  className="object-cover w-full"
-                  src={a2}
-                  alt="image"
-                />
-              </div>
-              <div className="swiper-slide">
-                <Image
-                  className="object-cover w-full"
-                  src={a3}
-                  alt="image"
-                />
-              </div>
-              <div className="swiper-slide">
-                <Image
-                  className="object-cover w-full"
-                  src={a4}
-                  alt="image"
-                />
-              </div>
-            </div>
-            <div className="swiper-button-next"></div>
-            <div className="swiper-button-prev"></div>
-            <div className="swiper-pagination"></div>
+          <div style={{ width: "100%", height: "100%"}}>
+            <Image src={a1} height={2000} width={4000} />
+            <Chrono items={items} mode="VERTICAL_ALTERNATING" />
           </div>
-
-          {achievements.map((item, index) => (
-            <div key={index} className="mt-12 md:mt-20 lg:mt-32 xl:mt-40 mx-8 lg:mx-16 grid grid-cols-1 lg:grid-cols-9">
-              {index % 2 === 0 ? <><div className="mb-4 col-span-1 lg:col-span-4 bg-purple-400 text-white rounded-lg shadow-xl mx-auto my-auto px-4 py-4 lg:px-20 lg:py-12 text-xl md:text-2xl lg:text-4xl font-bold">{item.date}</div>
-            <div className="hidden lg:inline-block col-span-1 mx-auto my-auto items-center bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-              <h1 className="mx-auto text-white text-center font-semibold text-lg">{index+1}</h1>
-            </div>
-            <div className="col-span-1 lg:col-span-4 bg-red-400 rounded-lg shadow-xl px-2 lg:px-6 py-4 lg:border-l-4 lg:border-green-400 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-              <h1 className="font-bold text-white text-xl lg:text-2xl text-center">{item.name}</h1>
-              <h3 className="mb-3 font-bold text-white text-lg lg:text-xl text-center">{ item.info }</h3>
-              <p className="text-sm font-medium leading-snug text-center tracking-wide text-white text-opacity-100">{ item.author }</p>
-            </div></> : <><div className="hidden lg:inline-block col-span-4 bg-red-400 rounded-lg shadow-xl px-6 py-4 border-r-4 border-green-400 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-              <h1 className="font-bold text-white text-2xl text-center">{item.name}</h1>
-              <h3 className="mb-3 font-bold text-white text-xl text-center">{ item.info }</h3>
-              <p className="text-sm font-medium leading-snug text-center tracking-wide text-white text-opacity-100">{ item.author }</p>
-            </div>
-            <div className="hidden lg:inline-block col-span-1 mx-auto my-auto items-center bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-              <h1 className="mx-auto text-white text-center font-semibold text-lg">{index+1}</h1>
-            </div>
-            <div className="mb-4 col-span-1 lg:col-span-4 bg-purple-400 text-white rounded-lg shadow-xl mx-auto my-auto px-4 py-4 lg:px-20 lg:py-12 text-xl md:text-2xl lg:text-4xl font-bold">{item.date}</div>
-            <div className="inline-block lg:hidden col-span-1 lg:col-span-4 bg-red-400 rounded-lg shadow-xl px-2 lg:px-6 py-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-              <h1 className="font-bold text-white text-xl lg:text-2xl text-center">{item.name}</h1>
-              <h3 className="mb-3 font-bold text-white text-lg lg:text-xl text-center">{ item.info }</h3>
-              <p className="text-sm font-medium leading-snug text-center tracking-wide text-white text-opacity-100">{ item.author }</p>
-            </div>
-            </>}
-          </div>
-          ))}
         </div>
     )
 }
