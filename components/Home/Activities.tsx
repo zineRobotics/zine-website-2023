@@ -9,7 +9,7 @@ import Workshop from "../../images/workshop_11zon.webp"
 const ZineActivities = () => {
     return(
         <div className="py-8">
-            <h1 className="px-12 lg:px-24 xl:px-48 pb-8 text-5xl">ZINE Activities</h1>
+            <h1 className="text-3xl pt-8 px-12 lg:px-24 xl:px-48">ZINE Activities</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 px-12 lg:px-24 xl:px-48 gap-4">
                 <div className="col-span-1">
                     <Image src={Competition}/>

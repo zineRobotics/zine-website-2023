@@ -100,32 +100,32 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`sticky top-0 bg-black pt-4 h-24 z-10 overflow-hidden ${
+        className={`sticky top-0 bg-black pt-4 h-16 z-10 overflow-hidden ${
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-12 lg:mx-24 flex text-white justify-between text-3xl xl:text-4xl">
-          <div className="w-12 h-12 lg:w-16 lg:h-16 cursor-pointer">
+        <div className="mx-12 lg:mx-24 flex text-white justify-between text-2xl xl:text-3xl">
+          <div className="w-12 h-12 lg:w-12 lg:h-12 cursor-pointer -mt-2">
             <Link href="/"><Image src={logo} /></Link>
           </div>
-          <Link href="/"><div className="my-2 cursor-pointer hidden lg:inline-block">
+          <Link href="/"><div className="mb-2 cursor-pointer hidden lg:inline-block">
             <div className="link ">
             Home
             </div>
             </div></Link>
-          <Link href="/team"><div className="my-2 cursor-pointer hidden lg:inline-block">
+          <Link href="/team"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Team
             </div></div></Link>
-          <Link href="/projects"><div className="my-2 cursor-pointer hidden lg:inline-block">
+          <Link href="/projects"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Projects
             </div></div></Link>
-          <Link href="/achievements"><div className="my-2 cursor-pointer hidden lg:inline-block">
+          <Link href="/achievements"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Achievements
             </div></div></Link>
-          <Link href="/about"><div className="my-2 cursor-pointer hidden lg:inline-block">
+          <Link href="/about"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             About
             </div></div></Link>
