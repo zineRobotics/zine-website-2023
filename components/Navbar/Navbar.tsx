@@ -109,24 +109,24 @@ const Navbar = () => {
             <Link href="/"><Image src={logo} /></Link>
           </div>
           <Link href="/"><div className="my-2 cursor-pointer hidden lg:inline-block">
-            <div className="link link-underline">
+            <div className="link ">
             Home
             </div>
             </div></Link>
           <Link href="/team"><div className="my-2 cursor-pointer hidden lg:inline-block">
-          <div className="link link-underline">
+          <div className="link ">
             Team
             </div></div></Link>
           <Link href="/projects"><div className="my-2 cursor-pointer hidden lg:inline-block">
-          <div className="link link-underline">
+          <div className="link ">
             Projects
             </div></div></Link>
           <Link href="/achievements"><div className="my-2 cursor-pointer hidden lg:inline-block">
-          <div className="link link-underline">
+          <div className="link ">
             Achievements
             </div></div></Link>
           <Link href="/about"><div className="my-2 cursor-pointer hidden lg:inline-block">
-          <div className="link link-underline">
+          <div className="link ">
             About
             </div></div></Link>
           <div className="w-12 h-12 inline-block lg:hidden">
