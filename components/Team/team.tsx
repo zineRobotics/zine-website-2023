@@ -303,10 +303,10 @@ const secondyear: pic_detail[] = [
     name: "VINAMRA VASHISHTH",
     image: vinamra,
     desc: "Computer Science and Engineering",
-    github: "https://github.com/VinVash",
+    github: "",
     linkedin: "https://www.linkedin.com/in/vinamra-vashishth-721785201/",
     twitter: "",
-    instagram: "https://www.instagram.com/vinvash01/",
+    instagram: "",
     facebook: ""
   },
   {
@@ -314,7 +314,7 @@ const secondyear: pic_detail[] = [
     image: nishant,
     desc: "Computer Science and Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/nishant-garg-968205208/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -324,7 +324,7 @@ const secondyear: pic_detail[] = [
     image: divyansh,
     desc: "Electronics and Communication Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/dggrx/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -333,10 +333,10 @@ const secondyear: pic_detail[] = [
     name: "ABHINAV KUMAR",
     image: abhinav,
     desc: "Electrical Engineering",
-    github: "https://github.com/54AbhinavKumar",
+    github: "",
     linkedin: "https://www.linkedin.com/in/abhinav-kumar-5b2097205/",
     twitter: "",
-    instagram: "https://www.instagram.com/_magnetrix__/",
+    instagram: "",
     facebook: ""
   },
   {
@@ -344,9 +344,9 @@ const secondyear: pic_detail[] = [
     image: sudeshna,
     desc: "Mechanical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/sudeshna-sonkar-56b481209/",
     twitter: "",
-    instagram: "https://www.instagram.com/dopolavita/",
+    instagram: "",
     facebook: ""
   },
   {
@@ -354,7 +354,7 @@ const secondyear: pic_detail[] = [
     image: pranjali,
     desc: "Mechanical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/pranjali-srivastava-b229b8223/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -363,10 +363,10 @@ const secondyear: pic_detail[] = [
     name: "MAHAK GARG",
     image: mahak,
     desc: "Electrical Engineering",
-    github: "https://github.com/Mahak5457",
+    github: "",
     linkedin: "https://www.linkedin.com/in/mahak-garg-825213212/",
     twitter: "",
-    instagram: "https://www.instagram.com/mahak._1008/",
+    instagram: "",
     facebook: ""
   },
   {
@@ -388,7 +388,7 @@ const Team = () => {
         <h1 className="pt-8 text-4xl text-center px-12 lg:px-24">Our Founders: The Roots Of Our Tree</h1>
         <div className="pt-16 grid grid-cols-1 lg:grid-cols-2 px-12 lg:px-24">
           <div className="col-span-1 w-48 member-hover lg:w-80 justify-self-center">
-            <Image className="rounded-full" src={RajeshSir} />
+            <Image className="rounded-full" src={RajeshSir} placeholder="blur"/>
             <div className="text-center grid grid-cols-3">
               <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://drrajeshkumar.wordpress.com/"><FontAwesomeIcon icon={faWordpress} className="text-black mr-4" size="2x" /></Link></div>
               <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/in/drrajeshkumar/"><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
@@ -404,12 +404,12 @@ const Team = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {founders.map((item, index) => (
           <div key={index} className="col-span-1">
-            <h1 className="text-black text-xl py-2 font-nunito text-center">
+            <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image} />
+                <Image className="rounded-full" src={item.image} placeholder="blur"/>
               </div>
-              <p className="text-center font-bold">{item.name}</p>
-              <p className="text-center">{item.desc}</p>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-md text-gray-600">{item.desc}</p>
               <div className="text-center">
               <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
@@ -426,12 +426,12 @@ const Team = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {finalyear.map((item, index) => (
           <div key={index} className="col-span-1">
-            <h1 className="text-black text-xl py-2 font-nunito text-center">
+            <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image}></Image>
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
               </div>
-              <p className="text-center font-bold">{item.name}</p>
-              <p className="text-center">{item.desc}</p>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md">{item.desc}</p>
               <div className="text-center">
               <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
@@ -448,12 +448,12 @@ const Team = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {thirdyear.map((item, index) => (
           <div key={index} className="col-span-1">
-            <h1 className="text-black text-xl py-2 font-nunito text-center">
+            <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image}></Image>
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
               </div>
-              <p className="text-center font-bold">{item.name}</p>
-              <p className="text-center">{item.desc}</p>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-md text-gray-600">{item.desc}</p>
               <div className="text-center">
               <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
@@ -470,12 +470,12 @@ const Team = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 py-16 px-12 lg:px-24">
         {secondyear.map((item, index) => (
           <div key={index} className="col-span-1">
-            <h1 className="text-black text-xl py-2 font-nunito text-center">
+            <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image}></Image>
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
               </div>
-              <p className="text-center font-bold">{item.name}</p>
-              <p className="text-center">{item.desc}</p>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-md text-gray-600">{item.desc}</p>
               <div className="text-center">
               <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
