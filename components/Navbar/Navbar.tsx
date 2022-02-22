@@ -8,6 +8,7 @@ import about from "../../images/about.webp";
 import Project from "../../images/project-icon.webp";
 import Team from "../../images/team-icon.webp";
 import Achievements from "../../images/badge-icon.webp";
+import { Blogs } from "../Blogs";
 
 const Navbar = () => {
   const [Hide, setHide] = useState(false);
@@ -54,6 +55,11 @@ const Navbar = () => {
       text: "Achievements",
       image: Achievements,
       link: "/achievements"
+    },
+    {
+      text: "Blogs",
+      image: about,
+      link: "/blogs"
     },
     {
       text: "About",
@@ -124,7 +130,11 @@ const Navbar = () => {
           <Link href="/achievements"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Achievements
-            </div></div></Link>
+          </div></div></Link>
+          <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">
+          <div className="link ">
+            Blogs
+          </div></div></Link>
           <Link href="/about"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             About

@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import {
   Blogs,
-
 } from "../components/Blogs";
 import { Footer, SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
