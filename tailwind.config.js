@@ -81,6 +81,8 @@ module.exports = {
         'bg-a14': "url('../images/project/a14_11zon.webp')",
         'bg-team': "url('../images/team.jpeg')",
         'about-bg': "url('../images/aboutbg_11zon.webp')",
+        'blog-bg': "url('../images/blog/blog.jpg')",
+        'ee-bg': "url('../images/blog/bee/ee.jpg')",
       },
       fontSize: {
         base: ['50px', '75px'],
