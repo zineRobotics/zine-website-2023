@@ -39,10 +39,8 @@ const Intro = () => {
                 <Image src={BeepBoop}/>
               </div>
 
-              <p className="text-red-600 my-8">Here video will come.</p>
               <p className="my-8">Yeah, those above are robots!😃</p>
 
-              <p className="text-red-600 my-8">Here two vidoes will come in grid.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="col-span-1 text-center">
                   <Image src={Grid1} />
