@@ -1,11 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import { Chrono } from "react-chrono";
-
-interface blogPosted {
-  title: string; // date
-  cardTitle: string; // heading
-}
+import Image from "next/image";
+import FirstImage from "../../../images/blog/bee/batteries/image4.gif";
+import GreenLight from "../../../images/blog/bee/batteries/image3.gif";
+import Drone from "../../../images/blog/bee/batteries/image10.gif";
+import Electrons from "../../../images/blog/bee/batteries/image1.gif";
+import Primary from "../../../images/blog/bee/batteries/image9.png";
+import NickelCadmium from "../../../images/blog/bee/batteries/image2.png";
+import NickelMetal from "../../../images/blog/bee/batteries/image7.png";
+import LithiumIon from "../../../images/blog/bee/batteries/image8.png";
+import Lipo from "../../../images/blog/bee/batteries/image5.jpg";
+import LipoSpecs from "../../../images/blog/bee/batteries/image6.png";
 
 const Batteries = () => {
     return(
@@ -17,19 +23,21 @@ const Batteries = () => {
           </div>
 
           <div className="mx-32 mt-8 text-lg">
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={FirstImage} />
+            </div>
             <div className="grid grid-cols-3">
               <div className="col-span-2">
                 <p>If you are getting interested in robotics, you are going to need a lot of different types of batteries for different uses, you'll need to know how to use them and understand the various ratings and specs. There are primary, secondary batteries, there are Li-ion and Li-Po batteries and much more. Why do we need batteries? Answer is simple: imagine a world without batteries. All those portable devices we’re so dependent on would be so limited! We’d only be able to take our laptops and phones as far as the reach of their cables, making that new running app you just downloaded onto your phone fairly useless.</p>
               </div>
-              <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-1 text-center">
+              <Image src={GreenLight} />
               </div>
             </div>
 
-            <div className="grid grid-cols-9">
-              <div className="col-span-2">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="grid grid-cols-9 gap-8 mt-8">
+              <div className="col-span-2 text-center">
+              <Image src={Drone} />
               </div>
               <div className="col-span-7">
                 <p>And why so different types of batteries?</p>
@@ -43,20 +51,22 @@ const Batteries = () => {
               <p>We know that you have studied it all during your jee. Let's quickly revise it. A battery is a device that stores chemical energy, and converts it to electricity. All this is termed as electrochemistry and the system that underpins a battery is called an electrochemical cell. Each electrochemical cell consists of two electrodes separated by an electrolyte.</p>
               <p className="mt-8">So where does an electrochemical cell get its electricity from? To answer this question, we need to know what electricity is. Most simply, electricity is a type of energy produced by the flow of electrons. In an electrochemical cell, electrons are produced by a chemical reaction that happens at one electrode and then they flow over to the other electrode where they are used</p>
               </div>
-              <div className="col-span-2">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-2 text-center">
+              <Image src={Electrons} />
               </div>
             </div>
 
             <p>Let's now study some types of batteries.</p>
 
-            <h1 className="text-3xl my-8">Types of batteris</h1>
+            <h1 className="text-3xl my-8">Types of batteries</h1>
 
             <h1 className="text-2xl my-8">Primary batteries</h1>
 
             <p>Primary cells are the ones that cannot be recharged and have to be discarded after the expiration of the lifetime. There are no fluids in the cells hence it is also called dry cells. Alkaline batteries and dry cells are examples of primary cells.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Primary} />
+            </div>
 
             <p>Do you remember the redox reaction for this cell? It is a Zinc-Carbon dry cell.</p>
 
@@ -99,15 +109,15 @@ const Batteries = () => {
                 <p>Do you know how long these batteries last?</p>
                 <p>In comparison to normal batteries they have a significantly larger life of 15-20 years.</p>
               </div>
-              <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-1 text-center">
+                <Image src={NickelCadmium} />
               </div>
             </div>
 
             <h1 className="text-2xl my-8">Nickel Metal Hydride batteries</h1>
             <div className="grid grid-cols-4">
-              <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-1 text-center">
+              <Image src={NickelMetal} />
               </div>
               <div className="col-span-3">
                 <p>-Specific energy: 60-120 W-h/kg</p>
@@ -131,13 +141,15 @@ const Batteries = () => {
                 <p>-Nominal Cell Voltage: 3.6/3.85 V</p>
                 <p className="my-16">Uses: Mobile phones and smartphones, laptops and tablets, digital cameras and camcorders, electronic cigarettes, handheld game consoles and electric vehicles too.</p>
               </div>
-              <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-1 text-center">
+                <Image src={LithiumIon} />
               </div>
             </div>
 
             <h1 className="text-2xl my-8">Lipo Batteries</h1>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Lipo} />
+            </div>
 
             <p>They are lightweight and have improved safety. However, their cost is high (30% average) as compared to lithium ions. Also, the energy density of Li-Polymer batteries compared to Li-Ion Batteries is quite less. They have an extremely low profile and have a lower chance of suffering from leaking electrolyte. But they are significantly more costly to manufacture, and they do not have the same energy density nor lifespan as a lithium-ion.</p>
 
@@ -150,13 +162,15 @@ const Batteries = () => {
             <p>Never ever leave a battery charging unattended.</p>
 
             <h1 className="text-2xl my-8">How to read lipo battery specifications?</h1>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={LipoSpecs} />
+            </div>
 
             <p>- 3S=3 cells in series 1P= 1cell in parallel. So a 3s1p has a total of 3 cells in it. 3s2p would be 3 cells in series but each of those cells in series is made up of 2 cells connected in parallel. So a 3s2p pack would actually have 6 cells in it if you tore it apart.</p>
 
             <p>- 11.1 v is the nominal voltage for this battery. It has 3 cells in series and the nominal voltage of 1 cell is 3.7 V. So, 3*3.7 = 11.1V</p>
 
-            <p>- A C-rate is a measure of the rate at which a battery is discharged relative to its maximum capacity. A 1C rate means that the discharge current will discharge the entire battery in 1 hour. For a battery with a capacity of 100 Amp-hrs, this equates to a discharge current of 100 Amps. It is a 25C battery with a capacity of 2200mAh .</p>
+            <p className="mb-8">- A C-rate is a measure of the rate at which a battery is discharged relative to its maximum capacity. A 1C rate means that the discharge current will discharge the entire battery in 1 hour. For a battery with a capacity of 100 Amp-hrs, this equates to a discharge current of 100 Amps. It is a 25C battery with a capacity of 2200mAh .</p>
 
           </div>
         </div>

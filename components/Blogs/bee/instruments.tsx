@@ -1,11 +1,31 @@
 import React from "react";
 import Link from "next/link";
 import { Chrono } from "react-chrono";
-
-interface blogPosted {
-  title: string; // date
-  cardTitle: string; // heading
-}
+import Image from "next/image";
+import FirstImage from "../../../images/blog/bee/instruments/image5.gif";
+import DoctorStrange from "../../../images/blog/bee/instruments/image9.gif";
+import Soldering from "../../../images/blog/bee/instruments/image24.gif";
+import SolderingIron from "../../../images/blog/bee/instruments/image10.jpg";
+import Wireless from "../../../images/blog/bee/instruments/image4.png";
+import Cordless from "../../../images/blog/bee/instruments/image22.png";
+import WireSpool from "../../../images/blog/bee/instruments/image18.png";
+import Flux from "../../../images/blog/bee/instruments/image7.jpg";
+import WithoutFlux from "../../../images/blog/bee/instruments/image16.gif";
+import WithFlux from "../../../images/blog/bee/instruments/image2.gif";
+import Microscopic from "../../../images/blog/bee/instruments/image12.png";
+import Meme from "../../../images/blog/bee/instruments/image13.png";
+import BreadBoard from "../../../images/blog/bee/instruments/image19.png";
+import BreadBoard1 from "../../../images/blog/bee/instruments/image3.png";
+import BreadBoard2 from "../../../images/blog/bee/instruments/image11.png";
+import BreadBoard3 from "../../../images/blog/bee/instruments/image17.png";
+import StripBoard from "../../../images/blog/bee/instruments/image20.jpg";
+import ConnectedStripBoard from "../../../images/blog/bee/instruments/image21.png";
+import PCB from "../../../images/blog/bee/instruments/image8.png";
+import PCBStructure from "../../../images/blog/bee/instruments/image23.png";
+import Multimeter from "../../../images/blog/bee/instruments/image14.jpg";
+import WorkingMultimeter from "../../../images/blog/bee/instruments/image6.gif";
+import SimpleMultimeter from "../../../images/blog/bee/instruments/image15.png";
+import Label from "../../../images/blog/bee/instruments/image1.png";
 
 const Instruments = () => {
     return(
@@ -19,11 +39,15 @@ const Instruments = () => {
           <div className="mx-32 mt-8 text-lg">
             <p className="my-8">Now we are towards the end of our blogs on the heart of robotics. In this blog you are going to learn about various instruments which you are going to use to make your little robots ready for a fight in the arena.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={FirstImage} />
+            </div>
 
             <p>Let's start with how to make joints.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={DoctorStrange} />
+            </div>
 
             <p>In electronics, joints are made with the help of a process called soldering. Let’s dive to make joints, soldering joints 😏.</p>
 
@@ -35,24 +59,30 @@ const Instruments = () => {
                   <p>Various components have to be joined via a conductive link and in our case, the solder does the job, it is a highly conductive material with a low melting point.</p>
                   <p>The process in which two or more items are joined together (electronic components and boards) by melting and putting a filler metal also known as solder into the joint, the filler metal having a lower melting point than the adjoining metal i.e terminals of component or Circuit board is called Soldering.</p>
               </div>
-              <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-1 text-center">
+              <Image src={Soldering} />
               </div>
             </div>
 
             <p className="my-8">Ok, moving to what soldering iron is and what it can do?</p>
 
             <h1 className="text-3xl my-8">Soldering iron</h1>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8 mx-32">
+              <Image src={SolderingIron} />
+            </div>
 
             <p>A soldering iron is a hand tool used in soldering. It supplies heat to melt solder so that it can flow into the joint between two workpieces. A soldering iron is composed of a heated metal tip and an insulated handle. Heating is often achieved electrically, by passing an electric current (supplied through an electrical cord or battery cables) through a resistive heating element.</p>
 
             <p className="my-8">There are other types of solder irons available in the market rather than a simple one :</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Wireless} />
+            </div>
             <p className="text-center">Cordless solder iron</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Cordless} />
+            </div>
             <p className="text-center">Variable temperature solder iron</p>
 
             <h1 className="text-3xl my-8">Solder</h1>
@@ -60,18 +90,22 @@ const Instruments = () => {
               <div className="col-span-3">
                 <p>Solder is a conductive alloy substance with a low melting point, used in the electronics industry to electrically connect components together. It is frequently used to join wires to leads of components such as switches or to join components of all kinds to a circuit board or two pieces of metals etc. For regular electronic purposes, wire made of solder which is usually an alloy of tin and lead is used for soldering. This wire is melted with the help of soldering iron and fuses with the metal that is needed to be joined. It is necessary to avoid the fumes generated by soldering as they contain residue of lead which is harmful.</p>
               </div>
-              <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-1 text-center">
+              <Image src={WireSpool} />
               </div>
             </div>
 
             <h1 className="text-3xl my-8">Flux</h1>
-            <p className="text-red-600 my-8">One big image will come here.</p>
-
+            <div className="text-center my-8">
+              <Image src={Flux} height={500} width={500} />
+            </div>
             <p>Sometimes, the metal contacts which we wanted to solder don't get soldered properly even if we follow all steps correctly. The reason behind it is the oxides formed on the metal surface due to the reaction with compounds in air which prevents the fusion of solder and the metal surface. To get rid of this layer of oxide, flux is used. It is usually in paste form at room temperature. It removes the layer of oxide and creates a clean site of pure metal ready to get fused with solder to make a perfect joint. Flux also leaves the residue of impurity on the board which needs to be cleaned with isopropyl alcohol if your flux is water insoluble or water if your flux is water soluble . To get a clean site of metal whose surface is oxidized, flux paste is applied and little heat with the solder iron is provided for flux to work on the site.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={WithoutFlux} />
+              <br />
+              <Image src={WithFlux} />
+            </div>
 
             <p>Above is the gif showing soldering on an oxidized metal surface (top) and soldering on the same surface after applying flux (bottom).</p>
 
@@ -82,18 +116,20 @@ const Instruments = () => {
                 <p className="my-16">If you’re wondering how to solder components like professionals, this video will help you.</p>
               </div>
               <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+                <Image src={Microscopic} />
               </div>
             </div>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8 mx-32">
+              <Image src={Meme} />
+            </div>
 
             <h1 className="text-3xl my-8">Circuit Boards</h1>
             <p>To make our circuits more robust, portable and convenient, with ease of making. We require a base. Circuit boards are the base for circuits, a board on which we design our circuits. They are categorized in three types are as follows:</p>
 
             <div className="grid grid-cols-5">
               <div className="col-span-3">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+                <Image src={BreadBoard} />
               </div>
               <div className="col-span-2">
                 <h1 className="text-2xl my-8">Breadboard</h1>
@@ -103,9 +139,18 @@ const Instruments = () => {
 
             <p>A breadboard refers to a solder-free, plug-and-play platform allowing for speedy insertion and removal of electrical components in circuit-building applications. The breadboard has strips of metal underneath the board and connects the holes on the top of the board. The metal strips are laid out as shown below. Note that the top and bottom rows of holes are connected horizontally and split in the middle while the remaining holes are connected vertically.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="grid grid-cols-2 my-8">
+              <div className="col-span-1 text-center">
+                <Image src={BreadBoard1} />
+              </div>
+              <div className="col-span-1 text-center">
+                <Image src={BreadBoard2} />
+              </div>
+            </div>
+
+            <div className="my-8 text-center">
+                <Image src={BreadBoard3} />
+              </div>
 
             <p>This is how an IC is used on a breadboard. And above mentioned are the internal connections of a breadboard. The colored lines show the connected pins of the breadboard. As a convention, pins on the right of the red line are used for positive terminals and pins at the left of blue line are used for negative terminals. Vertical lines are called power rails due to this reason and horizontal lines are called component rails as electrical and electronic components are used on thes rails/lines.</p>
             <p>But can you figure out why there is a channel in the middle of the breadboard. Think!</p>
@@ -115,14 +160,14 @@ const Instruments = () => {
               <div className="col-span-2">
                 <p>Stripboard is one of the commonly-used types of prototyping boards. These boards are intended for permanently assembling one-off circuits, especially prototypes. The board is made from an insulating material, usually a resin-bonded plastic or fiberglass. One side has parallel copper strips on it, spaced 2.54 mm apart. There are holes bored in these strips, also 2.54 mm apart. Components are placed on the other side of the board with their wires bent to pass through the holes. The wires are soldered to the copper strips, the projecting ends being cut off to make the assembly neater. Only the shiny part with copper plated strips can get soldered, the other side with no copper plating cannot be soldered so components must be inserted and soldered with care.</p>
               </div>
-              <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-1 text-center">
+                <Image src={StripBoard} />
               </div>
             </div>
 
             <div className="grid grid-cols-5">
-              <div className="col-span-2">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-2 text-center">
+                <Image src={ConnectedStripBoard} />
               </div>
               <div className="col-span-3">
                 <p>The strips correspond to the rows of sockets on breadboards, allowing several components to be joined together, but a strip has many more than five holes so numerous connections are possible. Using a special tool, strips can be cut into shorter lengths where it is necessary to use one strip for making several different connections. A circuit built on a stripboard has permanently soldered connections, but it is not difficult to remove a component and solder in one of a different value, or even to completely modify part of the circuit. A prototype circuit may be built and tested stage by stage.</p>
@@ -131,18 +176,18 @@ const Instruments = () => {
 
             <h1 className="text-2xl my-8">PCB</h1>
 
-            <div className="grid grid-col-3">
+            <div className="grid grid-cols-3 my-8">
               <div className="col-span-2">
                 <p>You must have encountered some green, red or blue colored boards inside electronic devices having shiny lines with components on them. These are the highly robust and portable circuit boards. They are PCBs or printed circuit boards. It is a board that has lines and pads that connect various points together. In the picture, there are traces that electrically connect the various connectors and components to each other. It allows signals and power to be routed between physical devices.</p>
               </div>
-              <div className="col-span-1">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-1 text-center">
+                <Image src={PCB} />
               </div>
             </div>
 
-            <div className="grid grid-cols-2">
-              <div className="col-span-1">
-              <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="grid grid-cols-2 my-8">
+              <div className="col-span-1 text-center">
+                <Image src={PCBStructure} />
               </div>
               <div className="col-span-1">
                 <p>Solder makes the electrical connections between the surface of the PCB and the electronic components. Being metal, solder also serves as a strong mechanical adhesive. A PCB is printed with the help of a printing machine but the PCBs are first designed in CAD softwares like EAGLE, KiCAD, etc. and then these software aid the printing of PCBs.</p>
@@ -161,11 +206,18 @@ const Instruments = () => {
             <h1 className="text-2xl my-8">Multimeter</h1>
             <p>A multimeter is an electronic measuring device. It typically measures Voltage, Current, and Resistance. Two types of multimeters available in the market are- Analog and Digital.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="grid grid-cols-2 my-8">
+            <div className="col-span-1 text-center">
+                <Image src={Multimeter} />
+              </div>
+              <div className="col-span-1 text-center">
+                <Image src={WorkingMultimeter} />
+              </div>
+            </div>
 
             <p>The most common and cheap multimeter you can get is the Haoyue DT830D. It can measure -</p>
 
-            <div className="grid grid-cols-5">
+            <div className="grid grid-cols-5 my-8">
               <div className="col-span-3">
                 <p># AC/DC voltage</p>
                 <p># DC current</p>
@@ -175,15 +227,17 @@ const Instruments = () => {
                 <p># Continuity of a circuit</p>
                 <p># Temperature (some other version of it can measure)</p>
               </div>
-              <div className="col-span-2">
-                <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="col-span-2 text-center">
+                <Image src={SimpleMultimeter} />
               </div>
             </div>
 
             <p className="my-8">What are the components of multimeter?</p>
 
             <p>Here they are-</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="my-8 text-center">
+                <Image src={Label} />
+              </div>
 
             <p>{`>>`} Two wire probes with different colors are provided to aid in work, they can be inserted easily in jacks provided shown above.</p>
 
