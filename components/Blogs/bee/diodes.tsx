@@ -16,7 +16,7 @@ const Diodes = () => {
               </div>
           </div>
 
-          <div className="mx-32 mt-8 text-lg">
+          <div className="mx-8 md:mx-16 lg:mx-32 mt-8 text-lg">
             <p>Look at the picture of a house and try to decode the basic structural unit of it.</p>
 
             <p className="text-red-600 my-8">One big image will come here.</p>
