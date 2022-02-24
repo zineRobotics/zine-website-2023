@@ -15,7 +15,7 @@ const Blogs = () => {
           </div>
 
           {/* Links to blogs */}
-          <div className="mx-auto text-center text-2xl lg:text-3xl xl:text-4xl">
+          <div className="mx-auto text-center text-2xl lg:text-3xl xl:text-4xl mt-8">
             BLOGS
           </div>
 
