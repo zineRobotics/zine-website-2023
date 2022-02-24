@@ -374,7 +374,7 @@ const secondyear: pic_detail[] = [
     image: aman,
     desc: "Computer Science and Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/aman-mittal-9851b31b9/",
     twitter: "",
     instagram: "",
     facebook: ""
