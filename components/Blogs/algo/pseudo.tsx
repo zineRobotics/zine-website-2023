@@ -1,11 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { Chrono } from "react-chrono";
-
-interface blogPosted {
-  title: string; // date
-  cardTitle: string; // heading
-}
+import Image from "next/image";
+import FlowChart from "../../../images/blog/algo/pseudo/image2.png";
+import CanYouRead from "../../../images/blog/algo/pseudo/image1.jpg";
 
 const Pseudo = () => {
     return(
@@ -19,7 +17,9 @@ const Pseudo = () => {
           <div className="mx-32 mt-8 text-lg">
               <h1 className="text-4xl my-8">Flowchart</h1>
               <p>As we said, during writing code, coders often can get confused due to the complexity of various algorithms. As a result, it becomes difficult to shape the flow of the program. Flowcharts are interesting tools to help us out and to get a broad idea of our code. Let us understand them by making a flowchart of the GCD algorithm we discussed earlier.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+              <div className="text-center my-8">
+                <Image src={FlowChart} />
+              </div>
 
             <p>Try and understand the flowchart</p>
             <p>- After starting the program, we take two numbers as input from the user.</p>
@@ -30,7 +30,9 @@ const Pseudo = () => {
 
             <p className="text-center my-8">Try tracing the flowchart for our example of 6 and 8. Now,</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={CanYouRead} />
+            </div>
 
             <h1 className="text-4xl my-8">Pseudocode</h1>
             <p>Pseudocode is the third and the last step after writing an algorithm and drawing the flowchart which is suggested before we start actual coding. Pseudocode is an informal way of programming that does not require any strict programming language syntax or underlying technological considerations. It is used for creating an outline or a rough draft of the actual program. We will use the same G.C.D. example to maintain a flow.</p>

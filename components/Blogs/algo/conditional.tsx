@@ -1,11 +1,28 @@
 import React from "react";
 import Link from "next/link";
 import { Chrono } from "react-chrono";
-
-interface blogPosted {
-  title: string; // date
-  cardTitle: string; // heading
-}
+import Image from "next/image";
+import FirstImage from "../../../images/blog/algo/conditional/image15.jpg";
+import FlowchartCondition from "../../../images/blog/algo/conditional/image9.jpg";
+import Code1 from "../../../images/blog/algo/conditional/image2-1.png";
+import Code2 from "../../../images/blog/algo/conditional/image2-2.png";
+import IfelseCode1 from "../../../images/blog/algo/conditional/image4-1.png";
+import IfelseCode2 from "../../../images/blog/algo/conditional/image4-12.png";
+import IfelseCode3 from "../../../images/blog/algo/conditional/image4-12.png";
+import Hello1 from "../../../images/blog/algo/conditional/image8-1.png";
+import Hello2 from "../../../images/blog/algo/conditional/image8-12.png";
+import Hello3 from "../../../images/blog/algo/conditional/image8-2.png";
+import IfElse1 from "../../../images/blog/algo/conditional/image17-1.png";
+import IfElse2 from "../../../images/blog/algo/conditional/image17-2.png";
+import QuizTime from "../../../images/blog/algo/conditional/image10.gif";
+import QuizCode from "../../../images/blog/algo/conditional/image7.png";
+import Printf10 from "../../../images/blog/algo/conditional/image16.png";
+import BikeLoop from "../../../images/blog/algo/conditional/image5.gif";
+import LoopFlowchart from "../../../images/blog/algo/conditional/image3.png";
+import LoopCode from "../../../images/blog/algo/conditional/image14.png";
+import NaturalNumbers10 from "../../../images/blog/algo/conditional/image11.png";
+import Gif from "../../../images/blog/algo/conditional/image18.gif";
+import Candies from "../../../images/blog/algo/conditional/image13.png";
 
 const Conditional = () => {
     return(
@@ -20,13 +37,17 @@ const Conditional = () => {
 
             <p className="my-8">As we discussed in the flowchart (the diamond box), conditional statements are used to define the flow of the program. It is very well explained by this image.</p>
             
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={FirstImage} />
+            </div>
 
             <p>Conditional statements are used for decision making. The process is similar to what we do in real life. If a specified condition is true then a particular block of statements is executed and if not then the other one. Notice how we used ‘if’ and ‘if not’ in the previous lines? That’s what actually ‘if-else’ statements are in the world of programming.</p>
 
             <p className="my-8 font-bold">Now that we are approaching the first real programming construct of this blog, one thing you must understand that even though our general syntaxes will be following the C language, these constructs are common to all programming languages in different forms.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={FlowchartCondition} />
+            </div>
 
             <p>An “if statement” is a well known conditional statement in programming. In an, if statement a condition is given inside the parentheses (), and the code tests and evaluates the condition, and if the condition is true then the if block is executed otherwise not.</p>
 
@@ -36,8 +57,12 @@ const Conditional = () => {
 
             <p>Let's take an example:</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Code1} />
+            </div>
+            <div className="text-center my-8">
+              <Image src={Code2} />
+            </div>
 
             <p>If the condition is true the code inside the ‘if block’ will be executed and “Hello World” will be printed. (printf is used to print something to the user in C).</p>
 
@@ -53,13 +78,21 @@ const Conditional = () => {
 
             <p className="italic">Remember: ‘scanf’ is used to take input from users in the C programming language.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={IfelseCode1} />
+            </div>
+            <div className="text-center my-8">
+              <Image src={IfelseCode2} />
+            </div>
 
             <p>In the above example, the age input given by the user is 12 which is less than 18. So the condition (age{">"}=18) is false and its block of code is not executed. So the else condition is true and its block of code is executed.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={IfelseCode1} />
+            </div>
+            <div className="text-center my-8">
+              <Image src={IfelseCode3} />
+            </div>
 
             <p>When age 20{">"}18, if condition is true and its corresponding block of code is executed.</p>
 
@@ -71,15 +104,23 @@ const Conditional = () => {
 
             <p>Try an example:</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Hello1} />
+            </div>
+            <div className="text-center my-8">
+              <Image src={Hello2} />
+            </div>
 
             <p>What will be printed in this case? Will putting num=12 change the output?</p>
 
             <p className="my-8">Let's check it out.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Hello1} />
+            </div>
+            <div className="text-center my-8">
+              <Image src={Hello3} />
+            </div>
 
             <h1 className="my-8 text-3xl">If else ladder:</h1>
             <p>We know that the if-else statement allows us to check between two possibilities: when the condition is true and when it is false. But what if there are more than two possibilities. Here’s where the if-else ladder comes into place.</p>
@@ -88,8 +129,12 @@ const Conditional = () => {
 
             <p>Let’s have a look at an example. Suppose we want to grade students on the basis of their marks such that marks greater than 90 are given “A”, between 80 - 90 “B” and below 80 “C”. Don’t worry this is just an example, you won’t actually be graded this harshly.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={IfElse1} />
+            </div>
+            <div className="text-center my-8">
+              <Image src={IfElse2} />
+            </div>
 
             <p className="font-bold">Not that if starting from the top, any condition is found to be true, the rest of the blocks won't be executed, even if their conditions come out to be true.</p>
 
@@ -97,20 +142,28 @@ const Conditional = () => {
 
             <p className="font-bold">We have now understood the if construct. It is</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={QuizTime} />
+            </div>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={QuizCode} />
+            </div>
 
             <p className="font-bold">What should be the output of this code? Note the absence of {}. What difference does that make? (Do use the concepts of operators we learned previously)</p>
 
             <p className="my-8">Before moving to the next programming construct, consider a situation. Say you have to print your name 10 times. How will you do it? Simple, right? Use a print statement 10 times. What about 100 or 1000? Writing the same statement this many times would be a tedious task and a waste of valuable time. This is where loops come in.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Printf10} />
+            </div>
 
             <p>Focus on the simplicity and shortness of code on the right side. This will not change much even when we increase the number of required print statements. Don’t worry we will discuss the syntax soon. Hence, loops make our work as a coder easier and are an integral part of any programming language.</p>
 
             <h1 className="my-8 text-3xl">Loops</h1>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={BikeLoop} />
+            </div>
 
             <p>So, Loops are used to repeat a set of statements until a condition is met. Two kinds of loops are commonly used: the for loop and the while loop.</p>
 
@@ -121,11 +174,14 @@ const Conditional = () => {
 
             <h1 className="my-8 text-2xl">How does it work?</h1>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={LoopFlowchart} />
+            </div>
             <p>The flowchart given above gives us a basic idea about working for loops. For better understanding let’s see a few examples.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={LoopCode} />
+            </div>
 
             <p>- First, we initialized i=1, this initialization statement is executed only once. Here, we initialize the counter for the loop.</p>
             <p>- Then, the condition is evaluated. If the test expression is evaluated to true, statements inside the body of for loop are executed. Here the block of code: [printf(%d, i)] is executed as i=1 which is less than 10.</p>
@@ -145,17 +201,22 @@ const Conditional = () => {
 
             <p className="my-8">Let’s see some basic examples of while loop:</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Gif} />
+            </div>
 
             <p> Let's print the first 10 natural numbers using a while loop for which we earlier used the for loop.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={NaturalNumbers10} />
+            </div>
 
             <p className="font-bold">Note that any problem involving loops can be implemented using any of the two loops.</p>
             <p className="font-bold">Take a look at another illustration of the working of loops.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Candies} />
+            </div>
 
             <p>The first step is the initialization. Buying candy through coins is the body of the loop and updating of the counter. Finally, when all coins are over, the loop terminates.</p>
 
@@ -165,7 +226,7 @@ const Conditional = () => {
             <br />
             Write pseudocode for this problem and see how you can apply loops here.</p>
 
-            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to rahul@zine.co.in and contact us in communication channel with doubts.</p>
+            <p className="border-2 border-solid border-black px-4 my-16">Mail your assignment answers to rahul@zine.co.in and contact us in communication channel with doubts.</p>
             </div>
         </div>
     )

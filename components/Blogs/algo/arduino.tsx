@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { Chrono } from "react-chrono";
-
-interface blogPosted {
-  title: string; // date
-  cardTitle: string; // heading
-}
+import Image from "next/image";
+import ArduinoFace from "../../../images/blog/algo/arduino/image2.gif";
+import ManyArduino from "../../../images/blog/algo/arduino/image4.jpg";
+import Image3 from "../../../images/blog/algo/arduino/image3.png";
+import HappyCoding from "../../../images/blog/algo/arduino/image1.png";
 
 const Arduino = () => {
     return(
@@ -21,11 +21,15 @@ const Arduino = () => {
 
             <p>Now the applications of algorithms and pseudocodes in robotics are too vast to even list. However, we shall take a small peek at one particular one. The first love of every robotics aficionado, welcome to the world of Arduino!</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={ArduinoFace} />
+            </div>
 
             <p>What is this Arduino, then? Arduino is actually the name of a manufacturer of programmable development boards. However, generally, the boards themselves are referred to as “Arduino”. Take a look at various types of Arduino boards.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8 mx-32">
+              <Image src={ManyArduino} />
+            </div>
 
             <p>Think of them being like the brain of the robot. We program this brain to work as we want it to. This is done with the help of the Arduino IDE. We will learn to use Arduino in our upcoming blogs. </p>
             <p className="font-bold">With this, we have reached the end of this blog. Hope you enjoyed it! We’ll wrap it up with a question.</p>
@@ -40,7 +44,9 @@ const Arduino = () => {
 
             <p className="my-8">The warzone is shown in the image:-</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Image3} />
+            </div>
 
             <p>The robot is in the square-shaped box and has to return to the circle after navigating each and every path i.e.- it has to visit every node.</p>
 
@@ -48,7 +54,9 @@ const Arduino = () => {
 
             <p>However, we have tried our best to avoid using any coding language in this blog but in some parts, it was necessary to give examples using one language. C has been used as the default language as it is widely used in universities for their first-year course.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={HappyCoding} />
+            </div>
 
             <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to rahul@zine.co.in and contact us in communication channel with doubts.</p>
           </div>

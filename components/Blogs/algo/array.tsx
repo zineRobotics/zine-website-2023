@@ -1,11 +1,34 @@
 import React from "react";
 import Link from "next/link";
 import { Chrono } from "react-chrono";
-
-interface blogPosted {
-  title: string; // date
-  cardTitle: string; // heading
-}
+import Image from "next/image";
+import BasicFunction from "../../../images/blog/algo/array/image26.gif";
+import CopyPasteMeme from "../../../images/blog/algo/array/image26.gif";
+import FunctionMachineMeme from "../../../images/blog/algo/array/image24.gif";
+import SimpleFunctionCode from "../../../images/blog/algo/array/image2.png";
+import Sum1015 from "../../../images/blog/algo/array/image17.png";
+import Output25 from "../../../images/blog/algo/array/image19.png";
+import CalcFunction from "../../../images/blog/algo/array/image20.png";
+import FunctionWithArguments from "../../../images/blog/algo/array/image7.png";
+import ArrayFirst from "../../../images/blog/algo/array/image25.png";
+import ArraySecond from "../../../images/blog/algo/array/image18.gif";
+import Indexing from "../../../images/blog/algo/array/image19.png";
+import TooManyPrintf from "../../../images/blog/algo/array/image11.png";
+import ArrayWithLoop from "../../../images/blog/algo/array/image8.png";
+import LinearSearch from "../../../images/blog/algo/array/image23.gif";
+import GeeksForGeeks from "../../../images/blog/algo/array/image21.jpg";
+import Bubble1 from "../../../images/blog/algo/array/image10.jpg";
+import Bubble2 from "../../../images/blog/algo/array/image5.jpg";
+import Bubble3 from "../../../images/blog/algo/array/image14.jpg";
+import Bubble4 from "../../../images/blog/algo/array/image16.jpg";
+import Bubble5 from "../../../images/blog/algo/array/image15.jpg";
+import Bubble6 from "../../../images/blog/algo/array/image6.jpg";
+import Bubble7 from "../../../images/blog/algo/array/image13.jpg";
+import Bubble8 from "../../../images/blog/algo/array/image1.jpg";
+import Bubble9 from "../../../images/blog/algo/array/image22.jpg";
+import Bubble10 from "../../../images/blog/algo/array/image12.jpg";
+import Bubble11 from "../../../images/blog/algo/array/image4.jpg";
+import Bubble12 from "../../../images/blog/algo/array/image3.jpg";
 
 const Arrays = () => {
     return(
@@ -21,7 +44,9 @@ const Arrays = () => {
 
             <p>Remember scanf and printf discussed in the input and output section of this blog? We gave a hint that these were functions and briefly discussed what functions are. Let’s elaborate on that in this section. So, we know that when we write printf(“zine”), the computer gets a command to print “zine” on the screen. Behind the scenes, a separate code was written while designing the C language according to which the special task of printing is assigned whenever we write or call a print function in our code i.e. to display something on the screen. “Calling” a function is the technical term to use a function.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={BasicFunction} />
+            </div>
 
             <p>Similar to printf() we can also define our own functions that do some specific tasks and can be used simply by calling them as we call print. This is an integral part of programming. Let us start with a definition.</p>
 
@@ -29,7 +54,9 @@ const Arrays = () => {
 
             <p>a) Use the same set of statements every time you want to perform the task.A lot of Ctrl + C - Ctrl + V !</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={CopyPasteMeme} />
+            </div>
 
             <p>b) Or, create a function to perform that task and just call it every time you need to perform that task.</p>
 
@@ -40,11 +67,15 @@ const Arrays = () => {
             <p>b) Improves the reusability of the code, the same function can be used in any program rather than writing the same code from scratch.</p>
             <p>Now let us try to understand how they actually work. In essence, functions accept some input (called arguments), do some processing on this input, through the block of statements present, and give an output.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={FunctionMachineMeme} />
+            </div>
 
             <p>Let's see an example of a simple function that takes two numbers and prints their sum.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={SimpleFunctionCode} />
+            </div>
             
             <p>We know a,b are the arguments to the function. But what is this “void”? This denotes the return type of the function. We can return values in a function. Essentially, it means that if we try to assign the function value to a variable as</p>
 
@@ -53,19 +84,25 @@ const Arrays = () => {
             <p>This is the type of variable required. “Void” in this case denotes no value is returned and hence the function cannot be assigned to a variable. The return type can be int, char, float, or any other data type.</p>
 
             <p className="mt-8">So when we call or sum function as</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Sum1015} />
+              <Image src={Output25} />
+            </div>
 
             <p>We totally understand that the concepts of functions can be confusing sometimes, so we suggest you visit this video.(complete the link)</p>
             <p>Try to find out the output of the following codes.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={CalcFunction} />
+            </div>
 
             <p>A function calc() is made outside the main function. The value returned from the function calc() is printed again in the main.</p>
 
             <p className="my-8">Try doing a similar problem using the concept of arguments.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={FunctionWithArguments} />
+            </div>
 
             <p>Try sketching the flow(not flowchart) of this program showing the function calls.</p>
 
@@ -75,8 +112,10 @@ const Arrays = () => {
 
             <p className="my-8">Taking the reference from the variables part of the blog, recall that different variables are randomly distributed in the RAM. Arrays have special features where all the variables of the same array are stored in a sequence as shown in the figure below. We will discuss further the use and importance of this property.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={ArrayFirst} />
+              <Image src={ArraySecond} />
+            </div>
 
             <p className="font-bold">An array is a contiguous memory location that contains a group of elements, such as an integer or string. Arrays are commonly used in computer programs to organize data so that a related set of values can be easily sorted or searched.</p>
 
@@ -84,7 +123,9 @@ const Arrays = () => {
 
             <p className="mb-8">All arrays consist of contiguous memory locations. The first box corresponds to the first element and the last block to the last element.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Indexing} />
+            </div>
 
             <h1 className="my-8 text-2xl">Declaring Arrays</h1>
 
@@ -103,16 +144,17 @@ const Arrays = () => {
             <p>Can we find out the address for a certain specified block in a 2-D array if we are given the address of its first data(first-row first column) and its data type? Think of a generalized formula.</p>
             <p>Can we find out the address for a certain specified block in a 2-D array if we are given the address of its first data(first-row first column) and its data type? Think of a generalized formula.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={TooManyPrintf} />
+            </div>
 
             <p>Above is a simple example of printing the first 10 natural numbers. Now it’s your task to print the first 1000 natural numbers. Can you? Of course, you can! But will you do it with the same method? Oh common guys TIME IS MONEY!!</p>
 
             <p className="my-8">Arrays save us from the tedious task of declaring too many variables and using multiple statements. Wanna know how?</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
-
+            <div className="text-center my-8">
+              <Image src={ArrayWithLoop} />
+            </div>
             <p>See how we can solve the same problem in 3-4 lines which took 10-12 lines without arrays. In arrays, we just need to define the array variable name. Its value is directly accessed by its index. Using loops with arrays can do wonders! We can store thousands of elements in arrays and access them with just one simple loop directly by its index.</p>
 
             <h1 className="text-2xl my-8">Limitation of the array over variables</h1>
@@ -137,7 +179,9 @@ const Arrays = () => {
 
             <p>Linear search is a very simple search algorithm. In this type of search, a sequential search is made over all items one by one. Every item is checked and if a match is found then that particular item is returned, otherwise the search continues till the end of the data collection.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={LinearSearch} />
+            </div>
 
             <h1 className="text-2xl my-8">Algorithm:</h1>
 
@@ -154,7 +198,9 @@ const Arrays = () => {
 
             <p className="my-8">For example, The below list of characters is sorted in increasing order of their ASCII values. That is, the character with lesser ASCII value will be placed first than the character with higher ASCII value.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={GeeksForGeeks} />
+            </div>
 
             <p>There are many sorting algorithms. Some commonly used have been mentioned here:</p>
 
@@ -162,52 +208,78 @@ const Arrays = () => {
 
             <p>Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in the wrong order. Let us look at it with the help of an example. Let the array to be sorted is</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble1} />
+            </div>
 
             <p>Bubble sort starts with the very first two elements, comparing them to check which one is greater.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble2} />
+            </div>
 
             <p>In this case, value 33 is greater than 14, so it is already in sorted locations. Next, we compare 33 with 27.</p>
 
             <p className="mt-8">We find that 27 is smaller than 33 and these two values must be swapped.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.(blue highlight)</p>
-            <p className="text-red-600 my-8">One big image will come here.(red highlight)</p>
+            <div className="grid grid-cols-2 my-8">
+              <div className="col-span-1 text-center">
+                <Image src={Bubble3} />
+              </div>
+              <div className="col-span-1 text-center">
+                <Image src={Bubble4} />
+              </div>
+            </div>
             <p>The new array should look like this-</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble5} />
+            </div>
 
             <p>Next, we compare 33 and 35. We find that both are already sorted positions.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble6} />
+            </div>
 
             <p>Then we move to the next two values, 35 and 10.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble7} />
+            </div>
 
             <p>We know then that 10 is smaller than 35. Hence they are not sorted.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble8} />
+            </div>
 
             <p>We swap these values. We find that we have reached the end of the array. After one iteration, the array should look like this −</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble9} />
+            </div>
 
             <p>To be precise, we are now showing how an array should look like after each iteration. After the second iteration, it should look like this −</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble10} />
+            </div>
 
             <p>Notice that after each iteration, at least one value moves at the end.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble11} />
+            </div>
 
             <p>And when there's no swap required, bubble sorts learns that an array is completely sorted.</p>
             
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={Bubble12} />
+            </div>
 
             <p>Another example for better understanding is given below, try to visualize it without explanation.</p>
 
-            <p>Eg: We have a simple array [5, 3, 8, 2, 1, 4]</p>
+            <p className="my-8">Eg: We have a simple array [5, 3, 8, 2, 1, 4]</p>
 
             <p>We have some more algorithms for sorting such as selection sort and insertion sort.(complete the links)</p>
 

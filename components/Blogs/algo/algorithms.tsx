@@ -1,11 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { Chrono } from "react-chrono";
-
-interface blogPosted {
-  title: string; // date
-  cardTitle: string; // heading
-}
+import Image from "next/image";
+import AlgoAlgo from "../../../images/blog/algo/algo/image1.jpg";
 
 const Algorithms = () => {
     return(
@@ -20,7 +17,9 @@ const Algorithms = () => {
             
             <p className="my-8">Now that we have understood the basics of how information is actually stored in a computer; let's get right into the crux of this blog. ALGORITHMS !</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="text-center my-8">
+              <Image src={AlgoAlgo} />
+            </div>
 
             <p>Algorithms are everywhere! They are so incorporated and embedded in our daily lives that they completely escape our notice. How does your mom prepare her mouth-wateringly delicious dishes? She has a secret recipe. This recipe is an algorithm. Remember the mechanics problems you used to solve. In most of the questions, you first drew the free body diagrams, then resolved the components in the desired axis, and only then proceeded further. This was an algorithm.</p>
 
