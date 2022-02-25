@@ -124,15 +124,27 @@ const Variables = () => {
             <p>Let’s solve a basic maths problem:</p>
             <p>100 + 3 * 200 / 10 - 10</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>1. &emsp; (100 + 3 * 200 / 10  - 10) &emsp; &nbsp; // &ensp; * and / has higher precedence than + and - </p>
+              <p>2. &emsp; (100 + 600 / 10 - 100) &emsp; &emsp; // associativity of * and / is left to right</p>
+              <p>3. &emsp; (100 + 60 - 10) &emsp; &emsp; &emsp; &emsp; &nbsp; // associativity of + and - is again left to right</p>
+              <p>4. &emsp; (160 - 10)</p>
+              <p>5. &emsp; 150</p>
+            </div>
 
             <p>Q: You are given various operators and operands in a distorted manner. Arrange them and form an equation keeping in mind operator precedence and associativity such that the output comes out to be 8. The operators are</p>
 
             <p className="border-2 border-solid border-black px-4 my-8 font-bold">+	5	/	5	4	+	2	+	4	4	/	*	8	3	-	2	/</p>
 
-            <p>Go to this link(complete this link) to learn more about operators and operands to solve the next question.</p>
+            <p>Go to this link to learn more about operators and operands to solve the next question.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>int a = 5;</p>
+              <p>int b = 5;</p>
+              <p>int c = a || --b;</p>
+              <p>int d = a-- {`&&`} --b;</p>
+              <p>int e = a++ + ++a;</p>
+            </div>
 
             <p>What will be the values of a, b, c, d and e?</p>
 
@@ -153,7 +165,9 @@ const Variables = () => {
             <p>For C, input and output is done using the scanf() and printf() functions . Let’s see how they work.</p>
 
             <p className="mt-8">So suppose you want to take a number input to your program and store it in an integer variable num. You will do this as</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>scanf("%d, {`&`}num);</p>
+            </div>
 
             <p>Whoa! too many things at once. Let’s break this down. First, everything written in () brackets are the values passed to the scanf() function.</p>
 
@@ -162,7 +176,9 @@ const Variables = () => {
             <p>The, “,” separates the two values being passed to the function. “num” is the variable where the value is to be stored, but what is this weird “&” before it. Is it bitwise AND we saw earlier? No, this is the address operator. Note that bitwise AND operates on two numbers, and the address operator works on variables. As the name suggests, it gets us the address in memory for our variable. This is required to instruct the computer where to store the input value.</p>
 
             <p className="my-8">Now, for the printf() function. So say you want to output the value of an integer variable num on the screen. You will do so as</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>printf("%d, num);</p>
+            </div>
 
             <p>Things seem a little familiar this time. “%d” is again the same format specifier, this time denoting the data type of the value to output.Have a look at an example.</p>
 
@@ -180,7 +196,11 @@ const Variables = () => {
 
             <p>Format specifiers are an important part of input and output in the C language. They help the computer determine the data type of the input and output. The format starts with the ‘%’ character. We have already discussed the format specifier for integer. We should also keep in mind the specifiers for the other data types we discussed.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>int &emsp;&ensp;&ensp; %d</p>
+              <p>char &emsp; %c</p>
+              <p>float &emsp; %f</p>
+            </div>
 
             <p>To know more about format specifiers click here.</p>
             <p>Now for a very simple question</p>

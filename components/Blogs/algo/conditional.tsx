@@ -49,11 +49,18 @@ const Conditional = () => {
               <Image src={FlowchartCondition} />
             </div>
 
+            <h1 className="my-8 text-3xl">If statement:</h1>
+
             <p>An “if statement” is a well known conditional statement in programming. In an, if statement a condition is given inside the parentheses (), and the code tests and evaluates the condition, and if the condition is true then the if block is executed otherwise not.</p>
 
             <p className="my-8">Syntax:</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>if(condition)</p>
+              <p>{`{`}</p>
+              <p className="ml-12">"Code to be executed if the condition is true."</p>
+              <p>{`}`}</p>
+            </div>
 
             <p>Let's take an example:</p>
 
@@ -100,7 +107,15 @@ const Conditional = () => {
 
             <p>A “nested if” is an if statement that is the target of another if statement. In other words, nested if statements have an if statement inside another if statement.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>if(condition1)</p>
+              <p>{`{`}</p>
+              <p className="ml-12">// Executes when condition1 is true</p>
+              <p className="ml-12">{`{`}</p>
+              <p className="ml-24">// Executes when condition2 is true</p>
+              <p className="ml-12">{`}`}</p>
+              <p>{`}`}</p>
+            </div>
 
             <p>Try an example:</p>
 
@@ -125,7 +140,20 @@ const Conditional = () => {
             <h1 className="my-8 text-3xl">If else ladder:</h1>
             <p>We know that the if-else statement allows us to check between two possibilities: when the condition is true and when it is false. But what if there are more than two possibilities. Here’s where the if-else ladder comes into place.</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>if(condition1)</p>
+              <p>{`{`}</p>
+              <p className="ml-12">// Executes when condition1 is true</p>
+              <p>{`}`}</p>
+              <p>else if(condition2)</p>
+              <p>{`{`}</p>
+              <p className="ml-12">// Executes when condition2 is true</p>
+              <p>{`}`}</p>
+              <p>else</p>
+              <p>{`{`}</p>
+              <p className="ml-12">// Executes when no condition is true</p>
+              <p>{`}`}</p>
+            </div>
 
             <p>Let’s have a look at an example. Suppose we want to grade students on the basis of their marks such that marks greater than 90 are given “A”, between 80 - 90 “B” and below 80 “C”. Don’t worry this is just an example, you won’t actually be graded this harshly.</p>
 
@@ -170,7 +198,12 @@ const Conditional = () => {
             <h1 className="my-8 text-2xl">For Loop</h1>
             <p>Syntax of for loop:</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>for(initialization statement; condition ; update statement)</p>
+              <p>{`{`}</p>
+              <p className="ml-12">//statements inside the body of loop</p>
+              <p>{`}`}</p>
+            </div>
 
             <h1 className="my-8 text-2xl">How does it work?</h1>
 
@@ -189,12 +222,20 @@ const Conditional = () => {
             <p>- Again, the test expression is evaluated. This process goes on until the test expression is false. When the test expression is false, the loop terminates. So all natural numbers from 1 to 10 are printed and when condition i{`<=`}10 becomes false i.e i=11, the loop terminates.</p>
 
             <h1 className="my-8 text-xl">Note:</h1>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>{`%d`}</p>
+            </div>
             <p className="font-bold"> is a format specifier that is used to output an integer in C. Simply put, this is the syntax to print out an integer.</p>
 
             <h1 className="my-8 text-2xl">While Loop:</h1>
             <p>Syntax:</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p> while(condition)</p>
+              <p>{`{`}</p>
+              <p className="ml-12">//statements</p>
+              <p className="ml-12">//also change the value here that will make the condition false at some point.</p>
+              <p>{`}`}</p>
+            </div>
 
             <h1 className="my-8 text-2xl">How does it work?</h1>
             <p>Here the counter will be initialized before the while loop. A condition is specified in the parenthesis of the ‘while’ loop that will be checked before each iteration until it becomes false. Make sure to change the value of the counter in the while block otherwise it will become an infinite loop.</p>

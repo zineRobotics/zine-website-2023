@@ -38,8 +38,18 @@ const Pseudo = () => {
             <p>Pseudocode is the third and the last step after writing an algorithm and drawing the flowchart which is suggested before we start actual coding. Pseudocode is an informal way of programming that does not require any strict programming language syntax or underlying technological considerations. It is used for creating an outline or a rough draft of the actual program. We will use the same G.C.D. example to maintain a flow.</p>
             <p className="mt-8">Input a and b</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>if(a is greater than b)</p>
+              <p className="ml-12">c = Remainder of a/b</p>
+              <p>else</p>
+              <p className="ml-12">a=b and b=c</p>
+            </div>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>if(c is 0)</p>
+              <p className="ml-12">Print b is the g.c.d.</p>
+              <p>else</p>
+              <p className="ml-12">Go to step 1</p>
+            </div>
 
             <p>You are advised to dry run(complete this link) this pseudo code and try to visualize it. The pseudo-code will become more clear once we move further in the blog.</p>
 

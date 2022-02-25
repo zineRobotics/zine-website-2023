@@ -131,11 +131,15 @@ const Arrays = () => {
 
             <p>To declare an array in C, a programmer specifies the type of the elements and the number of elements required by an array as follows −</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>type arrayName [array size];</p>
+            </div>
 
             <p>This is called a single-dimensional array. The array size must be an integer constant greater than zero and the type can be any valid C data type. For example, to declare a 10-element array called the balance of type double, use this statement −</p>
 
-            <p className="text-red-600 my-8">One big image will come here.</p>
+            <div className="bg-gray-200 rounded-lg text-gray-700 px-16 my-4 py-4 border-2 border-solid border-black">
+              <p>int balance [10];</p>
+            </div>
 
             <p>To explore more about arrays click on the topics below:-</p>
 
