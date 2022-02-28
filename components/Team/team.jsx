@@ -38,18 +38,18 @@ import aman from "../../images/secondyear/aman.webp";
 import mahak from "../../images/secondyear/mahak.webp";
 import pranjali from "../../images/secondyear/pranjali.webp";
 
-interface pic_detail {
-  name: string;
-  image: StaticImageData;
-  desc: string;
-  github: string;
-  linkedin: string;
-  twitter: string;
-  instagram: string;
-  facebook: string;
-}
+// interface pic_detail {
+//   name: string;
+//   image: StaticImageData;
+//   desc: string;
+//   github: string;
+//   linkedin: string;
+//   twitter: string;
+//   instagram: string;
+//   facebook: string;
+// }
 
-const founders: pic_detail[] = [
+const founders= [
   {
     name: "HIMANSHU GOTHWAL",
     image: himanshu,
@@ -92,7 +92,7 @@ const founders: pic_detail[] = [
   }
 ];
 
-const finalyear: pic_detail[] = [
+const finalyear = [
   {
     name: "BHANU MOHINDRA",
     image: bhanu,
@@ -195,7 +195,7 @@ const finalyear: pic_detail[] = [
   }
 ];
 
-const thirdyear: pic_detail[] = [
+const thirdyear = [
   {
     name: "APOORVA RAJ",
     image: apoorva,
@@ -298,7 +298,7 @@ const thirdyear: pic_detail[] = [
   },
 ];
 
-const secondyear: pic_detail[] = [
+const secondyear = [
   {
     name: "VINAMRA VASHISHTH",
     image: vinamra,
