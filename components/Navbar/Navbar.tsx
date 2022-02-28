@@ -131,10 +131,10 @@ const Navbar = () => {
           <div className="link ">
             Achievements
           </div></div></Link>
-          <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">
+          {/* <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Blogs
-          </div></div></Link>
+          </div></div></Link> */}
           <Link href="/about"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             About

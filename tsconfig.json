@@ -14,6 +14,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../performance.tsx", "components/Home/Carousal.jsx", "components/Achievements/achievements.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../performance.tsx", "components/Home/Carousal.jsx", "components/Team/team.jsx", "components/Footer/SecFooter.jsx", "components/Footer/Footer.jsx", "components/Achievements/achievements.jsx"],
   "exclude": ["node_modules"]
 }
