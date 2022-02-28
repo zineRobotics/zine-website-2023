@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Chrono } from "react-chrono";
+import "keen-slider/keen-slider.min.css"
+import { useKeenSlider } from "keen-slider/react"
 import a1 from "../../images/achievements/1.webp"
 import a2 from "../../images/achievements/2.webp"
 import a3 from "../../images/achievements/3.webp"
 import a4 from "../../images/achievements/4.webp"
 
-interface achievement {
-  title: string;
-  cardTitle: string;
-  cardSubtitle: string;
-  cardDetailedText: string;
-}
+// interface achievement {
+//   title: string;
+//   cardTitle: string;
+//   cardSubtitle: string;
+//   cardDetailedText: string;
+// }
 
-const items: achievement[] = [
+const items = [
   {
     cardTitle: "IEEE Research Paper",
     title: "November 2020",
@@ -615,11 +617,59 @@ const items: achievement[] = [
 
 const Achievements = () => {
   // const images = [a1, a2, a3, a4];
+  const [sliderRef] = useKeenSlider(
+    {
+      loop: true,
+    },
+    [
+      (slider) => {
+        let timeout
+        let mouseOver = false
+        function clearNextTimeout() {
+          clearTimeout(timeout)
+        }
+        function nextTimeout() {
+          clearTimeout(timeout)
+          if (mouseOver) return
+          timeout = setTimeout(() => {
+            slider.next()
+          }, 2000)
+        }
+        slider.on("created", () => {
+          slider.container.addEventListener("mouseover", () => {
+            mouseOver = true
+            clearNextTimeout()
+          })
+          slider.container.addEventListener("mouseout", () => {
+            mouseOver = false
+            nextTimeout()
+          })
+          nextTimeout()
+        })
+        slider.on("dragStarted", clearNextTimeout)
+        slider.on("animationEnded", nextTimeout)
+        slider.on("updated", nextTimeout)
+      },
+    ]
+  )
   
     return(
         <div className="text-black bg-white w-screen mb-8">
           <div style={{ width: "100%", height: "100%"}}>
-            <Image src={a1} height={2000} width={4000} />
+            <div ref={sliderRef} className="keen-slider">
+              <div className="keen-slider__slide number-slide1">
+                  <Image src={a1}/>
+              </div>
+              <div className="keen-slider__slide number-slide2">
+                  <Image src={a2}/>
+              </div>
+              <div className="keen-slider__slide number-slide3">
+                  <Image src={a3}/>
+              </div>
+              <div className="keen-slider__slide number-slide4">
+                  <Image src={a4}/>
+              </div>
+            </div>
             <Chrono items={items} mode="VERTICAL_ALTERNATING" />
           </div>
         </div>

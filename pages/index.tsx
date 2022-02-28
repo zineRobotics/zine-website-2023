@@ -4,8 +4,8 @@ import {
   Video,
   ZineActivities,
   LandingPage,
-  ZineText
-
+  ZineText,
+  Carousal
 } from "../components/Home";
 import { Footer, SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
@@ -19,7 +19,8 @@ const Home: NextPage = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
-      <Video />
+      {/* <Video /> */}
+      <Carousal />
       <LandingPage />
       <ZineText />
       <ZineActivities />
