@@ -9,11 +9,13 @@ const LandingPage = () => {
           <h1 className="my-4 text-2xl md:text-5xl text-black opacity-75 font-bold leading-tight text-center">
             Welcome to 
             <br />
-            <div className="bg-clip-text text-base text-2xl sm:text-4xl md:text-5xl lg:text-5xl">
-              Zine Robotics and Research
+            <div className="bg-clip-text text-base text-blue1 text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+             
+              ZINE 
+              <span className="text-black"> Robotics and Research</span>
             </div>
           </h1>
-          <p className="leading-normal text-base text-xl md:text-2xl mb-8 mt-8 text-center">
+          <p className="leading-normal font-bold  text-base text-2xl text-black opacity-75 md:text-3xl mb-8 mt-8 text-center">
             Where Imagination Leads to Creation
           </p>
         </div>
