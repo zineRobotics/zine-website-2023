@@ -45,19 +45,27 @@ const Carousal = () => {
     
       return (
         <>
-          <div ref={sliderRef} className="keen-slider">
+          <div ref={sliderRef} className="keen-slider h-80 md:h-100 lg:h-150">
             <div className="keen-slider__slide number-slide1">
-                <Image src={a1}/>
+                <div className="absolute left-8 inset-y-2/4 text-xl md:text-3xl lg:text-5xl">
+                  <h1 className="">Where Imagination Leads to Creation</h1>
+                </div>
             </div>
             <div className="keen-slider__slide number-slide2">
-                <Image src={a2}/>
-            </div>
+            <div className="absolute left-8 inset-y-2/4 text-xl md:text-3xl lg:text-5xl">
+                  <h1 className="">Conducts Robotics Workshop annually</h1>
+                </div>
+              </div>
             <div className="keen-slider__slide number-slide3">
-                <Image src={a3}/>
-            </div>
+            <div className="absolute left-8 inset-y-2/4 text-xl md:text-3xl lg:text-5xl">
+                  <h1 className="">Participates in various national and international events</h1>
+                </div>
+              </div>
             <div className="keen-slider__slide number-slide4">
-                <Image src={a4}/>
-            </div>
+            <div className="absolute left-8 inset-y-2/4 text-xl md:text-3xl lg:text-5xl">
+                  <h1 className="">Participates in various national and international events</h1>
+                </div>
+              </div>
           </div>
         </>
       )
