@@ -98,27 +98,27 @@ const finalyear = [
     image: bhanu,
     desc: "Mechanical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/bhanu-m/",
     twitter: "",
     instagram: "",
-    facebook: "https://www.facebook.com/bhanu.mohindra?ref=br_rs "
+    facebook: ""
   },
   {
     name: "BRIJRAJ",
     image: brijraj,
     desc: "Mechanical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/brijraj-jangir-b957a416a/",
     twitter: "",
     instagram: "",
-    facebook: "https://www.facebook.com/brijraj.jangir.5"
+    facebook: ""
   },
   {
     name: "CHARU",
     image: charu,
     desc: "Chemical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/charu-09874418b/",
     twitter: "",
     instagram: "",
     facebook: ""
@@ -128,70 +128,50 @@ const finalyear = [
     image: dhruv,
     desc: "Computer Science",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/charu-09874418b/",
     twitter: "",
     instagram: "",
-    facebook: "https://www.facebook.com/dhruv.goyal.37853"
-  },
-  {
-    name: "HARSH CHAUDHARY",
-    image: harsh,
-    desc: "Mechanical Engineering",
-    github: "",
-    linkedin: "",
-    twitter: "",
-    instagram: "",
-    facebook: "https://www.facebook.com/harsh.chaudhary.39501789"
+    facebook: ""
   },
   {
     name: "MUSKAN GARG",
     image: muskan,
     desc: "Civil Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/muskan-garg-031054196/",
     twitter: "",
     instagram: "",
-    facebook: "https://www.facebook.com/profile.php?id=100029074120608"
+    facebook: ""
   },
   {
     name: "NIKITA RAUTELA",
     image: nikita,
     desc: "Mechanical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/nikita-rautela-a37415132/",
     twitter: "",
     instagram: "",
-    facebook: "https://www.facebook.com/nikita.rautela"
+    facebook: ""
   },
   {
     name: "PRAVESH SINGH",
     image: pravesh,
     desc: "Computer Science",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/pravesh-singh-aaa072199/",
     twitter: "",
     instagram: "",
-    facebook: "https://www.facebook.com/parvesh.sandhu.71"
-  },
-  {
-    name: "RAJAT AGRAWAL",
-    image: rajat,
-    desc: "Electrical Engineering",
-    github: "",
-    linkedin: "",
-    twitter: "",
-    instagram: "",
-    facebook: "https://www.facebook.com/rajat.agrawal.524381"
+    facebook: ""
   },
   {
     name: "SNEHA YADAV",
     image: sneha,
     desc: "Electrical Engineering",
     github: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/sneha-yadav-367665170/",
     twitter: "",
     instagram: "",
-    facebook: "https://www.facebook.com/profile.php?id=100028068090094"
+    facebook: ""
   }
 ];
 
