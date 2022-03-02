@@ -24,16 +24,16 @@ const About = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 pt-8 px-12 lg:px-24 xl:px-48">
               <div>
                 <h1 className="text-2xl">What We Do</h1>
-                <p className="py-8">We regularly participate in various national and international events related to a multitude of fields, publish research articles in reputed publications like IEEE Journals and provide services to industries like consultacy related to automation through embedded system based solution for Micro, Small, Medium scale enterprises(MSME).</p>
+                <p className="py-8 break-normal pr-9">We regularly participate in various national and international events related to a multitude of fields, publish research articles in reputed publications like IEEE Journals and provide services to industries like consultacy related to automation through embedded system based solution for Micro, Small, Medium scale enterprises(MSME).</p>
               </div>
 
               <div>
                 <h1 className="text-2xl">Why We Do It</h1>
-                <p className="py-8">We believe in using our knowledge for the betterment of the society and the student community by providing ambitious people a platform to develop their ideas in the fields of Product development, Machine Learning, Software Development and Robotics.</p>
+                <p className="py-8 break-normal pr-9">We believe in using our knowledge for the betterment of the society and the student community by providing ambitious people a platform to develop their ideas in the fields of Product development, Machine Learning, Software Development and Robotics.</p>
               </div>
               <div>
                 <h1 className="text-2xl">Who We Are</h1>
-                <p className="py-8">Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur. Presently our team comprises of around 30 undergraduates from Electrical Engineering, Mechanical Engineering, Electronics and Communication Engineering and Computer Engineering.</p>
+                <p className="py-8 break-normal pr-9">Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur. Presently our team comprises of around 30 undergraduates from Electrical Engineering, Mechanical Engineering, Electronics and Communication Engineering and Computer Engineering.</p>
               </div>
             </div>
             <h1 className="pt-16 pb-8 text-center text-4xl px-12 lg:px-24 xl:px-48">Memories from ZINE events</h1>

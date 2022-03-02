@@ -19,8 +19,8 @@ const SecFooter = () => {
             </div>
             {/* 2nd grid */}
             <div className="col-span-3 text-white pt-16">
-              <h1 className="text-sm pb-4 ml-12 md:ml-0">About ZINE</h1>
-              <p className="ml-12 md:ml-0">Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur who are together to learn, improve and apply their technical skills to help foster the growth of society and India in the field of technology by utilising their engineering skills to work on real time problems. It is comprised of students from various disciplines working under the guidance of Dr. Rajesh Kumar from Electrical Engineering department and various alumni working in reputed firms and doing research in esteemed universities in India and abroad. Zine has been the only active robotics and research group of MNIT for the last 12 years, since its foundation.</p>
+              {/* <h1 className="text-sm pb-4 ml-12 md:ml-0">About ZINE</h1>
+              <p className="ml-12 md:ml-0">Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur who are together to learn, improve and apply their technical skills to help foster the growth of society and India in the field of technology by utilising their engineering skills to work on real time problems. It is comprised of students from various disciplines working under the guidance of Dr. Rajesh Kumar from Electrical Engineering department and various alumni working in reputed firms and doing research in esteemed universities in India and abroad. Zine has been the only active robotics and research group of MNIT for the last 12 years, since its foundation.</p> */}
 
 
               <div className="grid grid-cols-5 py-8 ml-12 md:mx-24">
