@@ -117,7 +117,7 @@ const Navbar = () => {
       >
         <div className="mx-12 lg:mx-24 grid grid-cols-12 text-white text-xl xl:text-2xl">
           <div className="col-span-1">
-          <div className="w-12 h-12 lg:w-12 lg:h-12 cursor-pointer -mt-2">
+          <div className="w-20 h-20 cursor-pointer">
             <Link href="/"><Image src={logo} /></Link>
           </div>
           </div>

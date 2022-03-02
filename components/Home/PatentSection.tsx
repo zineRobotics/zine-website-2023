@@ -9,7 +9,7 @@ const PatentSection = () => {
     return (
         <div className="leading-normal tracking-normal text-indigo-400 pt-4 bg-cover bg-fixed bg-white">
           <div className="leading-normal tracking-normal py-32 bg-cover bg-fixed bg-black">
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-1 lg:grid-cols-3">
               <div className="col-span-1 mx-auto">
               <VisibilitySensor>
               {({isVisible}) => 
@@ -22,9 +22,10 @@ const PatentSection = () => {
       }+
       </p>}
     </VisibilitySensor>
-                <p className="text-center text-gray-400 mt-8 text-xl">Patents</p>
+                <p className="text-center text-gray-400 mt-8 text-xl">Research Papers</p>
                 <div className="w-8 h-8 border-b-2 border-blue-600 mx-auto"></div>
               </div>
+
               <div className="col-span-1 mx-auto">
               <VisibilitySensor>
               {({isVisible}) => 
@@ -32,12 +33,28 @@ const PatentSection = () => {
       {
        isVisible
         ?
-        <CountUp end={10} />:50
+        <CountUp end={100} />:100
   
       }+
       </p>}
     </VisibilitySensor>
-                <p className="text-center text-gray-400 mt-8 text-xl">Research Papers</p>
+                <p className="text-center text-gray-400 mt-8 text-xl">Competitions</p>
+                <div className="w-8 h-8 border-b-2 border-blue-600 mx-auto"></div>
+              </div>
+
+              <div className="col-span-1 mx-auto">
+              <VisibilitySensor>
+              {({isVisible}) => 
+                <p className="text-center text-8xl text-blue1">   
+      {
+       isVisible
+        ?
+        <CountUp end={10} />:10
+  
+      }+
+      </p>}
+    </VisibilitySensor>
+                <p className="text-center text-gray-400 mt-8 text-xl">Patents</p>
                 <div className="w-8 h-8 border-b-2 border-blue-600 mx-auto"></div>
               </div>
             </div>

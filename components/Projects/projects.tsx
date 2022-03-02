@@ -15,9 +15,10 @@ import hci from "../../images/project/new/hci.jpg";
 import highvoltage from "../../images/project/new/highvoltage.jpg";
 import home from "../../images/project/new/home.jpg";
 import xyz from "../../images/project/new/IMG_2641.webp";
-import pros from "../../images/project/new/pros.jpeg";
+import pros from "../../images/project/new/prosthetics.jpeg";
 import quadcopter from "../../images/project/new/quadcopter.jpg";
 import wheelchair from "../../images/project/new/wheelchair.jpg";
+import Multi from "../../images/project/new/multi.jpeg";
 // Use mobile responsive navbar animation for projects section.
 
 const Projects = () => {
@@ -155,7 +156,7 @@ const Projects = () => {
           <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-4">
             <div className="col-span-1 inline-block md:hidden my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Multi Actuator Switch Mode Hydraulic System</h1>
-              <Image src={img1} className="rounded-lg"/>
+              <Image src={Multi} className="rounded-lg"/>
             </div>
             <div className="col-span-2">
               <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Multi Actuator Switch Mode Hydraulic System</h1>
@@ -163,7 +164,7 @@ const Projects = () => {
               <p>Team Members: Paresh Anand, Piyush Chauhan, Sharad Garg</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
-              <Image src={img1} className="rounded-lg"/>
+              <Image src={Multi} className="rounded-lg"/>
             </div>
           </div>
 
