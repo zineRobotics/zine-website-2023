@@ -60,14 +60,18 @@
 
 .i1 {
   background-image: url('../images/achievements/1.webp');
+  background-size: cover;
 }
 
 .i2 {
   background-image: url('../images/achievements/2.webp');
+  background-size: cover;
 }
 .i3 {
   background-image: url('../images/achievements/3.webp');
+  background-size: cover;
 }
-.i3 {
+.i4 {
   background-image: url('../images/achievements/4.webp');
+  background-size: cover;
 }

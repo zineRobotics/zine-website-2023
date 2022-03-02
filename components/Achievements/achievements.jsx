@@ -656,18 +656,14 @@ const Achievements = () => {
     return(
         <div className="text-black bg-white w-screen mb-8">
           <div style={{ width: "100%", height: "100%"}}>
-            <div ref={sliderRef} className="keen-slider">
-              <div className="keen-slider__slide number-slide1">
-                  <Image src={a1}/>
+            <div ref={sliderRef} className="keen-slider h-120 lg:h-130 xl:h-150">
+              <div className="keen-slider__slide i1">
               </div>
-              <div className="keen-slider__slide number-slide2">
-                  <Image src={a2}/>
+              <div className="keen-slider__slide i2">
               </div>
-              <div className="keen-slider__slide number-slide3">
-                  <Image src={a3}/>
+              <div className="keen-slider__slide i3">
               </div>
-              <div className="keen-slider__slide number-slide4">
-                  <Image src={a4}/>
+              <div className="keen-slider__slide i4">
               </div>
             </div>
             <Chrono items={items} mode="VERTICAL_ALTERNATING" disableClickOnCircle={true} hideControls={true}
