@@ -34,6 +34,30 @@
   background-size: cover;
 }
 
+.number-slide5 {
+  background: url("../images/gallery/carousel/projects.jpg") rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+  background-size: cover;
+}
+
+.number-slide6 {
+  background: url("../images/gallery/carousel/workshop.jpg") rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+  background-size: cover;
+}
+
+.number-slide7 {
+  background: url("../images/gallery/carousel/competition.jpg") rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+  background-size: cover;
+}
+
+.number-slide8 {
+  background: url("../images/gallery/carousel/drone.jpeg") rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+  background-size: cover;
+}
+
 .i1 {
   background-image: url('../images/achievements/1.webp');
 }

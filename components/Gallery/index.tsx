@@ -1,3 +1,4 @@
 import Gallery from "./gallery";
+import Carousal from "./Carousel";
 
-export {Gallery};
+export {Gallery, Carousal};

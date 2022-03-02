@@ -56,20 +56,10 @@ const Navbar = () => {
       image: Achievements,
       link: "/achievements"
     },
-    // {
-    //   text: "Blogs",
-    //   image: about,
-    //   link: "/blogs"
-    // },
     {
       text: "Gallery",
-      image: Project,
-      link: "/gallery"
-    },
-    {
-      text: "About",
       image: about,
-      link: "/about"
+      link: "/gallery"
     },
   ];
 
@@ -148,10 +138,6 @@ const Navbar = () => {
           <Link href="/gallery"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Gallery
-            </div></div></Link>
-          <Link href="/about"><div className="mb-2 cursor-pointer hidden lg:inline-block">
-          <div className="link ">
-            About
             </div></div></Link>
           </div>
           <div className="w-9 h-8 inline-block lg:hidden absolute right-8 mb-8">
