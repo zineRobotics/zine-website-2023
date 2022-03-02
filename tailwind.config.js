@@ -85,6 +85,7 @@ module.exports = {
         'blog-bg': "url('../images/blog/blog.jpg')",
         'ee-bg': "url('../images/blog/bee/ee.jpg')",
         'algo-bg': "url('../images/blog/algo/5.webp')",
+        'banner-bg': "url('../images/banner-bg.webp')"
       },
       fontSize: {
         base: ['50px', '75px'],
