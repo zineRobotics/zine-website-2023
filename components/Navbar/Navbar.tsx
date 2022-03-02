@@ -101,7 +101,6 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <hr className="mt-6" />
       </>
     );
   }
