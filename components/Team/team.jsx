@@ -37,7 +37,11 @@ import sudeshna from "../../images/secondyear/sudeshna.webp";
 import aman from "../../images/secondyear/aman.webp";
 import mahak from "../../images/secondyear/mahak.webp";
 import pranjali from "../../images/secondyear/pranjali.webp";
-
+import piyush from "../../images/alumni/piyush.jpeg";
+import kriti from "../../images/alumni/kriti.jpeg";
+import nimesh from "../../images/alumni/nimesh.jpeg";
+import devnath from "../../images/alumni/devnath.jpeg";
+import vikalp from "../../images/alumni/vikalp.jpeg"
 // interface pic_detail {
 //   name: string;
 //   image: StaticImageData;
@@ -90,6 +94,59 @@ const founders= [
     instagram: "",
     facebook: "https://www.facebook.com/soniya.jain.583671"
   }
+];
+
+const alumni = [
+  {
+    name: "Piyush Jha",
+    desc: "MASc Student at University of Waterloo\nArtificial Intelligence R&D Engineer @Quadrical.ai",
+    image: piyush,
+    linkedin: "https://linkedin.com/in/piyush-j/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Kriti Gupta",
+    desc: "Software Developer at Apple\nGraduate Services Assistant at Arizona State University",
+    image: kriti,
+    linkedin: "https://www.linkedin.com/in/kritigupta13/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Nimesh Khandelwal",
+    desc: "Ph.D. Graduate Student at Indian Institute of Technology, Kanpur",
+    image: nimesh,
+    linkedin: "https://www.linkedin.com/in/nimesh-khandelwal-464b6a125/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Devnath Nair",
+    desc: "Robotics Engineer in Autonomous Guided Vehicles at Addverb Technologies, Australia",
+    image: devnath,
+    linkedin: "https://www.linkedin.com/in/devnath-nair/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Vikalp Saini",
+    desc: "ESE 2020 - AIR 23,\nPosting - Assistant Director,\nCentral Electricity Authority,\nMinistry of Power",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/vikalp-saini-3750961b2/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
 ];
 
 const finalyear = [
@@ -390,6 +447,28 @@ const Team = () => {
               </div>
               <p className="text-center text-xl font-bold">{item.name}</p>
               <p className="text-center text-md text-gray-600">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">ALUMNI</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {alumni.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
               <div className="text-center">
               <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
