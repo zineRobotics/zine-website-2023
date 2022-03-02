@@ -185,7 +185,7 @@ const finalyear = [
     image: dhruv,
     desc: "Computer Science",
     github: "",
-    linkedin: "https://www.linkedin.com/in/charu-09874418b/",
+    linkedin: "https://www.linkedin.com/in/dhruv-goyal-2a2905194",
     twitter: "",
     instagram: "",
     facebook: ""

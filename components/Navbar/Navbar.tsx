@@ -2,7 +2,7 @@ import Link from "next/link";
 import logo from "../../images/zine1.png";
 import hamburger from "../../images/hamburger.svg";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import home from "../../images/home-icon.webp";
 import about from "../../images/about.webp";
 import Project from "../../images/project-icon.webp";
@@ -44,26 +44,32 @@ const Navbar = () => {
     {
       text: "Team",
       image: Team,
-      link: "/team"
+      link: "/team/"
     },
     {
       text: "Projects",
       image: Project,
-      link: "/projects"
+      link: "/projects/"
     },
     {
       text: "Achievements",
       image: Achievements,
-      link: "/achievements"
+      link: "/achievements/"
     },
     {
       text: "Gallery",
       image: about,
-      link: "/gallery"
+      link: "/gallery/"
     },
   ];
 
   function Nav_Out() {
+
+    const LinkClick = (e:React.MouseEvent) => {
+      setHide(true);
+      e.preventDefault();
+    }
+
     return (
       <>
         <div className="z-30 top-0 flex fixed w-full h-full animate-navbar">
@@ -87,7 +93,7 @@ const Navbar = () => {
                   <Link href={item.link}>
                   <h1 className="text-white text-xl px-20 py-2 font-nunito">
                     <Image src={item.image} width="16" height="16"></Image>
-                    <a href="#"> {item.text}</a>
+                    {item.link === location.pathname ? <a href={item.link} onClick={LinkClick}>{item.text}</a> : <a href={item.link}>{item.text}</a>}
                   </h1>
                   </Link>
                 </div>
