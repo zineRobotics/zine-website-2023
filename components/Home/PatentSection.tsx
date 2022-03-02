@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Macbook from "../../images/macbook.svg";
 import Image from "next/image";
+import CountUp from 'react-countup';
+import VisibilitySensor from 'react-visibility-sensor';
 
 const PatentSection = () => {
     return (
@@ -9,13 +11,33 @@ const PatentSection = () => {
           <div className="leading-normal tracking-normal py-32 bg-cover bg-fixed bg-black">
             <div className="grid grid-cols-2">
               <div className="col-span-1 mx-auto">
-                <p className="text-center text-8xl text-blue1">50+</p>
-                <p className="text-center text-gray-400 mt-8 text-xl">Research Papers</p>
+              <VisibilitySensor>
+              {({isVisible}) => 
+                <p className="text-center text-8xl text-blue1">   
+      {
+       isVisible
+        ?
+        <CountUp end={50} />:50
+  
+      }+
+      </p>}
+    </VisibilitySensor>
+                <p className="text-center text-gray-400 mt-8 text-xl">Patents</p>
                 <div className="w-8 h-8 border-b-2 border-blue-600 mx-auto"></div>
               </div>
               <div className="col-span-1 mx-auto">
-                <p className="text-center text-8xl text-blue1 shadow-lg">10+</p>
-                <p className="text-center text-gray-400 mt-8 text-xl">Patents</p>
+              <VisibilitySensor>
+              {({isVisible}) => 
+                <p className="text-center text-8xl text-blue1">   
+      {
+       isVisible
+        ?
+        <CountUp end={10} />:50
+  
+      }+
+      </p>}
+    </VisibilitySensor>
+                <p className="text-center text-gray-400 mt-8 text-xl">Research Papers</p>
                 <div className="w-8 h-8 border-b-2 border-blue-600 mx-auto"></div>
               </div>
             </div>

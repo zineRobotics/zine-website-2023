@@ -670,7 +670,15 @@ const Achievements = () => {
                   <Image src={a4}/>
               </div>
             </div>
-            <Chrono items={items} mode="VERTICAL_ALTERNATING" />
+            <Chrono items={items} mode="VERTICAL_ALTERNATING" disableClickOnCircle={true} hideControls={true}
+              theme={{
+                secondary: "white",
+            
+            
+              }}
+              disableNavOnKey={true}
+              />
+         
           </div>
         </div>
     )
