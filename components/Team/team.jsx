@@ -433,7 +433,7 @@ const Team = () => {
             </div>
           </div>
           <div className="col-span-1 my-auto">
-            <h1 className="text-2xl text-center">DR. RAJESH KUMAR</h1>
+            <h1 className="text-2xl text-center font-bold">DR. RAJESH KUMAR</h1>
             <p className="text-center">Ph.D., PDF(NUS, Singapore) SMIEEE, FIETE, MIE (I),SMIACSIT, LMISTE, MIAENG,</p>
             <p className="text-center">Professor of Elec. Engg.</p>
           </div>

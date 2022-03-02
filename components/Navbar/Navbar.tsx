@@ -56,10 +56,15 @@ const Navbar = () => {
       image: Achievements,
       link: "/achievements"
     },
+    // {
+    //   text: "Blogs",
+    //   image: about,
+    //   link: "/blogs"
+    // },
     {
-      text: "Blogs",
-      image: about,
-      link: "/blogs"
+      text: "Gallery",
+      image: Project,
+      link: "/gallery"
     },
     {
       text: "About",
@@ -106,10 +111,15 @@ const Navbar = () => {
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-12 lg:mx-24 flex text-white justify-between text-xl xl:text-2xl">
+        <div className="mx-12 lg:mx-24 grid grid-cols-12 text-white text-xl xl:text-2xl">
+          <div className="col-span-1">
           <div className="w-12 h-12 lg:w-12 lg:h-12 cursor-pointer -mt-2">
             <Link href="/"><Image src={logo} /></Link>
           </div>
+          </div>
+          <div className="col-span-5"></div>
+          <div className="col-span-6">
+            <div className="flex text-xl justify-between">
           <Link href="/"><div className="mb-2 cursor-pointer hidden lg:inline-block">
             <div className="link ">
             Home
@@ -131,17 +141,23 @@ const Navbar = () => {
           <div className="link ">
             Blogs
           </div></div></Link> */}
+          <Link href="/gallery"><div className="mb-2 cursor-pointer hidden lg:inline-block">
+          <div className="link ">
+            Gallery
+            </div></div></Link>
           <Link href="/about"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             About
             </div></div></Link>
-          <div className="w-12 h-12 inline-block lg:hidden">
+          </div>
+          <div className="w-12 h-12 inline-block lg:hidden absolute right-8 mb-8">
             <Image
               src={hamburger}
               onClick={() => {
                 setHide(true);
               }}
             />
+          </div>
           </div>
         </div>
       </div>
