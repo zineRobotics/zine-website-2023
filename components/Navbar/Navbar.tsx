@@ -72,16 +72,12 @@ const Navbar = () => {
     return (
       <>
         <div className="z-30 top-0 flex fixed w-full h-full animate-navbar">
-          <div
-            className="z-20 bg-cover opacity-50 w-full h-full transparent"
-            onClick={() => {
-              setHide(false);
-            }}
-          ><div className="font-size-30">&times;</div></div>
           <div className="top-0 right-0 w-auto bg-gray-800 fixed h-full overflow-auto z-30 shadow-nav_custom">
-            <div className="py-6 px-20">
-              <button className="bg-gray-200 hover:bg-gray-100 rounded py-2 px-6 font-nunito text-xl font-bold">
-                <h1>Zine</h1>
+            <div className="py-6 px-20" onClick={() => {
+              setHide(false);
+            }}>
+              <button className="text-white rounded py-2 px-6 font-nunito text-xl font-bold">
+                <h1>&times;</h1>
               </button>
             </div>
             <div>
