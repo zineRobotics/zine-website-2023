@@ -6,7 +6,8 @@ import {
   LandingPage,
   ZineText,
   Carousal,
-  RegistrationBanner
+  RegistrationBanner,
+  PatentSection
 } from "../components/Home";
 import { Footer, SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
       <Carousal />
       <LandingPage />
       <ZineText />
+      <PatentSection />
       <ZineActivities />
       <RegistrationBanner />
       <SecFooter />
