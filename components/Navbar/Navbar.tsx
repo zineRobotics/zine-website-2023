@@ -154,7 +154,7 @@ const Navbar = () => {
             About
             </div></div></Link>
           </div>
-          <div className="w-12 h-12 inline-block lg:hidden absolute right-8 mb-8">
+          <div className="w-9 h-8 inline-block lg:hidden absolute right-8 mb-8">
             <Image
               src={hamburger}
               onClick={() => {
