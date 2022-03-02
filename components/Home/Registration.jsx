@@ -1,6 +1,6 @@
 const RegistrationBanner = () => {
   return(
-    <div className="bg-banner-bg bg-center bg-cover p-28">
+    <div className="bg-banner-bg bg-center bg-cover py-28">
       <div className="text-white text-4xl pt-8 pb-4 px-12 lg:px-24 xl:px-48">
         Interested to be part of Zine?
       </div>

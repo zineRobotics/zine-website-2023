@@ -34,7 +34,7 @@ const Gallery = () => {
 
     return(
         <section className="overflow-hidden text-gray-700">
-          <div className="grid grid-cols-5 ">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
             <Image src={a1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={a2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={a3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
