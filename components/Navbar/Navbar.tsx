@@ -1,5 +1,5 @@
 import Link from "next/link";
-import logo from "../../images/logo_without_shadow.webp";
+import logo from "../../images/zine1.png";
 import hamburger from "../../images/hamburger.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -110,8 +110,8 @@ const Navbar = () => {
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-12 lg:mx-24 flex text-white justify-between text-xl xl:text-2xl">
-          <div className="w-12 h-12 lg:w-12 lg:h-12 cursor-pointer -mt-2">
+        <div className="mx-12 lg:mx-12 flex text-white justify-between text-xl xl:text-2xl">
+          <div className="w-12 h-12 lg:w-12 lg:h-12 cursor-pointer pt-4 -mt-2">
             <Link href="/"><Image src={logo} /></Link>
           </div>
           <Link href="/"><div className="mb-2 cursor-pointer hidden lg:inline-block">
@@ -139,7 +139,7 @@ const Navbar = () => {
           <div className="link ">
             About
             </div></div></Link>
-          <div className="w-12 h-12 inline-block lg:hidden">
+          <div className="w-9 h-8 pb-6 inline-block lg:hidden">
             <Image
               src={hamburger}
               onClick={() => {
