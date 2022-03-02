@@ -81,3 +81,11 @@ body {
 #footerid:hover {
 	border-color: red;
 }
+
+.preline {
+  white-space: pre-line;
+}
+
+.font-size-30 {
+  font-size: 50px !important;
+}
