@@ -80,7 +80,7 @@ module.exports = {
         'bg-a12': "url('../images/project/a12_11zon.webp')",
         'bg-a13': "url('../images/project/a13_11zon.webp')",
         'bg-a14': "url('../images/project/a14_11zon.webp')",
-        'bg-team': "url('../images/team4.jpg')",
+        'bg-team': "url('../images/team.jpg')",
         'about-bg': "url('../images/aboutbg_11zon.webp')",
         'blog-bg': "url('../images/blog/blog.jpg')",
         'ee-bg': "url('../images/blog/bee/ee.jpg')",

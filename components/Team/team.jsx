@@ -147,6 +147,267 @@ const alumni = [
     facebook: "",
     github: ""
   },
+  
+  {
+    name: "Vasanth Reddy",
+    desc: "Graduate Research Assistant at Virginia Tech",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/vasanth-reddy-778816108/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Divyam Aditya Singh",
+    desc: "Rakuten Symphony",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/divyam-aditya-singh-870369140/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Puru Lokendra Singh",
+    desc: "SDE at Publicis Sapient",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/puru-lokendra-singh-b9a948134/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Samidha Verma",
+    desc: "SDE at Amazon",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/samidhaverma/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "MD SAIF",
+    desc: "Senior Product Engineer at Tredence Inc.",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/md-saif-111267128/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Mrigakshi Pandey",
+    desc: "Software Engineer at Fidelity Investments",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/mrigakshipandey/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Rahul Ravichandran",
+    desc: "Robotics Engineer at Turftank",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/rahul-ravichandran-b89363129/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Akshay Kumar",
+    desc: "Computer Vision Engineer at Invisible AI | Roboticist",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/kumarakshay324/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Ayush Jhalani",
+    desc: "Software Developer at Honeywell Intelligrated",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/ayushjhalani/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Devang Anant Darode",
+    desc: "R&D intern at BEC Robotics",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/devangdarode/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Jatin Verma",
+    desc: "AI Scientist at WaveScan Technologies Pte. Ltd.",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/jverma205/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Sarthak Jain",
+    desc: "MS Software Engineering, San Jose State Univ, USA",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/sarthak-jain29/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Karsh Tharayani",
+    desc: "Robotics Algorithm Developer at MathWorks",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/karsh-tharyani-264a48104/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Shubham Tripathi",
+    desc: "Applied Researcher, Microsoft",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/stripathi08/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Saatvik Shah",
+    desc: "Software Engineer at IMC Trading",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/saatvikshah/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Sanjay Thakur",
+    desc: "Founder and CEO at Rydesafely",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/sanjay-thakur-49a704176/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Anshul Mittal",
+    desc: "Founding Member at SALT - mysaltapp",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/anshulmittal712/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Avinash Sharma",
+    desc: "Imaging Scientist at Algolux",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/avinash-sharma-561335a3/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Akash Shah",
+    desc: "Product & Growth @ OYO",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/akash-shah-604/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Anirudha Kumar",
+    desc: "Assistant Commissioner, State Tax at Government of Bihar",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/anirudha-kumar-151635a0/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Mihika Gupta",
+    desc: " Experienced AssociateExperienced Associate",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/avinash-sharma-561335a3/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Avinash Sharma",
+    desc: "Imaging Scientist at Algolux",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/avinash-sharma-561335a3/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Alok Agrawal",
+    desc: "Sr. Software Controls Engineer at Medtronic",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/agrawalalok1/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Nirmala  Kunwar",
+    desc: "Electronics Engineer",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/nirmala-kunwar-ranawat/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Rohit Saxena",
+    desc: "Associate Manager - Demand Planning",
+    image: vikalp,
+    linkedin: "https://www.linkedin.com/in/rohit-saxena-692094189/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
+  {
+    name: "Ankita Gupta",
+    desc: "Associate Manager - Demand Planning",
+    image: vikalp,
+    linkedin: "",
+    twitter: "",
+    instagram: "",
+    facebook: "https://www.facebook.com/ankita.gupta.39142/about_work_and_education",
+    github: ""
+  },
 ];
 
 const finalyear = [
@@ -426,7 +687,7 @@ const Team = () => {
         <div className="pt-16 grid grid-cols-1 lg:grid-cols-2 px-12 lg:px-24">
           <div className="col-span-1 w-48 member-hover lg:w-80 justify-self-center">
             <Image className="rounded-full" src={RajeshSir} placeholder="blur"/>
-            <div className="text-center grid grid-cols-3">
+            <div className="text-center grid mt-4 justify-evenly grid-cols-3">
               <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://drrajeshkumar.wordpress.com/"><FontAwesomeIcon icon={faWordpress} className="text-black mr-4" size="2x" /></Link></div>
               <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/in/drrajeshkumar/"><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div>
               <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/rkumar.ee"><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div>
@@ -449,7 +710,7 @@ const Team = () => {
               <p className="text-center text-xl font-bold">{item.name}</p>
               <p className="text-center text-md text-gray-600">{item.desc}</p>
               <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
+              <div className="grid grid-flow-col auto-cols-auto w-64 mt-2 mx-auto justify-evenly px-8">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
                 {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
                 {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
@@ -460,7 +721,7 @@ const Team = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">ALUMNI</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">ALUMNI</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {alumni.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -471,7 +732,7 @@ const Team = () => {
               <p className="text-center text-xl font-bold">{item.name}</p>
               <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
               <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
                 {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
                 {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
@@ -482,7 +743,7 @@ const Team = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">FINAL YEAR</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">FINAL YEAR</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {finalyear.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -493,7 +754,7 @@ const Team = () => {
               <p className="text-center text-xl font-bold">{item.name}</p>
               <p className="text-center text-gray-600 text-md">{item.desc}</p>
               <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
                 {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
                 {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
@@ -504,7 +765,7 @@ const Team = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">THIRD YEAR</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">THIRD YEAR</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {thirdyear.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -515,7 +776,7 @@ const Team = () => {
               <p className="text-center text-xl font-bold">{item.name}</p>
               <p className="text-center text-md text-gray-600">{item.desc}</p>
               <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
                 {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
                 {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
@@ -526,7 +787,7 @@ const Team = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-32 text-center font-bold text-4xl px-12 lg:px-24">SECOND YEAR</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">SECOND YEAR</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 py-16 px-12 lg:px-24">
         {secondyear.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -537,7 +798,7 @@ const Team = () => {
               <p className="text-center text-xl font-bold">{item.name}</p>
               <p className="text-center text-md text-gray-600">{item.desc}</p>
               <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto w-64 mx-auto">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
                 {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
                 {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
                 {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}

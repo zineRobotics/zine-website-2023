@@ -48,10 +48,10 @@ const Projects = () => {
   const linebreak = '\n';
 
     return(
-      <div className="text-black bg-white w-screen h-screen">
+      <div className="text-black bg-black w-full h-full">
         
         <div className="py-20">
-          <div className="shadower grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 rounded-xl p-8">
+          <div className="shadower grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">BCI (Brain Computing Interface)</h1>
               <Image src={bci} className="rounded-lg"/>
@@ -62,7 +62,7 @@ const Projects = () => {
               <h1 className="pt-8">Team Members: Saurab Aggarwal Bhanu Pratap Singh Rawat</h1>
             </div>
           </div>
-          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-4">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 inline-block md:hidden my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Intelligent Home Energy Management System</h1>
               <Image src={home} className="rounded-lg"/>
@@ -78,7 +78,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-8">
+          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Automotive Wheelchair</h1>
               <Image src={wheelchair} className="rounded-lg"/>
@@ -97,7 +97,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-4">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 inline-block md:hidden my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Autonomous Quadcopter</h1>
               <Image src={quadcopter} className="rounded-lg"/>
@@ -112,7 +112,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-8">
+          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Gait Analysis</h1>
               <Image src={gait} className="rounded-lg"/>
@@ -125,7 +125,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-4">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 inline-block md:hidden my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Prosthetics Arm</h1>
               <Image src={pros} className="rounded-lg"/>
@@ -140,7 +140,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-8">
+          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Human Computer Interface</h1>
               <Image src={hci} className="rounded-lg"/>
@@ -153,7 +153,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-4">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 inline-block md:hidden my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Multi Actuator Switch Mode Hydraulic System</h1>
               <Image src={Multi} className="rounded-lg"/>
@@ -161,14 +161,14 @@ const Projects = () => {
             <div className="col-span-2">
               <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Multi Actuator Switch Mode Hydraulic System</h1>
               <p className="">Current hydraulic systems involving multiple actuators and a single hydraulic power supply generally have poor efficiency. Using throttling valves to control multiple actuators requires meeting the highest pressure requirement and the total flow of all of actuators. When there is a large difference in the pressure requirement of the actuators, fluid throttling results in significant energy losses. The purpose of this project is to implement switch-mode control in a multi-actuator circuit and demonstrate the improvement in efficiency over a traditional hydraulic system with throttling valve control. This will reduce energy losses and result in improved efficiency for usage of multiple actuators with a single hydraulic power source. This idea utilises the input from both the tank and the pump. Using varying amounts of fluid coming from both sources, we can create various pressure and flow values for different actuators and in the process increase the efficiency of the system by operating the actuators at their rated pressures and flows. The usages of this project vary from heavy duty hydraulic cranes to hydraulic lifts. This new technology, once implemented on a larger scale in realistic applications, will reduce losses in hydraulic systems that depend on multiple actuators to function.</p>
-              <p>Team Members: Paresh Anand, Piyush Chauhan, Sharad Garg</p>
+              <p className="pt-8">Team Members: Paresh Anand, Piyush Chauhan, Sharad Garg</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
               <Image src={Multi} className="rounded-lg"/>
             </div>
           </div>
 
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-8">
+          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Sun Tracker</h1>
               <Image src={xyz} className="rounded-lg"/>
@@ -180,7 +180,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-4">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 inline-block md:hidden my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Robotic Technology for High Voltage Line Inspection and Repair</h1>
               <Image src={highvoltage} className="rounded-lg"/>
@@ -189,14 +189,14 @@ const Projects = () => {
               <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Robotic Technology for High Voltage Line Inspection and Repair</h1>
               <p className="">The project is aimed at developing a robotic technology for carrying out the inspection and repair work of any faults that may occur in the transmission/distribution lines. The robot will achieve this task whilst the line being under live condition. Present methods of inspection include Helicopter surveillance and Human inspection. Helicopter surveillance is done by a lineman using helicopter and it is highly risky. The second method includes human inspection. In this lineman climbs on the transmission line and checks out all the faults and repairs them and this method is also highly risky and time consuming.</p>
               <p>The robotic system consists of a robot equipped with: 1. A high definition video camera providing live feeds of transmission line 2. Infrared (Thermal) camera providing the locations of hotspots. 3. Wire clamper and bolt lightener. 4. Wireless assembly providing control upto 2km. The robotic system is manually controlled through a wireless remote. The video and infrared cameras provide live feeds which are transmitted wirelessly. The receiver kept near operator receives the live feeds and then they are displayed on the screen. The operator can then control the robotic system to repair the broken strands and can also analyze the hotspots. Loose bolts can be tightened by using the assembly mounted for tightening the bolts. This way the system will minimize the human work, increase efficiency and reduce dangers in maintaining and repairing the transmission lines.</p>
-              <p>Team Members: Akash Shah, Akshay Kumar, Anirudha Kumar, Anshul Mittal, Rajat Arya, Sharad Garg</p>
+              <p className="pt-8">Team Members: Akash Shah, Akshay Kumar, Anirudha Kumar, Anshul Mittal, Rajat Arya, Sharad Garg</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
               <Image src={highvoltage} className="rounded-lg"/>
             </div>
           </div>
 
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-8">
+          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Exoskeleton</h1>
               <Image src={exoskeleton} className="rounded-lg"/>
@@ -209,7 +209,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-4">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 inline-block md:hidden my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Smart Grid</h1>
               <Image src={smartgrid} className="rounded-lg"/>
@@ -217,14 +217,14 @@ const Projects = () => {
             <div className="col-span-2">
               <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Smart Grid</h1>
               <p className="">Today, the technology has reached an advanced level. In contrast to this, our Power Transmission and Distribution system is the same that has been installed 100 years ago and which has become obsolete and needs to be developed or replanted. Here comes the need for Smart Grid. It is an advanced Power Grid that uses advanced communication networks to achieve following features: • sensing and metering technology for incoming and outgoing power, • identifies regions where there is larger need of power and implements considerable decrease in other regions, • enables consumers to become suppliers by decentralising sources of power as there are {`<`} 1000 Power stations for over millions of consumers, • Roof top solar energy generation, energy storage and excess energy selling with optimization of demand. • identifies peaks of consumption in a day and optimizes the use of Power, • Automated control and monitoring to detect faults through sensors so that they can be repaired quickly. • Prevents electricity thefts</p>
-              <p>Team Members: Jatin Verma, Akshay Kumar</p>
+              <p className="pt-8">Team Members: Jatin Verma, Akshay Kumar</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
               <Image src={smartgrid} className="rounded-lg"/>
             </div>
           </div>
 
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-8">
+          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Hand Gesture Recognition</h1>
               <Image src={handgesture} className="rounded-lg"/>
@@ -236,7 +236,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl p-4">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 inline-block md:hidden my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">A.G.A.S.T.U.T.I</h1>
               <Image src={astuti} className="rounded-lg"/>
@@ -244,7 +244,7 @@ const Projects = () => {
             <div className="col-span-2">
               <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">A.G.A.S.T.U.T.I</h1>
               <p className="">AGASTUTI as the name suggests is an autonomous system which can replace human beings from the unproductive job of transporting objects from one place to another. Thus effectively saving human resources which can be used in other comparatively more productive jobs. The system consists of a CPU as any customized PC. The main aim is to achieve an autonomous navigation. The robot will further be used in hospitals where in case of an emergency the nearest ICU for the patient will be automatically be fetched from a UNIFIED database and will save the precious moments. The robot will feature various robotic sciences like Image Processing,etc. The interface with the robot will be via a touch screen An insight in the future a multiple number of these robots will be in sync with each other to make navigation very simple and efficient saving a lot of resources and man power.</p>
-              <p>Team Members: Devang Darode, Karsh Tharyani, Ayush Jhalani</p>
+              <p className="pt-8">Team Members: Devang Darode, Karsh Tharyani, Ayush Jhalani</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
               <Image src={astuti} className="rounded-lg"/>
