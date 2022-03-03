@@ -119,9 +119,55 @@ const Projects = () => {
 
 
     return(
-      <div className="text-black bg-black w-full h-full">
-        
+      <div className="text-black bg-white w-full h-full">
         <div className="py-20">
+
+        <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
+            <div className="col-span-1 my-auto">
+              <h1 className="inline-block md:hidden text-2xl font-bold mb-4">VTOL</h1>
+              <Image src={vtol} className="rounded-lg"/>
+            </div>
+            <div className="col-span-2">
+              <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">VTOL</h1>
+              <br />
+              <p className="inline-block md:hidden">{vtoltext}</p>
+              <p className="hidden md:inline-block">{vtoltext}</p>
+              <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
+            </div>
+          </div>
+
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
+            <div className="col-span-1 inline-block md:hidden my-auto">
+              <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Biped</h1>
+              <Image src={biped} className="rounded-lg"/>
+            </div>
+            <div className="col-span-2">
+              <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Biped</h1>
+              <p className="inline-block md:hidden">{showMore16 ? bipedtext : bipedtext.substring(0, 150)+`...`}</p>
+              <p className="hidden md:inline-block mt-8">{bipedtext}</p>
+           
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore16(!showMore16)}>{showMore16 ? `Show Less` : `Show More`}</button>
+              <p className="pt-8">Team Members: Devang Darode, Karsh Tharyani, Ayush Jhalani</p>
+            </div>
+            <div className="col-span-1 my-auto hidden md:inline-block">
+              <Image src={biped} className="rounded-lg"/>
+            </div>
+          </div>
+
+          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
+            <div className="col-span-1 my-auto">
+              <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Actroid</h1>
+              <Image src={actroid} className="rounded-lg"/>
+            </div>
+            <div className="col-span-2">
+              <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Actroid</h1>
+              <p className="inline-block md:hidden">{showMore15 ? actroidtext : actroidtext.substring(0, 150)+`...`}</p>
+              <p className="hidden md:inline-block mt-8">{actroidtext}</p>
+           
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore15(!showMore15)}>{showMore15 ? `Show Less` : `Show More`}</button>
+              <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
+            </div>
+          </div>
 
           <div className="shadower grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
@@ -132,7 +178,7 @@ const Projects = () => {
               <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">BCI (Brain Computing Interface)</h1>
               <p className="inline-block md:hidden">{showMore1 ? bcitext : bcitext.substring(0, 200)+`...`}</p>
               <p className="hidden md:inline-block">{bcitext}</p>
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore1(!showMore1)}>{showMore1 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore1(!showMore1)}>{showMore1 ? `Show Less` : `Show More`}</button>
               <h1 className="pt-8">Team Members: Saurab Aggarwal Bhanu Pratap Singh Rawat</h1>
             </div>
           </div>
@@ -148,7 +194,7 @@ const Projects = () => {
               <p className="hidden md:inline-block">{intelligenttext}</p>
               <p>{showMore2 ? intelligentprogress : ``}</p>
               <p className="hidden md:inline-block mt-8">{intelligentprogress}</p>
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore2(!showMore2)}>{showMore2 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore2(!showMore2)}>{showMore2 ? `Show Less` : `Show More`}</button>
               <h1 className="pt-8">Team Members: Akash Shah, Anirudha Kumar, Rajat Arya</h1>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
@@ -165,7 +211,7 @@ const Projects = () => {
               <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Automotive Wheelchair</h1>
               <p className="inline-block md:hidden">{showMore3 ? wheelchairtext : wheelchairtext.substring(0, 150)+`...`}</p>
               <p className="hidden md:inline-block">{wheelchairtext}</p>
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore3(!showMore3)}>{showMore3 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore3(!showMore3)}>{showMore3 ? `Show Less` : `Show More`}</button>
               
 
  
@@ -182,7 +228,7 @@ const Projects = () => {
               <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Autonomous Quadcopter</h1>
               <p className="inline-block md:hidden">{showMore4 ? quad1 : quad1.substring(0, 150)+`...`}</p>
               <p className="hidden md:inline-block">{quad1}</p>
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore4(!showMore4)}>{showMore4 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore4(!showMore4)}>{showMore4 ? `Show Less` : `Show More`}</button>
               <h1 className="pt-8">Team Members: Akash Shah, Anirudha Kumar, Rajat Arya</h1>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
@@ -204,7 +250,7 @@ const Projects = () => {
               <p>{showMore5 ? gaitvideo : ``}</p>
               <p className="hidden md:inline-block">{gaitvideo}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore5(!showMore5)}>{showMore5 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore5(!showMore5)}>{showMore5 ? `Show Less` : `Show More`}</button>
               <h1 className="pt-8">Team Members: Anshul Mittal, Kanika Gupta</h1>
             </div>
           </div>
@@ -221,7 +267,7 @@ const Projects = () => {
               <p>{showMore6 ? pros1 : ``}</p>
               <p className="hidden md:inline-block mt-8">{pros1}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore6(!showMore6)}>{showMore6 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore6(!showMore6)}>{showMore6 ? `Show Less` : `Show More`}</button>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
               <Image src={pros} className="rounded-lg"/>
@@ -240,7 +286,7 @@ const Projects = () => {
               <p>{showMore5 ? hci1 : ``}</p>
               <p className="hidden md:inline-block mt-4">{hci1}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore7(!showMore7)}>{showMore7 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore7(!showMore7)}>{showMore7 ? `Show Less` : `Show More`}</button>
               <h1 className="pt-8">Team Members: Anshul Mittal, Maitreyee Mehta, Mihika Gupta, Sharad Garg</h1>
             </div>
           </div>
@@ -255,7 +301,7 @@ const Projects = () => {
               <p className="inline-block md:hidden">{showMore8 ? multitext : multitext.substring(0, 150)+`...`}</p>
               <p className="hidden md:inline-block mt-8">{multitext}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore8(!showMore8)}>{showMore8 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore8(!showMore8)}>{showMore8 ? `Show Less` : `Show More`}</button>
               <p className="pt-8">Team Members: Paresh Anand, Piyush Chauhan, Sharad Garg</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
@@ -273,7 +319,7 @@ const Projects = () => {
               <p className="inline-block md:hidden">{showMore9 ? suntext : suntext.substring(0, 150)+`...`}</p>
               <p className="hidden md:inline-block mt-8">{suntext}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore9(!showMore9)}>{showMore9 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore9(!showMore9)}>{showMore9 ? `Show Less` : `Show More`}</button>
               <h1 className="pt-8">Team Members: Sharad Garg, Anshul Mittal</h1>
             </div>
           </div>
@@ -288,7 +334,7 @@ const Projects = () => {
               <p className="inline-block md:hidden">{showMore10 ? robotictext : robotictext.substring(0, 150)+`...`}</p>
               <p className="hidden md:inline-block mt-8">{robotictext}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore10(!showMore10)}>{showMore10 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore10(!showMore10)}>{showMore10 ? `Show Less` : `Show More`}</button>
               <p className="pt-8">Team Members: Akash Shah, Akshay Kumar, Anirudha Kumar, Anshul Mittal, Rajat Arya, Sharad Garg</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
@@ -308,7 +354,7 @@ const Projects = () => {
               <p>{showMore11 ? exo1 : ``}</p>
               <p className="hidden md:inline-block">{exo1}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore11(!showMore11)}>{showMore11 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore11(!showMore11)}>{showMore11 ? `Show Less` : `Show More`}</button>
               <h1 className="pt-8">Team Members: Devang Darode, Sarthak Jain, Ayush Jhalani, Akshay Kumar</h1>
             </div>
           </div>
@@ -323,7 +369,7 @@ const Projects = () => {
               <p className="inline-block md:hidden">{showMore12 ? smartgridtext : smartgridtext.substring(0, 150)+`...`}</p>
               <p className="hidden md:inline-block mt-8">{smartgridtext}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore12(!showMore12)}>{showMore12 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore12(!showMore12)}>{showMore12 ? `Show Less` : `Show More`}</button>
               <p className="pt-8">Team Members: Jatin Verma, Akshay Kumar</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
@@ -341,7 +387,7 @@ const Projects = () => {
               <p className="inline-block md:hidden">{showMore13 ? handtext : handtext.substring(0, 150)+`...`}</p>
               <p className="hidden md:inline-block mt-8">{handtext}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore13(!showMore13)}>{showMore13 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore13(!showMore13)}>{showMore13 ? `Show Less` : `Show More`}</button>
               <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
             </div>
           </div>
@@ -356,58 +402,11 @@ const Projects = () => {
               <p className="inline-block md:hidden">{showMore14 ? agtext : agtext.substring(0, 150)+`...`}</p>
               <p className="hidden md:inline-block mt-8">{agtext}</p>
            
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore14(!showMore14)}>{showMore14 ? `Show Less` : `Show More`}</button>
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore14(!showMore14)}>{showMore14 ? `Show Less` : `Show More`}</button>
               <p className="pt-8">Team Members: Devang Darode, Karsh Tharyani, Ayush Jhalani</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
               <Image src={astuti} className="rounded-lg"/>
-            </div>
-          </div>
-
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
-            <div className="col-span-1 my-auto">
-              <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Actroid</h1>
-              <Image src={actroid} className="rounded-lg"/>
-            </div>
-            <div className="col-span-2">
-              <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Actroid</h1>
-              <p className="inline-block md:hidden">{showMore15 ? actroidtext : actroidtext.substring(0, 150)+`...`}</p>
-              <p className="hidden md:inline-block mt-8">{actroidtext}</p>
-           
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore15(!showMore15)}>{showMore15 ? `Show Less` : `Show More`}</button>
-              <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
-            </div>
-          </div>
-
-          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
-            <div className="col-span-1 inline-block md:hidden my-auto">
-              <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Biped</h1>
-              <Image src={biped} className="rounded-lg"/>
-            </div>
-            <div className="col-span-2">
-              <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Biped</h1>
-              <p className="inline-block md:hidden">{showMore16 ? bipedtext : bipedtext.substring(0, 150)+`...`}</p>
-              <p className="hidden md:inline-block mt-8">{bipedtext}</p>
-           
-              <button className="btn inline-block md:hidden" onClick={() => setShowMore16(!showMore16)}>{showMore16 ? `Show Less` : `Show More`}</button>
-              <p className="pt-8">Team Members: Devang Darode, Karsh Tharyani, Ayush Jhalani</p>
-            </div>
-            <div className="col-span-1 my-auto hidden md:inline-block">
-              <Image src={biped} className="rounded-lg"/>
-            </div>
-          </div>
-
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
-            <div className="col-span-1 my-auto">
-              <h1 className="inline-block md:hidden text-2xl font-bold mb-4">VTOL</h1>
-              <Image src={vtol} className="rounded-lg"/>
-            </div>
-            <div className="col-span-2">
-              <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">VTOL</h1>
-              <br />
-              <p className="inline-block md:hidden">{vtoltext}</p>
-              <p className="hidden md:inline-block">{vtoltext}</p>
-              <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
             </div>
           </div>
         </div>

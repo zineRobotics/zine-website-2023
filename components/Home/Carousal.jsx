@@ -121,11 +121,11 @@ const Carousal = () => {
                     isVisible
                       ?
                       <Typical
-                        steps={['Participates in various national and international events', 2000]}
+                        steps={['Works on various research problems and innovative projects', 2000]}
                         loop={Infinity}
                         wrapper="p"
 
-                      /> : 'Participates in various national and international events'
+                      /> : 'Works on various research problems and innovative projects'
 
                   }   </h1>
               }
