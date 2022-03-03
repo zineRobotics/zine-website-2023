@@ -2,6 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import Script from "next/script";
 import img1 from "../../images/blog/algo/algo/image1.jpg"
 
@@ -77,7 +79,7 @@ const Projects = () => {
 
   const gaittext = "This research project aims to develop a comprehensive biomechanical integrated software tool for measurement and analysis of postural defects in walking gait. It involves applying Image Processing and Machine Learning techniques. The project has been funded by DST (Department of Science and Technology), which comes within the Ministry of Science and Technology, India.";
   const gait1 = "Awards and Recognition: Two papers published, one of which received Best Paper Award.";
-  const gaitvideo = "Video Link- https://youtu.be/d_mkXAMy8lw"
+  const gaitvideo = "https://youtu.be/d_mkXAMy8lw"
 
   const prostheticstext = "Making an artificial arm for the amputed and maimed persons controlled by muscle signals to grab and lift objects."
   const pros1 = "Recent Development:     Extremely useful project for physically disabled. Developed a working model successfully. Currently working on the signal extraction from muscles."
@@ -154,22 +156,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
-            <div className="col-span-1 my-auto">
-              <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Actroid</h1>
-              <Image src={actroid} className="rounded-lg"/>
-            </div>
-            <div className="col-span-2">
-              <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Actroid</h1>
-              <p className="inline-block md:hidden">{showMore15 ? actroidtext : actroidtext.substring(0, 150)+`...`}</p>
-              <p className="hidden md:inline-block mt-8">{actroidtext}</p>
-           
-              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore15(!showMore15)}>{showMore15 ? `Show Less` : `Show More`}</button>
-              <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
-            </div>
-          </div>
-
-          <div className="shadower grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">BCI (Brain Computing Interface)</h1>
               <Image src={bci} className="rounded-lg"/>
@@ -247,11 +234,12 @@ const Projects = () => {
               <p className="hidden md:inline-block">{gaittext}</p>
               <p>{showMore5 ? gait1 : ``}</p>
               <p className="hidden md:inline-block mt-8">{gait1}</p>
-              <p>{showMore5 ? gaitvideo : ``}</p>
-              <p className="hidden md:inline-block">{gaitvideo}</p>
-           
               <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore5(!showMore5)}>{showMore5 ? `Show Less` : `Show More`}</button>
-              <h1 className="pt-8">Team Members: Anshul Mittal, Kanika Gupta</h1>
+
+              <div className="cursor-pointer mt-4">
+                <Link href={gaitvideo}><FontAwesomeIcon icon={faYoutube} className="text-red-600 hover:text-red-500 mr-4" size="2x" /></Link>
+              </div>
+              <h1 className="pt-4">Team Members: Anshul Mittal, Kanika Gupta</h1>
             </div>
           </div>
 
@@ -407,6 +395,21 @@ const Projects = () => {
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
               <Image src={astuti} className="rounded-lg"/>
+            </div>
+          </div>
+
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
+            <div className="col-span-1 my-auto">
+              <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Actroid</h1>
+              <Image src={actroid} className="rounded-lg"/>
+            </div>
+            <div className="col-span-2">
+              <h1 className="text-2xl font-bold pb-4 hidden md:inline-block">Actroid</h1>
+              <p className="inline-block md:hidden">{showMore15 ? actroidtext : actroidtext.substring(0, 150)+`...`}</p>
+              <p className="hidden md:inline-block mt-8">{actroidtext}</p>
+           
+              <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore15(!showMore15)}>{showMore15 ? `Show Less` : `Show More`}</button>
+              <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
             </div>
           </div>
         </div>
