@@ -531,17 +531,7 @@ const alumni = [
     github: ""
 
   },
-  {
-    name: "Sarthak Jain",
-    desc: "MS Software Engineering, San Jose State Univ, USA",
-    image: avatar,
-    linkedin: "https://www.linkedin.com/in/sarthak-jain29/",
-    twitter: "",
-    instagram: "",
-    facebook: "",
-    github: ""
 
-  },
  
 ];
 
