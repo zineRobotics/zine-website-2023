@@ -670,7 +670,7 @@ const Achievements = () => {
     return(
         <div className="text-black bg-white w-screen mb-8">
           <div style={{ width: "100%", height: "100%"}}>
-            <div ref={sliderRef} className="keen-slider h-80 md:h-100 lg:h-130">
+            <div ref={sliderRef} className="keen-slider h-60 md:h-100 lg:h-130">
               <div className="keen-slider__slide i1">
               </div>
               <div className="keen-slider__slide i2">
