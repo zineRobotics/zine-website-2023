@@ -30,6 +30,9 @@ import a28 from "../../images/gallery/28.jpg";
 import a29 from "../../images/gallery/29.jpg";
 import a30 from "../../images/gallery/30.jpg";
 import a31 from "../../images/gallery/carousel/competition.jpg";
+import a32 from "../../images/gallery/exo1.png";
+import a33 from "../../images/gallery/exo2.jpg";
+import a34 from "../../images/gallery/drdo.jpg";
 
 const Gallery = () => {
 
@@ -37,13 +40,15 @@ const Gallery = () => {
         <section className="overflow-hidden text-gray-700">
           <h1 className="text-4xl text-center mx-auto mt-8 mb-20">PROJECTS</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
-            <Image src={a3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={a4} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={a5} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={a6} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={a8} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={a9} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={a20} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={a32} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={a33} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={a34} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+              <source src="/basanti.mp4"/>
+            </video>
           </div>
           <h1 className="text-4xl text-center mx-auto my-20">WORKSHOP AND ORIENTATION</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
