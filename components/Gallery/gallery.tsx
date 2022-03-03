@@ -71,40 +71,6 @@ const Gallery = () => {
 
     return(
         <section className="overflow-hidden text-gray-700">
-          <h1 className="text-4xl text-center mx-auto mt-8 mb-20">PROJECTS</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
-            <Image src={a3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={a4} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={a5} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={a6} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={a8} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={a9} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={p1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={p3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={p4} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={p5} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={p6} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={p7} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={p8} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/basanti.mp4"/>
-            </video>
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/gait1.mp4"/>
-            </video>
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/gait2.mp4"/>
-            </video>
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/GaitAnalysis.mp4"/>
-            </video>
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/video.mp4"/>
-            </video>
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/video2.mp4"/>
-            </video>
-          </div>
           <h1 className="text-4xl text-center mx-auto my-20">WORKSHOP AND ORIENTATION</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
             <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
@@ -132,6 +98,40 @@ const Gallery = () => {
             <Image src={w17} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={w18} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             
+          </div>
+          <h1 className="text-4xl text-center mx-auto mt-8 mb-20">PROJECTS</h1>
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
+            <Image src={a3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={a4} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={a5} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={a6} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={a8} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            {/* <Image src={a9} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
+            <Image src={p1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            {/* <Image src={p3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
+            <Image src={p4} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            {/* <Image src={p5} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={p6} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
+            <Image src={p7} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={p8} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+              <source src="/basanti.mp4"/>
+            </video>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+              <source src="/gait1.mp4"/>
+            </video>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+              <source src="/gait2.mp4"/>
+            </video>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+              <source src="/GaitAnalysis.mp4"/>
+            </video>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+              <source src="/video.mp4"/>
+            </video>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+              <source src="/video2.mp4"/>
+            </video>
           </div>
           <h1 className="text-4xl text-center mx-auto my-20">COMPETITIONS</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
