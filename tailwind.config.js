@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        navbar: 'navbar 1s ease-out',
+        navbar: 'navbar 0.5s ease-out',
         blob: "blob 7s infinite",
       },
       spacing: {

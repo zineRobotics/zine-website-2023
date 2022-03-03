@@ -29,6 +29,7 @@ import a27 from "../../images/gallery/27.jpg";
 import a28 from "../../images/gallery/28.jpg";
 import a29 from "../../images/gallery/29.jpg";
 import a30 from "../../images/gallery/30.jpg";
+import a31 from "../../images/gallery/carousel/competition.jpg";
 
 const Gallery = () => {
 
@@ -69,6 +70,7 @@ const Gallery = () => {
             <Image src={a2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={a11} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={a14} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={a31} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
           </div>
           <h1 className="text-4xl text-center mx-auto my-20">ZINE DRONE RACING</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">

@@ -17,7 +17,7 @@ const PatentSection = () => {
       {
        isVisible
         ?
-        <CountUp end={50} />:50
+        <CountUp duration={1} end={50} />:50
   
       }+
       </p>}
@@ -33,7 +33,7 @@ const PatentSection = () => {
       {
        isVisible
         ?
-        <CountUp end={100} />:100
+        <CountUp duration={1} end={100} />:100
   
       }+
       </p>}
@@ -49,7 +49,7 @@ const PatentSection = () => {
       {
        isVisible
         ?
-        <CountUp end={10} />:10
+        <CountUp duration={1} end={10} />:10
   
       }+
       </p>}
