@@ -25,6 +25,7 @@ import chirayu from "../../images/thirdyear/chirayu.webp";
 import darshan from "../../images/thirdyear/darshan.webp";
 import devansh from "../../images/thirdyear/devansh.webp";
 import harshit from "../../images/thirdyear/harshit.webp";
+import avatar from "../../images/thirdyear/images.jpg";
 import ishika from "../../images/thirdyear/ishika.webp";
 import pavnesh from "../../images/thirdyear/pavnesh.webp";
 import puneet from "../../images/thirdyear/puneet.webp";
@@ -151,7 +152,7 @@ const alumni = [
   {
     name: "Vasanth Reddy",
     desc: "Graduate Research Assistant at Virginia Tech",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/vasanth-reddy-778816108/",
     twitter: "",
     instagram: "",
@@ -161,7 +162,7 @@ const alumni = [
   {
     name: "Divyam Aditya Singh",
     desc: "Rakuten Symphony",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/divyam-aditya-singh-870369140/",
     twitter: "",
     instagram: "",
@@ -171,7 +172,7 @@ const alumni = [
   {
     name: "Puru Lokendra Singh",
     desc: "SDE at Publicis Sapient",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/puru-lokendra-singh-b9a948134/",
     twitter: "",
     instagram: "",
@@ -181,7 +182,7 @@ const alumni = [
   {
     name: "Samidha Verma",
     desc: "SDE at Amazon",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/samidhaverma/",
     twitter: "",
     instagram: "",
@@ -191,7 +192,7 @@ const alumni = [
   {
     name: "MD SAIF",
     desc: "Senior Product Engineer at Tredence Inc.",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/md-saif-111267128/",
     twitter: "",
     instagram: "",
@@ -201,7 +202,7 @@ const alumni = [
   {
     name: "Mrigakshi Pandey",
     desc: "Software Engineer at Fidelity Investments",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/mrigakshipandey/",
     twitter: "",
     instagram: "",
@@ -211,7 +212,7 @@ const alumni = [
   {
     name: "Rahul Ravichandran",
     desc: "Robotics Engineer at Turftank",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/rahul-ravichandran-b89363129/",
     twitter: "",
     instagram: "",
@@ -221,7 +222,7 @@ const alumni = [
   {
     name: "Akshay Kumar",
     desc: "Computer Vision Engineer at Invisible AI | Roboticist",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/kumarakshay324/",
     twitter: "",
     instagram: "",
@@ -231,7 +232,7 @@ const alumni = [
   {
     name: "Ayush Jhalani",
     desc: "Software Developer at Honeywell Intelligrated",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/ayushjhalani/",
     twitter: "",
     instagram: "",
@@ -241,7 +242,7 @@ const alumni = [
   {
     name: "Devang Anant Darode",
     desc: "R&D intern at BEC Robotics",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/devangdarode/",
     twitter: "",
     instagram: "",
@@ -251,7 +252,7 @@ const alumni = [
   {
     name: "Jatin Verma",
     desc: "AI Scientist at WaveScan Technologies Pte. Ltd.",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/jverma205/",
     twitter: "",
     instagram: "",
@@ -261,7 +262,7 @@ const alumni = [
   {
     name: "Sarthak Jain",
     desc: "MS Software Engineering, San Jose State Univ, USA",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/sarthak-jain29/",
     twitter: "",
     instagram: "",
@@ -271,7 +272,7 @@ const alumni = [
   {
     name: "Karsh Tharayani",
     desc: "Robotics Algorithm Developer at MathWorks",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/karsh-tharyani-264a48104/",
     twitter: "",
     instagram: "",
@@ -281,7 +282,7 @@ const alumni = [
   {
     name: "Shubham Tripathi",
     desc: "Applied Researcher, Microsoft",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/stripathi08/",
     twitter: "",
     instagram: "",
@@ -291,7 +292,7 @@ const alumni = [
   {
     name: "Saatvik Shah",
     desc: "Software Engineer at IMC Trading",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/saatvikshah/",
     twitter: "",
     instagram: "",
@@ -301,7 +302,7 @@ const alumni = [
   {
     name: "Sanjay Thakur",
     desc: "Founder and CEO at Rydesafely",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/sanjay-thakur-49a704176/",
     twitter: "",
     instagram: "",
@@ -311,7 +312,7 @@ const alumni = [
   {
     name: "Anshul Mittal",
     desc: "Founding Member at SALT - mysaltapp",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/anshulmittal712/",
     twitter: "",
     instagram: "",
@@ -321,7 +322,7 @@ const alumni = [
   {
     name: "Avinash Sharma",
     desc: "Imaging Scientist at Algolux",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/avinash-sharma-561335a3/",
     twitter: "",
     instagram: "",
@@ -331,7 +332,7 @@ const alumni = [
   {
     name: "Akash Shah",
     desc: "Product & Growth @ OYO",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/akash-shah-604/",
     twitter: "",
     instagram: "",
@@ -341,7 +342,7 @@ const alumni = [
   {
     name: "Anirudha Kumar",
     desc: "Assistant Commissioner, State Tax at Government of Bihar",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/anirudha-kumar-151635a0/",
     twitter: "",
     instagram: "",
@@ -351,7 +352,7 @@ const alumni = [
   {
     name: "Mihika Gupta",
     desc: " Experienced AssociateExperienced Associate",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/avinash-sharma-561335a3/",
     twitter: "",
     instagram: "",
@@ -361,7 +362,7 @@ const alumni = [
   {
     name: "Avinash Sharma",
     desc: "Imaging Scientist at Algolux",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/avinash-sharma-561335a3/",
     twitter: "",
     instagram: "",
@@ -371,7 +372,7 @@ const alumni = [
   {
     name: "Alok Agrawal",
     desc: "Sr. Software Controls Engineer at Medtronic",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/agrawalalok1/",
     twitter: "",
     instagram: "",
@@ -381,7 +382,7 @@ const alumni = [
   {
     name: "Nirmala  Kunwar",
     desc: "Electronics Engineer",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/nirmala-kunwar-ranawat/",
     twitter: "",
     instagram: "",
@@ -391,7 +392,7 @@ const alumni = [
   {
     name: "Rohit Saxena",
     desc: "Associate Manager - Demand Planning",
-    image: vikalp,
+    image: avatar,
     linkedin: "https://www.linkedin.com/in/rohit-saxena-692094189/",
     twitter: "",
     instagram: "",
@@ -401,13 +402,147 @@ const alumni = [
   {
     name: "Ankita Gupta",
     desc: "Associate Manager - Demand Planning",
-    image: vikalp,
+    image: avatar,
     linkedin: "",
     twitter: "",
     instagram: "",
     facebook: "https://www.facebook.com/ankita.gupta.39142/about_work_and_education",
     github: ""
   },
+
+  {
+    name: "Anirudh Kumar",
+    desc: "	Assistant Commissioner, State Tax at Government of Bihar",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/anirudha-kumar-151635a0/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Maitreyee mehta",
+    desc: "",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/mihika-gupta-a57846171/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Rajat Kumar Arya",
+    desc: "Saint-Gobain",
+    image: avatar,
+    linkedin: "	https://www.linkedin.com/in/rajk21feb/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Piyush Chauhan",
+    desc: "Investment Banking Analyst at Bank of America	",
+    image: avatar,
+    linkedin: "	https://www.linkedin.com/in/piyush-chauhan-b91704138/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Paresh Anand",
+    desc: "Senior Associate at PwC, MBA, IIM K ",
+    image: avatar,
+    linkedin: "	https://www.linkedin.com/in/paresh-anand/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Sharad Garg",
+    desc: "Project Leader at De Shaw",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/sharad-garg-6b191194/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Vaibhav Jainya",
+    desc: "SMTS at Salesforce",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/vaibhavjainvj/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Akshay Kumar",
+    desc: "Computer Vision Engineer at Invisible AI | Roboticist, MS, Robotics Engineering, Worcester Polytechnic Insitute, Massachusetts, US",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/kumarakshay324/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Ayush Jhalani",
+    desc: "Software Developer at Honeywell Intelligrated, MS, Robotic System Development, Carnegie Mellon University, US",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/ayushjhalani/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Devang Anant Darode",
+    desc: "R&D intern at BEC Robotics, M. Sc. Robotic Systems Engineering, RWTH Aachen, Germany",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/devangdarode/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Jatin Verma",
+    desc: "AI Scientist at WaveScan Technologies Pte. Ltd, ME, Nanyang Technological University, Singapore",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/jverma205/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+  {
+    name: "Sarthak Jain",
+    desc: "MS Software Engineering, San Jose State Univ, USA",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/sarthak-jain29/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },
+ 
 ];
 
 const finalyear = [
