@@ -80,12 +80,10 @@ const Navbar = () => {
             }}
           ></div>
           <div className="top-0 right-0 w-auto bg-gray-800 fixed h-full overflow-auto z-30 shadow-nav_custom">
-            <div className="py-6 px-20" onClick={() => {
-              setHide(false);
-            }}>
-              <button className="text-white py-2 px-6 font-nunito text-xl font-bold">
+            <div className="py-6 px-20">
+              {/* <button className="text-white py-2 px-6 font-nunito text-xl font-bold">
                 <h1>&times;</h1>
-              </button>
+              </button> */}
             </div>
             <div>
               {data3.map((item, index) => (
@@ -93,7 +91,7 @@ const Navbar = () => {
                   <Link href={item.link}>
                   <h1 className="text-white text-xl px-20 py-2 font-nunito">
                     <Image src={item.image} width="16" height="16"></Image>
-                    {item.link === location.pathname ? <a href={item.link} onClick={LinkClick}>{item.text}</a> : <a href={item.link}>{item.text}</a>}
+                    <span className="pl-2">{item.link === location.pathname ? <a href={item.link} onClick={LinkClick}>{item.text}</a> : <a href={item.link}>{item.text}</a>}</span>
                   </h1>
                   </Link>
                 </div>

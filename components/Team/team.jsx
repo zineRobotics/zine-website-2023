@@ -434,8 +434,9 @@ const Team = () => {
           </div>
           <div className="col-span-1 my-auto">
             <h1 className="text-2xl text-center font-bold">DR. RAJESH KUMAR</h1>
-            <p className="text-center">Ph.D., PDF(NUS, Singapore) SMIEEE, FIETE, MIE (I),SMIACSIT, LMISTE, MIAENG,</p>
-            <p className="text-center">Professor of Elec. Engg.</p>
+            <p className="text-center">Fellow IET (UK), Fellow IETE, Fellow IE (India),  SMIEEE (USA), LMCSI,  LMISTE</p>
+            <p className="text-center">Professor, Department of Electrical Engineering</p>
+            <p className="text-center">Malaviya National Institute of Technology Jaipur, India, 302017</p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
