@@ -682,7 +682,7 @@ const secondyear = [
 const Team = () => {
     return(
       <div className="text-black bg-white w-screen justify-center">
-        <div className="bg-cover bg-bg-team h-60 md:h-120 lg:h-140 px-12 lg:px-24"></div>
+        <div className="bg-cover bg-bg-team h-80 md:h-100 lg:h-130 px-12 lg:px-24"></div>
         <h1 className="pt-8 text-4xl text-center px-12 lg:px-24">Our Founders: The Roots Of Our Tree</h1>
         <div className="pt-16 grid grid-cols-1 lg:grid-cols-2 px-12 lg:px-24">
           <div className="col-span-1 w-48 member-hover lg:w-80 justify-self-center">

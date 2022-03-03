@@ -44,7 +44,7 @@ const Carousal = () => {
 
   return (
     <>
-      <div ref={sliderRef} className="keen-slider h-80 md:h-100 lg:h-140 mb-16">
+      <div ref={sliderRef} className="keen-slider h-80 md:h-100 lg:h-130 mb-16">
         <div className="keen-slider__slide number-slide5">
           <div className="absolute left-8 inset-y-2/4 text-xl md:text-3xl lg:text-5xl">
             <p>Projects</p>
