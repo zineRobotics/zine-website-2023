@@ -58,6 +58,12 @@
   background-size: cover;
 }
 
+.number-slide9 {
+  background: url("../images/project/project.jpeg") rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+  background-size: cover;
+}
+
 .i1 {
   background-image: url('../images/achievements/1.webp');
   background-size: cover;

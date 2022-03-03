@@ -18,6 +18,20 @@ import a4 from "../../images/achievements/4.webp"
 
 const items = [
   {
+    cardTitle: "CSAW Hack3D Hackathon 2021",
+    title: "November 2021",
+    cardDetailedText: "2nd Place in a global virtual hackathon event",
+    cardSubtitle: "Team Members : Nikita Rautela",
+    
+  },
+  {
+    cardTitle: "Grand Prize Winner at Codeheat Fossasia",
+    title: "March 2021",
+    cardDetailedText: "Grand Prize Winner at Codeheat Fossasia",
+    cardSubtitle: "Team Members: Pavnesh Chaturvedi",
+    
+  },
+  {
     cardTitle: "IEEE Research Paper",
     title: "November 2020",
     cardDetailedText: "A research paper on 'Shortest Path Evaluation with Enhanced Linear Graph and Dijkstra Algorithm' was presented at 59th Annual Conference of SICE",

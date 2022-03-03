@@ -80,13 +80,14 @@ module.exports = {
         'bg-a12': "url('../images/project/a12_11zon.webp')",
         'bg-a13': "url('../images/project/a13_11zon.webp')",
         'bg-a14': "url('../images/project/a14_11zon.webp')",
-        'bg-team': "url('../images/team.jpg')",
-        'bg-alumni': "url('../images/alumni.jpg')",
+        'bg-alumni': "url('../images/team.jpg')",
+        'bg-team': "url('../images/alumni.jpg')",
         'about-bg': "url('../images/aboutbg_11zon.webp')",
         'blog-bg': "url('../images/blog/blog.jpg')",
         'ee-bg': "url('../images/blog/bee/ee.jpg')",
         'algo-bg': "url('../images/blog/algo/5.webp')",
-        'banner-bg': "url('../images/banner-bg.webp')"
+        'banner-bg': "url('../images/banner-bg.webp')",
+        'bg-project': "url('../images/project/project.jpeg')"
       },
       fontSize: {
         base: ['50px', '75px'],
