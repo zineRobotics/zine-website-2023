@@ -154,7 +154,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">Actroid</h1>
               <Image src={actroid} className="rounded-lg"/>
@@ -169,7 +169,7 @@ const Projects = () => {
             </div>
           </div>
 
-          <div className="shadower grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
+          <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">BCI (Brain Computing Interface)</h1>
               <Image src={bci} className="rounded-lg"/>

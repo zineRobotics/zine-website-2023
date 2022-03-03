@@ -2,47 +2,29 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faFacebook, faTwitter, faInstagram, faLinkedin, faGithub,  faWordpress} from '@fortawesome/free-brands-svg-icons';
-import team from "../../images/team.jpeg"
-import RajeshSir from "../../images/rajeshsir.webp"
-import anupam from "../../images/founders/anupam.webp"
-import arpit from "../../images/founders/arpit.webp"
-import himanshu from "../../images/founders/himanshu.webp"
-import soniya from "../../images/founders/soniya.webp"
-import bhanu from "../../images/finalyear/bhanu.webp";
-import brijraj from "../../images/finalyear/brijraj.webp";
-import charu from "../../images/finalyear/charu.webp";
-import dhruv from "../../images/finalyear/dhruv.webp";
-import harsh from "../../images/finalyear/harsh.webp";
-import muskan from "../../images/finalyear/muskan.webp";
-import nikita from "../../images/finalyear/nikita.webp";
-import pravesh from "../../images/finalyear/pravesh.webp";
-import rajat from "../../images/finalyear/rajat.webp";
-import sneha from "../../images/finalyear/sneha.webp";
-import apoorva from "../../images/thirdyear/apoorva.webp";
-import aryaman from "../../images/thirdyear/aryaman.webp";
-import chirayu from "../../images/thirdyear/chirayu.webp";
-import darshan from "../../images/thirdyear/darshan.webp";
-import devansh from "../../images/thirdyear/devansh.webp";
-import harshit from "../../images/thirdyear/harshit.webp";
+import {faFacebook, faInstagram, faLinkedin, faGithub} from '@fortawesome/free-brands-svg-icons';
 import avatar from "../../images/thirdyear/images.jpg";
-import ishika from "../../images/thirdyear/ishika.webp";
-import pavnesh from "../../images/thirdyear/pavnesh.webp";
-import puneet from "../../images/thirdyear/puneet.webp";
-import rahul from "../../images/thirdyear/rahul.webp";
-import vinamra from "../../images/secondyear/vinamra.webp";
-import divyansh from "../../images/secondyear/divyansh.webp";
-import nishant from "../../images/secondyear/nishant.webp";
-import abhinav from "../../images/secondyear/abhinav.webp";
-import sudeshna from "../../images/secondyear/sudeshna.webp";
-import aman from "../../images/secondyear/aman.webp";
-import mahak from "../../images/secondyear/mahak.webp";
-import pranjali from "../../images/secondyear/pranjali.webp";
 import piyush from "../../images/alumni/piyush.jpeg";
-import kriti from "../../images/alumni/kriti.jpeg";
 import nimesh from "../../images/alumni/nimesh.jpeg";
 import devnath from "../../images/alumni/devnath.jpeg";
 import vikalp from "../../images/alumni/vikalp.jpeg"
+import Divyam from "../../images/2019/Divyam.webp";
+import Kriti from "../../images/2019/Kriti.webp";
+import MDSaif from "../../images/2019/MDSaif.webp";
+import Mrigakshi from "../../images/2019/Mrigakshi.webp";
+import puru from "../../images/2019/puru.webp";
+import samidha from "../../images/2019/samidha.webp";
+import vasanth from "../../images/2019/Vasanth.webp";
+import manish from "../../images/2018/manish.webp";
+import rahulravi from "../../images/2018/rahulravi.webp";
+import saloni from "../../images/2018/saloni.webp";
+import akshay from "../../images/2017/akshay.webp";
+import ayush from "../../images/2017/ayush.webp";
+import devang from "../../images/2017/devang.webp";
+import jatin from "../../images/2017/jatin.webp";
+import karsh from "../../images/2017/karsh.webp";
+import sarthak from "../../images/2017/sarthak.webp";
+import shubham from "../../images/2017/shubham.webp";
 // interface pic_detail {
 //   name: string;
 //   image: StaticImageData;
@@ -53,7 +35,7 @@ import vikalp from "../../images/alumni/vikalp.jpeg"
 //   instagram: string;
 //   facebook: string;
 // }
-const alumni = [
+const year2012= [
  
   {
     name: "Alok Agrawal",
@@ -351,7 +333,7 @@ const year2018 = [
   {
     name: "Saloni jain",
     desc: "Senior Software Engineer at Arcesium, SMTS at Salesforce",
-    image: avatar,
+    image: saloni,
     linkedin: "https://www.linkedin.com/in/saloni-jain-60b32b126//",
     twitter: "",
     instagram: "",
@@ -359,21 +341,11 @@ const year2018 = [
     github: ""
 
   },
-  {
-    name: "Parijeet Chatterjee",
-    desc: "",
-    image: avatar,
-    linkedin: "https://www.linkedin.com/in/jverma205/",
-    twitter: "",
-    instagram: "",
-    facebook: "",
-    github: ""
 
-  },
   {
     name: "Manish Patki",
     desc: "Associate at JPMorgan Chase & Co",
-    image: avatar,
+    image: manish,
     linkedin: "https://www.linkedin.com/in/manish-patki-21aaa1137/?originalSubdomain=in",
     twitter: "",
     instagram: "",
@@ -381,32 +353,12 @@ const year2018 = [
     github: ""
 
   },
-  {
-    name: "Mayank Gupta",
-    desc: "",
-    image: avatar,
-    linkedin: "https://www.linkedin.com/in/jverma205/",
-    twitter: "",
-    instagram: "",
-    facebook: "",
-    github: ""
+ 
 
-  },
-  {
-    name: "Deepank Negi",
-    desc: "",
-    image: avatar,
-    linkedin: "https://www.linkedin.com/in/deepank-negi-1b2a1510b",
-    twitter: "",
-    instagram: "",
-    facebook: "",
-    github: ""
-
-  },
   {
     name: "Rahul Ravichandran",
     desc: "Robotics Engineer at Turftank",
-    image: avatar,
+    image: rahulravi,
     linkedin: "https://www.linkedin.com/in/rahul-ravichandran-b89363129/",
     twitter: "",
     instagram: "",
@@ -420,7 +372,7 @@ const year2019 = [
   {
     name: "Mrigakshi Pandey",
     desc: "Software Engineer at Fidelity Investments",
-    image: avatar,
+    image: Mrigakshi,
     linkedin: "https://www.linkedin.com/in/mrigakshipandey/",
     twitter: "",
     instagram: "",
@@ -430,7 +382,7 @@ const year2019 = [
   {
     name: "MD SAIF",
     desc: "Senior Product Engineer at Tredence Inc.",
-    image: avatar,
+    image: MDSaif,
     linkedin: "https://www.linkedin.com/in/md-saif-111267128/",
     twitter: "",
     instagram: "",
@@ -440,7 +392,7 @@ const year2019 = [
   {
     name: "Samidha Verma",
     desc: "SDE at Amazon",
-    image: avatar,
+    image: samidha,
     linkedin: "https://www.linkedin.com/in/samidhaverma/",
     twitter: "",
     instagram: "",
@@ -460,7 +412,7 @@ const year2019 = [
   {
     name: "Puru Lokendra Singh",
     desc: "SDE at Publicis Sapient",
-    image: avatar,
+    image: puru,
     linkedin: "https://www.linkedin.com/in/puru-lokendra-singh-b9a948134/",
     twitter: "",
     instagram: "",
@@ -470,7 +422,7 @@ const year2019 = [
   {
     name: "Kriti Gupta",
     desc: "Software Developer at Apple, Graduate Services Assistant at Arizona State University",
-    image: avatar,
+    image: Kriti,
     linkedin: "https://www.linkedin.com/in/kritigupta13/",
     twitter: "",
     instagram: "",
@@ -481,7 +433,7 @@ const year2019 = [
   {
     name: "Vasanth Reddya",
     desc: "Graduate Research Assistant at Virginia Tech",
-    image: avatar,
+    image: vasanth,
     linkedin: "https://www.linkedin.com/in/vasanth-reddy-778816108/",
     twitter: "",
     instagram: "",
@@ -492,7 +444,7 @@ const year2019 = [
   {
     name: "Divyam Aditya Singh",
     desc: "Rakuten Symphony",
-    image: avatar,
+    image: Divyam,
     linkedin: "https://www.linkedin.com/in/divyam-aditya-singh-870369140/",
     twitter: "",
     instagram: "",
@@ -501,7 +453,68 @@ const year2019 = [
 
   },
 ]
- 
+const year2011 =[
+  {
+    name: "Shashwat Bhattacharya",
+    desc: " M.S. TU München, Munich, Germany.",
+    image: avatar,
+    linkedin: "https://www.linkedin.com/in/shashwat-bhattacharya-73758114/	",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+
+  },]
+  
+  const year2010 =[
+    {
+      name: "Abhinav Sadu",
+      desc: " Ph.D. RWTH Aachen University, Germany.",
+      image: avatar,
+      linkedin: "https://www.linkedin.com/in/shashwat-bhattacharya-73758114/	",
+      twitter: "",
+      instagram: "",
+      facebook: "",
+      github: ""
+  
+    },
+    {
+      name: "Kriti Saxena",
+      desc: " PGDM. Indian Institute of Management Kozhikode, India.\nRPG Group, Summer InternSummer Intern\n Deloitte Consulting",
+      image: avatar,
+      linkedin: "https://www.linkedin.com/in/kritisaxenaiimk/	",
+      twitter: "",
+      instagram: "",
+      facebook: "",
+      github: ""
+  
+    },
+    {
+      name: "Ambarish Desai",
+      desc: " System Modeling, Controls Development and Testing, Autonomous Vehicles.",
+      image: avatar,
+      linkedin: "https://www.linkedin.com/in/a14desai/",
+      twitter: "",
+      instagram: "",
+      facebook: "",
+      github: ""
+  
+    },
+
+  ]
+
+  const year2009 =[
+    {
+      name: "Devendra Sharma",
+      desc: "",
+      image: avatar,
+      linkedin: "https://www.linkedin.com/in/shashwat-bhattacharya-73758114/	",
+      twitter: "",
+      instagram: "",
+      facebook: "",
+      github: ""
+  
+    },]
 
 
 
@@ -509,30 +522,9 @@ const year2019 = [
 const Alumni = () => {
     return(
       <div className="text-black bg-white w-screen justify-center">
-        <div className="bg-cover bg-bg-alumni h-60 md:h-100 lg:h-130 px-12 lg:px-24"></div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">ALUMNI</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {alumni.map((item, index) => (
-          <div key={index} className="col-span-1">
-            <h1 className="text-black py-2 font-nunito text-center">
-              <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
-              </div>
-              <p className="text-center text-xl font-bold">{item.name}</p>
-              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
-              <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
-                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
-                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
-                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
-                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
-              </div>
-              </div>
-            </h1>
-          </div>
-        ))}
-        </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">Year 2020</h1>
+        <div className="bg-cover bg-bg-alumni h-80 md:h-100 lg:h-130 px-12 lg:px-24"></div>
+    
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2020</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2020.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -554,7 +546,7 @@ const Alumni = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">Year 2019</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2019</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2019.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -576,7 +568,7 @@ const Alumni = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">Year 2018</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2018</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2018.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -598,7 +590,7 @@ const Alumni = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">Year 2017</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2017</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2017.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -620,9 +612,97 @@ const Alumni = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">Year 2016</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2016</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2016.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2012</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2012.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2011</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2011.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2010</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2010.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2009</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2009.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
