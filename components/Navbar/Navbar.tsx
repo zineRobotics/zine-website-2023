@@ -7,6 +7,7 @@ import home from "../../images/home-icon.webp";
 import about from "../../images/about.webp";
 import Project from "../../images/project-icon.webp";
 import Team from "../../images/team-icon.webp";
+import Alumni from "../../images/graduation.ico";
 import Achievements from "../../images/badge-icon.webp";
 import { Blogs } from "../Blogs";
 
@@ -45,6 +46,11 @@ const Navbar = () => {
       text: "Team",
       image: Team,
       link: "/team/"
+    },
+    {
+      text: "Alumni",
+      image: Alumni,
+      link: "/alumni/"
     },
     {
       text: "Projects",
@@ -127,6 +133,10 @@ const Navbar = () => {
           <Link href="/team"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Team
+            </div></div></Link>
+          <Link href="/alumni"><div className="mb-2 cursor-pointer hidden lg:inline-block">
+          <div className="link ">
+            Alumni
             </div></div></Link>
           <Link href="/projects"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
