@@ -47,7 +47,12 @@ import sharad from "../../images/2016/sharad.v1.webp";
 import vaibhav from "../../images/2016/vaibhav.jpg";
 import alok from "../../images/2012/alok.webp";
 import nirmala from "../../images/2012/nirmala.webp";
+import ankita from "../../images/2012/ankita.jpg";
 import ambarish from "../../images/2010/ambarish.webp";
+import abhinav from "../../images/2010/abhinav.jpg";
+import kriti1 from "../../images/2010/kriti1.jpg";
+import devendra from "../../images/2009/white-devendra.jpg";
+import shashwat from "../../images/2011/shashwat.jpg";
 // interface pic_detail {
 //   name: string;
 //   image: StaticImageData;
@@ -92,8 +97,8 @@ const year2012= [
   },
   {
     name: "Ankita Gupta",
-    desc: "Associate Manager - Demand Planning",
-    image: avatar,
+    desc: "Applied Scientist, Amazon India \n UMass Amherst",
+    image: ankita,
     linkedin: "",
     twitter: "",
     instagram: "",
@@ -560,7 +565,7 @@ const year2011 =[
   {
     name: "Shashwat Bhattacharya",
     desc: " M.S. TU München, Munich, Germany.",
-    image: avatar,
+    image: shashwat,
     linkedin: "https://www.linkedin.com/in/shashwat-bhattacharya-73758114/	",
     twitter: "",
     instagram: "",
@@ -573,7 +578,7 @@ const year2011 =[
     {
       name: "Abhinav Sadu",
       desc: " Ph.D. RWTH Aachen University, Germany.",
-      image: avatar,
+      image: abhinav,
       linkedin: "https://www.linkedin.com/in/abhinav-sadu-64b71813/",
       twitter: "",
       instagram: "",
@@ -584,7 +589,7 @@ const year2011 =[
     {
       name: "Kriti Saxena",
       desc: " PGDM. Indian Institute of Management Kozhikode, India.\nRPG Group, Summer InternSummer Intern\n Deloitte Consulting",
-      image: avatar,
+      image: kriti1,
       linkedin: "https://www.linkedin.com/in/kritisaxenaiimk/	",
       twitter: "",
       instagram: "",
@@ -609,12 +614,12 @@ const year2011 =[
   const year2009 =[
     {
       name: "Devendra Sharma",
-      desc: "",
-      image: avatar,
-      linkedin: "https://www.linkedin.com/in/shashwat-bhattacharya-73758114/	",
+      desc: "Senior Manager at Biocon \n studied at Indian school of business",
+      image: devendra,
+      linkedin: "",
       twitter: "",
       instagram: "",
-      facebook: "",
+      facebook: "https://www.facebook.com/devendra.is.here",
       github: ""
   
     },]
@@ -626,7 +631,7 @@ const Alumni = () => {
     return(
       <div className="text-black bg-white w-screen justify-center">
         <div className="bg-cover bg-bg-alumni h-80 md:h-100 lg:h-130 px-12 lg:px-24"></div>
-{/*     
+    
         <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2009</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2009.map((item, index) => (
@@ -648,7 +653,7 @@ const Alumni = () => {
             </h1>
           </div>
         ))}
-        </div> */}
+        </div>
         <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2010</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2010.map((item, index) => (
