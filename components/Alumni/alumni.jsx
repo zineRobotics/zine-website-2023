@@ -40,7 +40,7 @@ import avinash from "../../images/2016/avinash.jpg";
 import mihika from "../../images/2016/mihika.jpg";
 import paresh from "../../images/2016/paresh.jpg";
 import piyush1 from "../../images/2016/piyush.jpg";
-import rajatkumar from "../../images/2016/rajatkumar.jpg";
+import rajatkumar from "../../images/2016/rajatkumar.png";
 import sanjay from "../../images/2016/sanjay.jpg";
 import satvik from "../../images/2016/satvik.jpg";
 import sharad from "../../images/2016/sharad.v1.webp";
