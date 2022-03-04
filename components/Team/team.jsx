@@ -679,16 +679,16 @@ const thirdyear = [
     instagram: "",
     facebook: ""
   },
-  {
-    name: "ISHIKA PANWAR",
-    image: ishika,
-    desc: "Computer Science Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/ishika-panwar-23a5551a1/",
-    twitter: "",
-    instagram: "",
-    facebook: ""
-  },
+  // {
+  //   name: "ISHIKA PANWAR",
+  //   image: ishika,
+  //   desc: "Computer Science Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/ishika-panwar-23a5551a1/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
   {
     name: "PAVNESH CHATURVEDI",
     image: pavnesh,
