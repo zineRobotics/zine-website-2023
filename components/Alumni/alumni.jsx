@@ -40,7 +40,7 @@ import avinash from "../../images/2016/avinash.jpg";
 import mihika from "../../images/2016/mihika.jpg";
 import paresh from "../../images/2016/paresh.jpg";
 import piyush1 from "../../images/2016/piyush.jpg";
-import rajatkumar from "../../images/2016/rajatkumar.jpg";
+import rajatkumar from "../../images/2016/rajatkumar.png";
 import sanjay from "../../images/2016/sanjay.jpg";
 import satvik from "../../images/2016/satvik.jpg";
 import sharad from "../../images/2016/sharad.v1.webp";
@@ -53,6 +53,7 @@ import abhinav from "../../images/2010/abhinav.jpg";
 import kriti1 from "../../images/2010/kriti1.jpg";
 import devendra from "../../images/2009/white-devendra.jpg";
 import shashwat from "../../images/2011/shashwat.jpg";
+import anshulrawat from "../../images/2018/anshul.webp";
 // interface pic_detail {
 //   name: string;
 //   image: StaticImageData;
@@ -77,7 +78,7 @@ const year2012= [
   },
   {
     name: "Nirmala  Kunwar",
-    desc: "Electronics Engineer",
+    desc: "Electronics Engineer @ AAO",
     image: nirmala,
     linkedin: "https://www.linkedin.com/in/nirmala-kunwar-ranawat/",
     twitter: "",
@@ -296,7 +297,7 @@ const year2017 = [
   },
   {
     name: "Sarthak Jain",
-    desc: "MS Software Engineering, San Jose State Univ, USA",
+    desc: "MS Software Engineering, San Jose State University, USA",
     image: sarthak,
     linkedin: "https://www.linkedin.com/in/sarthak-jain29/",
     twitter: "",
@@ -336,7 +337,7 @@ const year2017 = [
   },
   {
     name: "Akshay Kumar",
-    desc: "Computer Vision Engineer at Invisible AI | Roboticist",
+    desc: "Computer Vision Engineer at Invisible AI",
     image: akshay,
     linkedin: "https://www.linkedin.com/in/kumarakshay324/",
     twitter: "",
@@ -383,6 +384,16 @@ const year2018 = [
     facebook: "",
     github: ""
   },
+  {
+    name: "Anshul Rawat",
+    desc: "SMTS at Salesforce",
+    image: anshulrawat,
+    linkedin: "https://www.linkedin.com/in/anshul-rawat-825287129/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    github: ""
+  },
 
 ]
 
@@ -398,7 +409,7 @@ const year2019 = [
     github: ""
   },
   {
-    name: "MD SAIF",
+    name: "Md Saif",
     desc: "Senior Product Engineer at Tredence Inc.",
     image: MDSaif,
     linkedin: "https://www.linkedin.com/in/md-saif-111267128/",
@@ -476,7 +487,7 @@ const year2021 = [
     name: "Vishal Kothari",
     desc: "Associate Software Engineer at Tekion Corp",
     image: vishal,
-    linkedin: "https://www.linkedin.com/in/vishal81//",
+    linkedin: "https://www.linkedin.com/in/vishal81/",
     twitter: "",
     instagram: "",
     facebook: "",
@@ -634,7 +645,7 @@ const Alumni = () => {
     
         <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2009</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2009.map((item, index) => (
+        {year2021.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
@@ -656,117 +667,7 @@ const Alumni = () => {
         </div>
         <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2010</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2010.map((item, index) => (
-          <div key={index} className="col-span-1">
-            <h1 className="text-black py-2 font-nunito text-center">
-              <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
-              </div>
-              <p className="text-center text-xl font-bold">{item.name}</p>
-              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
-              <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
-                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
-                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
-                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
-                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
-              </div>
-              </div>
-            </h1>
-          </div>
-        ))}
-        </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2011</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2011.map((item, index) => (
-          <div key={index} className="col-span-1">
-            <h1 className="text-black py-2 font-nunito text-center">
-              <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
-              </div>
-              <p className="text-center text-xl font-bold">{item.name}</p>
-              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
-              <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
-                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
-                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
-                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
-                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
-              </div>
-              </div>
-            </h1>
-          </div>
-        ))}
-        </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2012</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2012.map((item, index) => (
-          <div key={index} className="col-span-1">
-            <h1 className="text-black py-2 font-nunito text-center">
-              <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
-              </div>
-              <p className="text-center text-xl font-bold">{item.name}</p>
-              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
-              <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
-                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
-                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
-                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
-                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
-              </div>
-              </div>
-            </h1>
-          </div>
-        ))}
-        </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2016</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2016.map((item, index) => (
-          <div key={index} className="col-span-1">
-            <h1 className="text-black py-2 font-nunito text-center">
-              <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
-              </div>
-              <p className="text-center text-xl font-bold">{item.name}</p>
-              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
-              <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
-                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
-                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
-                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
-                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
-              </div>
-              </div>
-            </h1>
-          </div>
-        ))}
-        </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2017</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2017.map((item, index) => (
-          <div key={index} className="col-span-1">
-            <h1 className="text-black py-2 font-nunito text-center">
-              <div className="w-48 mx-auto member-hover">
-                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
-              </div>
-              <p className="text-center text-xl font-bold">{item.name}</p>
-              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
-              <div className="text-center">
-              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
-                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
-                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
-                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
-                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
-              </div>
-              </div>
-            </h1>
-          </div>
-        ))}
-        </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2018</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2018.map((item, index) => (
+        {year2020.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
@@ -808,9 +709,9 @@ const Alumni = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2020</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2018</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2020.map((item, index) => (
+        {year2018.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
@@ -830,9 +731,119 @@ const Alumni = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2021</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2017</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
-        {year2021.map((item, index) => (
+        {year2017.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2016</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2016.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2012</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2012.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2011</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2011.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2010</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2010.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2009</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2009.map((item, index) => (
           <div key={index} className="col-span-1">
             <h1 className="text-black py-2 font-nunito text-center">
               <div className="w-48 mx-auto member-hover">
