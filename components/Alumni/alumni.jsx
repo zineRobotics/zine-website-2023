@@ -72,7 +72,7 @@ const year2012= [
   },
   {
     name: "Nirmala  Kunwar",
-    desc: "Electronics Engineer",
+    desc: "Electronics Engineer @ AAO",
     image: nirmala,
     linkedin: "https://www.linkedin.com/in/nirmala-kunwar-ranawat/",
     twitter: "",
@@ -92,7 +92,7 @@ const year2012= [
   },
   {
     name: "Ankita Gupta",
-    desc: "Associate Manager - Demand Planning",
+    desc: "",
     image: avatar,
     linkedin: "",
     twitter: "",
@@ -291,7 +291,7 @@ const year2017 = [
   },
   {
     name: "Sarthak Jain",
-    desc: "MS Software Engineering, San Jose State Univ, USA",
+    desc: "MS Software Engineering, San Jose State University, USA",
     image: sarthak,
     linkedin: "https://www.linkedin.com/in/sarthak-jain29/",
     twitter: "",
@@ -331,7 +331,7 @@ const year2017 = [
   },
   {
     name: "Akshay Kumar",
-    desc: "Computer Vision Engineer at Invisible AI | Roboticist",
+    desc: "Computer Vision Engineer at Invisible AI",
     image: akshay,
     linkedin: "https://www.linkedin.com/in/kumarakshay324/",
     twitter: "",
@@ -393,7 +393,7 @@ const year2019 = [
     github: ""
   },
   {
-    name: "MD SAIF",
+    name: "Md Saif",
     desc: "Senior Product Engineer at Tredence Inc.",
     image: MDSaif,
     linkedin: "https://www.linkedin.com/in/md-saif-111267128/",
@@ -583,7 +583,7 @@ const year2011 =[
     },
     {
       name: "Kriti Saxena",
-      desc: " PGDM. Indian Institute of Management Kozhikode, India.\nRPG Group, Summer InternSummer Intern\n Deloitte Consulting",
+      desc: "PGDM. Indian Institute of Management Kozhikode, India.\nRPG Group, Summer Intern\nSummer Intern Deloitte Consulting",
       image: avatar,
       linkedin: "https://www.linkedin.com/in/kritisaxenaiimk/	",
       twitter: "",
