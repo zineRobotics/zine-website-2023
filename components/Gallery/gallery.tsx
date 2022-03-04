@@ -139,8 +139,8 @@ const Gallery = () => {
             <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
               <source src="/video2.mp4"/>
             </video>
-            <Image src={c1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={c2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            {/* <Image src={c1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
+            {/* <Image src={c2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
             <Image src={c3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c4} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c5} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
@@ -171,7 +171,7 @@ const Gallery = () => {
             <Image src={d1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d7} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            <Image src={d10} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            {/* <Image src={d10} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
             <Image src={d12} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d13} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d14} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>

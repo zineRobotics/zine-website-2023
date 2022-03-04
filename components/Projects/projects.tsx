@@ -22,7 +22,7 @@ import quadcopter from "../../images/project/new/quadcopter.jpg";
 import wheelchair from "../../images/project/new/wheelchair.jpg";
 import Multi from "../../images/project/new/multi.jpeg";
 import actroid from "../../images/project/new/actroid.jpeg";
-import biped from "../../images/project/new/biped.jpeg";
+import biped from "../../images/project/new/biped.jpg";
 import vtol from "../../images/project/new/vtol.jpeg";
 // Use mobile responsive navbar animation for projects section.
 
@@ -129,7 +129,7 @@ const Projects = () => {
       <div className="text-black bg-white w-full h-full">
         <div className="py-20">
 
-        <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
+          {/* <div className="shadower grid mt-8 grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 my-auto">
               <h1 className="inline-block md:hidden text-2xl font-bold mb-4">VTOL</h1>
               <Image src={vtol} className="rounded-lg"/>
@@ -145,7 +145,7 @@ const Projects = () => {
               </div>
               <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
             </div>
-          </div>
+          </div> */}
 
           <div className="shadower mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 mx-8 lg:mx-32 bg-gray-100 shadow-xl rounded-xl py-8 px-8 lg:px-16 hover:bg-gray-300 transition duration-500 ease-in-out">
             <div className="col-span-1 inline-block md:hidden my-auto">

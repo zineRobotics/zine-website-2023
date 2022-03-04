@@ -128,7 +128,7 @@ const year2020 = [
   },
   {
     name: "Vikalp Saini",
-    desc: "ESE 2020 - AIR 23,\nPosting - Assistant Director,\nCentral Electricity Authority,\nMinistry of Power",
+    desc: "ESE 2020 - AIR 23,\nAssistant Director, Central Electricity Authority,\nMinistry of Power",
     image: vikalp,
     linkedin: "https://www.linkedin.com/in/vikalp-saini-3750961b2/",
     twitter: "",
@@ -345,7 +345,7 @@ const year2017 = [
 const year2018 = [
   {
     name: "Saloni jain",
-    desc: "Senior Software Engineer at Arcesium, SMTS at Salesforce",
+    desc: "Senior Software Engineer at Arcesium",
     image: saloni,
     linkedin: "https://www.linkedin.com/in/saloni-jain-60b32b126//",
     twitter: "",
@@ -583,7 +583,7 @@ const year2011 =[
     },
     {
       name: "Kriti Saxena",
-      desc: "PGDM. Indian Institute of Management Kozhikode, India.\nRPG Group, Summer Intern\nSummer Intern Deloitte Consulting",
+      desc: "PGDM. IIM Kozhikode, India.\nSummer Intern, RPG Group",
       image: avatar,
       linkedin: "https://www.linkedin.com/in/kritisaxenaiimk/	",
       twitter: "",
@@ -611,7 +611,7 @@ const year2011 =[
       name: "Devendra Sharma",
       desc: "",
       image: avatar,
-      linkedin: "https://www.linkedin.com/in/shashwat-bhattacharya-73758114/	",
+      linkedin: "",
       twitter: "",
       instagram: "",
       facebook: "",

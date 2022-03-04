@@ -569,7 +569,7 @@ const finalyear = [
   {
     name: "DHRUV GOYAL",
     image: dhruv,
-    desc: "Computer Science",
+    desc: "Computer Science Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/dhruv-goyal-2a2905194",
     twitter: "",
@@ -599,7 +599,7 @@ const finalyear = [
   {
     name: "PRAVESH SINGH",
     image: pravesh,
-    desc: "Computer Science",
+    desc: "Computer Science Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/pravesh-singh-aaa072199/",
     twitter: "",
@@ -652,7 +652,7 @@ const thirdyear = [
   {
     name: "DARSHAN DUSAD",
     image: darshan,
-    desc: "Computer Science",
+    desc: "Computer Science Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/darshan-dusad-22b96b1ab/",
     twitter: "",
@@ -662,7 +662,7 @@ const thirdyear = [
   {
     name: "DEVANSH GARG",
     image: devansh,
-    desc: "Mechanical",
+    desc: "Mechanical Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/DevanshGarg31",
     twitter: "",
@@ -672,7 +672,7 @@ const thirdyear = [
   {
     name: "HARSHIT GARG",
     image: harshit,
-    desc: "Mechanical",
+    desc: "Mechanical Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/harshitgrg",
     twitter: "",
@@ -682,7 +682,7 @@ const thirdyear = [
   {
     name: "ISHIKA PANWAR",
     image: ishika,
-    desc: "Computer Science",
+    desc: "Computer Science Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/ishika-panwar-23a5551a1/",
     twitter: "",
@@ -725,7 +725,7 @@ const secondyear = [
   {
     name: "VINAMRA VASHISHTH",
     image: vinamra,
-    desc: "Computer Science and Engineering",
+    desc: "Computer Science Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/vinamra-vashishth-721785201/",
     twitter: "",
@@ -735,7 +735,7 @@ const secondyear = [
   {
     name: "NISHANT GARG",
     image: nishant,
-    desc: "Computer Science and Engineering",
+    desc: "Computer Science Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/nishant-garg-968205208/",
     twitter: "",
@@ -795,7 +795,7 @@ const secondyear = [
   {
     name: "AMAN MITTAL",
     image: aman,
-    desc: "Computer Science and Engineering",
+    desc: "Computer Science Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/aman-mittal-9851b31b9/",
     twitter: "",
