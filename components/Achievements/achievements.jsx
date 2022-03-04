@@ -20,7 +20,7 @@ const items = [
   {
     cardTitle: "CSAW Hack3D Hackathon 2021",
     title: "November 2021",
-    cardDetailedText: "2nd Place in a global virtual hackathon event",
+    cardDetailedText: "Second Place in a global virtual hackathon event for testing cybersecurity defenses in additive manufacturing and computer aided design",
     cardSubtitle: "Team Members : Nikita Rautela",
 
   },
@@ -41,7 +41,7 @@ const items = [
   {
     cardTitle: "CSAW Hack3D Hackathon 2020",
     title: "November 2020",
-    cardDetailedText: "2nd Place in a global virtual hackathon event",
+    cardDetailedText: "2nd Place in a global virtual hackathon event for testing cybersecurity defenses in additive manufacturing and computer aided design",
     cardSubtitle: "Team Members : Devansh Garg, Chirayu Rankawat",
 
   },
