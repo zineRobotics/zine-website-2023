@@ -625,7 +625,7 @@ const year2011 =[
 const Alumni = () => {
     return(
       <div className="text-black bg-white w-screen justify-center">
-        <div className="bg-cover bg-center bg-bg-alumni h-90 md:h-100 lg:h-130 px-12 lg:px-24"></div>
+        <div className="bg-cover bg-center bg-bg-alumni h-60 md:h-100 lg:h-130 px-12 lg:px-24"></div>
     
         <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2009</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
