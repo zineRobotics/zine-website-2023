@@ -69,6 +69,7 @@ const Projects = () => {
 
   const linebreak = '\n';
   const bcitext = "Analyzing the signals from patients' brain, mapping and using the data for effective treatment, Pattern Establishment for benign and malignant neurological disease patients in different frequency ranges. Research was in collaboration with State Health care Hospital (SMS), Jaipur";
+  const bcivideo = "https://youtu.be/mBVjJCUecgU"
   const intelligenttext = "Our system records and analyzes the electrical parameters and provides an option for optimized scheduling for electrical appliances. The system provides a real time access to the load parameters and there is a centralized data monitoring system which generates a report and alerts the user to reduce the load consumption on exceeding the proposed usage limit as determined by the predicted load. A smart control feature is integrated which enables control of all the appliances using a handheld device.The system also logs the power consumption so that the discrepancy in billing can be cut down.";
   const intelligentprogress = "Progress: The following tasks have been done and integrated: Retrieval of data from homes. Optimization on Cloud. Scheduling. Remote Access to devices at homes. Penalty factor. Things to be done: Integration of Game Theory";
   const wheelchairtext = "We have achieved the objective of categorizing patients (neurologic disease) using brain signals with a medical team at SMS Hospital, Jaipur. Results have been submitted in IEEE xplore. We have also developed an algorithm for ANN to get enhanced classification of terminal medical disease. Results have been submitted in Springer Journal. Most of the software part has been simulated by us. Now to extend our project towards hardware we are going to construct a fully autonomous wheelchair for completely paralyzed people using BCI.";
@@ -97,6 +98,7 @@ const Projects = () => {
   const suntext = "Energy Efficiency-Microcontroller based Android App controlled Solar Tracking System enables the solar panels to track the sun for maximum energy and the power generated is available to the user android based application for manual modifications and control. Using Self Orienting Solar Panels lead to an enhancement of up to 40% in the generated solar power. Dual axis tracking is an additional feature which makes the design work for any season throughout the year thus accounting for the sun’s deviation during winters."
 
   const robotictext = "This robotic system is manually controlled through a wireless remote. The video and infrared cameras provide live feeds which are transmitted wirelessly. The receiver kept near the operator receives the live feeds and then they are displayed on the screen. The operator can then control the robotic system to repair the broken strands and can also analyze the hotspots. Loose bolts can be tightened by using the assembly mounted for tightening the bolts. This way the system will minimize the human work, increase efficiency and reduce dangers in maintaining and repairing the transmission lines."
+  const roboticvideo = "https://youtu.be/fE149b50yYg"
 
   const exotext = "The main aim of our project is to design a human exoskeleton which can be applied to various uses. For people suffering from muscular motor loss in limbs to some suffering with paraplegia this can be used in their quick rehabilitation and provides enhanced performance as well as assistance to human actions using Functional Electrical Simulation (FES). "
   const exo1 = "This methodology involves the development of the tentative model on 3D modeling software. Then static and dynamic analysis using Hyperworks. Development of the first prototype based on input and output systems. The integration of input and output systems and then integrating with the feedback control."
@@ -114,10 +116,13 @@ const Projects = () => {
   const agtext = "The main aim is to achieve autonomous navigation. The robot will further be used in hospitals where in case of an emergency the nearest ICU for the patient will be automatically fetched from a UNIFIED database and will save precious moments. The robot will feature various robotic sciences like Image Processing,etc. The interface with the robot will be via a touch screen . In the future a multiple number of these robots will be in sync with each other to make navigation very simple and efficient, saving a lot of resources and manpower."
 
   const actroidtext = "We’ve developed an interactive animatronic robot. It’s a low cost actroid with sharp artificial intelligence, highly precise motion, HD vision and speech features that act and behave almost like a real human. It has a human-like face with eyes, nose and lips. It has 2 DOF at its neck. The bot can perform face tracking and detect human faces with its camera powered vision system. Jaws and the neck utilize a high powered DC motor with a tuning algorithm. It uses deep learning and computer vision which can decipher faces and real world objects. For the articulation and auditory abilities a CNN in coordination with a mic capable of listening to users questions and then processing it via various algorithms is used."
+  const actroidvideo = "https://youtu.be/hCTIxSW3q7o"
 
   const bipedtext = "It is a bipedal robot, an anthropomorphic robot which imitates the human gait, autonomous one with custom made 3D printed parts. High precision servo motors are used for actuating the joints. It uses sensors and arduino nano for measuring stability and posture. It uses rigid body dynamics for motion control and gyroscopes for state estimation and stability. It also has its functioning in rough terrains and military operations."
+  const bipedvideo = "https://youtu.be/TQZZt2NlgYY"
 
   const vtoltext = "It is a Vertical Takeoff and Landing aircraft."
+  const vtolvideo = "https://youtu.be/rb-q3BTk5Vk"
 
 
     return(
@@ -134,6 +139,10 @@ const Projects = () => {
               <br />
               <p className="inline-block md:hidden">{vtoltext}</p>
               <p className="hidden md:inline-block">{vtoltext}</p>
+
+              <div className="cursor-pointer mt-4">
+                <Link href={vtolvideo}><FontAwesomeIcon icon={faYoutube} className="text-red-600 hover:text-red-500 mr-4" size="2x" /></Link>
+              </div>
               <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
             </div>
           </div>
@@ -149,6 +158,9 @@ const Projects = () => {
               <p className="hidden md:inline-block mt-8">{bipedtext}</p>
            
               <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore16(!showMore16)}>{showMore16 ? `Show Less` : `Show More`}</button>
+              <div className="cursor-pointer mt-4">
+                <Link href={bipedvideo}><FontAwesomeIcon icon={faYoutube} className="text-red-600 hover:text-red-500 mr-4" size="2x" /></Link>
+              </div>
               <p className="pt-8">Team Members: Devang Darode, Karsh Tharyani, Ayush Jhalani</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
@@ -166,6 +178,9 @@ const Projects = () => {
               <p className="inline-block md:hidden">{showMore1 ? bcitext : bcitext.substring(0, 200)+`...`}</p>
               <p className="hidden md:inline-block">{bcitext}</p>
               <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore1(!showMore1)}>{showMore1 ? `Show Less` : `Show More`}</button>
+              <div className="cursor-pointer mt-4">
+                <Link href={bcivideo}><FontAwesomeIcon icon={faYoutube} className="text-red-600 hover:text-red-500 mr-4" size="2x" /></Link>
+              </div>
               <h1 className="pt-8">Team Members: Saurab Aggarwal Bhanu Pratap Singh Rawat</h1>
             </div>
           </div>
@@ -323,6 +338,9 @@ const Projects = () => {
               <p className="hidden md:inline-block mt-8">{robotictext}</p>
            
               <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore10(!showMore10)}>{showMore10 ? `Show Less` : `Show More`}</button>
+              <div className="cursor-pointer mt-4">
+                <Link href={roboticvideo}><FontAwesomeIcon icon={faYoutube} className="text-red-600 hover:text-red-500 mr-4" size="2x" /></Link>
+              </div>
               <p className="pt-8">Team Members: Akash Shah, Akshay Kumar, Anirudha Kumar, Anshul Mittal, Rajat Arya, Sharad Garg</p>
             </div>
             <div className="col-span-1 my-auto hidden md:inline-block">
@@ -409,6 +427,9 @@ const Projects = () => {
               <p className="hidden md:inline-block mt-8">{actroidtext}</p>
            
               <button className="btn inline-block md:hidden font-bold" onClick={() => setShowMore15(!showMore15)}>{showMore15 ? `Show Less` : `Show More`}</button>
+              <div className="cursor-pointer mt-4">
+                <Link href={actroidvideo}><FontAwesomeIcon icon={faYoutube} className="text-red-600 hover:text-red-500 mr-4" size="2x" /></Link>
+              </div>
               <h1 className="pt-8">Team Members: Karsh Tharyani, Vishakha Tyagi, Jatin Verma</h1>
             </div>
           </div>
