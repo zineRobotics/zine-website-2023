@@ -73,10 +73,10 @@ const Gallery = () => {
         <section className="overflow-hidden text-gray-700">
           <h1 className="text-4xl text-center mx-auto my-20">WORKSHOP AND ORIENTATION</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} muted style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
               <source src="/21.mp4"/>
             </video>
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} muted style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
               <source src="/22.mp4"/>
             </video>
             <Image src={w1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
@@ -136,7 +136,7 @@ const Gallery = () => {
 
           <h1 className="text-4xl text-center mx-auto my-20">COMPETITIONS</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} muted style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
               <source src="/video2.mp4"/>
             </video>
             {/* <Image src={c1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
@@ -165,7 +165,7 @@ const Gallery = () => {
           </div>
           <h1 className="text-4xl text-center mx-auto my-20">ZINE DRONE RACING</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} muted style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
               <source src="/dronenight.mp4"/>
             </video>
             <Image src={d1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
