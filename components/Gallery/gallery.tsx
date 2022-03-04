@@ -74,12 +74,14 @@ const Gallery = () => {
         <section className="overflow-hidden text-gray-700">
           <h1 className="text-4xl text-center mx-auto my-20">WORKSHOP AND ORIENTATION</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/21.mp4"/>
-            </video>
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/22.mp4"/>
-            </video>
+            {/* <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}> */}
+              {/* <source src="/21.mp4"/> */}
+              <HoverVideoPlayer videoSrc="/21.mp4" className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" />
+            {/* </video> */}
+            {/* <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}> */}
+            <HoverVideoPlayer videoSrc="/22.mp4" className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" />
+              {/* <source src="/22.mp4"/> */}
+            {/* </video> */}
             <Image src={w1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={w2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={w3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
@@ -99,7 +101,7 @@ const Gallery = () => {
             <Image src={w17} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={w18} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
           </div>
-          
+
           {/* <h1 className="text-4xl text-center mx-auto mt-8 mb-20">PROJECTS</h1> */}
           {/* <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 "> */}
             {/* <Image src={a3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
@@ -137,11 +139,12 @@ const Gallery = () => {
 
           <h1 className="text-4xl text-center mx-auto my-20">COMPETITIONS</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/video2.mp4"/>
-            </video>
-            {/* <Image src={c1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
-            {/* <Image src={c2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
+            {/* <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}> */}
+              {/* <source src="/video2.mp4"/> */}
+              <HoverVideoPlayer videoSrc="/video2.mp4" className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" />
+            {/* </video> */}
+            <Image src={c1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+            <Image src={c2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c3} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c4} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c5} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
@@ -160,24 +163,28 @@ const Gallery = () => {
             <Image src={c18} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c19} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c20} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            {/* <Image src={c21} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
+            <Image src={c21} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c22} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={c23} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
           </div>
           <h1 className="text-4xl text-center mx-auto my-20">ZINE DRONE RACING</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ">
-            <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
-              <source src="/dronenight.mp4"/>
-            </video>
+            {/* <video className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover'}}>
+              <source src="/dronenight.mp4"/> */}
+              <HoverVideoPlayer videoSrc="/dronenight.mp4" className="opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"  sizingMode="container"/>
+
+
+            {/* </video> */}
             <Image src={d1} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d2} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d7} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            {/* <Image src={d10} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
+            <Image src={d10} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d12} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d13} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d14} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
             <Image src={d15} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
-            {/* <Image src={d16} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/> */}
+            <Image src={d16} className="object-cover opacity-50 hover:opacity-100 transition duration-500 ease-in-out overflow-hidden"/>
+
           </div>
         </section>
     )
