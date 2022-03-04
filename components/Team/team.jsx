@@ -807,7 +807,11 @@ const secondyear = [
 const Team = () => {
     return(
       <div className="text-black bg-white w-screen justify-center">
-        <div className="bg-cover bg-bg-team h-60 md:h-100 lg:h-130 px-12 lg:px-24"></div>
+        <div className="keen-slider__slide number-slide11 h-60 md:h-100 lg:h-130 mb-4">
+          <div className="absolute left-8 pl-16 text-xl md:text-3xl lg:text-5xl">
+            <p>Team</p>
+          </div>
+        </div>
         <h1 className="pt-8 text-4xl text-center px-12 lg:px-24">Our Founders: The Roots Of Our Tree</h1>
         <div className="pt-16 grid grid-cols-1 lg:grid-cols-2 px-12 lg:px-24">
           <div className="col-span-1 w-48 member-hover lg:w-80 justify-self-center">
@@ -822,7 +826,7 @@ const Team = () => {
             <h1 className="text-2xl text-center font-bold">DR. RAJESH KUMAR</h1>
             <p className="text-center">Fellow IET (UK), Fellow IETE, Fellow IE (India),  SMIEEE (USA), LMCSI,  LMISTE</p>
             <p className="text-center">Professor, Department of Electrical Engineering</p>
-            <p className="text-center">Malaviya National Institute of Technology Jaipur, India, 302017</p>
+            <p className="text-center">Malaviya National Institute of Technology, Jaipur</p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
