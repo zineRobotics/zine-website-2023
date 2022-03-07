@@ -35,7 +35,7 @@ const SecFooter = () => {
             <div className="pt-16 pl-8 col-span-1 text-white lg:-ml-20 lg:w-80">
               <div className="pb-4 grid grid-cols-2">
                 <div className="w-8 mx-auto"><Image src={maillogo} /></div>  { /* Here the mail icon should come */}
-                <div className="cursor-pointer my-auto text-lg"><Link href="mailto:zine@zine.co.in">zine@zine.co.in</Link></div>
+                <div className="cursor-pointer my-auto text-lg"><Link href="mailto:zine.nitj@gmail.com">zine.nitj@gmail.com</Link></div>
               </div>
               <div className="pb-4 grid grid-cols-2">
                 <div className="w-8 mx-auto"><Image src={phonelogo} /></div>  { /* Here the phone icon should come */}

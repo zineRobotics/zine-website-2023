@@ -136,7 +136,7 @@ const year2020 = [
   },
   {
     name: "Devnath Nair",
-    desc: "Robotics Engineer in Autonomous Guided Vehicles at Addverb Technologies, Australia\nRobotics Software Engineer Nanodegree, Udacity",
+    desc: "Robotics Engineer in Autonomous Guided Vehicles at Addverb Technologies, Australia",
     image: devnath,
     linkedin: "https://www.linkedin.com/in/devnath-nair/",
     twitter: "",
@@ -472,8 +472,8 @@ const year2019 = [
 
   },
   {
-    name: "Vasanth Reddya",
-    desc: "Graduate Research Assistant at Virginia Tech\nPhD Virginia tech",
+    name: "Vasanth Reddy",
+    desc: "Graduate Research Assistant at Virginia Tech",
     image: vasanth,
     linkedin: "https://www.linkedin.com/in/vasanth-reddy-778816108/",
     twitter: "",
