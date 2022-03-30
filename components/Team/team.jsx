@@ -722,46 +722,46 @@ const thirdyear = [
 ];
 
 const secondyear = [
-  {
-    name: "VINAMRA VASHISHTH",
-    image: vinamra,
-    desc: "Computer Science Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/vinamra-vashishth-721785201/",
-    twitter: "",
-    instagram: "",
-    facebook: ""
-  },
-  {
-    name: "NISHANT GARG",
-    image: nishant,
-    desc: "Computer Science Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/nishant-garg-968205208/",
-    twitter: "",
-    instagram: "",
-    facebook: ""
-  },
-  {
-    name: "DIVYANSH GARG",
-    image: divyansh,
-    desc: "Electronics and Communication Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/dggrx/",
-    twitter: "",
-    instagram: "",
-    facebook: ""
-  },
-  {
-    name: "ABHINAV KUMAR",
-    image: abhinav,
-    desc: "Electrical Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/abhinav-kumar-5b2097205/",
-    twitter: "",
-    instagram: "",
-    facebook: ""
-  },
+  // {
+  //   name: "VINAMRA VASHISHTH",
+  //   image: vinamra,
+  //   desc: "Computer Science Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/vinamra-vashishth-721785201/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
+  // {
+  //   name: "NISHANT GARG",
+  //   image: nishant,
+  //   desc: "Computer Science Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/nishant-garg-968205208/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
+  // {
+  //   name: "DIVYANSH GARG",
+  //   image: divyansh,
+  //   desc: "Electronics and Communication Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/dggrx/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
+  // {
+  //   name: "ABHINAV KUMAR",
+  //   image: abhinav,
+  //   desc: "Electrical Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/abhinav-kumar-5b2097205/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
   {
     name: "SUDESHNA SONKAR",
     image: sudeshna,
@@ -872,7 +872,7 @@ const Team = () => {
           </div>
         ))}
         </div>
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">THIRD YEAR</h1>
+        {/* <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">THIRD YEAR</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {thirdyear.map((item, index) => (
           <div key={index} className="col-span-1">
@@ -893,7 +893,7 @@ const Team = () => {
             </h1>
           </div>
         ))}
-        </div>
+        </div> */}
         <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">SECOND YEAR</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 py-16 px-12 lg:px-24">
         {secondyear.map((item, index) => (
