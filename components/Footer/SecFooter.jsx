@@ -39,7 +39,7 @@ const SecFooter = () => {
               </div>
               <div className="pb-4 grid grid-cols-2">
                 <div className="w-8 mx-auto"><Image src={phonelogo} /></div>  { /* Here the phone icon should come */}
-                <div className="cursor-pointer my-auto text-lg">+91 7488960146</div>
+                <div className="cursor-pointer my-auto text-lg">+91 8770083410</div>
               </div>
               <div className="pb-4 grid grid-cols-2">
                 <div className="w-8 mx-auto"><Image src={locationlogo} /></div>  { /* Here the location icon should come */}
