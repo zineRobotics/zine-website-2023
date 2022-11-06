@@ -28,6 +28,7 @@ import sudeshna from "../../images/secondyear/sudeshna.webp";
 import aman from "../../images/secondyear/aman.webp";
 import mahak from "../../images/secondyear/mahak.webp";
 import pranjali from "../../images/secondyear/pranjali.webp";
+import ashok from "../../images/secondyear/ashok.webp";
 import piyush from "../../images/alumni/piyush.jpeg";
 import kriti from "../../images/alumni/kriti.jpeg";
 import nimesh from "../../images/alumni/nimesh.jpeg";
@@ -641,8 +642,8 @@ const thirdyear = [
   //   instagram: "",
   //   facebook: ""
   // },
-  // {
-  //   name: "NISHANT GARG",
+  //{
+  //  name: "NISHANT GARG",
   //   image: nishant,
   //   desc: "Computer Science Engineering",
   //   github: "",
@@ -700,6 +701,28 @@ const thirdyear = [
     twitter: "",
     instagram: "",
     facebook: ""
+
+  },
+  // {
+  //   name: "AMAN MITTAL",
+  //   image: aman,
+  //   desc: "Computer Science Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/aman-mittal-9851b31b9/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
+  {
+    name: "ASHOK KUMAR SAINI",
+    image: ashok,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/ashok-kumar-saini-505b9b202/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+
   }
 ]
 
