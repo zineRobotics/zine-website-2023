@@ -3,6 +3,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFacebook, faInstagram, faLinkedin, faGithub} from '@fortawesome/free-brands-svg-icons';
+import bhanu from "../../images/finalyear/bhanu.webp";
+import brijraj from "../../images/finalyear/brijraj.webp";
+import charu from "../../images/finalyear/charu.webp";
+import dhruv from "../../images/finalyear/dhruv.webp";
+import harsh from "../../images/finalyear/harsh.webp";
+import muskan from "../../images/finalyear/muskan.webp";
+import nikita from "../../images/finalyear/nikita.webp";
+import pravesh from "../../images/finalyear/pravesh.webp";
+import rajat from "../../images/finalyear/rajat.webp";
+import sneha from "../../images/finalyear/sneha.webp";
 import avatar from "../../images/thirdyear/images.jpg";
 import piyush from "../../images/alumni/piyush.jpeg";
 import nimesh from "../../images/alumni/nimesh.jpeg";
@@ -66,6 +76,88 @@ import anshulrawat from "../../images/2018/anshul.webp";
 //   instagram: string;
 //   facebook: string;
 // }
+const year2022=[
+  {
+    name: "BHANU MOHINDRA",
+    image: bhanu,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/bhanu-m/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "BRIJRAJ",
+    image: brijraj,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/brijraj-jangir-b957a416a/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "CHARU",
+    image: charu,
+    desc: "Chemical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/charu-09874418b/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "DHRUV GOYAL",
+    image: dhruv,
+    desc: "Computer Science Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/dhruv-goyal-2a2905194",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "MUSKAN GARG",
+    image: muskan,
+    desc: "Civil Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/muskan-garg-031054196/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "NIKITA RAUTELA",
+    image: nikita,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/nikita-rautela-a37415132/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "PRAVESH SINGH",
+    image: pravesh,
+    desc: "Computer Science Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/pravesh-singh-aaa072199/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "SNEHA YADAV",
+    image: sneha,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/sneha-yadav-367665170/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  }
+]
 const year2012= [
  
   {
@@ -508,7 +600,7 @@ const year2021 = [
   },
   {
     name: "Vibhor Rawal",
-    desc: "Software Developer at Gameskraft",
+    desc: "Software Developer at Google",
     image: vibhor,
     linkedin: "https://www.linkedin.com/in/vibhorrawal/",
     twitter: "",
@@ -670,6 +762,28 @@ const Alumni = () => {
             <p>Alumni</p>
           </div>
         </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2022</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2022.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
+         </div>
         <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2021</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2021.map((item, index) => (
