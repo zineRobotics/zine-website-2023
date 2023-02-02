@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  // assetPrefix: "./", //uncommnet it out when running on dev
   reactStrictMode: true,
-  images: {
-    loader: "imgix",
-    path: "http://zine.co.in/",
-   },
-   trailingSlash: true,
-}
+};
