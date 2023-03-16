@@ -150,10 +150,11 @@ const Navbar = () => {
                   Achievements
                 </div></div></Link>
                 <div className="px-1 hidden lg:inline-block">|</div>
-              {/* <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">
+              <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Blogs
-          </div></div></Link> */}
+          </div></div></Link>
+          <div className="px-1 hidden lg:inline-block">|</div>
               <Link href="/gallery"><div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
                 <div className="link ">
                   Gallery
