@@ -41,7 +41,7 @@ const Blogs = () => {
               <h1 className="text-xl mb-4">BME</h1>
               <p className="h-40 lg:h-60 xl:h-40">But, before robots are capable of doing tasks, they have to be created! Engineers get to take the credit for designing the robots to do what they are programmed for. As all types of engineers work together, they build a complete robot.</p>
               <div className="text-right text-red-600 underline">
-                <Link href="/blogs/bme">Go to Blog</Link>
+                <Link href="https://docs.google.com/document/d/1mFEbo8sasM-xrlhhcqPFFYay6rjku721/edit?usp=sharing&ouid=113202825738582851452&rtpof=true&sd=true">Go to Blog</Link>
               </div>
             </div>
             <div className="col-span-1">
@@ -49,7 +49,7 @@ const Blogs = () => {
               <h1 className="text-xl mb-4">IC-MCU</h1>
               <p className="h-40 lg:h-60 xl:h-40">How is this journey of yours with robotics going? Awesome? Good! Shall we proceed? Ok! We’ll first learn about the ICs and then we shall continue with the processing unit in which you’ll get along with microcontrollers and the genius saints sitting inside the core of computers.</p>
               <div className="text-right text-red-600 underline">
-                <Link href="/blogs/icmcu">Go to Blog</Link>
+                <Link href="https://docs.google.com/document/d/15DQmdDA3dDyRuVmt65jl7aMtjW8Q_AjTk88zIR8e-Tk/edit?usp=sharing">Go to Blog</Link>
               </div>
             </div>
             <div className="col-span-1 mb-8">
@@ -57,7 +57,7 @@ const Blogs = () => {
               <h1 className="text-xl mb-4">Aeromodelling</h1>
               <p className="h-40 lg:h-60 xl:h-40">If you have ever wondered how someone could fly, what would you think of? Wings? Propellers? But how does it work? We are here to answer that question for you. That’s what we do in aeromodelling, we design, construct and fly our airplanes.</p>
               <div className="text-right text-red-600 underline">
-                <Link href="/blogs/aero">Go to Blog</Link>
+                <Link href="https://docs.google.com/document/d/1uocC-AR_M8bplf82jNYQCa64nJnhBqOsvsRa9TdjEuU/edit?usp=sharing">Go to Blog</Link>
               </div>
             </div>
           </div>
