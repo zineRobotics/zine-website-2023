@@ -41,7 +41,7 @@ const Blogs = () => {
               <h1 className="text-xl mb-4">BME</h1>
               <p className="h-40 lg:h-60 xl:h-40">But, before robots are capable of doing tasks, they have to be created! Engineers get to take the credit for designing the robots to do what they are programmed for. As all types of engineers work together, they build a complete robot.</p>
               <div className="text-right text-red-600 underline">
-                <Link href="https://docs.google.com/document/d/1mFEbo8sasM-xrlhhcqPFFYay6rjku721/edit?usp=sharing&ouid=113202825738582851452&rtpof=true&sd=true">Go to Blog</Link>
+                <Link href="/blogs/bme">Go to Blog</Link>
               </div>
             </div>
             <div className="col-span-1">

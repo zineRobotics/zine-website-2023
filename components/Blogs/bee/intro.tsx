@@ -29,7 +29,7 @@ const Intro = () => {
           </div>
 
           <div className="mx-16 md:mx-32 lg:mx-48 xl:mx-72 mt-8 text-lg">
-              <p>Hola Amigos! (Remove all the breaklines and use some margin or padding instead.)</p>
+              <p>Hola Amigos!</p>
               <p>Zine welcomes you all to this wonderful world of Robotics.</p>
               <p className="mb-8">Y’all must be fascinated with robots like WALL-E, Optimus Prime, BayMax, and many more. These sci-fi movie robots have not only entertained us but also helped us realize the upcoming future. You know what, we are slowly entering this world of fantasy. Engineers have already amazed us with their creations like ASIMO, PEPPER, NAO, MIRO, AIBO, ATLAS, MEENA, and trust us, it's just a start.</p>
               <p>So, what is Robotics?</p>
