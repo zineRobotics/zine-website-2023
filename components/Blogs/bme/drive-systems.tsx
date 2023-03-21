@@ -71,10 +71,8 @@ const DriveSystems = () => {
             <h1 className="text-3xl my-8">HOLONOMIC DRIVE</h1>
             <p>The controllable degrees of freedom is equal to total degrees of freedom. In simple terms, it is not bound to go in any one specified direction and <b>can traverse anywhere in the x-y plane/</b></p>
             <p>An Omni wheel is generally suggested for the holonomic drives but mecanum wheels can also fit the desired conditions of holonomic systems.</p>
-            <div className="mt-8 text-center">
+            <div className="mt-8 text-center grid grid-cols-2">
                 <Image src={HolonomicDrive1} />
-            </div>
-            <div className="mt-8 text-center">
                 <Image src={HolonomicDrive2} />
             </div>
 

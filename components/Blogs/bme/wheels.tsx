@@ -33,10 +33,8 @@ const Wheels = () => {
 
             <h1 className="text-3xl my-8">Omni Wheel</h1>
             <p>These are used for a robot that requires multi-directional movement. These wheels are normal wheels with passive wheels (rollers) attached around the circumference of the center wheel. The small wheels are attached in such a way that the axis of the small wheels is perpendicular to the axis of the bigger center wheel which makes the wheel rotate even parallel to its own axis.</p>
-            <div className="mt-8 text-center">
+            <div className="mt-8 text-center grid grid-cols-2 gap-4">
                 <Image src={OmniWheel1} />
-            </div>
-            <div className="mt-8 text-center">
                 <Image src={OmniWheel2} />
             </div>
 
