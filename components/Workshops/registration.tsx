@@ -1,4 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import {db,storage} from '../../firebase';
+import { collection, addDoc } from "firebase/firestore";
 import Link from "next/link";
 
 const branches = [
@@ -22,6 +24,7 @@ const Registration = () => {
         gender: "",
         platform: ""
     });
+    const regCollection = collection(db, "registrations");
 
     const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {id, value} = e.target;
@@ -33,9 +36,15 @@ const Registration = () => {
 
 
     const onSubmit = (e: FormEvent) => {
-        console.log("hello")
-        e.preventDefault()
+         e.preventDefault()
         console.log(state)
+        addDoc(regCollection, state)
+  .then((docRef) => {
+    console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+    console.error("Error adding document: ", error);
+  });
     }
 
     return (
@@ -98,7 +107,7 @@ const Registration = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className="mt-6 p-4 block w-full rounded-3xl text-white" onSubmit={onSubmit} style={{background: "#0C72B0"}}>Register</button>
+                    <button className="mt-6 p-4 block w-full rounded-3xl text-white" onClick={onSubmit} style={{background: "#0C72B0"}}>Register</button>
                 </form>
             </div>
         </div>
