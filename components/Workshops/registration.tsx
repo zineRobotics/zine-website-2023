@@ -1,20 +1,19 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import {db,storage} from '../../firebase';
 import { collection, addDoc } from "firebase/firestore";
-import Link from "next/link";
-
-const branches = [
-    "Architecture",
-    "Chemical Engineering",
-    "Civil Engineering",
-    "Computer Science & Engineering",
-    "Electrical Engineering",
-    "Electronics and Communication Engineering",
-    "Metallurgical Engineering",
-    "Mechanical Engineering"
-]
 
 const Registration = () => {
+    const branches = [
+        "Architecture",
+        "Chemical Engineering",
+        "Civil Engineering",
+        "Computer Science & Engineering",
+        "Electrical Engineering",
+        "Electronics and Communication Engineering",
+        "Metallurgical Engineering",
+        "Mechanical Engineering"
+    ]
+
     const [state, setState] = useState({
         name: "",
         college: "MNIT Jaipur",
@@ -24,6 +23,8 @@ const Registration = () => {
         gender: "",
         platform: ""
     });
+
+    const [message, setMessage] = useState("")
     const regCollection = collection(db, "registrations");
 
     const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -39,12 +40,13 @@ const Registration = () => {
          e.preventDefault()
         console.log(state)
         addDoc(regCollection, state)
-  .then((docRef) => {
-    console.log("Document written with ID: ", docRef.id);
-  })
-  .catch((error) => {
-    console.error("Error adding document: ", error);
-  });
+        .then((docRef) => {
+            setMessage("Registration Successful!")
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
     }
 
     return (
