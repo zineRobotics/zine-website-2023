@@ -1,4 +1,7 @@
 import Intro from "./intro";
 import ICMCU from "./ic-mcu";
 import More from "./more";
-export {Intro, More, ICMCU}
+import Microcontroller from "./microcontroller";
+import Microprocessor from "./microprocessor";
+
+export {Intro, More, ICMCU, Microcontroller, Microprocessor}
