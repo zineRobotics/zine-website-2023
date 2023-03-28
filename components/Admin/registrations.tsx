@@ -1,8 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faCalendar, faUsers, faVolumeOff, faMessage, faListCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import SideNav from "./sidenav";
 import styles from "./styles";
 import Notifications from "./notifications";
@@ -16,6 +14,12 @@ const Registrations = () => {
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {id, value} = e.target;
         setState({ ...state, [id]: value })
+    }
+
+    const onSubmit = (e: FormEvent) => {
+        e.preventDefault()
+        if (state.email === "" )
+        console.log(state)
     }
 
     return (

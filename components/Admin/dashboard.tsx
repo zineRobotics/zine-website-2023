@@ -1,12 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCalendar, faUsers, faVolumeOff, faMessage, faListCheck } from "@fortawesome/free-solid-svg-icons";
 import SideNav from "./sidenav";
 import Notifications from "./notifications";
 import styles from "./styles";
+import { db } from '../../firebase';
+import { collection, query, getCountFromServer } from "firebase/firestore";
 
 const Dashboard = () => {
+    const [message, setMessage] = useState("")
+    const [state, setState] = useState({
+        registered: 0,
+        users: 0,
+        events: 0,
+        tasks: 0
+    })
+
+    const registeredCollection = collection(db, "registrations")
+    const usersCollection = collection(db, "users")
+    const eventsCollection = collection(db, "events")
+    const tasksCollection = collection(db, "tasks")
+    useEffect(() => {
+        // Perform localStorage action
+        const item = localStorage.getItem('message')
+        setMessage(item || "")
+        if (item) {
+            setTimeout(() => {
+                setMessage("")
+                localStorage.removeItem("message")
+            }, 2000)
+        }
+
+        getCountFromServer(query(registeredCollection)).then((res) => setState((prevstate) => { 
+            return { ...prevstate, registered: res.data().count }
+        }))
+        getCountFromServer(query(usersCollection)).then((res) => setState((prevstate) => {
+            return { ...prevstate, users: res.data().count }
+        }))
+        getCountFromServer(query(eventsCollection)).then((res) => setState((prevstate) => {
+            return { ...prevstate, events: res.data().count }
+        }))
+        getCountFromServer(query(tasksCollection)).then((res) => setState((prevstate) => {
+            return { ...prevstate, tasks: res.data().count }
+        }))
+      }, [])
+
+
     const date = new Date()
     const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];;
     let suffix = "TH"
@@ -16,6 +56,14 @@ const Dashboard = () => {
     return (
         <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
             <div className="col-span-9 px-12 flex flex-col">
+                
+                {
+                    message &&
+                    <div className="flex items-center p-4 bg-white rounded-lg fixed bottom-5 right-5" role="alert" style={{minWidth: 300}}>
+                        <p className="mr-3">{message}</p>
+                    </div>
+                }
+
                 <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Admin Panel</h1>
 
                 <div className="grid grid-cols-9 grid-rows-10 gap-8 my-8 flex-1">
@@ -26,8 +74,8 @@ const Dashboard = () => {
                     </div>
 
                     <Link href="/admin/registrations">
-                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4">
-                            <h1 className="text-7xl text-center font-extrabold" style={{color: "#0C72B0"}}>45</h1>
+                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">
+                            <h1 className="text-7xl text-center font-extrabold" style={{color: "#0C72B0"}}>{state.registered}</h1>
                             <div className="text-center mt-4">
                                 <FontAwesomeIcon icon={faCheck} size="2x" style={styles.textSecondary} />
                             </div>
@@ -36,8 +84,8 @@ const Dashboard = () => {
                     </Link>
 
                     <Link href="/admin/users">
-                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4">
-                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>78</h1>
+                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">
+                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{state.users}</h1>
                             <div className="text-center mt-4">
                                 <FontAwesomeIcon icon={faUsers} size="2x" style={styles.textSecondary} />
                             </div>
@@ -48,8 +96,8 @@ const Dashboard = () => {
                     <Notifications />
                     
                     <Link href="/admin/events">
-                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4">
-                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>11</h1>
+                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">
+                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{state.events}</h1>
                             <div className="text-center mt-4">
                                 <FontAwesomeIcon icon={faCalendar} size="2x" style={styles.textSecondary} />
                             </div>
@@ -58,8 +106,8 @@ const Dashboard = () => {
                     </Link>
 
                     <Link href="/admin/tasks">
-                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4">
-                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>15</h1>
+                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">
+                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{state.tasks}</h1>
                             <div className="text-center mt-4">
                                 <FontAwesomeIcon icon={faListCheck} size="2x" style={styles.textSecondary} />
                             </div>
@@ -67,14 +115,14 @@ const Dashboard = () => {
                         </div>
                     </Link>
 
-                    <div className="col-span-4 row-span-2 bg-white rounded-xl py-2">
+                    <div className="col-span-4 row-span-2 bg-white rounded-xl py-2 border-transparent border-2 hover:border-blue-400">
                         <div className="text-center mt-2">
                             <FontAwesomeIcon icon={faVolumeOff} size="2x" style={styles.textSecondary} />
                         </div>
                         <h5 className="text-2xl text-center font-bold mt-2" style={styles.textSecondary}>Announcements</h5>
                     </div>
 
-                    <div className="col-span-2 row-span-2 bg-white rounded-xl py-2">
+                    <div className="col-span-2 row-span-2 bg-white rounded-xl py-2 border-transparent border-2 hover:border-blue-400">
                         <div className="text-center mt-2">
                             <FontAwesomeIcon icon={faMessage} size="2x" style={styles.textSecondary} />
                         </div>

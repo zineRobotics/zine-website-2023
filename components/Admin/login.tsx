@@ -1,21 +1,32 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
-import Link from "next/link";
+import React from "react";
 import Image from "next/image";
+import { useRouter } from 'next/router'
 import ZineLogo from "../../images/logo_without_shadow.webp"
+import { useForm } from "react-hook-form";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+interface ILoginData {
+    email: string;
+    password: string;
+}
 
 const AdminLogin = () => {
-    const [state, setState] = useState({
-        email: "",
-        password: ""
-    })
+    const { register, setError, formState: {errors}, handleSubmit } = useForm<ILoginData>()
+    const router = useRouter()
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const {id, value} = e.target;
-        setState({ ...state, [id]: value })
-    }
-    const onSubmit = (e: FormEvent) => {
-        e.preventDefault()
-        console.log(state)
+    const onSubmit = (data: ILoginData) => {
+        const {email, password} = data
+        console.log(data)
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(user)
+            router.push('/admin/dashboard')
+        }).catch((error) => {
+            console.log(error)
+            setError("root.authError", {message: error.message})
+        })
     }
 
     return (
@@ -28,15 +39,18 @@ const AdminLogin = () => {
                 <form>
                     <div className="mt-8">
                         <label className="block text-gray-600">Email</label>
-                        <input type="email" id="email" className="block w-full focus:outline-none bottom-border text-lg pt-2" placeholder="xyz@abc.com" value={state.email} onChange={onChange} required />
+                        <input type="email" id="email" className="block w-full focus:outline-none bottom-border text-lg pt-2" placeholder="xyz@abc.com" {...register("email", { required: true })} />
+                        {errors.email && <p className="text-red-500 text-sm" role="alert">Email ID is required</p>}
                     </div>
 
                     <div className="mt-8">
                         <label className="block text-gray-600">Password</label>
-                        <input type="password" id="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" value={state.password} onChange={onChange} required />
+                        <input type="password" id="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true })} required />
+                        {errors.password && <p className="text-red-500 text-sm" role="alert">Password is required</p>}
                     </div>
 
-                    <button className="mt-12 p-4 block w-full rounded-3xl text-white" onClick={onSubmit} style={{background: "#0C72B0"}}>Login</button>
+                    {errors.root && <p className="text-sm text-red-500">Invalid username or password</p>}
+                    <button className="mt-8 p-4 block w-full rounded-3xl text-white" onClick={handleSubmit(onSubmit)} style={{background: "#0C72B0"}}>Login</button>
                 </form>
             </div>
         </div>
