@@ -1,83 +1,111 @@
-import React, { useState, KeyboardEvent } from "react";
+import React, { useState, KeyboardEvent, useEffect } from "react";
 import Link from "next/link";
+import { db } from '../../firebase';
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 
-const data = [
-    {
-      name: "Basic Mechanical Workshop",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,quaerat?",
-      timeDate: "1st April Saturday",
-      type: "",
-      venue: "VLTC - L004"
-    },
-    {
-      name: "Basic Electrical Electronics Workshop",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,quaerat?",
-      timeDate: "2nd April Sunday",
-      type: "",
-      venue: "VLTC - L006"
-    },
-    {
-      name: "Basic Mechanical Workshop1",
-      timeDate: "1st April Saturday",
-    },
-    {
-      name: "Basic Electrical Electronics Workshop2",
-      timeDate: "2nd April Sunday",
-    },
-    {
-      name: "Basic Mechanical Workshop3",
-      timeDate: "1st April Saturday",
-    },
-    {
-      name: "Basic Electrical Electronics Workshop4",
-      timeDate: "2nd April Sunday",
-    },
-];
+interface IWorkshopRaw {
+  name: string;
+  description: string;
+  eventType: string;
+  timeDate: {seconds: number, nanoseconds: number};
+  venue: string;
+}
+
+interface IWorkshopData {
+  name: string;
+  description: string;
+  eventType: string;
+  date: string;
+  time: string;
+  venue: string;
+}
 
 const Workshops = () => {
     const [state, setState] = useState({ selected: 0 })
+    const [message, setMessage] = useState("")
+    const [workshops, setWorkshops] = useState([] as IWorkshopData[])
     const select = (id: number) => {
       setState({ selected: id })
     }
+
+    const eventsCollection = collection(db, "events")
+    const q = query(eventsCollection, where("eventType", "==", "Workshop"), orderBy("timeDate"))
+    useEffect(() => {
+      const item = localStorage.getItem('message')
+      setMessage(item || "")
+      if (item) {
+          setTimeout(() => {
+              setMessage("")
+              localStorage.removeItem("message")
+          }, 2000)
+      }
+
+      const workshopdata = [] as IWorkshopData[]
+      let currentEvent = 0;
+      const currentDate = new Date();
+      getDocs(q).then((data) => {
+        data.forEach(d => {
+          const { timeDate, ...wdata } = d.data() as IWorkshopRaw
+          const _date = new Date(timeDate.seconds * 1000)
+          const date = _date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
+          const time = _date.toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })
+
+          if (currentDate > _date) currentEvent++
+          workshopdata.push({ date, time, ...wdata })
+        })
+
+        setWorkshops(workshopdata)
+        setState({ selected: currentEvent })
+      })
+    }, [])
 
     const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
       const { selected } = state;
       if (e.key === "ArrowUp" && selected > 0) {
         setState({ selected: selected - 1 })
-      } else if (e.key === "ArrowDown" && selected < data.length - 1) {
+      } else if (e.key === "ArrowDown" && selected < workshops.length - 1) {
         setState({ selected: selected + 1 })
       }
     }
 
     return (
         <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #0C72B0, #95C5E2)", marginBottom: -35}}>
+          {
+              message &&
+              <div className="p-4 bg-green-600 text-white rounded-lg fixed shadow-lg mt-5" role="alert">
+                <p className="text-sm sm:text-lg">{message}</p>
+              </div>
+          }
+
+          
           <h1 className="text-white font-bold mt-24 text-6xl">Workshop</h1>
           
           <Link href="/workshops/registration">
-            <button className="mt-8 p-4 block rounded-3xl bg-white" style={{width: 300}}>Register</button>
+            <button className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white" style={{width: 300, color: "#0C72B0"}}>Register Now</button>
           </Link>
           
           {/* Timeline */}
           <div className="container my-24">
-            <div className="grid grid-cols-9 mx-auto p-2 outline-none" tabIndex={1} onKeyDown={handleKeyDown}>
+            <div className="grid grid-cols-9 mx-auto outline-none" tabIndex={1} onKeyDown={handleKeyDown}>
               {
-                data.map((item, key) => {
+                workshops.map((item, key) => {
                   const card = (
-                    <div className={"p-4 my-4 text-white " + (key % 2 === 0 ? "col-start-2 col-end-5 ml-auto text-right" : "col-start-6 col-end-9")}>
-                        <h3 className="font-semibold text-lg mb-1">{item.name}</h3>
+                    <div className={"p-4 my-4 text-white flex flex-col justify-center " + (key % 2 === 0 ? "col-start-2 col-end-5 text-right" : "col-start-6 col-end-9")}>
+                        <h3 className="font-semibold sm:text-lg mb-1">{item.name}</h3>
                         {state.selected === key && <p className="leading-tight">{item.description}</p>}
                     </div>
                   )
 
                   const title = (
-                    <div className={"p-4 my-4 my-auto text-white " + (key % 2 !== 0 ? "col-start-2 col-end-5 ml-auto" : "col-start-6 col-end-9")}>
-                      <h3 className="font-semibold text-lg mb-1" style={{color: "#C2FFF4"}}>{item.timeDate}</h3>
+                    <div className={"p-4 my-4 text-white flex flex-col justify-center " + (key % 2 !== 0 ? "col-start-2 col-end-5 text-right" : "col-start-6 col-end-9")}>
+                      <h3 className="font-semibold sm:text-lg mb-1" style={{color: "#C2FFF4"}}>{item.date}</h3>
+                      <h3 className="font-semibold sm:text-lg mb-1" style={{color: "#C2FFF4"}}>{item.time}</h3>
                       <h3 className="font-semibold text-md mb-1" style={{color: "#C2FFF4"}}>{item.venue}</h3>
                     </div>
                   )
 
                   return (
-                    <div key={item.name} className="flex flex-row-reverse contents" onClick={() => select(key)}>
+                    <div key={item.name} className="contents flex-row-reverse" onClick={() => select(key)}>
                       {key % 2 === 0 ? card : title}
 
                       <div className="col-start-5 col-end-6 mx-auto relative">
