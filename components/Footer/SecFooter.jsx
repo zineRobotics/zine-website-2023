@@ -9,7 +9,7 @@ import locationlogo from "../../images/locationicon_11zon.webp";
 
 const SecFooter = () => {
     return(
-        <div className="pb-8 mt-8 bg-black grid grid-cols-1 lg:grid-cols-5 xl:pl-32 md:pl-14 pr-14">
+        <div className="pb-8 bg-black grid grid-cols-1 lg:grid-cols-5 xl:pl-32 md:pl-14 pr-14">
             {/* 1st grid */}
             <div className="text-white col-span-1 pt-16 ml-12 md:ml-0 text-center lg:text-left">
                 <Link href="/"><p className="pb-4 cursor-pointer">Home</p></Link>

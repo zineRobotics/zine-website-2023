@@ -35,7 +35,7 @@ const ICMCU = () => {
 
             <div className="col-span-1 mb-8">
               <Image src={""} className="" width={2000} height={1200} />
-              <h1 className="text-xl mb-4"></h1>
+              <h1 className="text-xl mb-4">Microcontroller</h1>
               <p className="h-52 md:h-72 lg:h-80 xl:h-68"></p>
               <div className="text-right text-red-600 underline">
                 <Link href="/blogs/ic-mcu/microcontroller">Go to Blog</Link>
@@ -44,7 +44,7 @@ const ICMCU = () => {
 
             <div className="col-span-1 mb-8">
               <Image src={""} className="" width={2000} height={1200} />
-              <h1 className="text-xl mb-4"></h1>
+              <h1 className="text-xl mb-4">Microprocessor</h1>
               <p className="h-52 md:h-72 lg:h-80 xl:h-68"></p>
               <div className="text-right text-red-600 underline">
                 <Link href="/blogs/ic-mcu/microprocessor">Go to Blog</Link>
