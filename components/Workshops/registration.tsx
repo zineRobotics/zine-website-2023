@@ -26,7 +26,7 @@ interface IRegistrationData {
 }
 
 const validateEmail = (email: string) => {
-    return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email) && ['mnit.ac.in', 'iiitk.ac.in'].includes(email.split('@').pop()!)
+    return /^20\d\d((kucp)|(kuec)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)
 }
 
 const Registration = () => {
@@ -37,6 +37,7 @@ const Registration = () => {
 
     const onSubmit = async (data: IRegistrationData) => {
         console.log(data)
+        return
         const q = query(regCollection, where("email", "==", data.email))
 
         try {
@@ -103,7 +104,7 @@ const Registration = () => {
                     <div className="mt-6">
                         <p>Gender</p>
                         <div className="inline-block">
-                            <input className="mr-2" type="radio" {...register("gender")} value="male"  />
+                            <input className="mr-2" type="radio" {...register("gender")} value="male" checked />
                             <label htmlFor="male">Male</label>
                         </div>
                         <div>
@@ -114,7 +115,7 @@ const Registration = () => {
                     <div className="mt-6">
                         <p>Platform</p>
                         <div>
-                            <input className="mr-2" type="radio" {...register("platform")} value="android" />
+                            <input className="mr-2" type="radio" {...register("platform")} value="android" checked />
                             <label htmlFor="android">Android</label>
                         </div>
                         <div>

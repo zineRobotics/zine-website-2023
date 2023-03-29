@@ -35,14 +35,14 @@ const Stage = ({ workshops, state, stage, select }: IStageProps) => {
     workshops.map((item, key) => {
     if (item.stage !== stage) return;
     const card = (
-      <div className={"p-4 my-4 text-white flex flex-col justify-center " + (key % 2 === 0 ? "col-start-2 col-end-5 text-right" : "col-start-6 col-end-9")}>
+      <div className={"p-4 my-4 text-white flex flex-col justify-center " + (key % 2 === 0 ? "col-start-1 col-end-5 text-right" : "col-start-6 col-end-9")}>
           <h3 className="font-semibold sm:text-lg mb-1">{item.name}</h3>
           {state.selected === key && <p className="leading-tight">{item.description}</p>}
       </div>
     )
 
     const title = (
-      <div className={"p-4 my-4 text-white flex flex-col justify-center " + (key % 2 !== 0 ? "col-start-2 col-end-5 text-right" : "col-start-6 col-end-9")}>
+      <div className={"p-4 my-4 text-white flex flex-col justify-center " + (key % 2 !== 0 ? "col-start-1 col-end-5 text-right" : "col-start-6 col-end-9")}>
         <h3 className="font-semibold sm:text-lg mb-1" style={{color: "#C2FFF4"}}>{item.date}</h3>
         <h3 className="font-semibold sm:text-lg mb-1" style={{color: "#C2FFF4"}}>{item.time}</h3>
         <h3 className="font-semibold text-md mb-1" style={{color: "#C2FFF4"}}>{item.venue}</h3>
@@ -82,7 +82,7 @@ const Workshops = () => {
     }
 
     const eventsCollection = collection(db, "events")
-    const q = query(eventsCollection, where("eventType", "==", "Workshop"), orderBy("timeDate"))
+    const q = query(eventsCollection, orderBy("timeDate"))
     useEffect(() => {
       const item = localStorage.getItem('message')
       setMessage(item || "")
@@ -131,7 +131,7 @@ const Workshops = () => {
           }
 
           
-          <h1 className="text-white font-bold mt-24 text-2xl md:text-6xl">Recruitments & Workshop</h1>
+          <h1 className="text-white font-bold mt-24 text-2xl md:text-6xl">Recruitment & Workshop</h1>
           
           <Link href="/workshops/registration">
             <button className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white" style={{width: 300, color: "#0C72B0"}}>Register Now</button>
@@ -139,38 +139,38 @@ const Workshops = () => {
           
           {/* Timeline */}
           <div className="container my-24">
-            <div className="grid grid-cols-9 mx-auto outline-none" tabIndex={1} onKeyDown={handleKeyDown}>
-              <div className="my-4 text-2xl text-white col-start-4 col-end-7 text-center">
+            <div className="grid grid-cols-9 outline-none" tabIndex={1} onKeyDown={handleKeyDown}>
+              <div className="my-4 text-2xl text-white col-start-2 col-end-9 text-center">
                 <h3 className="font-bold">Aptitude Test</h3>
                 <h3 style={{color: "#C2FFF4"}}>Stage 1</h3> 
               </div>
               <Stage workshops={workshops} state={state} select={select} stage={1} />
 
-              <div className="my-4 text-2xl text-white col-start-4 col-end-7 text-center">
+              <div className="my-4 text-2xl text-white col-start-2 col-end-9 text-center">
                 <h3 className="font-bold">Workshops</h3>
                 <h3 style={{color: "#C2FFF4"}}>Stage 2</h3> 
               </div>
               <Stage workshops={workshops} state={state} select={select} stage={2} />
 
-              <div className="my-4 text-2xl text-white col-start-4 col-end-7 text-center">
+              <div className="my-4 text-2xl text-white col-start-2 col-end-9 text-center">
                 <h3 className="font-bold">Projects</h3>
-                <h3 style={{color: "#C2FFF4"}}>Stage 3:</h3> 
+                <h3 style={{color: "#C2FFF4"}}>Stage 3</h3> 
               </div>
               <Stage workshops={workshops} state={state} select={select} stage={3} />
 
-              <div className="my-4 text-2xl text-white col-start-4 col-end-7 text-center">
+              <div className="my-4 text-2xl text-white col-start-2 col-end-9 text-center">
                 <h3 className="font-bold">Technical Screening</h3>
                 <h3 style={{color: "#C2FFF4"}}>Stage 4</h3> 
               </div>
               <Stage workshops={workshops} state={state} select={select} stage={4} />
 
-              <div className="my-4 text-2xl text-white col-start-4 col-end-7 text-center">
+              <div className="my-4 text-2xl text-white col-start-2 col-end-9 text-center">
                 <h3 className="font-bold">Group Discussions</h3>
                 <h3 style={{color: "#C2FFF4"}}>Stage 5</h3> 
               </div>
               <Stage workshops={workshops} state={state} select={select} stage={5} />
 
-              <div className="my-4 text-2xl text-white col-start-4 col-end-7 text-center">
+              <div className="my-4 text-2xl text-white col-start-2 col-end-9 text-center">
                 <h3 className="font-bold">Interviews</h3>
                 <h3 style={{color: "#C2FFF4"}}>Stage 6</h3> 
               </div>

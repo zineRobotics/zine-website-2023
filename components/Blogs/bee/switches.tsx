@@ -243,7 +243,7 @@ const Switches = () => {
 
             <p>For more info about Switches and relays check out this, this, or this.😄 (Add links here.)</p>
 
-            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to puneet@zine.co.in and contact us in communication channel with doubts.</p>
+            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to zine.nitj@gmail.com and contact us in communication channel with doubts.</p>
 
 
 

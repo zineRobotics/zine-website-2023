@@ -287,7 +287,7 @@ const Arrays = () => {
 
             <p>We have some more algorithms for sorting such as selection sort and insertion sort.(complete the links)</p>
 
-            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to rahul@zine.co.in and contact us in communication channel with doubts.</p>
+            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to zine.nitj@gmail.com and contact us in communication channel with doubts.</p>
           </div>
         </div>
     )
