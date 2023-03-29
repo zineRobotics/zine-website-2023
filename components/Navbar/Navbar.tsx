@@ -9,7 +9,8 @@ import Project from "../../images/project-icon.webp";
 import Team from "../../images/team-icon.webp";
 import Alumni from "../../images/graduation.ico";
 import Achievements from "../../images/badge-icon.webp";
-import { Blogs } from "../Blogs";
+import Workshops from "../../images/workshops-icon.png"
+import Blogs from "../../images/blogs-icon.png"
 
 const Navbar = () => {
   const [Hide, setHide] = useState(false);
@@ -63,6 +64,16 @@ const Navbar = () => {
       link: "/achievements/"
     },
     {
+      text: "Workshops",
+      image: Workshops,
+      link: "/workshops/"
+    },
+    {
+      text: "Blogs",
+      image: Blogs,
+      link: "/blogs/"
+    },
+    {
       text: "Gallery",
       image: about,
       link: "/gallery/"
@@ -112,7 +123,7 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`sticky top-0 bg-black pt-4 h-16 z-10 overflow-hidden ${scroll ? "hiddenNav" : "activeNav"
+        className={`sticky top-0 bg-black pt-4 h-16 z-10  ${scroll ? "hiddenNav" : "activeNav"
           }`}
       >
         <div className="mx-12 lg:mx-24 grid grid-cols-12 text-white text-xl xl:text-2xl">
@@ -130,16 +141,27 @@ const Navbar = () => {
                 </div>
               </div></Link>
               <div className="px-1 hidden lg:inline-block">|</div>
-              <Link href="/team"><div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
-                <div className="link ">
-                  Team
-                </div></div></Link>
+              {/* <Link href="/team">
+                <div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
+                  <div className="link ">
+                    Team
+                  </div>
+                </div>
+              </Link>
                 <div className="px-1 hidden lg:inline-block">|</div>
               <Link href="/alumni"><div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
                 <div className="link ">
                   Alumni
-                </div></div></Link>
-                <div className="px-1 hidden lg:inline-block">|</div>
+                </div></div></Link>  */}
+              <div className="mb-2 hidden lg:inline-block hover:text-gray-300 dropdown h-full">
+                <div className="link">Team</div>
+                <div className="hidden dropdown-content cursor-pointer bg-black z-50 p-3 -ml-3">
+                  <Link href="/team"><div>Team</div></Link>
+                  <Link href="/alumni"><div>Alumni</div></Link>
+                </div>
+              </div>
+
+              <div className="px-1 hidden lg:inline-block">|</div>
               <Link href="/projects"><div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
                 <div className="link ">
                   Projects
@@ -150,10 +172,19 @@ const Navbar = () => {
                   Achievements
                 </div></div></Link>
                 <div className="px-1 hidden lg:inline-block">|</div>
+
+                <div className="mb-2 hidden lg:inline-block hover:text-gray-300 dropdown h-full">
+                  <div className="link">Workshops</div>
+                  <div className="hidden dropdown-content cursor-pointer z-50 bg-black p-3 -ml-2">
+                    <Link href="/workshops"><div>Workshops</div></Link>
+                    <Link href="/blogs"><div>Blogs</div></Link>
+                  </div>
+                </div>
               {/* <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Blogs
           </div></div></Link> */}
+          <div className="px-1 hidden lg:inline-block">|</div>
               <Link href="/gallery"><div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
                 <div className="link ">
                   Gallery

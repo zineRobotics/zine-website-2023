@@ -93,3 +93,30 @@ body {
 .shadower {
   box-shadow: 0 0 10px #888888;
 }
+
+.bottom-border {
+  border-bottom: 1px solid black;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.dropdown {
+  z-index: 30;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
