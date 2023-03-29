@@ -3,14 +3,22 @@ import Link from "next/link";
 import Image from "next/image";
 import ZineLogo from "../../images/admin/logo.png"
 import { useRouter } from "next/router";
+import { useAuth } from "../../context/authContext";
 
 const SideNav = () => {
+    const { user, logOut } = useAuth()
     const router = useRouter()
+
+    const onLogout = () => {
+        logOut()
+        router.push('/admin/login')
+    }
     const page = router.pathname.split('/').pop()
+    const name = localStorage.getItem('name')
     return (
-        <div className="col-span-3 pt-8 px-12 text-white h-full" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+        <div className="col-span-3 pt-8 px-12 text-white h-full " style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
             <div className="flex items-center">
-                <h3 className="text-3xl font-bold">Priyansh Kothari</h3>
+                <h3 className="text-3xl font-bold">{name}</h3>
                 <Image src={ZineLogo} width={80} height={80} />
             </div>
 
@@ -32,6 +40,10 @@ const SideNav = () => {
             <br />
             <p className="text-xl">Announcements</p>
             <p className="text-xl">Channels</p>
+
+            <div className="bg-white rounded-3xl text-center">
+                <p className="text-xl mt-8 text-red-500 p-2" onClick={onLogout}>Logout</p>
+            </div>
         </div>
       )
 }

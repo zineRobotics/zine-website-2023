@@ -5,10 +5,11 @@ import {
 } from "../../components/Admin";
 import { Footer, SecFooter } from "../../components/Footer";
 import { Navbar } from "../../components/Navbar";
+import { AuthContextProvider } from "../../context/authContext";
 
 const Home: NextPage = () => {
   return (
-    <>
+    <AuthContextProvider>
       <Head>
         <title>Zine | Blogs</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -16,7 +17,7 @@ const Home: NextPage = () => {
       <Navbar />
       <AdminLogin />
       <SecFooter />
-    </>
+    </AuthContextProvider>
   );
 };
 

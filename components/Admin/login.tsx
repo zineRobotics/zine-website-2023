@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router'
 import ZineLogo from "../../images/logo_without_shadow.webp"
 import { useForm } from "react-hook-form";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "../../context/authContext";
+import { db } from '../../firebase';
+import { doc, getDoc } from "firebase/firestore";
 
 interface ILoginData {
     email: string;
@@ -13,17 +15,29 @@ interface ILoginData {
 const AdminLogin = () => {
     const { register, setError, formState: {errors}, handleSubmit } = useForm<ILoginData>()
     const router = useRouter()
+    const { user, logIn } = useAuth()
+
+    useEffect(() => {
+        //router.push('/admin/dashboard')
+    }, [])
 
     const onSubmit = (data: ILoginData) => {
         const {email, password} = data
-        console.log(data)
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        logIn(email, password).then((userCredential: any) => {
             // Signed in
-            const user = userCredential.user;
-            console.log(user)
+            const _user = userCredential.user;
+            // console.log('Damn', _user)
+            // setTimeout(() => router.push('/admin/dashboard'), 2000)
+            localStorage.setItem('user', "true")
             router.push('/admin/dashboard')
-        }).catch((error) => {
+
+            // getDoc(doc(db, "users", _user.uid)).then((res) => {
+            //     if (!res.exists()) return setError("root.authError", {message: ""})
+            //     // if (res.data().type !== "admin") return setError("root.notAdmin", {message: ""})
+            //     router.push('/admin/dashboard')
+            //     //setUser((u: any) => { return {...u, type: "admin"} })
+            // })
+        }).catch((error: any) => {
             console.log(error)
             setError("root.authError", {message: error.message})
         })
@@ -49,7 +63,8 @@ const AdminLogin = () => {
                         {errors.password && <p className="text-red-500 text-sm" role="alert">Password is required</p>}
                     </div>
 
-                    {errors.root && <p className="text-sm text-red-500">Invalid username or password</p>}
+                    {errors.root?.authError && <p className="text-sm text-red-500">Invalid username or password</p>}
+                    {errors.root?.notAdmin && <p className="text-sm text-red-500">Not admin</p>}
                     <button className="mt-8 p-4 block w-full rounded-3xl text-white" onClick={handleSubmit(onSubmit)} style={{background: "#0C72B0"}}>Login</button>
                 </form>
             </div>
