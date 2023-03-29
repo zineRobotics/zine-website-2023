@@ -103,7 +103,7 @@ const Registration = () => {
                     <div className="mt-6">
                         <p>Gender</p>
                         <div className="inline-block">
-                            <input className="mr-2" type="radio" {...register("gender")} value="male"  />
+                            <input className="mr-2" type="radio" {...register("gender")} value="male" checked />
                             <label htmlFor="male">Male</label>
                         </div>
                         <div>
@@ -114,7 +114,7 @@ const Registration = () => {
                     <div className="mt-6">
                         <p>Platform</p>
                         <div>
-                            <input className="mr-2" type="radio" {...register("platform")} value="android" />
+                            <input className="mr-2" type="radio" {...register("platform")} value="android" checked />
                             <label htmlFor="android">Android</label>
                         </div>
                         <div>

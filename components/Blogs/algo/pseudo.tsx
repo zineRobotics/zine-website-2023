@@ -53,7 +53,7 @@ const Pseudo = () => {
 
             <p>You are advised to dry run(complete this link) this pseudo code and try to visualize it. The pseudo-code will become more clear once we move further in the blog.</p>
 
-            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to rahul@zine.co.in and contact us in communication channel with doubts.</p>
+            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to zine.nitj@gmail.com and contact us in communication channel with doubts.</p>
 
             </div>
         </div>

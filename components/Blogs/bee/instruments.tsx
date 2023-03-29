@@ -258,7 +258,7 @@ const Instruments = () => {
             <p>Time to wrap this up now guys.</p>
             <p>I think we have our first stone of robotics “BEE Stone”...or not?🤔 Now it’s time to get “Soul(Algorithm) stone”. In the next few blogs, we will study the body of robotics, so be with us on the journey to collect all stones of robotics.</p>
 
-            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to puneet@zine.co.in and contact us in communication channel with doubts.</p>
+            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to zine.nitj@gmail.com and contact us in communication channel with doubts.</p>
           </div>
         </div>
     )
