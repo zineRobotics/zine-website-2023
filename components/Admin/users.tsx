@@ -12,7 +12,7 @@ interface IUserChannel {
 
 const validateEmail = (emailids: string) => {
     for (const email of emailids.split(',')) {
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email) || !['mnit.ac.in', 'iiitk.ac.in'].includes(email.split('@').pop()!)) return false
+        if (!/^20\d\d((kucp)|(kuec)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)) return false
     }
     return true
 }

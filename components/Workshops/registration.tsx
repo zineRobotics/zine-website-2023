@@ -26,7 +26,7 @@ interface IRegistrationData {
 }
 
 const validateEmail = (email: string) => {
-    return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email) && ['mnit.ac.in', 'iiitk.ac.in'].includes(email.split('@').pop()!)
+    return /^20\d\d((kucp)|(kuec)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)
 }
 
 const Registration = () => {
@@ -37,6 +37,7 @@ const Registration = () => {
 
     const onSubmit = async (data: IRegistrationData) => {
         console.log(data)
+        return
         const q = query(regCollection, where("email", "==", data.email))
 
         try {
