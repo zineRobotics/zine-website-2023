@@ -61,7 +61,7 @@ const Registration = () => {
     }
 
     return (
-        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #0C72B0, #95C5E2)", marginBottom: -35}}>
+        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)", marginBottom: -35}}>
             <div className="text-white font-bold">
                 <h1 className="text-2xl mt-12 lg:text-3xl">WORKSHOP REGISTRATION</h1>
             </div>

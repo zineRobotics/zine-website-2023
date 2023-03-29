@@ -122,7 +122,7 @@ const Workshops = () => {
     }
 
     return (
-        <div className="flex flex-col min-h-screen items-center" style={{background: "linear-gradient(to right, #0C72B0, #95C5E2)", marginBottom: -35}}>
+        <div className="flex flex-col min-h-screen items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)", marginBottom: -35}}>
           {
               message &&
               <div className="p-4 bg-green-600 text-white rounded-lg fixed shadow-lg mt-5" role="alert">
