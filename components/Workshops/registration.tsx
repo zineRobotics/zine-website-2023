@@ -37,7 +37,7 @@ const Registration = () => {
 
     const onSubmit = async (data: IRegistrationData) => {
         console.log(data)
-        return
+        
         const q = query(regCollection, where("email", "==", data.email))
 
         try {
