@@ -76,7 +76,7 @@ const Blogs = () => {
               <h1 className="text-xl mb-4">Machine Learning</h1>
               <p className="h-40 lg:h-60 xl:h-40">Machine learning is a branch of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn,</p>
               <div className="text-right text-red-600 underline">
-                <Link href="/blogs/ml">Go to Blog</Link>
+                <Link href="https://docs.google.com/document/d/e/2PACX-1vRX9SdN78Zl2ws_c74cqArk5Tu1yo6DQOMFiJrWZc6weyL-tYJnlOJT_EFxrjIQ4LoIGzDRRJEGdvXp/pub">Go to Blog</Link>
               </div>
             </div>
           </div>
