@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from 'next/router'
 import { db } from '../../firebase';
-import { collection, where, query, addDoc, getDocs } from "firebase/firestore";
+import { collection, where, query, addDoc, getDocs, updateDoc, doc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 
 const branches = [
@@ -21,8 +21,8 @@ interface IRegistrationData {
     email: string;
     branch: typeof branches[number];
     phone: string;
-    gender: "",
-    platform: ""
+    gender: string;
+    platform: string;
 }
 
 const validateEmail = (email: string) => {
@@ -33,8 +33,10 @@ const Registration = () => {
     const { register, setError, formState: {errors}, handleSubmit } = useForm<IRegistrationData>()
     const router = useRouter()
     const regCollection = collection(db, "registrations");
+    const usersCollection = collection(db, "users");
 
     const onSubmit = async (data: IRegistrationData) => {
+        console.log(data)
         const q = query(regCollection, where("email", "==", data.email))
 
         try {
@@ -45,6 +47,10 @@ const Registration = () => {
             }
 
             const docRef = await addDoc(regCollection, data)
+            const usersQuery = query(usersCollection, where("email", "==", data.email))
+            const users = await getDocs(usersQuery)
+            if (!users.empty) await updateDoc(doc(db, "users", users.docs[0].data().uid), { registered: true })
+
             localStorage.setItem('message', 'Registered for the workshop successfully!')
             console.log("Document written with ID: ", docRef.id);
             router.push('/workshops')
@@ -97,22 +103,22 @@ const Registration = () => {
                     <div className="mt-6">
                         <p>Gender</p>
                         <div className="inline-block">
-                            <input className="mr-2" type="radio" id="male" {...register("gender")} />
+                            <input className="mr-2" type="radio" {...register("gender")} value="male"  />
                             <label htmlFor="male">Male</label>
                         </div>
                         <div>
-                            <input className="mr-2" type="radio" id="female" {...register("gender")} />
+                            <input className="mr-2" type="radio" {...register("gender")} value="female" />
                             <label htmlFor="female">Female</label>
                         </div>
                     </div>
                     <div className="mt-6">
                         <p>Platform</p>
                         <div>
-                            <input className="mr-2" type="radio" id="android" {...register("platform")}/>
+                            <input className="mr-2" type="radio" {...register("platform")} value="android" />
                             <label htmlFor="android">Android</label>
                         </div>
                         <div>
-                            <input className="mr-2" type="radio" id="ios" {...register("platform")} />
+                            <input className="mr-2" type="radio" {...register("platform")} value="ios"/>
                             <label htmlFor="ios">IOS</label>
                         </div>
                     </div>
