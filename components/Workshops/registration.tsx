@@ -30,7 +30,7 @@ const validateEmail = (email: string) => {
 }
 
 const Registration = () => {
-    const { register, setError, formState: {errors}, handleSubmit } = useForm<IRegistrationData>()
+    const { register, setError, formState: {errors}, handleSubmit } = useForm<IRegistrationData>({ defaultValues: {gender: "Male", platform: "Android"}})
     const router = useRouter()
     const regCollection = collection(db, "registrations");
     const usersCollection = collection(db, "users");
