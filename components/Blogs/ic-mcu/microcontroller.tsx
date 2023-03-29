@@ -26,10 +26,16 @@ import image22 from "../../../images/blog/ic-mcu/microcontroller/image22.png";
 const Microcontroller = () => {
   return (
     <div className="text-black bg-white w-screen">
-      <div className="bg-ee-bg bg-no-repeat bg-center bg-cover bg-fixed py-80 backdrop-blur-lg">
-        <div className="pl-32 backdrop-blur-xl">
-          <h1 className="text-white text-4xl font-bold">Microcontroller</h1>
-        </div>
+    <div className="bg-ee-bg bg-no-repeat bg-center bg-cover bg-fixed py-80 backdrop-blur-lg">
+      <div className="pl-32 backdrop-blur-xl">
+        <h1 className="text-white text-4xl font-bold">
+        Microcontroller
+        </h1>
+
+      </div>
+    </div>
+    <div className="mx-16 md:mx-32 lg:mx-48 xl:mx-72 mt-8 text-lg">
+
         <div className="my-8 text-center">
           <Image src={image1} />
         </div>

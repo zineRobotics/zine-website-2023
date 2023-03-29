@@ -1,14 +1,17 @@
 import React from "react";
 import Image from "next/image";
-import image1 from "../../../images/blog/web/image1.png";
+import image1 from "../../../images/blog/webdev/image1.png";
 
 const Web = () => {
   return (
     <div className="text-black bg-white w-screen">
-      <div className="bg-ee-bg bg-no-repeat bg-center bg-cover bg-fixed py-80 backdrop-blur-lg">
-        <div className="pl-32 backdrop-blur-xl">
-          <h1 className="text-white text-4xl font-bold">Web development</h1>
-        </div>
+          <div className="bg-ee-bg bg-no-repeat bg-center bg-cover bg-fixed py-80 backdrop-blur-lg">
+              <div className="pl-32 backdrop-blur-xl">
+                <h1 className="text-white text-4xl font-bold">Web Development</h1>
+              </div>
+          </div>
+
+        <div className="mx-16 md:mx-32 lg:mx-48 xl:mx-72 mt-8 text-lg">
         <p>
           Before diving into the sea of web development, we must first
           understand how the web works.

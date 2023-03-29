@@ -206,7 +206,7 @@ const More = () => {
           by the scientist Gordon Moore, stating that the number of components
           in a circuit roughly doubles every two years.
         </p>
-      </div>
+
       <div className="my-8 text-center">
         <Image src={image11} />
       </div>
@@ -957,6 +957,7 @@ const More = () => {
         <div className="my-8 text-center">
           <Image src={image47} />
         </div>
+      </div>
       </div>
     </div>
   );

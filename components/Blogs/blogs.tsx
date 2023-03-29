@@ -7,6 +7,9 @@ import Algo from "../../images/blog/algo/algo.webp";
 import Ee from "../../images/blog/bee/ee.webp";
 import Bme from "../../images/blog/bme/image30.webp";
 import Mcu from "../../images/blog/ic-mcu/mc.webp";
+import ML from "../../images/blog/ml/ml.jpg";
+import WebDev from "../../images/blog/webdev/webdev.jpg";
+
 
 const Blogs = () => {
     return(
@@ -58,6 +61,22 @@ const Blogs = () => {
               <p className="h-40 lg:h-60 xl:h-40">If you have ever wondered how someone could fly, what would you think of? Wings? Propellers? But how does it work? We are here to answer that question for you. That’s what we do in aeromodelling, we design, construct and fly our airplanes.</p>
               <div className="text-right text-red-600 underline">
                 <Link href="/blogs/aero">Go to Blog</Link>
+              </div>
+            </div>
+            <div className="col-span-1 mb-8">
+              <Image src={WebDev} className="" width={2000} height={1200} />
+              <h1 className="text-xl mb-4">Web Development</h1>
+              <p className="h-40 lg:h-60 xl:h-40">Before diving into the sea of web development, we must first understand how the web works.</p>
+              <div className="text-right text-red-600 underline">
+                <Link href="/blogs/webdev">Go to Blog</Link>
+              </div>
+            </div>
+            <div className="col-span-1 mb-8">
+              <Image src={ML} className="" width={2000} height={1200} />
+              <h1 className="text-xl mb-4">Machine Learning</h1>
+              <p className="h-40 lg:h-60 xl:h-40">Machine learning is a branch of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn,</p>
+              <div className="text-right text-red-600 underline">
+                <Link href="/blogs/ml">Go to Blog</Link>
               </div>
             </div>
           </div>

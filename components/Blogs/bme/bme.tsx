@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Intro from "../../../images/blog/bme/home/intro.gif";
 import Gears from "../../../images/blog/bme/home/gears.gif";
-import Wheels from "../../../images/blog/bme/home/wheels.png";
+import Wheels from "../../../images/blog/bme/home/wheels.jpeg";
 import DriveSystems from "../../../images/blog/bme/home/drive-systems.gif";
 import Actuators from "../../../images/blog/bme/home/actuators.png";
 import Prototyping from "../../../images/blog/bme/home/prototyping.gif";
@@ -43,7 +43,7 @@ const Bme = () => {
             <div className="col-span-1 mb-8">
               <Image src={Wheels} className="" width={2000} height={1200} />
               <h1 className="text-xl mb-4">Wheels</h1>
-              <p className="h-52 md:h-72 lg:h-80 xl:h-68"></p>
+              <p className="h-52 md:h-72 lg:h-80 xl:h-68">Lets take a look at different types of wheels that we use</p>
               <div className="text-right text-red-600 underline">
                 <Link href="/blogs/bme/wheels">Go to Blog</Link>
               </div>
@@ -52,7 +52,7 @@ const Bme = () => {
             <div className="col-span-1 mb-8">
               <Image src={DriveSystems} className="" width={2000} height={1200} />
               <h1 className="text-xl mb-4">Drive Systems</h1>
-              <p className="h-52 md:h-72 lg:h-80 xl:h-68"></p>
+              <p className="h-52 md:h-72 lg:h-80 xl:h-68">The drive system determines the speed of the arm movement, the strength of the robot, dynamic performance, and, to some extent, the kinds of application</p>
               <div className="text-right text-red-600 underline">
                 <Link href="/blogs/bme/drive-systems">Go to Blog</Link>
               </div>
