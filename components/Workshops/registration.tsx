@@ -36,6 +36,7 @@ const Registration = () => {
     const usersCollection = collection(db, "users");
 
     const onSubmit = async (data: IRegistrationData) => {
+        if (!data.email.startsWith("2022")) return setError("root.firstYear", { message: "" })
         console.log(data)
         
         const q = query(regCollection, where("email", "==", data.email))
@@ -61,7 +62,7 @@ const Registration = () => {
     }
 
     return (
-        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #0C72B0, #95C5E2)", marginBottom: -35}}>
+        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)", marginBottom: -35}}>
             <div className="text-white font-bold">
                 <h1 className="text-2xl mt-12 lg:text-3xl">WORKSHOP REGISTRATION</h1>
             </div>
@@ -125,7 +126,8 @@ const Registration = () => {
                     </div>
 
                     <button className="mt-6 p-4 block w-full rounded-3xl text-white" onClick={handleSubmit(onSubmit)} style={{background: "#0C72B0"}}>Register</button>
-                    {errors.root  && <p className="text-sm mt-4 text-red-500">You have already registered with this email ID</p>}
+                    {errors.root?.duplicate  && <p className="text-sm mt-4 text-red-500">You have already registered with this email ID</p>}
+                    {errors.root?.firstYear  && <p className="text-sm mt-4 text-red-500">Registration is open for first years only</p>}
                 </form>
             </div>
         </div>

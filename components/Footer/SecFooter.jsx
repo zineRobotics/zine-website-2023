@@ -23,12 +23,18 @@ const SecFooter = () => {
               <p className="ml-12 md:ml-0">Zine is a creative group of engineering undergraduates of Malaviya National Institute of Technology, Jaipur who are together to learn, improve and apply their technical skills to help foster the growth of society and India in the field of technology by utilising their engineering skills to work on real time problems. It is comprised of students from various disciplines working under the guidance of Dr. Rajesh Kumar from Electrical Engineering department and various alumni working in reputed firms and doing research in esteemed universities in India and abroad. Zine has been the only active robotics and research group of MNIT for the last 12 years, since its foundation.</p> */}
 
 
-              <div className="grid grid-cols-5 py-8 ml-18 md:mx-24">
-                <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faFacebook} className="text-white mr-4" size="2x" /></Link></div>
-                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/company/de-zine-limited/mycompany/"><FontAwesomeIcon icon={faLinkedin} className="text-white mr-4" size="2x" /></Link></div>
-                <div className="w-12 md:w-16 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.youtube.com/channel/UC92-Bhcl13KcI0UUU2ZrN1Q"><FontAwesomeIcon icon={faYoutube} className="text-white mr-4" size="2x" /></Link></div>
-                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.instagram.com/zine.robotics/"><FontAwesomeIcon icon={faInstagram} className="text-white mr-4" size="2x" /></Link></div>
-                <div className="w-8 md:w-8 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://github.com/zine-robotics"><FontAwesomeIcon icon={faGithub} className="text-white mr-4" size="2x" /></Link></div>
+              <div className="grid grid-cols-10 py-8 ml-18 md:mx-24">
+                <div className="w-12 md:w-16 col-span-2 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.facebook.com/ROBOTICS.ZINE/"><FontAwesomeIcon icon={faFacebook} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-8 md:w-8 col-span-2 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.linkedin.com/company/de-zine-limited/mycompany/"><FontAwesomeIcon icon={faLinkedin} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-12 md:w-16 col-span-2 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.youtube.com/channel/UC92-Bhcl13KcI0UUU2ZrN1Q"><FontAwesomeIcon icon={faYoutube} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-8 md:w-8 col-span-2 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://www.instagram.com/zine.robotics/"><FontAwesomeIcon icon={faInstagram} className="text-white mr-4" size="2x" /></Link></div>
+                <div className="w-8 md:w-8 col-span-2 cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href="https://github.com/zine-robotics"><FontAwesomeIcon icon={faGithub} className="text-white mr-4" size="2x" /></Link></div>
+              
+                <div className="col-start-2 col-end-9 md:col-start-3 md:col-end-8">
+                  <div className="md:mr-4 lg:mr-6">
+                    <a href='https://play.google.com/store/apps/details?id=in.co.zine.zineapp2023&pli=1&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
+                  </div>
+                </div>
               </div>
             </div>
 
