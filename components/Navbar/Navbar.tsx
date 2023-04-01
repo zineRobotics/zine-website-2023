@@ -154,10 +154,10 @@ const Navbar = () => {
                   Alumni
                 </div></div></Link>  */}
               <div className="mb-2 hidden lg:inline-block hover:text-gray-300 dropdown h-full">
-                <div className="link">Team</div>
+                <div className="link hover:text-gray-300">Team</div>
                 <div className="hidden dropdown-content cursor-pointer bg-black z-50 p-3 -ml-3">
-                  <Link href="/team"><div>Team</div></Link>
-                  <Link href="/alumni"><div>Alumni</div></Link>
+                  <Link href="/team"><div className="hover:text-gray-300">Team</div></Link>
+                  <Link href="/alumni"><div className="hover:text-gray-300">Alumni</div></Link>
                 </div>
               </div>
 
@@ -173,11 +173,11 @@ const Navbar = () => {
                 </div></div></Link>
                 <div className="px-1 hidden lg:inline-block">|</div>
 
-                <div className="mb-2 hidden lg:inline-block hover:text-gray-300 dropdown h-full">
-                  <div className="link">Workshops</div>
+                <div className="mb-2 hidden lg:inline-block dropdown h-full">
+                  <div className="link hover:text-gray-300">Workshops</div>
                   <div className="hidden dropdown-content cursor-pointer z-50 bg-black p-3 -ml-2">
-                    <Link href="/workshops"><div>Workshops</div></Link>
-                    <Link href="/blogs"><div>Blogs</div></Link>
+                    <Link href="/workshops"><div className="hover:text-gray-300">Workshops</div></Link>
+                    <Link href="/blogs"><div className="hover:text-gray-300">Blogs</div></Link>
                   </div>
                 </div>
               {/* <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">

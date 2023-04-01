@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     }
     else {
         getDoc(doc(db, "users", user.uid)).then((res) => {
-            if (!res.exists() || res.data().type !== "admin") router.push('/admin/login')
+            if (!res.exists() || res.data().type !== "admin") return router.push('/admin/login')
             localStorage.setItem("name", res.data()!.name)
             setAdmin(true)
         })

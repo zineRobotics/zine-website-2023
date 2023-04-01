@@ -7,7 +7,12 @@ import ProtectedRoute from "./ProtectedRoute";
 
 interface IUserChannel {
     emails: string;
-    channel: string;
+    channel: string[];
+}
+
+interface IUserChannelCard {
+    channels: string[];
+    setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const validateEmail = (emailids: string) => {
@@ -17,13 +22,18 @@ const validateEmail = (emailids: string) => {
     return true
 }
 
-const AddUser = ({ channels }: { channels: string[] }) => {
+const AddUser = ({ channels, setMessage }: IUserChannelCard) => {
     const {register, handleSubmit} = useForm<IUserChannel>()
     const usersCollection = collection(db, "users")
 
     const onSubmit = async (data: IUserChannel) => {
+        if (!data.channel) return
+        if (!Array.isArray(data.channel)) data.channel = [data.channel]
+
+        const emails = data.emails.split(/[, ]+/).map(e => e.replace(/\W+$/, "").replace(/^\W+/, ""))
+        console.log(emails, data.channel)
         for (const channel of data.channel) {
-            for (const email of data.emails.split(',')) {
+            for (const email of emails) {
                 const user = await getDocs(query(usersCollection, where("email", "==", email.trim())))
                 user.forEach(async (u) => {
                     // Only 1 user
@@ -33,6 +43,9 @@ const AddUser = ({ channels }: { channels: string[] }) => {
                 })
             }
         }
+
+        setMessage(`Successfully added ${emails.length} user(s) to ${data.channel.length} channel(s)`)
+        
     }
 
     return (
@@ -58,14 +71,20 @@ const AddUser = ({ channels }: { channels: string[] }) => {
     )
 }
 
-const RemoveUser = ({ channels }: { channels: string[] }) => {
+const RemoveUser = ({ channels, setMessage }: IUserChannelCard) => {
     const {register, handleSubmit} = useForm<IUserChannel>()
     const usersCollection = collection(db, "users")
     const onSubmit = async (data: IUserChannel) => {
+        if (!data.channel) return
+        if (!Array.isArray(data.channel)) data.channel = [data.channel]
+
+        const emails = data.emails.split(/[, ]+/).map(e => e.replace(/\W+$/, "").replace(/^\W+/, ""))
+        console.log(emails, data.channel)
         for (const channel of data.channel) {
-            for (const email of data.emails.split(',')) {
+            for (const email of emails) {
                 const user = await getDocs(query(usersCollection, where("email", "==", email.trim())))
                 user.forEach(async (u) => {
+                    console.log(channel, u.data())
                     // Only 1 user
                     await updateDoc(u.ref, {
                         rooms: arrayRemove(channel)
@@ -73,6 +92,8 @@ const RemoveUser = ({ channels }: { channels: string[] }) => {
                 })
             }
         }
+
+        setMessage(`Removed ${emails.length} user(s) from ${data.channel.length} channel(s)`)
     }
 
     return (
@@ -99,6 +120,7 @@ const RemoveUser = ({ channels }: { channels: string[] }) => {
 const Users = () => {
     const roomsCollection = collection(db, "rooms")
     const [channels, setChannels] = useState<string[]>([])
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         const fetchedChannels = [] as string[]
@@ -108,14 +130,24 @@ const Users = () => {
         })
     }, [])
 
+    useEffect(() => {
+        setTimeout(() => setMessage(""), 2000)
+    }, [message])
+
     return (
         <ProtectedRoute>
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+            {
+                message &&
+                <div className="flex items-center p-4 bg-white rounded-lg fixed bottom-5 right-5" role="alert">
+                    <p className="mr-3">{message}</p>
+                </div>
+            }
                 <div className="col-span-9 px-12 flex flex-col">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Users And Channels</h1>
                     <div className="grid gap-8 my-8 flex-1">
-                        <AddUser channels={channels} />
-                        <RemoveUser channels={channels} />
+                        <AddUser setMessage={setMessage} channels={channels} />
+                        <RemoveUser setMessage={setMessage} channels={channels} />
                     </div>
                 </div>
                 <SideNav />
