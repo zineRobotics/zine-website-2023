@@ -142,7 +142,7 @@ const RemoveUser = ({ channels, setMessage }: IUserChannelCard) => {
                         </div>
                     </div>
                 </div>
-            <button className="p-3 block w-40 rounded-3xl text-white mt-4" style={{background: "#8D989F"}} onClick={handleSubmit(onSubmit)}>Remove</button>
+            <button className="p-3 block w-40 rounded-3xl text-white my-4" style={{background: "#8D989F"}} onClick={handleSubmit(onSubmit)}>Remove</button>
         </div>
     )
 }

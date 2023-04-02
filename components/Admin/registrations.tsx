@@ -38,10 +38,10 @@ const validateEmail = (emailids: string) => {
 const Registrations = () => {
     const { register, formState: { errors }, handleSubmit } = useForm<IAddRegistration>();
     const regCollection = collection(db, "registrations")
-    const regMap: {[key: string]: DocumentReference} = {}
 
     const [users, setUsers] = useState<IRegisteredUsers[]>([])
     const [message, setMessage] = useState("");
+    const [refMap, setRefMap] = useState<{[key: string]: DocumentReference}>({})
     const [state, setState] = useState<ISearchData>({ search: "", platform: "N/A", gender: "N/A"})
     const onSubmit = (data: IAddRegistration) => {
         console.log(data)
@@ -53,8 +53,9 @@ const Registrations = () => {
     }
 
     const deleteRegistration = async (email: string) => {
-        await deleteDoc(regMap[email])
+        await deleteDoc(refMap[email])
         setMessage(`Registration ${email} deleted successfully`)
+        setUsers(users.filter(u => u.email !== email))
     }
 
     useEffect(() => {
@@ -64,11 +65,11 @@ const Registrations = () => {
             res.forEach(d => { 
                 newusers.push(d.data() as IRegisteredUsers)
                 registeredEmails.push(d.data().email)
-                regMap[d.data().email] = d.ref
+                setRefMap((state) => {return {...state, [d.data().email]: d.ref}})
             })
             setUsers(newusers)
 
-            const userEmails: any[] = []
+            const userEmails: string[] = []
             getDocs(collection(db, "users")).then((res) => {
                 res.forEach(d => userEmails.push(d.data().email))
                 console.log("All app users email:")
