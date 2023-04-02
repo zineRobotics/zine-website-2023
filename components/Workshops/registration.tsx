@@ -26,7 +26,7 @@ interface IRegistrationData {
 }
 
 const validateEmail = (email: string) => {
-    return /^20\d\d((kucp)|(kuec)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)
+    return /^20\d\d((kucp)|(kuec)|(uar)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)
 }
 
 const Registration = () => {

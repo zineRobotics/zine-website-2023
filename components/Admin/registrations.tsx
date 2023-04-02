@@ -6,7 +6,7 @@ import styles from "./styles";
 import ProtectedRoute from "./ProtectedRoute";
 import { useForm } from "react-hook-form";
 import { db } from '../../firebase';
-import { collection, getDocs } from "firebase/firestore";
+import { DocumentReference, collection, deleteDoc, getDocs } from "firebase/firestore";
 
 interface IAddRegistration {
     email: string;
@@ -38,10 +38,11 @@ const validateEmail = (emailids: string) => {
 const Registrations = () => {
     const { register, formState: { errors }, handleSubmit } = useForm<IAddRegistration>();
     const regCollection = collection(db, "registrations")
+    const regMap: {[key: string]: DocumentReference} = {}
 
     const [users, setUsers] = useState<IRegisteredUsers[]>([])
+    const [message, setMessage] = useState("");
     const [state, setState] = useState<ISearchData>({ search: "", platform: "N/A", gender: "N/A"})
-    const [filtereduser, setFiltered] = useState<IRegisteredUsers[]>([])
     const onSubmit = (data: IAddRegistration) => {
         console.log(data)
     }
@@ -51,21 +52,47 @@ const Registrations = () => {
         setState({ ...state, [e.target.id]: e.target.value })
     }
 
+    const deleteRegistration = async (email: string) => {
+        await deleteDoc(regMap[email])
+        setMessage(`Registration ${email} deleted successfully`)
+    }
+
     useEffect(() => {
+        const registeredEmails: any[] = []
         getDocs(regCollection).then(res => {
-            //console.log(res)
             const newusers: IRegisteredUsers[] = []
             res.forEach(d => { 
-                console.log(d.data())
                 newusers.push(d.data() as IRegisteredUsers)
+                registeredEmails.push(d.data().email)
+                regMap[d.data().email] = d.ref
             })
             setUsers(newusers)
+
+            const userEmails: any[] = []
+            getDocs(collection(db, "users")).then((res) => {
+                res.forEach(d => userEmails.push(d.data().email))
+                console.log("All app users email:")
+                console.log(userEmails.filter(u => u.startsWith("2022")).join(" "))
+                console.log("Registered but not app users: ")
+                const registeredNotUsers = registeredEmails.filter(u => !userEmails.includes(u))
+                console.log(registeredNotUsers.join(" "), registeredNotUsers.length)
+            })
         })
     }, [])
+
+    useEffect(() => {
+        setTimeout(() => setMessage(""), 2000)
+    }, [message])
 
     return (
         <ProtectedRoute>
             <div className="grid grid-cols-12 h-screen overflow-y-scroll" style={{background: "#EFEFEF"}}>
+                {
+                    message &&
+                    <div className="flex items-center p-4 bg-white rounded-lg fixed bottom-5 right-5" role="alert">
+                        <p className="mr-3">{message}</p>
+                    </div>
+                }
                 <div className="col-span-9 px-12 flex flex-col">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Registrations</h1>
                     <div className="grid grid-cols-9 gap-8 my-8">
@@ -94,7 +121,7 @@ const Registrations = () => {
                         <div className="grid grid-cols-6 gap-4">
                             <div className="col-span-4 flex flex-col">
                                 <label className="text-gray-500">Search</label>
-                                <input id="search" type="text" className="text-lg pt-2 bottom-border" onChange={onSearchChange} value={state?.search}/>
+                                <input id="search" type="text" className="text-lg pt-2 bottom-border" onChange={onSearchChange} placeholder="Search email ID or name" value={state?.search}/>
                             </div>
                             <div className="flex flex-col">
                                 <label className="text-gray-500">Platform</label>
@@ -146,7 +173,7 @@ const Registrations = () => {
                                             <td className="border p-1">{u.email}</td>
                                             <td className="border p-1">{u.platform}</td>
                                             <td className="border p-1">{u.gender}</td>
-                                            <td className="border p-1"><button className="bg-red-500 text-white py-1 px-4 rounded-lg">Delete</button></td>
+                                            <td className="border p-1"><button className="bg-red-500 text-white py-1 px-4 rounded-lg" onClick={() => deleteRegistration(u.email)}>Delete</button></td>
                                         </tr>
                                     ))
                                 }
