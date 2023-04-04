@@ -56,13 +56,7 @@ const Dashboard = () => {
     if (date.getDate() % 10 == 1) suffix = "ST"
     else if (date.getDate() % 10 == 2) suffix = "ND"
 
-    const messages = [
-        "2021ucp1013@mnit.ac.in registered for the workshop [21:06 , 09/02/23",
-        "2021ucp1013@mnit.ac.in registered for the workshop [21:06 , 09/02/23",
-        "2021ucp1013@mnit.ac.in registered for the workshop [21:06 , 09/02/23",
-        "2021ucp1013@mnit.ac.in registered for the workshop [21:06 , 09/02/23",
-        "2021ucp1013@mnit.ac.in registered for the workshop [21:06 , 09/02/23"
-    ]
+    const messages: string[] = []
 
     return (
         <ProtectedRoute>

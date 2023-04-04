@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";import { useForm } from "react-hook-form";
 import { db } from '../../firebase';
-import { collection, doc, arrayUnion, arrayRemove, updateDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, arrayUnion, arrayRemove, updateDoc, getDocs, query, where } from "firebase/firestore";
 import SideNav from "./sidenav";
 import styles from "./styles";
 import ProtectedRoute from "./ProtectedRoute";
@@ -37,12 +37,11 @@ const AddUser = ({ channels, setMessage }: IUserChannelCard) => {
 
         const allusers = await getDocs(query(usersCollection))
         const results: Promise<void>[] = []
-
         allusers.forEach(async (u) => {
             const e = u.data().email
             if (emails.length > 0 && !emails.includes(e)) return
-            if (data.group.includes('firstyears') && !e.startsWith(firstyear)) return
-            if (data.group.includes('admins') && u.data().type !== "admin") return
+            if (data.group && data.group.includes('firstyears') && !e.startsWith(firstyear)) return
+            if (data.group && data.group.includes('admins') && u.data().type !== "admin") return
             
             results.push(updateDoc(u.ref, { rooms: arrayUnion(...data.channel) }))
         })
@@ -102,8 +101,8 @@ const RemoveUser = ({ channels, setMessage }: IUserChannelCard) => {
         allusers.forEach(async (u) => {
             const e = u.data().email
             if (emails.length > 0 && !emails.includes(e)) return
-            if (data.group.includes('firstyears') && !e.startsWith(firstyear)) return
-            if (data.group.includes('admins') && u.data().type !== "admin") return
+            if (data.group && data.group.includes('firstyears') && !e.startsWith(firstyear)) return
+            if (data.group && data.group.includes('admins') && u.data().type !== "admin") return
             
             results.push(updateDoc(u.ref, { rooms: arrayRemove(...data.channel) }))
         })
