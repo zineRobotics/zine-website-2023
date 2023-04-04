@@ -23,23 +23,23 @@ const SideNav = () => {
             </div>
 
             <Link href="/admin/dashboard">
-                <p className={`text-xl mt-24 hover:text-gray-300 ${page === "dashboard" ? "font-bold" : ""}`}>Dashboard</p>
+                <p className={`text-xl mt-24 hover:text-gray-300 cursor-pointer ${page === "dashboard" ? "font-bold" : ""}`}>Dashboard</p>
             </Link>
             <Link href="/admin/registrations">
-                <p className={`text-xl hover:text-gray-300 ${page === "registrations" ? "font-bold" : ""}`}>Registered</p>
+                <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "registrations" ? "font-bold" : ""}`}>Registered</p>
             </Link>
             <Link href="/admin/users">
-                <p className={`text-xl hover:text-gray-300 ${page === "users" ? "font-bold" : ""}`}>Users And Channels</p>
+                <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "users" ? "font-bold" : ""}`}>Users And Channels</p>
             </Link>
             <Link href="/admin/events">
-                <p className={`text-xl hover:text-gray-300 ${page === "events" ? "font-bold" : ""}`}>Events</p>
+                <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "events" ? "font-bold" : ""}`}>Events</p>
             </Link>
             <Link href="/admin/tasks">
-                <p className={`text-xl hover:text-gray-300 ${page === "tasks" ? "font-bold" : ""}`}>Tasks</p>
+                <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "tasks" ? "font-bold" : ""}`}>Tasks</p>
             </Link>
             <br />
             <Link href="/admin/announcements">
-                <p className={`text-xl hover:text-gray-300 ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
+                <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
             </Link>
             <p className="text-xl">Channels</p>
 

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCalendar, faUsers, faVolumeOff, faMessage, faListCheck } from "@fortawesome/free-solid-svg-icons";
 import SideNav from "./sidenav";
-import Notifications from "./notifications";
 import styles from "./styles";
 import { db } from '../../firebase';
 import { collection, query, getCountFromServer } from "firebase/firestore";
@@ -52,10 +51,12 @@ const Dashboard = () => {
 
 
     const date = new Date()
-    const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];;
+    const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     let suffix = "TH"
     if (date.getDate() % 10 == 1) suffix = "ST"
     else if (date.getDate() % 10 == 2) suffix = "ND"
+
+    const messages: string[] = []
 
     return (
         <ProtectedRoute>
@@ -93,7 +94,16 @@ const Dashboard = () => {
                                 <h5 className="text-2xl text-center font-bold mt-2" style={styles.textSecondary}>Users</h5>
                             </div>
                         </Link>
-                        <Notifications />
+                        <div className="col-span-3 row-span-6 bg-white rounded-xl py-4 px-4">
+                            <h1 className="text-3xl text-center font-bold" style={styles.textPrimary}>Notifications</h1>
+                            <div className="mt-4 px-2 overflow-auto" style={{height: 220}}>
+                                {
+                                    messages.map((m, id) => (
+                                        <p key={id} className="text-sm py-2">{m}</p>
+                                    ))
+                                }
+                            </div>
+                        </div>
             
                         <Link href="/admin/events">
                             <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">

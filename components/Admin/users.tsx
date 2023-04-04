@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";import { useForm } from "react-hook-form";
 import { db } from '../../firebase';
-import { collection, doc, arrayUnion, arrayRemove, updateDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, arrayUnion, arrayRemove, updateDoc, getDocs, query, where } from "firebase/firestore";
 import SideNav from "./sidenav";
 import styles from "./styles";
 import ProtectedRoute from "./ProtectedRoute";
 
 interface IUserChannel {
     emails: string;
-    channel: string;
+    channel: string[];
+    group: ("firstyears" | "admins")[]
+}
+
+interface IUserChannelCard {
+    channels: string[];
+    setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const validateEmail = (emailids: string) => {
@@ -17,22 +23,32 @@ const validateEmail = (emailids: string) => {
     return true
 }
 
-const AddUser = ({ channels }: { channels: string[] }) => {
+const firstyear = "2022"
+
+const AddUser = ({ channels, setMessage }: IUserChannelCard) => {
     const {register, handleSubmit} = useForm<IUserChannel>()
     const usersCollection = collection(db, "users")
 
     const onSubmit = async (data: IUserChannel) => {
-        for (const channel of data.channel) {
-            for (const email of data.emails.split(',')) {
-                const user = await getDocs(query(usersCollection, where("email", "==", email.trim())))
-                user.forEach(async (u) => {
-                    // Only 1 user
-                    await updateDoc(u.ref, {
-                        rooms: arrayUnion(channel)
-                    })
-                })
-            }
-        }
+        if (!data.channel) return
+        if (!Array.isArray(data.channel)) data.channel = [data.channel]
+
+        const emails = data.emails.split(/[, ]+/).map(e => e.replace(/\W+$/, "").replace(/^\W+/, "")).filter(e => e)
+
+        const allusers = await getDocs(query(usersCollection))
+        const results: Promise<void>[] = []
+        allusers.forEach(async (u) => {
+            const e = u.data().email
+            if (emails.length > 0 && !emails.includes(e)) return
+            if (data.group && data.group.includes('firstyears') && !e.startsWith(firstyear)) return
+            if (data.group && data.group.includes('admins') && u.data().type !== "admin") return
+            
+            results.push(updateDoc(u.ref, { rooms: arrayUnion(...data.channel) }))
+        })
+
+        Promise.all(results).then(() => {
+            setMessage(`Successfully added ${results.length} user(s) to ${data.channel.length} channel(s)`)
+        })
     }
 
     return (
@@ -41,16 +57,29 @@ const AddUser = ({ channels }: { channels: string[] }) => {
             <form>
                 <div className="mt-4">
                     <label className="block text-gray-600 text-sm">Email Address</label>
-                    <input type="email" id="email" className="block w-full focus:outline-none bottom-border pt-2" placeholder="xyz@mnit.ac.in" {...register('emails', {required: true})} />
+                    <input type="email" id="email" className="block w-full focus:outline-none bottom-border pt-2" placeholder="xyz@mnit.ac.in" {...register('emails')} />
                 </div>
-                <div className="mt-4 flex flex-col">
-                {channels.map((c) => (
-                    <div key={c} className="inline-block">
-                        <input className="text-gray-600 text-sm mr-2" type="checkbox" {...register("channel")} value={c}  />
-                        <label>{c}</label>
+                <div className="grid grid-cols-2">
+                    <div className="mt-4 flex flex-col">
+                        {channels.map((c) => (
+                            <div key={c} className="inline-block">
+                                <input className="text-gray-600 text-sm mr-2" type="checkbox" {...register("channel")} value={c}  />
+                                <label>{c}</label>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                    <div className="mt-4 flex flex-col">
+                        <p className="text-gray-500">User Groups</p>
+                        <div className="inline-block">
+                            <input className="text-gray-600 text-sm mr-2" type="checkbox" {...register("group")} value="firstyears"/>
+                            <label>First Years</label>
+                        </div>
+                        <div className="inline-block">
+                            <input className="text-gray-600 text-sm mr-2" type="checkbox" {...register("group")} value="admins"/>
+                            <label>Admins</label>
+                        </div>
+                    </div>
+                </div>
             </form>
 
             <button className="p-3 block w-40 rounded-3xl text-white mt-4" style={{background: "#0C72B0"}} onClick={handleSubmit(onSubmit)}>Add</button>
@@ -58,21 +87,29 @@ const AddUser = ({ channels }: { channels: string[] }) => {
     )
 }
 
-const RemoveUser = ({ channels }: { channels: string[] }) => {
+const RemoveUser = ({ channels, setMessage }: IUserChannelCard) => {
     const {register, handleSubmit} = useForm<IUserChannel>()
     const usersCollection = collection(db, "users")
     const onSubmit = async (data: IUserChannel) => {
-        for (const channel of data.channel) {
-            for (const email of data.emails.split(',')) {
-                const user = await getDocs(query(usersCollection, where("email", "==", email.trim())))
-                user.forEach(async (u) => {
-                    // Only 1 user
-                    await updateDoc(u.ref, {
-                        rooms: arrayRemove(channel)
-                    })
-                })
-            }
-        }
+        if (!data.channel) return
+        if (!Array.isArray(data.channel)) data.channel = [data.channel]
+
+        const emails = data.emails.split(/[, ]+/).map(e => e.replace(/\W+$/, "").replace(/^\W+/, "")).filter(e => e)
+        const allusers = await getDocs(query(usersCollection))
+        const results: Promise<void>[] = []
+
+        allusers.forEach(async (u) => {
+            const e = u.data().email
+            if (emails.length > 0 && !emails.includes(e)) return
+            if (data.group && data.group.includes('firstyears') && !e.startsWith(firstyear)) return
+            if (data.group && data.group.includes('admins') && u.data().type !== "admin") return
+            
+            results.push(updateDoc(u.ref, { rooms: arrayRemove(...data.channel) }))
+        })
+
+        Promise.all(results).then(() => {
+            setMessage(`Successfully removed ${results.length} user(s) from ${data.channel.length} channel(s)`)
+        })
     }
 
     return (
@@ -80,18 +117,31 @@ const RemoveUser = ({ channels }: { channels: string[] }) => {
             <h1 className="text-2xl font-bold" style={styles.textGray}>Remove user from channel</h1>
             <div className="mt-4">
                 <label className="block text-gray-600 text-sm" style={styles.textGray}>Email Address</label>
-                <input type="email" id="email" className="block w-full focus:outline-none bottom-border pt-2" placeholder="xyz@abc.com" {...register('emails', {required: true})} />
+                <input type="email" id="email" className="block w-full focus:outline-none bottom-border pt-2" placeholder="xyz@abc.com" {...register('emails')} />
             </div>
 
-            <div className="mt-4 flex flex-col">
-                {channels.map((c) => (
-                    <div key={c} className="inline-block">
-                        <input className="text-gray-600 text-sm mr-2" type="checkbox" {...register("channel")} value={c}  />
-                        <label>{c}</label>
+            <div className="grid grid-cols-2">
+                    <div className="mt-4 flex flex-col">
+                        {channels.map((c) => (
+                            <div key={c} className="inline-block">
+                                <input className="text-gray-600 text-sm mr-2" type="checkbox" {...register("channel")} value={c}  />
+                                <label>{c}</label>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-            <button className="p-3 block w-40 rounded-3xl text-white mt-4" style={{background: "#8D989F"}} onClick={handleSubmit(onSubmit)}>Remove</button>
+                    <div className="mt-4 flex flex-col">
+                        <p className="text-gray-500">User Groups</p>
+                        <div className="inline-block">
+                            <input className="text-gray-600 text-sm mr-2" type="checkbox" {...register("group")} value="firstyears"/>
+                            <label>First Years</label>
+                        </div>
+                        <div className="inline-block">
+                            <input className="text-gray-600 text-sm mr-2" type="checkbox" {...register("group")} value="admins"/>
+                            <label>Admins</label>
+                        </div>
+                    </div>
+                </div>
+            <button className="p-3 block w-40 rounded-3xl text-white my-4" style={{background: "#8D989F"}} onClick={handleSubmit(onSubmit)}>Remove</button>
         </div>
     )
 }
@@ -99,6 +149,7 @@ const RemoveUser = ({ channels }: { channels: string[] }) => {
 const Users = () => {
     const roomsCollection = collection(db, "rooms")
     const [channels, setChannels] = useState<string[]>([])
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         const fetchedChannels = [] as string[]
@@ -108,14 +159,24 @@ const Users = () => {
         })
     }, [])
 
+    useEffect(() => {
+        setTimeout(() => setMessage(""), 2000)
+    }, [message])
+
     return (
         <ProtectedRoute>
-            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+            <div className="grid grid-cols-12 h-screen overflow-y-scroll" style={{background: "#EFEFEF"}}>
+            {
+                message &&
+                <div className="flex items-center p-4 bg-white rounded-lg fixed bottom-5 right-5" role="alert">
+                    <p className="mr-3">{message}</p>
+                </div>
+            }
                 <div className="col-span-9 px-12 flex flex-col">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Users And Channels</h1>
                     <div className="grid gap-8 my-8 flex-1">
-                        <AddUser channels={channels} />
-                        <RemoveUser channels={channels} />
+                        <AddUser setMessage={setMessage} channels={channels} />
+                        <RemoveUser setMessage={setMessage} channels={channels} />
                     </div>
                 </div>
                 <SideNav />
