@@ -13,30 +13,22 @@ interface ILoginData {
 }
 
 const AdminLogin = () => {
-    const { register, setError, formState: {errors}, handleSubmit } = useForm<ILoginData>()
+    const { register, reset, setError, formState: {errors}, handleSubmit } = useForm<ILoginData>()
     const router = useRouter()
-    const { user, logIn } = useAuth()
+    const { logIn } = useAuth()
 
-    useEffect(() => {
-        //router.push('/admin/dashboard')
-    }, [])
-
-    const onSubmit = (data: ILoginData) => {
+    const onSubmit = async (data: ILoginData) => {
         const {email, password} = data
-        logIn(email, password).then((userCredential: any) => {
+        reset()
+        logIn(email, password).then(async (userCredential: any) => {
             // Signed in
             const _user = userCredential.user;
-            // console.log('Damn', _user)
-            // setTimeout(() => router.push('/admin/dashboard'), 2000)
-            localStorage.setItem('user', "true")
-            router.push('/admin/dashboard')
 
-            // getDoc(doc(db, "users", _user.uid)).then((res) => {
-            //     if (!res.exists()) return setError("root.authError", {message: ""})
-            //     // if (res.data().type !== "admin") return setError("root.notAdmin", {message: ""})
-            //     router.push('/admin/dashboard')
-            //     //setUser((u: any) => { return {...u, type: "admin"} })
-            // })
+            const snapshot = await getDoc(doc(db, "users", _user.uid))
+            if (!snapshot.exists()) return setError("root.authError", {message: ""})
+            if (snapshot.data().type !== "admin") return setError("root.notAdmin", {message: ""})
+            
+            await router.push('/admin/dashboard')
         }).catch((error: any) => {
             console.log(error)
             setError("root.authError", {message: error.message})

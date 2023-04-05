@@ -4,31 +4,42 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { getDoc, doc } from "firebase/firestore";
 
 interface UserType {
   email: string | null;
   uid: string | null;
 }
 
-const AuthContext = createContext({});
+interface IAuthUser {
+  name: string;
+  email: string;
+  type: "user" | "admin";
+}
 
+const AuthContext = createContext({});
 export const useAuth = () => useContext<any>(AuthContext);
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserType>({ email: null, uid: null });
-  const [loading, setLoading] = useState<boolean>(true);
+  const [authUser, setAuthUser] = useState<IAuthUser>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => {
+    const unsubscribe = onAuthStateChanged(auth, async (u) => {
       if (u) {
-        console.log(u)
         setUser({ email: u.email, uid: u.uid });
+        
+        const snapshot = await getDoc(doc(db, "users", u.uid))
+        setAuthUser(snapshot.data() as IAuthUser)
+        console.log('Authenticated')
       } else {
         setUser({ email: null, uid: null });
       }
+
+      setLoading(false);
     });
-    setLoading(false);
 
     return () => unsubscribe();
   }, []);
@@ -37,11 +48,12 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
 
   const logOut = async () => {
     setUser({ email: null, uid: null});
+    setAuthUser(undefined);
     await signOut(auth);
   };
 
   return (
-    <AuthContext.Provider value={{ user, logIn, logOut }}>
+    <AuthContext.Provider value={{ user, authUser, logIn, logOut }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

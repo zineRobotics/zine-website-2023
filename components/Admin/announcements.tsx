@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { DocumentData, DocumentReference, Timestamp, addDoc, collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useAuth } from "../../context/authContext";
 
 interface ITimestamp {
     seconds: number;
@@ -34,13 +35,15 @@ const Announcements = () => {
     const [announcementRoom, setAnnouncementRoom] = useState<DocumentReference<DocumentData>>()
     const [message, setMessage] = useState("")
 
+    const { authUser } = useAuth();
+
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMsg(e.target.value)
     }
 
     const onSubmit = async () => {
         if (!announcementRoom) return
-        const name = localStorage.getItem('name')!
+        const name = authUser.name
         const newAnnouncement = {
             from: name,
             group: announcementRoom.id,
