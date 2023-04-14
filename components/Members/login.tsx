@@ -12,7 +12,7 @@ interface ILoginData {
     password: string;
 }
 
-const AdminLogin = () => {
+const Login = () => {
     const { register, reset, setError, formState: {errors}, handleSubmit } = useForm<ILoginData>()
     const router = useRouter()
     const { logIn } = useAuth()
@@ -26,9 +26,9 @@ const AdminLogin = () => {
 
             const snapshot = await getDoc(doc(db, "users", _user.uid))
             if (!snapshot.exists()) return setError("root.authError", {message: ""})
-            if (snapshot.data().type !== "admin") return setError("root.notAdmin", {message: ""})
-            
-            await router.push('/admin/dashboard')
+            if (snapshot.data().type == "admin") return await router.push('/admin/dashboard')
+
+            await router.push('/users/projects')
         }).catch((error: any) => {
             console.log(error)
             setError("root.authError", {message: error.message})
@@ -64,4 +64,4 @@ const AdminLogin = () => {
       )
 }
 
-export default AdminLogin;
+export default Login;

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import SideNav from "./sidenav";
-import styles from "./styles";
+import SideNav from "../sidenav";
+import styles from "../styles";
 import ProtectedRoute from "./ProtectedRoute";
 import { useForm } from "react-hook-form";
-import { db } from '../../firebase';
+import { db } from '../../../firebase';
 import { DocumentReference, collection, deleteDoc, getDocs } from "firebase/firestore";
+import ToastMessage from "../toastMessage";
 
 interface IAddRegistration {
     email: string;
@@ -81,20 +82,12 @@ const Registrations = () => {
         })
     }, [])
 
-    useEffect(() => {
-        setTimeout(() => setMessage(""), 2000)
-    }, [message])
-
     return (
         <ProtectedRoute>
-            <div className="grid grid-cols-12 h-screen overflow-y-scroll" style={{background: "#EFEFEF"}}>
-                {
-                    message &&
-                    <div className="flex items-center p-4 bg-white rounded-lg fixed bottom-5 right-5" role="alert">
-                        <p className="mr-3">{message}</p>
-                    </div>
-                }
-                <div className="col-span-9 px-12 flex flex-col">
+            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+                <ToastMessage message={message} setMessage={setMessage} />
+                
+                <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Registrations</h1>
                     <div className="grid grid-cols-9 gap-8 my-8">
                         <div className="col-span-3 bg-white rounded-xl py-4">

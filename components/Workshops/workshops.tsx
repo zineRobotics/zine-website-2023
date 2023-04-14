@@ -50,7 +50,7 @@ const Stage = ({ workshops, state, stage, select }: IStageProps) => {
     )
 
     return (
-      <div key={item.name} className="contents flex-row-reverse" onClick={() => select(key)}>
+      <div key={item.name} className="contents flex-row-reverse cursor-pointer" onClick={() => select(key)}>
         {key % 2 === 0 ? card : title}
 
         <div className="col-start-5 col-end-6 mx-auto relative">

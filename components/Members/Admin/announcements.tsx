@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import SideNav from "./sidenav";
+import SideNav from "../sidenav";
 import ProtectedRoute from "./ProtectedRoute";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { DocumentData, DocumentReference, Timestamp, addDoc, collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import { db } from "../../firebase";
-import { useAuth } from "../../context/authContext";
+import { db } from "../../../firebase";
+import { useAuth } from "../../../context/authContext";
+import ToastMessage from "../toastMessage";
 
 interface ITimestamp {
     seconds: number;
@@ -71,21 +72,12 @@ const Announcements = () => {
         })
     }, [])
 
-    useEffect(() => {
-        setTimeout(() => setMessage(""), 2000)
-    }, [message])
-
     return (
         <ProtectedRoute>
-            {
-                message &&
-                <div className="flex items-center p-4 bg-white rounded-lg fixed bottom-5 right-5" role="alert">
-                    <p className="mr-3">{message}</p>
-                </div>
-            }
+            <ToastMessage message={message} setMessage={setMessage} />
 
-            <div className="grid grid-cols-12 h-screen overflow-y-scroll" style={{background: "#EFEFEF"}}>
-                <div className="col-span-9 px-12 flex flex-col">
+            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+                <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Announcements</h1>
                     <p className="mt-8 text-gray-500">Create Announcement</p>
                     <div className="bg-white rounded-xl py-4 px-6 mt-2 w-full flex items-center">

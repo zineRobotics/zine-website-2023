@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import {
   Registrations,
-} from "../../components/Admin";
+} from "../../components/Members/Admin";
 import { AuthContextProvider } from "../../context/authContext";
 
 const Home: NextPage = () => {

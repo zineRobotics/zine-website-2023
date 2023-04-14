@@ -1,12 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import Link from "next/link";
-import SideNav from "./sidenav";
-import styles from "./styles";
+import SideNav from "../sidenav";
+import styles from "../styles";
 import { useForm } from "react-hook-form";
-import {db,storage} from '../../firebase';
+import {db,storage} from '../../../firebase';
 import { collection, addDoc } from "firebase/firestore";
-import { useRouter } from "next/router";
 import ProtectedRoute from "./ProtectedRoute";
+import ToastMessage from "../toastMessage";
 
 
 interface ITaskForm {
@@ -27,10 +26,11 @@ const validateEmail = (emailids: string) => {
 }
 
 const Tasks = () => {
+    const [message, setMessage] = useState("")
+
     const { register, watch, handleSubmit } = useForm<ITaskForm>()
     const watchType = watch('taskType', 'Individual')
 
-    const router = useRouter();
     const tasksCollection = collection(db, "tasks");
 
     const onSubmit = (data: ITaskForm) => {
@@ -40,8 +40,7 @@ const Tasks = () => {
         .then((docRef) => {
             //setMessage("Event successfuly created!")
             console.log("Document written with ID: ", docRef.id);
-            localStorage.setItem('message', 'Task created successfully')
-            router.push("/admin/dashboard")
+            setMessage("Task created successfully")
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
@@ -50,6 +49,7 @@ const Tasks = () => {
 
     return (
         <ProtectedRoute>
+            <ToastMessage message={message} setMessage={setMessage} />
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-9 px-12 flex flex-col">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Tasks</h1>

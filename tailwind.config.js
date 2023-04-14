@@ -91,7 +91,7 @@ module.exports = {
       },
       fontSize: {
         base: ['50px', '75px'],
-        
+        normal: ['16px', '24px']
       },
 
       screens: {
