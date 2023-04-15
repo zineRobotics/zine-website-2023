@@ -4,6 +4,7 @@ import styles from "../styles"
 import ProtectedRoute from "./ProtectedRoute"
 import { DocumentReference, Timestamp, collection, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
+import Checkpoints, { IProject } from "../checkpoints";
 
 interface IProjectData {
     createdDate: {seconds: number, nanoseconds: number};
@@ -25,20 +26,9 @@ interface IUserProject {
     id: string; // added for reference
 }
 
-interface IUserData {
-    name: string;
-    email: string;
-}
-
-interface IProject {
-    checkpoints: number
-    status: string;
-    user: IUserData;
-    task: IProjectData;
-}
-
 const Projects = () => {
     const [projects, setProjects] = useState<IProject[]>([])
+    const [userProject, setUserProject] = useState<IProject>()
 
     const tasksCollection = collection(db, "tasks")
     const userTasksCollection = collection(db, "userTasks")
@@ -55,13 +45,15 @@ const Projects = () => {
                 snapshots.forEach(async d => {
                     const userProject = d.data() as IUserProject
                     const puser = await getDoc(userProject.users[0])
+                    const {name, email} = puser.data() as { name: string, email: string }
                     const project = {
-                        checkpoints: userProject.checkpoints.length,
+                        checkpoints: userProject.checkpoints,
                         status: userProject.status,
-                        user: puser.data() as IUserData,
-                        task: tasks[userProject.task.id] 
+                        user: {name, email},
+                        task: tasks[userProject.task.id],
+                        id: d.id
                     }
-                    console.log(project)
+
                     setProjects(state => [...state, project])
                 })
             })
@@ -69,31 +61,43 @@ const Projects = () => {
     }, [])
 
     return (
-        // <ProtectedRoute>
-            // {/* <ToastMessage message={message} setMessage={setMessage} /> */}
+        <ProtectedRoute>
+            {/* <ToastMessage message={message} setMessage={setMessage} /> */}
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-12 md:col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Projects</h1>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
-                        {
-                            projects.map(project => (
-                                <div className="bg-white rounded-xl text-center py-2">
-                                    <div className="mt-4 p-3 text-white font-extrabold text-3xl" style={{background: "#0C72B0"}}>
-                                        <p>{project.task?.title}</p>
+                    {                   
+                        !userProject && 
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                            {
+                                projects.map(p => (
+                                    <div key={p.id} className="bg-white rounded-xl text-center py-2 cursor-pointer" onClick={() => setUserProject(p)}>
+                                        <div className="mt-4 p-3 text-white font-extrabold text-3xl" style={{background: "#0C72B0"}}>
+                                            <p>{p.task?.title}</p>
+                                        </div>
+            
+                                        <h2 className="my-4 text-5xl font-extrabold" style={styles.textPrimary}>{p.checkpoints.length}</h2>
+                                        <h3 className="mt-4 text-2xl font-bold" style={{color: "#95C5E2"}}>{p.user.name}</h3>
+                                        <p className="mt-1 mb-4 text-lg font-bold" style={styles.textGray}>{p.user.email}</p>
                                     </div>
-        
-                                    <h2 className="my-4 text-5xl font-extrabold" style={styles.textPrimary}>{project.checkpoints}</h2>
-                                    <h3 className="mt-4 text-2xl font-bold" style={{color: "#95C5E2"}}>{project.user.name}</h3>
-                                    <p className="mt-1 mb-4 text-lg font-bold" style={styles.textGray}>{project.user.email}</p>
-                                </div>
-                            ))
-                        }
-                    </div>
+                                ))
+                            }
+                        </div>
+                    }
+                    {
+                        userProject &&
+                        <>
+                        <Checkpoints projectData={userProject} />
+                        <div>
+                            <button className="bg-red-500 text-white p-2 rounded-xl" onClick={() => setUserProject(undefined)}>Back</button>
+                        </div>
+                        </>
+                    }
                 </div>
                 <SideNav />
             </div>
-        // </ProtectedRoute>
+        </ProtectedRoute>
     )
 }
 

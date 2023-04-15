@@ -1,12 +1,11 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import SideNav from "../sidenav";
 import styles from "../styles";
-import { useForm } from "react-hook-form";
 import { db, storage } from '../../../firebase';
 import { collection, addDoc, getDocs, query, where, doc, DocumentReference, updateDoc, arrayUnion, Timestamp, getDoc } from "firebase/firestore";
 import ProtectedRoute from "./ProtectedRoute";
-import ToastMessage from "../toastMessage";
 import { useAuth } from "../../../context/authContext";
+import Checkpoints, { IProject } from "../checkpoints";
 
 
 interface IProjectData {
@@ -21,27 +20,21 @@ interface IProjectData {
     id: string; // added for reference
 }
 
-interface ICheckPoint {
-    message: string;
-    timeDate: Timestamp;
-    user: string;
-}
-
 interface IUserProject {
-    checkpoints: ICheckPoint[]
+    checkpoints: any[]
     status: string;
     users: DocumentReference[];
     task: DocumentReference;
     id: string; // added for reference
 }
 
+
 const Projects = () => {
     const { authUser } = useAuth();
     const [state, setState] = useState("")
     const [projects, setProjects] = useState<IProjectData[]>([])
-    const [selectedProject, setSelectedProject] = useState<IUserProject>()
+    const [selectedProject, setSelectedProject] = useState<IProject>()
     const [confirmProject, setConfirmProject] = useState<IProjectData>()
-    const [checkpointMessage, setCheckpointMessage] = useState("")
 
     const userTasksCollection = collection(db, "userTasks")
     const tasksCollection = collection(db, "tasks")
@@ -56,7 +49,13 @@ const Projects = () => {
                 getDoc(taskData.task).then(res => {
                     const projectData = { ...res.data(), id: res.id } as IProjectData
                     setConfirmProject(projectData)
-                    setSelectedProject(taskData)
+                    setSelectedProject({ 
+                        task: projectData,
+                        checkpoints: taskData.checkpoints,
+                        status: taskData.status,
+                        user: { name: authUser.name, email: authUser.email },
+                        id: taskData.id
+                    })
                     setState("inprogress")
                 })
             })
@@ -94,28 +93,13 @@ const Projects = () => {
         }
 
         addDoc(userTasksCollection, userProject).then(res => {
-            const projectData = {...userProject, id: res.id}
-            setSelectedProject(projectData)
+            setSelectedProject({
+                ...userProject,
+                user: { name: authUser.name, email: authUser.email },
+                task: confirmProject,
+                id: res.id
+            })
             setState("inprogress")
-        })
-    }
-
-    const addCheckpoint = () => {
-        if (!selectedProject) return
-        if (!checkpointMessage) return
-
-        setCheckpointMessage("")
-        const checkpointData = {
-            message: checkpointMessage,
-            timeDate: Timestamp.fromDate(new Date()),
-            user: authUser.name as string
-        }
-
-        updateDoc(doc(db, "userTasks", selectedProject.id), {
-            checkpoints: arrayUnion(checkpointData)
-        }).then(() => {
-            const newCheckpoints = [...selectedProject.checkpoints, checkpointData]
-            setSelectedProject({ ...selectedProject, checkpoints: newCheckpoints })
         })
     }
 
@@ -172,38 +156,7 @@ const Projects = () => {
 
                     {
                         state === "inprogress" &&
-                        <div className="mt-2">
-                            <div className="flex justify-between">
-                                <h2 className="text-3xl font-bold" style={styles.textPrimary}>{confirmProject?.title}</h2>
-                                <a className="text-white rounded-xl px-3 py-2 font-bold cursor-pointer" style={{background: "#0C72B0"}} href={confirmProject?.link}>Problem Statement</a>
-                            </div>
-
-                            <div className="flex flex-col bg-white rounded-xl my-4 px-4 pt-8 pb-4 gap-6">
-                                {
-                                    !selectedProject?.checkpoints.length && 
-                                    <p className="text-center font-bold text-lg">No checkpoints added</p>
-                                }
-                                {
-                                    selectedProject?.checkpoints.map(checkpoint => (
-                                        <div className="flex">
-                                            <div className="text-sm" style={{color: "#8D989F"}}>
-                                                <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
-                                                <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>
-                                                <p className="mt-2">{checkpoint.user}</p>
-                                            </div>
-                                            <div className="ml-6">
-                                                <p>{checkpoint.message}</p>
-                                            </div>
-                                        </div>
-                                    ))
-                                }
-
-                                <div className="flex mt-4">
-                                    <textarea rows={3} className="w-full rounded-xl p-2" value={checkpointMessage} onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
-                                    <button className="ml-4 font-bold p-2 rounded-xl cursor-pointer" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => addCheckpoint()}>Add Checkpoint</button>
-                                </div>
-                            </div>
-                        </div>
+                        <Checkpoints projectData={selectedProject!} />
                     }
                 </div>
                 <SideNav />
