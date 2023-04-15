@@ -40,7 +40,7 @@ const Projects = () => {
     const tasksCollection = collection(db, "tasks")
 
     useEffect(() => {
-        console.log(authUser)
+        if (!authUser) return
         const userRef = doc(db, "users", authUser.uid)
 
         getDocs(query(userTasksCollection, where("users", "array-contains", userRef))).then(snapshots => {
@@ -70,7 +70,7 @@ const Projects = () => {
                 setState("selection")
             })
         })
-    }, [])
+    }, [authUser])
 
     const onChoose = (index: number) => {
         setState("confirmation")
@@ -156,7 +156,12 @@ const Projects = () => {
 
                     {
                         state === "inprogress" &&
+                        <>
                         <Checkpoints projectData={selectedProject!} />
+                        <div>
+                            <a className="text-white font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.task.link}>Add Submission</a>
+                        </div>
+                        </>
                     }
                 </div>
                 <SideNav />

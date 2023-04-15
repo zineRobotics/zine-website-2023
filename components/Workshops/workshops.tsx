@@ -133,10 +133,10 @@ const Workshops = () => {
           
           <h1 className="text-white font-bold mt-24 text-2xl md:text-6xl">Recruitment & Workshop</h1>
           
-          <Link href="/workshops/registration">
+          {/* <Link href="/workshops/registration">
             <button className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white" style={{width: 300, color: "#0C72B0"}}>Register Now</button>
           </Link>
-          
+           */}
           {/* Timeline */}
           <div className="container my-24">
             <div className="grid grid-cols-9 outline-none" tabIndex={1} onKeyDown={handleKeyDown}>

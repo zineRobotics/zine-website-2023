@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   return (
     <AuthContextProvider>
       <Head>
-        <title>Zine | Admin</title>
+        <title>Zine | Users</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Projects />

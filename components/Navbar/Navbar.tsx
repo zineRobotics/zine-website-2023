@@ -78,6 +78,11 @@ const Navbar = () => {
       image: about,
       link: "/gallery/"
     },
+    {
+      text: "Login",
+      image: about,
+      link: "/login/"
+    }
   ];
 
   function Nav_Out() {
@@ -178,6 +183,7 @@ const Navbar = () => {
                   <div className="hidden dropdown-content cursor-pointer z-50 bg-black p-3 -ml-2">
                     <Link href="/workshops"><div className="hover:text-gray-300">Workshops</div></Link>
                     <Link href="/blogs"><div className="hover:text-gray-300">Blogs</div></Link>
+                    <Link href="/login"><div className="hover:text-gray-300">Projects</div></Link>
                   </div>
                 </div>
               {/* <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">

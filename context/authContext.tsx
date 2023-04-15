@@ -38,7 +38,6 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
       } else {
         setUser({ email: null, uid: null });
       }
-
       setLoading(false);
     });
 
