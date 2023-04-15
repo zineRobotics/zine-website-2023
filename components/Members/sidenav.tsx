@@ -46,6 +46,9 @@ const SideNav = () => {
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
                     </Link>
                     <p className="text-xl">Channels</p>
+                    <Link href="/admin/projects">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
+                    </Link>
                 </div>
             }
 

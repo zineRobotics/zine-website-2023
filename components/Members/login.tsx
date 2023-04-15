@@ -51,7 +51,7 @@ const Login = () => {
 
                     <div className="mt-8">
                         <label className="block text-gray-600">Password</label>
-                        <input type="password" id="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true })} required />
+                        <input type="password" id="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true })} />
                         {errors.password && <p className="text-red-500 text-sm" role="alert">Password is required</p>}
                     </div>
 
