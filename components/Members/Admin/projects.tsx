@@ -29,9 +29,14 @@ interface IUserProject {
 const Projects = () => {
     const [projects, setProjects] = useState<IProject[]>([])
     const [userProject, setUserProject] = useState<IProject>()
+    const [state, setState] = useState("")
 
     const tasksCollection = collection(db, "tasks")
     const userTasksCollection = collection(db, "userTasks")
+    const onSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setState( e.target.value )
+    }
+
     useEffect(() => {
         getDocs(query(tasksCollection, where("type", "==", "Project"))).then(snapshots => {
             const tasks: {[key: string]: IProjectData} = {}
@@ -69,20 +74,28 @@ const Projects = () => {
                     
                     {                   
                         !userProject && 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
-                            {
-                                projects.map(p => (
-                                    <div key={p.id} className="bg-white rounded-xl text-center py-2 cursor-pointer" onClick={() => setUserProject(p)}>
-                                        <div className="mt-4 p-3 text-white font-extrabold text-3xl" style={{background: "#0C72B0"}}>
-                                            <p>{p.task?.title}</p>
+                        <div className="my-8">
+                            <div className="flex flex-col">
+                                <label className="text-gray-500">Search</label>
+                                <input id="search" type="text" className="text-lg p-2 bottom-border" onChange={onSearchChange} placeholder="Search email ID or name" value={state}/>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
+                                {
+                                    projects
+                                    .filter(p => !state || p.user.name.toLowerCase().includes(state.toLowerCase()) || p.user.email.includes(state.toLowerCase()))
+                                    .map(p => (
+                                        <div key={p.id} className="bg-white rounded-xl text-center py-2 cursor-pointer" onClick={() => setUserProject(p)}>
+                                            <div className="mt-4 p-3 text-white font-extrabold text-3xl" style={{background: "#0C72B0"}}>
+                                                <p>{p.task?.title}</p>
+                                            </div>
+                
+                                            <h2 className="my-4 text-5xl font-extrabold" style={styles.textPrimary}>{p.checkpoints.length}</h2>
+                                            <h3 className="mt-4 text-2xl font-bold" style={{color: "#95C5E2"}}>{p.user.name}</h3>
+                                            <p className="mt-1 mb-4 text-lg font-bold" style={styles.textGray}>{p.user.email}</p>
                                         </div>
-            
-                                        <h2 className="my-4 text-5xl font-extrabold" style={styles.textPrimary}>{p.checkpoints.length}</h2>
-                                        <h3 className="mt-4 text-2xl font-bold" style={{color: "#95C5E2"}}>{p.user.name}</h3>
-                                        <p className="mt-1 mb-4 text-lg font-bold" style={styles.textGray}>{p.user.email}</p>
-                                    </div>
-                                ))
-                            }
+                                    ))
+                                }
+                            </div>
                         </div>
                     }
                     {

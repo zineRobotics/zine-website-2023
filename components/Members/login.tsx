@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router'
-import ZineLogo from "../../images/logo_without_shadow.webp"
+import ZineLogo from "../../images/zinelogo.png"
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
 import { db } from '../../firebase';
@@ -28,7 +28,8 @@ const Login = () => {
             if (!snapshot.exists()) return setError("root.authError", {message: ""})
             if (snapshot.data().type == "admin") return await router.push('/admin/dashboard')
 
-            await router.push('/users/projects')
+            if (snapshot.data().roles?.includes("stage4")) return await router.push('/users/projects')
+            setError("root.notQualified", {message: "Sorry you have not qualified for stage 3"})
         }).catch((error: any) => {
             console.log(error)
             setError("root.authError", {message: error.message})
@@ -37,9 +38,9 @@ const Login = () => {
 
     return (
         <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)", marginBottom: -35}}>
-            <div className="bg-white rounded-xl p-8 md:p-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
+            <div className="bg-white rounded-xl px-8 pb-8 md:px-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
                 <div className="flex justify-center">
-                    <Image src={ZineLogo} width={100} height={50}/>
+                    <Image src={ZineLogo} width={150} height={150}/>
                 </div>
                 <p className="text-center font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
                 <form>
@@ -56,7 +57,7 @@ const Login = () => {
                     </div>
 
                     {errors.root?.authError && <p className="text-sm text-red-500">Invalid username or password</p>}
-                    {errors.root?.notAdmin && <p className="text-sm text-red-500">Not admin</p>}
+                    {errors.root?.notQualified && <p className="text-sm text-red-500">{errors.root.notQualified.message}</p>}
                     <button className="mt-8 p-4 block w-full rounded-3xl text-white" onClick={handleSubmit(onSubmit)} style={{background: "#0C72B0"}}>Login</button>
                 </form>
             </div>

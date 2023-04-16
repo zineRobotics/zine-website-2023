@@ -6,7 +6,7 @@ import { useAuth } from "../../../context/authContext";
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { authUser } = useAuth();
  
-  return <div>{authUser?.type === "user" ? children : <Error statusCode={404} />}</div>;
+  return <div>{authUser?.roles.includes("stage4") ? children : <Error statusCode={404} />}</div>;
 };
 
 export default ProtectedRoute;
