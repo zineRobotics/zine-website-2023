@@ -107,7 +107,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
             const newMessage = {
                 from: authUser.name,
                 group: groupid,
-                message: `[CHECKPOINT]: ${checkpointMessage.trim()}`,
+                message: `${authUser.type === "admin" ? "[REMARK]:" : "[CHECKPOINT]:"} ${checkpointMessage.trim()}`,
                 timeStamp
             }
 

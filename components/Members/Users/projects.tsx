@@ -149,7 +149,7 @@ const Projects = () => {
                                     <p className="mt-4">{project.description}</p>
                                 </div>
                                 <div className="flex md:flex-col text-white font-bold text-lg col-span-7 md:col-span-1">
-                                    <a className="flex flex-1 items-center justify-center rounded-bl-xl md:rounded-bl-none md:rounded-tr-xl cursor-pointer" style={{background: "#95C5E2"}} href={project.link}>VIEW PS</a>
+                                    <a className="flex flex-1 items-center justify-center rounded-bl-xl md:rounded-bl-none md:rounded-tr-xl cursor-pointer" style={{background: "#95C5E2"}} href={project.link} target="_blank">VIEW PS</a>
                                     <a className="text-center flex-1 md:flex-none py-4 px-2 rounded-br-xl cursor-pointer" style={{background: "#0C72B0"}} onClick={() => onChoose(index)}>CHOOSE</a>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@ const Projects = () => {
                         <>
                         <Checkpoints projectData={selectedProject!} />
                         <div className="my-4 flex justify-between text-white">
-                            <a className="font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.task.link} target="_blank">Add Submission</a>
+                            <a className="font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.task.submissionLink} target="_blank">Add Submission</a>
                             <p className="font-bold rounded-xl py-2 px-5 text-center" style={{background: "#0C72B0"}}>{selectedProject?.status}</p>
                         </div>
                         </>
