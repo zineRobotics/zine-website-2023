@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import SideNav from "../sidenav"
 import styles from "../styles"
 import ProtectedRoute from "./ProtectedRoute"
-import { DocumentReference, Timestamp, collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { DocumentReference, Timestamp, collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import Checkpoints, { IProject } from "../checkpoints";
 
@@ -34,7 +34,16 @@ const Projects = () => {
     const tasksCollection = collection(db, "tasks")
     const userTasksCollection = collection(db, "userTasks")
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setState( e.target.value )
+        setState(e.target.value )
+    }
+
+    const onStatusChange = (status: string) => {
+        if (!userProject) return
+        updateDoc(doc(db, "userTasks", userProject.id), {
+            status: status
+        }).then(() =>{
+            setUserProject({ ... userProject, status })
+        })
     }
 
     useEffect(() => {
@@ -92,6 +101,9 @@ const Projects = () => {
                                             <h2 className="my-4 text-5xl font-extrabold" style={styles.textPrimary}>{p.checkpoints.length}</h2>
                                             <h3 className="mt-4 text-2xl font-bold" style={{color: "#95C5E2"}}>{p.user.name}</h3>
                                             <p className="mt-1 mb-4 text-lg font-bold" style={styles.textGray}>{p.user.email}</p>
+                                            <div className="my-4 p-2 text-white font-bold text-xl" style={{background: "#0C72B0"}}>
+                                                <p>{p.status}</p>
+                                            </div>
                                         </div>
                                     ))
                                 }
@@ -102,8 +114,17 @@ const Projects = () => {
                         userProject &&
                         <>
                         <Checkpoints projectData={userProject} />
-                        <div>
-                            <button className="bg-red-500 text-white p-2 rounded-xl" onClick={() => setUserProject(undefined)}>Back</button>
+                        <div className="flex justify-between text-white">
+                            <button className="bg-red-500 py-2 px-5 rounded-xl" onClick={() => setUserProject(undefined)}>Back</button>
+                            <select className="rounded-xl py-2 px-5 text-center" value={userProject.status} onChange={(e) => onStatusChange(e.target.value)} style={{background: "#0C72B0"}}>
+                                <option>Assigned</option>
+                                <option>Stage 1</option>
+                                <option>Stage 2</option>
+                                <option>Stage 3</option>
+                                <option>Setup</option>
+                                <option>In Review</option>
+                                <option>Finished</option>
+                            </select>
                         </div>
                         </>
                     }

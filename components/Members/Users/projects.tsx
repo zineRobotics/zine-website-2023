@@ -158,8 +158,9 @@ const Projects = () => {
                         state === "inprogress" &&
                         <>
                         <Checkpoints projectData={selectedProject!} />
-                        <div>
-                            <a className="text-white font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.task.link}>Add Submission</a>
+                        <div className="flex justify-between text-white">
+                            <a className="font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.task.link}>Add Submission</a>
+                            <p className="font-bold rounded-xl py-2 px-5 text-center" style={{background: "#0C72B0"}}>{selectedProject?.status}</p>
                         </div>
                         </>
                     }

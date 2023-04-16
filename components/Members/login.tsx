@@ -37,12 +37,12 @@ const Login = () => {
     }
 
     return (
-        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)", marginBottom: -35}}>
+        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
             <div className="bg-white rounded-xl px-8 pb-8 md:px-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
                 <div className="flex justify-center">
                     <Image src={ZineLogo} width={150} height={150}/>
                 </div>
-                <p className="text-center font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
+                <p className="text-center -mt-8 font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
                 <form>
                     <div className="mt-8">
                         <label className="block text-gray-600">Email</label>
