@@ -1,8 +1,9 @@
-import { Timestamp, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { Timestamp, arrayUnion, collection, doc, getDocs, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
 import styles from "./styles"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { db } from "../../firebase";
+import sendFCMMessage from "../../sendFcm";
 
 interface IUserData {
     name: string;
@@ -27,17 +28,8 @@ interface ICheckPoint {
     user: string;
 }
 
-interface ITimestamp {
-    seconds: number;
-    nanoseconds: number;
-}
 
-interface IMessageData {
-    from: string;
-    group: string;
-    message: string;
-    timeStamp: ITimestamp;
-}
+
 
 export interface IProject {
     checkpoints: ICheckPoint[]
@@ -47,10 +39,53 @@ export interface IProject {
     id: string;
 }
 
+interface IMessageData {
+    from: string;
+    group: string;
+    message: string;
+    timeStamp: Timestamp;
+}
+
 const Checkpoints = ({ projectData }: { projectData: IProject }) => {
     const [checkpointMessage, setCheckpointMessage] = useState("")
     const [project, setProject] = useState(projectData)
+    const [panel, setPanel] = useState("checkpoints")
+    const [messages, setMessages] = useState<IMessageData[]>([])
+    const [inputMessage, setInputMessage] = useState("")
+    const [groupid, setGroupID] = useState("")
     const { authUser } = useAuth();
+
+    const roomsCollection = collection(db, "rooms")
+    const roomName = `${projectData.task.title.split(' ')[0]}-${project.user.email.slice(4).split('@')[0]}`
+    useEffect(() => {
+        getDocs(query(roomsCollection, where("name", "==", roomName))).then(snapshots => {
+            snapshots.forEach(d => {
+                setGroupID(d.id)
+                getDocs(query(collection(d.ref, 'messages'), orderBy("timeStamp", 'asc'))).then(msgSnapshot => {
+                    msgSnapshot.forEach(d => {
+                        setMessages(s => [...s, d.data() as IMessageData])
+                    })
+                })
+            })
+        })
+    }, [panel])
+
+    const onSubmit = async () => {
+        if (!groupid) return
+        const name = authUser.name
+        const timeStamp = Timestamp.fromDate(new Date())
+        const newMessage = {
+            from: name,
+            group: groupid,
+            message: inputMessage.trim(),
+            timeStamp
+        }
+
+        await setDoc(doc(db, "rooms", groupid, "messages", timeStamp.nanoseconds.toString()), newMessage)
+        await sendFCMMessage(roomName, roomName, `${authUser.name}: ${inputMessage.trim()}`)
+        setInputMessage("")
+        setMessages([...messages, newMessage])
+    }
 
     const addCheckpoint = () => {
         if (!project) return
@@ -58,56 +93,92 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
 
         setCheckpointMessage("")
         const checkpointData = {
-            message: checkpointMessage,
+            message: checkpointMessage.trim(),
             timeDate: Timestamp.fromDate(new Date()),
             user: authUser.name as string
         }
 
         updateDoc(doc(db, "userTasks", project.id), {
             checkpoints: arrayUnion(checkpointData)
-        }).then(() => {
+        }).then(async () => {
             const newCheckpoints = [...project.checkpoints, checkpointData]
             setProject({ ...project, checkpoints: newCheckpoints })
+            const timeStamp = Timestamp.fromDate(new Date())
+            const newMessage = {
+                from: authUser.name,
+                group: groupid,
+                message: `[CHECKPOINT]: ${checkpointMessage.trim()}`,
+                timeStamp
+            }
+
+            await setDoc(doc(db, "rooms", groupid, "messages", timeStamp.nanoseconds.toString()), newMessage)
+            await sendFCMMessage(roomName, roomName, `${authUser.name}: ${authUser.type === "admin" ? "Remark Added" : "Checkpoint Added"}\n${checkpointMessage}`)
         })
     }
 
     return (
-        <div className="mt-2">
-            <div className="flex justify-between">
+        <div className="">
+            <div className="flex justify-between mb-2">
                 <h2 className="text-3xl font-bold" style={styles.textPrimary}>{project.task.title}</h2>
-                <a className="text-white rounded-xl px-3 py-2 font-bold cursor-pointer" style={{background: "#0C72B0"}} href={project.task?.link}>Problem Statement</a>
+                <a className="text-white rounded-xl px-3 py-2 font-bold cursor-pointer" style={{background: "#0C72B0"}} href={project.task?.link} target="_blank">Problem Statement</a>
             </div>
 
             <div className="flex flex-col bg-white rounded-xl">
-                <div className="flex text-white">
-                    <button style={{background: "#0C72B0"}}>Checkpoints</button>
-                    <button style={{background: "#0C72B0"}}>Messages</button>
+                <div className="flex">
+                    <button className="w-full p-2 font-bold rounded-tl-xl" style={panel === "checkpoints" ? {background: "white", color: "#0C72B0" }: {background: "#0C72B0", color: "white" }} onClick={() => setPanel("checkpoints")}>Checkpoints</button>
+                    <button className="w-full p-2 font-bold rounded-tr-xl" style={panel === "messages" ? {background: "white", color: "#0C72B0" }: {background: "#0C72B0", color: "white" }} onClick={() => setPanel("messages")}>Messages</button>
                 </div>
                 
-                <div className="px-4 p-8 pb-4 gap-6">
+                <div className="flex flex-col px-4 p-8 pb-4 gap-6">
                     {
-                        !project.checkpoints.length &&
+                        panel === "checkpoints" && !project.checkpoints.length &&
                         <p className="text-center font-bold text-lg">No checkpoints added</p>
                     }
                     {
-                        project.checkpoints.map(checkpoint => (
-                            <div key={checkpoint.timeDate.seconds} className="flex">
-                                <div className="text-sm" style={{color: "#8D989F"}}>
-                                    <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
+                        panel === "checkpoints" && project.checkpoints.map(checkpoint => (
+                            <div key={checkpoint.timeDate.seconds} className="flex flex-wrap flex-col md:flex-row">
+                                <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{color: "#8D989F"}}>
+                                    <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
                                     <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>
-                                    <p className="mt-2">{checkpoint.user}</p>
+                                    <p className="">{checkpoint.user}</p>
                                 </div>
-                                <div className="ml-6">
+                                <div className="break-words w-full md:w-10/12 md:ml-auto">
                                     <p>{checkpoint.message}</p>
                                 </div>
                             </div>
                         ))
                     }
-                </div>
 
-                <div className="flex mt-4">
-                    <textarea rows={5} className="w-full rounded-xl p-2" value={checkpointMessage} onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
-                    <button className="ml-4 font-bold p-2 rounded-xl cursor-pointer" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => addCheckpoint()}>Add Checkpoint</button>
+                    {
+                        panel === "messages" && messages.map(message => (
+                            <div key={message.timeStamp.seconds} className="flex flex-wrap flex-col md:flex-row">
+                                <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{color: "#8D989F"}}>
+                                    <p className="font-bold">{message.timeStamp.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
+                                    <p className="font-bold">{message.timeStamp.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>
+                                    <p className="">{message.from}</p>
+                                </div>
+                                <div className="break-words w-full md:w-10/12 md:ml-auto">
+                                    <p>{message.message}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+
+                    {
+                        panel === "checkpoints" &&
+                        <div className="flex mt-4 flex-col md:flex-row gap-4">
+                            <textarea rows={3} className="w-full rounded-xl p-2" value={checkpointMessage} onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
+                            <button className="font-bold p-2 rounded-xl cursor-pointer" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => addCheckpoint()}>Add Checkpoint</button>
+                        </div>
+                    }
+
+                    {
+                        panel === "messages" &&
+                        <div className="flex mt-4 flex-col md:flex-row gap-4">
+                            <textarea rows={3} className="w-full rounded-xl p-2" value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
+                            <button className="font-bold p-2 rounded-xl cursor-pointer" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => onSubmit()}>Send Message</button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

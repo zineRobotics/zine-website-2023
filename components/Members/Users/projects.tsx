@@ -17,6 +17,7 @@ interface IProjectData {
     type: string;
     submissionLink: string;
     tags: string[];
+    mentors: string[];
     id: string; // added for reference
 }
 
@@ -82,6 +83,8 @@ const Projects = () => {
         setConfirmProject(undefined)
     }
 
+    const roomsCollection = collection(db, "rooms")
+    const usersCollection = collection(db, "users")
     const selectProject = () => {
         if (!confirmProject) return
 
@@ -100,6 +103,20 @@ const Projects = () => {
                 id: res.id
             })
             setState("inprogress")
+        })
+
+        const roomName = `${confirmProject.title.split(' ')[0]}-${authUser.email.slice(4).split('@')[0]}`
+        addDoc(roomsCollection, {
+            name: roomName,
+        }).then(async () => {
+            const emails = [authUser.email, ...confirmProject.mentors]
+            const allusers = await getDocs(query(usersCollection, where("email", "in", emails)))
+            const results: Promise<void>[] = []
+            allusers.forEach(async (u) => {
+                results.push(updateDoc(u.ref, { rooms: arrayUnion(roomName) }))
+            })
+
+            Promise.all(results)
         })
     }
 
@@ -158,8 +175,8 @@ const Projects = () => {
                         state === "inprogress" &&
                         <>
                         <Checkpoints projectData={selectedProject!} />
-                        <div className="flex justify-between text-white">
-                            <a className="font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.task.link}>Add Submission</a>
+                        <div className="my-4 flex justify-between text-white">
+                            <a className="font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.task.link} target="_blank">Add Submission</a>
                             <p className="font-bold rounded-xl py-2 px-5 text-center" style={{background: "#0C72B0"}}>{selectedProject?.status}</p>
                         </div>
                         </>
