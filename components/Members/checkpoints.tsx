@@ -66,28 +66,35 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                 <a className="text-white rounded-xl px-3 py-2 font-bold cursor-pointer" style={{background: "#0C72B0"}} href={project.task?.link}>Problem Statement</a>
             </div>
 
-            <div className="flex flex-col bg-white rounded-xl my-4 px-4 pt-8 pb-4 gap-6">
-                {
-                    !project.checkpoints.length && 
-                    <p className="text-center font-bold text-lg">No checkpoints added</p>
-                }
-                {
-                    project.checkpoints.map(checkpoint => (
-                        <div key={checkpoint.timeDate.seconds} className="flex">
-                            <div className="text-sm" style={{color: "#8D989F"}}>
-                                <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
-                                <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>
-                                <p className="mt-2">{checkpoint.user}</p>
+            <div className="flex flex-col bg-white rounded-xl">
+                <div className="flex text-white">
+                    <button style={{background: "#0C72B0"}}>Checkpoints</button>
+                    <button style={{background: "#0C72B0"}}>Messages</button>
+                </div>
+                
+                <div className="px-4 p-8 pb-4 gap-6">
+                    {
+                        !project.checkpoints.length &&
+                        <p className="text-center font-bold text-lg">No checkpoints added</p>
+                    }
+                    {
+                        project.checkpoints.map(checkpoint => (
+                            <div key={checkpoint.timeDate.seconds} className="flex">
+                                <div className="text-sm" style={{color: "#8D989F"}}>
+                                    <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
+                                    <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>
+                                    <p className="mt-2">{checkpoint.user}</p>
+                                </div>
+                                <div className="ml-6">
+                                    <p>{checkpoint.message}</p>
+                                </div>
                             </div>
-                            <div className="ml-6">
-                                <p>{checkpoint.message}</p>
-                            </div>
-                        </div>
-                    ))
-                }
+                        ))
+                    }
+                </div>
 
                 <div className="flex mt-4">
-                    <textarea rows={3} className="w-full rounded-xl p-2" value={checkpointMessage} onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
+                    <textarea rows={5} className="w-full rounded-xl p-2" value={checkpointMessage} onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
                     <button className="ml-4 font-bold p-2 rounded-xl cursor-pointer" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => addCheckpoint()}>Add Checkpoint</button>
                 </div>
             </div>

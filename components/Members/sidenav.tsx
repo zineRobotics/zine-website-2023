@@ -19,15 +19,15 @@ const SideNav = () => {
         <>
         <div className="col-span-3 pt-8 px-12 text-white hidden relative md:block" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
             <div className="flex items-center">
-                <h3 className="text-3xl font-bold">{authUser?.name}</h3>
+                <h3 className="text-3xl font-bold mr-2">{authUser?.name}</h3>
                 <Image src={ZineLogo} width={80} height={80} />
             </div>
 
             {
                 authUser.type === "admin" && 
-                <div>
+                <div className="mt-24">
                     <Link href="/admin/dashboard">
-                        <p className={`text-xl mt-24 hover:text-gray-300 cursor-pointer ${page === "dashboard" ? "font-bold" : ""}`}>Dashboard</p>
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "dashboard" ? "font-bold" : ""}`}>Dashboard</p>
                     </Link>
                     <Link href="/admin/registrations">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "registrations" ? "font-bold" : ""}`}>Registered</p>
@@ -48,6 +48,17 @@ const SideNav = () => {
                     <p className="text-xl">Channels</p>
                     <Link href="/admin/projects">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
+                    </Link>
+                </div>
+            }
+            {
+                authUser.type === "user" && authUser.roles.includes("stage4") &&
+                <div className="mt-24">
+                    <Link href="/users/projects">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
+                    </Link>
+                    <Link href="/users/announcements">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
                     </Link>
                 </div>
             }

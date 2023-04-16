@@ -1,3 +1,4 @@
 import Projects from "./projects"
+import Announcements from "./announcements"
 
-export { Projects }
+export { Projects, Announcements }

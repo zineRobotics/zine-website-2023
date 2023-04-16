@@ -91,7 +91,7 @@ const Projects = () => {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
                                 {
                                     projects
-                                    .filter(p => !state || p.user.name.toLowerCase().includes(state.toLowerCase()) || p.user.email.includes(state.toLowerCase()))
+                                    .filter(p => !state || p.user.name.toLowerCase().includes(state.toLowerCase()) || p.user.email.includes(state.toLowerCase()) || p.task.title.toLowerCase().includes(state.toLowerCase()))
                                     .map(p => (
                                         <div key={p.id} className="bg-white rounded-xl text-center py-2 cursor-pointer" onClick={() => setUserProject(p)}>
                                             <div className="mt-4 p-3 text-white font-extrabold text-3xl" style={{background: "#0C72B0"}}>
