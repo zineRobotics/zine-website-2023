@@ -27,6 +27,18 @@ interface ICheckPoint {
     user: string;
 }
 
+interface ITimestamp {
+    seconds: number;
+    nanoseconds: number;
+}
+
+interface IMessageData {
+    from: string;
+    group: string;
+    message: string;
+    timeStamp: ITimestamp;
+}
+
 export interface IProject {
     checkpoints: ICheckPoint[]
     status: string;
