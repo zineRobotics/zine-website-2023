@@ -132,7 +132,7 @@ const Projects = () => {
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>{state !== "inprogress" ? "Stage 3: Choose your major project" : "Stage 3: Project Progress"}</h1>
                     {
                         state !== "inprogress" &&
-                        <p className="mt-2 text-lg font-bold" style={{color: "#AAAAAA"}}>You can choose any one project that you feel you can complete in a week. You will be assigned mentors for each project</p>
+                        <p className="mt-2 text-lg font-bold" style={{color: "#AAAAAA"}}>You can choose any one project that you feel you can complete in 5 days. You will be assigned mentors for each project</p>
                     }
 
                     <div className="my-8">
