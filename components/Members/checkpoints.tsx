@@ -83,10 +83,10 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
             message: inputMessage.trim(),
             timeStamp
         }
-
+        
+        setInputMessage("")
         await setDoc(doc(db, "rooms", groupid, "messages", timeStamp.nanoseconds.toString()), newMessage)
         await sendFCMMessage(roomName, roomName, `${authUser.name}: ${inputMessage.trim()}`)
-        setInputMessage("")
         setMessages([...messages, newMessage])
     }
 
@@ -123,7 +123,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
         <div className="">
             <div className="flex justify-between mb-2">
                 <h2 className="text-3xl font-bold" style={styles.textPrimary}>{project.task.title}</h2>
-                <a className="text-white rounded-xl px-3 py-2 font-bold cursor-pointer" style={{background: "#0C72B0"}} href={project.task?.link} target="_blank">Problem Statement</a>
+                <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer" style={{background: "#0C72B0"}} href={project.task?.link} target="_blank">Problem Statement</a>
             </div>
 
             <div className="flex flex-col bg-white rounded-xl">

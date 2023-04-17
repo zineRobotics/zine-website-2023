@@ -162,10 +162,11 @@ const Projects = () => {
 
                     {
                         state === "confirmation" && 
-                        <div className="bg-white rounded-xl my-4 md:my-20 shadow-xl md:mx-12">
+                        <div className="bg-white rounded-xl mb-4 md:my-20 shadow-xl md:mx-12">
                             <div className="p-8">
-                                <h3 className="md:text-3xl font-extrabold text-2xl" style={styles.textPrimary}>{confirmProject?.title}</h3>
+                                <h3 className="md:text-3xl font-extrabold text-2xl" style={styles.textPrimary}><span className="text-red-500">⚠️</span> {confirmProject?.title}</h3>
                                 <p className="mt-4 text-lg font-semibold" style={{color: "#AAAAAA"}}>Are you sure you want to choose the project ?</p>
+                                <p className="text-lg font-semibold" style={{color: "#AAAAAA"}}>Once you choose the project you can't go back and change the project that you have chosen.</p>
                             </div>
                             <div className="flex text-center text-white font-bold text-lg">
                                 <a className="flex-1 p-2 rounded-bl-xl cursor-pointer" style={{background: "#0C72B0"}} onClick={() => selectProject()}>proceed</a>
