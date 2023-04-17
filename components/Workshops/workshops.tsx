@@ -50,7 +50,7 @@ const Stage = ({ workshops, state, stage, select }: IStageProps) => {
     )
 
     return (
-      <div key={item.name} className="contents flex-row-reverse" onClick={() => select(key)}>
+      <div key={item.name} className="contents flex-row-reverse cursor-pointer" onClick={() => select(key)}>
         {key % 2 === 0 ? card : title}
 
         <div className="col-start-5 col-end-6 mx-auto relative">
@@ -133,10 +133,10 @@ const Workshops = () => {
           
           <h1 className="text-white font-bold mt-24 text-2xl md:text-6xl">Recruitment & Workshop</h1>
           
-          <Link href="/workshops/registration">
+          {/* <Link href="/workshops/registration">
             <button className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white" style={{width: 300, color: "#0C72B0"}}>Register Now</button>
           </Link>
-          
+           */}
           {/* Timeline */}
           <div className="container my-24">
             <div className="grid grid-cols-9 outline-none" tabIndex={1} onKeyDown={handleKeyDown}>

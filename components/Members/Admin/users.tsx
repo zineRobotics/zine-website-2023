@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";import { useForm } from "react-hook-form";
-import { db } from '../../firebase';
+import { db } from '../../../firebase';
 import { collection, arrayUnion, arrayRemove, updateDoc, getDocs, query, where } from "firebase/firestore";
-import SideNav from "./sidenav";
-import styles from "./styles";
+import SideNav from "../sidenav";
+import styles from "../styles";
 import ProtectedRoute from "./ProtectedRoute";
+import ToastMessage from "../toastMessage";
 
 interface IUserChannel {
     emails: string;
@@ -159,20 +160,11 @@ const Users = () => {
         })
     }, [])
 
-    useEffect(() => {
-        setTimeout(() => setMessage(""), 2000)
-    }, [message])
-
     return (
         <ProtectedRoute>
-            <div className="grid grid-cols-12 h-screen overflow-y-scroll" style={{background: "#EFEFEF"}}>
-            {
-                message &&
-                <div className="flex items-center p-4 bg-white rounded-lg fixed bottom-5 right-5" role="alert">
-                    <p className="mr-3">{message}</p>
-                </div>
-            }
-                <div className="col-span-9 px-12 flex flex-col">
+            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+            <ToastMessage message={message} setMessage={setMessage} />
+                <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Users And Channels</h1>
                     <div className="grid gap-8 my-8 flex-1">
                         <AddUser setMessage={setMessage} channels={channels} />

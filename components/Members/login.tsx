@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router'
-import ZineLogo from "../../images/logo_without_shadow.webp"
+import ZineLogo from "../../images/zinelogo.png"
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
 import { db } from '../../firebase';
@@ -12,31 +12,24 @@ interface ILoginData {
     password: string;
 }
 
-const AdminLogin = () => {
-    const { register, setError, formState: {errors}, handleSubmit } = useForm<ILoginData>()
+const Login = () => {
+    const { register, reset, setError, formState: {errors}, handleSubmit } = useForm<ILoginData>()
     const router = useRouter()
-    const { user, logIn } = useAuth()
+    const { logIn } = useAuth()
 
-    useEffect(() => {
-        //router.push('/admin/dashboard')
-    }, [])
-
-    const onSubmit = (data: ILoginData) => {
+    const onSubmit = async (data: ILoginData) => {
         const {email, password} = data
-        logIn(email, password).then((userCredential: any) => {
+        reset()
+        logIn(email, password).then(async (userCredential: any) => {
             // Signed in
             const _user = userCredential.user;
-            // console.log('Damn', _user)
-            // setTimeout(() => router.push('/admin/dashboard'), 2000)
-            localStorage.setItem('user', "true")
-            router.push('/admin/dashboard')
 
-            // getDoc(doc(db, "users", _user.uid)).then((res) => {
-            //     if (!res.exists()) return setError("root.authError", {message: ""})
-            //     // if (res.data().type !== "admin") return setError("root.notAdmin", {message: ""})
-            //     router.push('/admin/dashboard')
-            //     //setUser((u: any) => { return {...u, type: "admin"} })
-            // })
+            const snapshot = await getDoc(doc(db, "users", _user.uid))
+            if (!snapshot.exists()) return setError("root.authError", {message: ""})
+            if (snapshot.data().type == "admin") return await router.push('/admin/dashboard')
+
+            if (snapshot.data().roles?.includes("stage4")) return await router.push('/users/projects')
+            setError("root.notQualified", {message: "Sorry you have not qualified for stage 3"})
         }).catch((error: any) => {
             console.log(error)
             setError("root.authError", {message: error.message})
@@ -44,12 +37,12 @@ const AdminLogin = () => {
     }
 
     return (
-        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)", marginBottom: -35}}>
-            <div className="bg-white rounded-xl p-8 md:p-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
+        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+            <div className="bg-white rounded-xl px-8 pb-8 md:px-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
                 <div className="flex justify-center">
-                    <Image src={ZineLogo} width={100} height={50}/>
+                    <Image src={ZineLogo} width={150} height={150}/>
                 </div>
-                <p className="text-center font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
+                <p className="text-center -mt-8 font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
                 <form>
                     <div className="mt-8">
                         <label className="block text-gray-600">Email</label>
@@ -59,12 +52,12 @@ const AdminLogin = () => {
 
                     <div className="mt-8">
                         <label className="block text-gray-600">Password</label>
-                        <input type="password" id="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true })} required />
+                        <input type="password" id="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true })} />
                         {errors.password && <p className="text-red-500 text-sm" role="alert">Password is required</p>}
                     </div>
 
                     {errors.root?.authError && <p className="text-sm text-red-500">Invalid username or password</p>}
-                    {errors.root?.notAdmin && <p className="text-sm text-red-500">Not admin</p>}
+                    {errors.root?.notQualified && <p className="text-sm text-red-500">{errors.root.notQualified.message}</p>}
                     <button className="mt-8 p-4 block w-full rounded-3xl text-white" onClick={handleSubmit(onSubmit)} style={{background: "#0C72B0"}}>Login</button>
                 </form>
             </div>
@@ -72,4 +65,4 @@ const AdminLogin = () => {
       )
 }
 
-export default AdminLogin;
+export default Login;

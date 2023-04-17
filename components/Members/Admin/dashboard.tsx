@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCalendar, faUsers, faVolumeOff, faMessage, faListCheck } from "@fortawesome/free-solid-svg-icons";
-import SideNav from "./sidenav";
-import styles from "./styles";
-import { db } from '../../firebase';
+import SideNav from "../sidenav";
+import styles from "../styles";
+import { db } from '../../../firebase';
 import { collection, query, getCountFromServer } from "firebase/firestore";
 import ProtectedRoute from "./ProtectedRoute";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../../context/authContext";
+import ToastMessage from "../toastMessage";
 
 const Dashboard = () => {
     const { user } = useAuth()
@@ -61,14 +62,9 @@ const Dashboard = () => {
     return (
         <ProtectedRoute>
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
-                <div className="col-span-9 px-12 flex flex-col">
+                <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
+                    <ToastMessage message={message} setMessage={setMessage} />
             
-                    {
-                        message &&
-                        <div className="flex items-center p-4 bg-white rounded-lg fixed bottom-5 right-5" role="alert" style={{minWidth: 300}}>
-                            <p className="mr-3">{message}</p>
-                        </div>
-                    }
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Admin Panel</h1>
                     <div className="grid grid-cols-9 grid-rows-10 gap-8 my-8 flex-1">
                         <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 px-16">
