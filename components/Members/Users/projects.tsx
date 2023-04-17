@@ -6,6 +6,7 @@ import { collection, addDoc, getDocs, query, where, doc, DocumentReference, upda
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from "../../../context/authContext";
 import Checkpoints, { IProject } from "../checkpoints";
+import sendFCMMessage from "../../../sendFcm";
 
 
 interface IProjectData {
@@ -116,7 +117,9 @@ const Projects = () => {
                 results.push(updateDoc(u.ref, { rooms: arrayUnion(roomName) }))
             })
 
-            Promise.all(results)
+            return Promise.all(results)
+        }).then(() => {
+            sendFCMMessage(roomName, `${authUser.name}: Project Room Created`, `Ask your doubts related to ${confirmProject.title} project to your mentors in this channel`)
         })
     }
 

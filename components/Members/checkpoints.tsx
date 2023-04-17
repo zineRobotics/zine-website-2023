@@ -132,7 +132,11 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                 <div className="flex flex-col px-4 p-8 pb-4 gap-6">
                     {
                         panel === "checkpoints" && !project.checkpoints.length &&
-                        <p className="text-center font-bold text-lg">No checkpoints added</p>
+                        <div className="px-4" style={{color: "#AAAAAA"}}>
+                        <p className="text-center text-lg">Add all the checkpoints, challenges faced with brief description for your project here</p>
+                        <p className="text-center text-lg">Make sure to update your project checkpoint everyday</p>
+                        <p className="text-center text-lg mt-2">Start by adding your github repository link here</p>
+                        </div>
                     }
                     {
                         panel === "checkpoints" && project.checkpoints.map(checkpoint => (
