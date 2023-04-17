@@ -61,10 +61,13 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
         getDocs(query(roomsCollection, where("name", "==", roomName))).then(snapshots => {
             snapshots.forEach(d => {
                 setGroupID(d.id)
+                const newmsg: IMessageData[] = []
                 getDocs(query(collection(d.ref, 'messages'), orderBy("timeStamp", 'asc'))).then(msgSnapshot => {
                     msgSnapshot.forEach(d => {
-                        setMessages(s => [...s, d.data() as IMessageData])
+                        newmsg.push(d.data() as IMessageData)
                     })
+                }).then(() => {
+                    setMessages(newmsg)
                 })
             })
         })
