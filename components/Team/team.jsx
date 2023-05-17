@@ -41,6 +41,9 @@ import rupesh from '../../images/firstyear/rupesh.webp'
 import harshitS from '../../images/firstyear/harshit.webp'
 import meet from '../../images/firstyear/meet.webp'
 import yug from '../../images/firstyear/yug.png'
+import mashaal from '../../images/firstyear/mashaal.webp'
+import anmol from '../../images/firstyear/anmol.webp'
+import moordhan from '../../images/firstyear/moordhan.webp'
 // interface pic_detail {
 //   name: string;
 //   image: StaticImageData;
@@ -744,16 +747,16 @@ const secondyear = [
     instagram: "",
     facebook: ""
   },
-  {
-    name: "Jaydeep Singh",
-    image: jaydeep,
-    desc: "Civil Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/jaydeep-singh-8ab748226/",
-    twitter: "",
-    instagram: "",
-    facebook: ""
-  },
+  // {
+  //   name: "Jaydeep Singh",
+  //   image: jaydeep,
+  //   desc: "Civil Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/jaydeep-singh-8ab748226/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
  
  
   {
@@ -776,16 +779,16 @@ const secondyear = [
     instagram: "",
     facebook: ""
   },
-  {
-    name: "Meet Kasvala",
-    image: meet,
-    desc: "Electrical Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/meet-kasvala-8302a4223/",
-    twitter: "",
-    instagram: "",
-    facebook: ""
-  },
+  // {
+  //   name: "Meet Kasvala",
+  //   image: meet,
+  //   desc: "Electrical Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/meet-kasvala-8302a4223/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
   {
     name: "Yug Modi",
     image: yug,
@@ -806,6 +809,36 @@ const secondyear = [
     instagram: "",
     facebook: ""
   },
+  {
+    name: "Mashaal Sayeed",
+    image: mashaal,
+    github: "",
+    desc: "Computer Science Engineering",
+    linkedin: "https://www.linkedin.com/in/mashaal-sayeed-a28b10232/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "Anmol Bansal",
+    image: anmol,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "http://www.linkedin.com/in/bansalanmol1606",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "Moordhan Songadhe",
+    image: moordhan,
+    desc: "Computer Science Engineering",
+    github: "",
+    linkedin: "",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  }
 ]
 
 
