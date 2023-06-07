@@ -3,16 +3,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFacebook, faInstagram, faLinkedin, faGithub} from '@fortawesome/free-brands-svg-icons';
-import bhanu from "../../images/finalyear/bhanu.webp";
-import brijraj from "../../images/finalyear/brijraj.webp";
-import charu from "../../images/finalyear/charu.webp";
-import dhruv from "../../images/finalyear/dhruv.webp";
-import harsh from "../../images/finalyear/harsh.webp";
-import muskan from "../../images/finalyear/muskan.webp";
-import nikita from "../../images/finalyear/nikita.webp";
-import pravesh from "../../images/finalyear/pravesh.webp";
-import rajat from "../../images/finalyear/rajat.webp";
-import sneha from "../../images/finalyear/sneha.webp";
+import bhanu from "../../images/2022/bhanu.webp";
+import brijraj from "../../images/2022/brijraj.webp";
+import charu from "../../images/2022/charu.webp";
+import dhruv from "../../images/2022/dhruv.webp";
+import harsh from "../../images/2022/harsh.webp";
+import muskan from "../../images/2022/muskan.webp";
+import nikita from "../../images/2022/nikita.webp";
+import pravesh from "../../images/2022/pravesh.webp";
+import rajat from "../../images/2022/rajat.webp";
+import sneha from "../../images/2022/sneha.webp";
 import avatar from "../../images/thirdyear/images.jpg";
 import piyush from "../../images/alumni/piyush.jpeg";
 import nimesh from "../../images/alumni/nimesh.jpeg";
@@ -66,6 +66,16 @@ import devendra from "../../images/2009/white-devendra.jpg";
 import himanshu1 from "../../images/2009/himanshu1.jpg";
 import shashwat from "../../images/2011/shashwat.jpg";
 import anshulrawat from "../../images/2018/anshul.webp";
+import apoorva from "../../images/thirdyear/apoorva.webp";
+import aryaman from "../../images/thirdyear/aryaman.webp";
+import chirayu from "../../images/thirdyear/chirayu.webp";
+import darshan from "../../images/thirdyear/darshan.webp";
+import devansh from "../../images/thirdyear/devansh.webp";
+import harshit from "../../images/thirdyear/harshit.webp";
+import pavnesh from "../../images/thirdyear/pavnesh.webp";
+import puneet from "../../images/thirdyear/puneet.webp";
+import rahul from "../../images/thirdyear/rahul.webp";
+
 // interface pic_detail {
 //   name: string;
 //   image: StaticImageData;
@@ -76,6 +86,111 @@ import anshulrawat from "../../images/2018/anshul.webp";
 //   instagram: string;
 //   facebook: string;
 // }
+
+const year2023 = [
+  {
+    name: "APOORVA RAJ",
+    image: apoorva,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/apoorva-raj-840a871ab",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "ARYAMAN SINGH",
+    image: aryaman,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/aryaman-singh-kushwaha-a139491b0/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "CHIRAYU RANKAWAT",
+    image: chirayu,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://in.linkedin.com/in/chirayu-rankawat",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "DARSHAN DUSAD",
+    image: darshan,
+    desc: "Computer Science Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/darshan-dusad-22b96b1ab/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "DEVANSH GARG",
+    image: devansh,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/DevanshGarg31",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "HARSHIT GARG",
+    image: harshit,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/harshitgrg",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  // {
+  //   name: "ISHIKA PANWAR",
+  //   image: ishika,
+  //   desc: "Computer Science Engineering",
+  //   github: "",
+  //   linkedin: "https://www.linkedin.com/in/ishika-panwar-23a5551a1/",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: ""
+  // },
+  {
+    name: "PAVNESH CHATURVEDI",
+    image: pavnesh,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/pavnesh-chaturvedi-208b15197/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "PUNEET SINGH",
+    image: puneet,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/puneet-singh-2001/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
+  {
+    name: "RAHUL RAJ",
+    image: rahul,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/rahul-raj-4b6a271ba/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  }
+
+]
+
 const year2022=[
   {
     name: "BHANU MOHINDRA",
@@ -276,7 +391,7 @@ const year2016 = [
     name: "Paresh Anand",
     desc: "Senior Associate at PwC\nMBA, IIM Kozhikode ",
     image: paresh,
-    linkedin: "	https://www.linkedin.com/in/paresh-anand/",
+    linkedin: "https://www.linkedin.com/in/paresh-anand/",
     twitter: "",
     instagram: "",
     facebook: "",
@@ -287,7 +402,7 @@ const year2016 = [
     name: "Piyush Chauhan",
     desc: "Investment Banking Analyst at Bank of America \n MBA, Symbiosis Institute of Business Management, Pune",
     image: piyush1,
-    linkedin: "	https://www.linkedin.com/in/piyush-chauhan-b91704138/",
+    linkedin: "https://www.linkedin.com/in/piyush-chauhan-b91704138/",
     twitter: "",
     instagram: "",
     facebook: "",
@@ -298,7 +413,7 @@ const year2016 = [
     name: "Rajat Kumar Arya",
     desc: "Saint-Gobain",
     image: rajatkumar,
-    linkedin: "	https://www.linkedin.com/in/rajk21feb/",
+    linkedin: "https://www.linkedin.com/in/rajk21feb/",
     twitter: "",
     instagram: "",
     facebook: "",
@@ -457,7 +572,7 @@ const year2018 = [
     name: "Saloni jain",
     desc: "Senior Software Engineer at Arcesium",
     image: saloni,
-    linkedin: "https://www.linkedin.com/in/saloni-jain-60b32b126//",
+    linkedin: "https://www.linkedin.com/in/saloni-jain-60b32b126/",
     twitter: "",
     instagram: "",
     facebook: "",
@@ -761,6 +876,28 @@ const Alumni = () => {
           <div className="absolute left-8 pl-16 text-xl md:text-3xl lg:text-5xl">
             <p>Alumni</p>
           </div>
+        </div>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2023</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
+        {year2023.map((item, index) => (
+          <div key={index} className="col-span-1">
+            <h1 className="text-black py-2 font-nunito text-center">
+              <div className="w-48 mx-auto member-hover">
+                <Image className="rounded-full" src={item.image} placeholder="blur"></Image>
+              </div>
+              <p className="text-center text-xl font-bold">{item.name}</p>
+              <p className="text-center text-gray-600 text-md preline">{item.desc}</p>
+              <div className="text-center">
+              <div className="grid grid-flow-col auto-cols-auto mt-2 w-64 mx-auto">
+                {item.github !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faGithub} className="text-black mr-4" size="2x" /></Link></div> : <></>}
+                {item.linkedin !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.linkedin}><FontAwesomeIcon icon={faLinkedin} className="text-blue-600 mr-4" size="2x" /></Link></div> : <></>}
+                {item.instagram !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.twitter}><FontAwesomeIcon icon={faInstagram} className="text-red-500 mr-4" size="2x" /></Link></div> : <></>}
+                {item.facebook !== "" ? <div className="cursor-pointer transform-gpu transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"><Link href={item.facebook}><FontAwesomeIcon icon={faFacebook} className="text-blue-800 mr-4" size="2x" /></Link></div> : <></>}
+              </div>
+              </div>
+            </h1>
+          </div>
+        ))}
         </div>
         <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">2022</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
