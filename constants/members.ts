@@ -1159,7 +1159,7 @@ export const year2022: Member[] = [
   {
     name: "BHANU MOHINDRA",
     image: bhanu,
-    desc: "Mechanical Engineering",
+    desc: "Territory Service Manager at Hero Motocorp",
     github: "",
     linkedin: "https://www.linkedin.com/in/bhanu-m/",
     twitter: "",
@@ -1169,7 +1169,7 @@ export const year2022: Member[] = [
   {
     name: "BRIJRAJ",
     image: brijraj,
-    desc: "Mechanical Engineering",
+    desc: "Mechanical Design Engineer at Applied Materials India",
     github: "",
     linkedin: "https://www.linkedin.com/in/brijraj-jangir-b957a416a/",
     twitter: "",
@@ -1179,7 +1179,7 @@ export const year2022: Member[] = [
   {
     name: "CHARU",
     image: charu,
-    desc: "Chemical Engineering",
+    desc: "Analyst at Goldman Sachs",
     github: "",
     linkedin: "https://www.linkedin.com/in/charu-09874418b/",
     twitter: "",
@@ -1189,7 +1189,7 @@ export const year2022: Member[] = [
   {
     name: "DHRUV GOYAL",
     image: dhruv,
-    desc: "Computer Science Engineering",
+    desc: "Software Engineer at Arcesium",
     github: "",
     linkedin: "https://www.linkedin.com/in/dhruv-goyal-2a2905194",
     twitter: "",
@@ -1199,7 +1199,7 @@ export const year2022: Member[] = [
   {
     name: "MUSKAN GARG",
     image: muskan,
-    desc: "Civil Engineering",
+    desc: "SDE at Amazon",
     github: "",
     linkedin: "https://www.linkedin.com/in/muskan-garg-031054196/",
     twitter: "",
@@ -1209,7 +1209,7 @@ export const year2022: Member[] = [
   {
     name: "NIKITA RAUTELA",
     image: nikita,
-    desc: "Mechanical Engineering",
+    desc: "R&D Associate Software Developer at Dassault Systemes",
     github: "",
     linkedin: "https://www.linkedin.com/in/nikita-rautela-a37415132/",
     twitter: "",
@@ -1219,7 +1219,7 @@ export const year2022: Member[] = [
   {
     name: "PRAVESH SINGH",
     image: pravesh,
-    desc: "Computer Science Engineering",
+    desc: "R&D Engineer at Mindspace IT Park, Hyderabad",
     github: "",
     linkedin: "https://www.linkedin.com/in/pravesh-singh-aaa072199/",
     twitter: "",
@@ -1229,7 +1229,7 @@ export const year2022: Member[] = [
   {
     name: "SNEHA YADAV",
     image: sneha,
-    desc: "Electrical Engineering",
+    desc: "SDE at Amazon",
     github: "",
     linkedin: "https://www.linkedin.com/in/sneha-yadav-367665170/",
     twitter: "",
@@ -1299,16 +1299,16 @@ export const year2023: Member[] = [
     instagram: "",
     facebook: "",
   },
-  // {
-  //   name: "ISHIKA PANWAR",
-  //   image: ishika,
-  //   desc: "Computer Science Engineering",
-  //   github: "",
-  //   linkedin: "https://www.linkedin.com/in/ishika-panwar-23a5551a1/",
-  //   twitter: "",
-  //   instagram: "",
-  //   facebook: ""
-  // },
+  {
+    name: "ISHIKA PANWAR",
+    image: ishika,
+    desc: "Computer Science Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/ishika-panwar-23a5551a1/",
+    twitter: "",
+    instagram: "",
+    facebook: ""
+  },
   {
     name: "PAVNESH CHATURVEDI",
     image: pavnesh,
