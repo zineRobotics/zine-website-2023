@@ -22,14 +22,11 @@ interface IProjectData {
     id: string; // added for reference
 }
 
-interface ICheckPoint {
+export interface ICheckPoint {
     message: string;
     timeDate: Timestamp;
     user: string;
 }
-
-
-
 
 export interface IProject {
     checkpoints: ICheckPoint[]
@@ -45,6 +42,8 @@ interface IMessageData {
     message: string;
     timeStamp: Timestamp;
 }
+
+const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
 const Checkpoints = ({ projectData }: { projectData: IProject }) => {
     const [checkpointMessage, setCheckpointMessage] = useState("")
@@ -121,8 +120,10 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
 
     return (
         <div className="">
+            <h2 className="text-3xl font-bold my-2" style={styles.textPrimary}>{project.task.title}</h2>
+
             <div className="flex justify-between mb-2">
-                <h2 className="text-3xl font-bold" style={styles.textPrimary}>{project.task.title}</h2>
+                <h2 className="text-2xl font-bold" style={styles.textPrimary}>{project.user.name}</h2>
                 <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer" style={{background: "#0C72B0"}} href={project.task?.link} target="_blank">Problem Statement</a>
             </div>
 
@@ -150,7 +151,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                                     <p className="">{checkpoint.user}</p>
                                 </div>
                                 <div className="break-words w-full md:w-10/12 md:ml-auto">
-                                    <p>{checkpoint.message}</p>
+                                    <p>{checkpoint.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}</p>
                                 </div>
                             </div>
                         ))
@@ -165,7 +166,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                                     <p className="">{message.from}</p>
                                 </div>
                                 <div className="break-words w-full md:w-10/12 md:ml-auto">
-                                    <p>{message.message}</p>
+                                    <p>{message.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}</p>
                                 </div>
                             </div>
                         ))
