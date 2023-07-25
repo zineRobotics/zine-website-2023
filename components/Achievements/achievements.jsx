@@ -18,6 +18,30 @@ import a4 from "../../images/achievements/4.webp"
 
 const items = [
   {
+    cardTitle: "Meshmerize",
+    title: "December 2022",
+    cardDetailedText: "1st position in a autonomous bot competition hosted by IIT Bombay Techfest. Designed an autonomous line follower robot to traverse a given maze and then traverse it using the most optimized path",
+    cardSubtitle: "Team Members: "
+  },
+  {
+    cardTitle: "Cozmo Clench",
+    title: "December 2022",
+    cardDetailedText: "Bagged the 2nd position in a manual-bot competition hosted by IIT Bombay Techfest. Designed a 20x25cm manual gripper robot to traverse various terrains, used frequency remote to control and arduino to process the signals",
+    cardSubtitle: "Team Members: "
+  },
+  {
+    cardTitle: "Weld Right",
+    title: "December 2022",
+    cardDetailedText: "Ranked top 10 in India for a machine learning Hackathon organized by Godrej & Byce. Created a DNN model to classify welding defects (multilabel) based on welding parameters, and provide TCO and ROI of model deployment",
+    cardSubtitle: "Team Members: "
+  },
+  {
+    cardTitle: "IEEE Research Paper",
+    title: "November 2020",
+    cardDetailedText: "A research paper on Shortest path evaluation with enhanced linear graph and Dijkstra's A;gprithm was presented at 59th annual conference of SICE",
+    cardSubtitle: "Author: Tanishk Dudi"
+  },
+  {
     cardTitle: "CSAW Hack3D Hackathon 2021",
     title: "November 2021",
     cardDetailedText: "Second Place in a global virtual hackathon event for testing cybersecurity defenses in additive manufacturing and computer aided design",

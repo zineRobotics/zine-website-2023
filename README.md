@@ -1,3 +1,4 @@
-#Zine-website
+# Zine-Website
 
-npm run dev
+Install dependencies: `yarn`
+Run the website: `npm run dev`

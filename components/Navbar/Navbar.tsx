@@ -63,11 +63,11 @@ const Navbar = () => {
       image: Achievements,
       link: "/achievements/"
     },
-    {
-      text: "Workshops",
-      image: Workshops,
-      link: "/workshops/"
-    },
+    // {
+    //   text: "Workshops",
+    //   image: Workshops,
+    //   link: "/workshops/"
+    // },
     {
       text: "Blogs",
       image: Blogs,
@@ -78,11 +78,11 @@ const Navbar = () => {
       image: about,
       link: "/gallery/"
     },
-    {
-      text: "Login",
-      image: about,
-      link: "/login/"
-    }
+    // {
+    //   text: "Login",
+    //   image: about,
+    //   link: "/login/"
+    // }
   ];
 
   function Nav_Out() {
@@ -177,15 +177,22 @@ const Navbar = () => {
                   Achievements
                 </div></div></Link>
                 <div className="px-1 hidden lg:inline-block">|</div>
+                <Link href="/blogs">
+                  <div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
+                  <div className="link ">
+                    Blogs
+                  </div>
+                </div>
+                </Link>
 
-                <div className="mb-2 hidden lg:inline-block dropdown h-full">
+                {/* <div className="mb-2 hidden lg:inline-block dropdown h-full">
                   <div className="link hover:text-gray-300">Workshops</div>
                   <div className="hidden dropdown-content cursor-pointer z-50 bg-black p-3 -ml-2">
                     <Link href="/workshops"><div className="hover:text-gray-300">Workshops</div></Link>
                     <Link href="/blogs"><div className="hover:text-gray-300">Blogs</div></Link>
                     <Link href="/login"><div className="hover:text-gray-300">Projects</div></Link>
                   </div>
-                </div>
+                </div> */}
               {/* <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">
           <div className="link ">
             Blogs

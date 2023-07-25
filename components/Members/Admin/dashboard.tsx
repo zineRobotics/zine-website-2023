@@ -7,12 +7,9 @@ import styles from "../styles";
 import { db } from '../../../firebase';
 import { collection, query, getCountFromServer } from "firebase/firestore";
 import ProtectedRoute from "./ProtectedRoute";
-import { useAuth } from "../../../context/authContext";
 import ToastMessage from "../toastMessage";
 
 const Dashboard = () => {
-    const { user } = useAuth()
-    // console.log(user)
     const [message, setMessage] = useState("")
     const [state, setState] = useState({
         registered: 0,
@@ -67,7 +64,7 @@ const Dashboard = () => {
             
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Admin Panel</h1>
                     <div className="grid grid-cols-9 grid-rows-10 gap-8 my-8 flex-1">
-                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 px-16">
+                        <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 px-16 flex flex-col justify-center">
                             <h5 className="text-xl text-right font-bold" style={styles.textPrimary}>{suffix}</h5>
                             <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{date.getDate()}</h1>
                             <h3 className="text-3xl text-center mt-4 font-bold" style={styles.textNormal}>{months[date.getMonth()]}</h3>

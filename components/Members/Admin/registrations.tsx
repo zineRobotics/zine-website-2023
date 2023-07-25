@@ -60,25 +60,25 @@ const Registrations = () => {
     }
 
     useEffect(() => {
-        const registeredEmails: any[] = []
+        // const registeredEmails: any[] = []
         getDocs(regCollection).then(res => {
             const newusers: IRegisteredUsers[] = []
             res.forEach(d => { 
                 newusers.push(d.data() as IRegisteredUsers)
-                registeredEmails.push(d.data().email)
+                // registeredEmails.push(d.data().email)
                 setRefMap((state) => {return {...state, [d.data().email]: d.ref}})
             })
             setUsers(newusers)
 
-            const userEmails: string[] = []
-            getDocs(collection(db, "users")).then((res) => {
-                res.forEach(d => userEmails.push(d.data().email))
-                console.log("All app users email:")
-                console.log(userEmails.filter(u => u.startsWith("2022")).join(" "))
-                console.log("Registered but not app users: ")
-                const registeredNotUsers = registeredEmails.filter(u => !userEmails.includes(u))
-                console.log(registeredNotUsers.join(" "), registeredNotUsers.length)
-            })
+            // const userEmails: string[] = []
+            // getDocs(collection(db, "users")).then((res) => {
+            //     res.forEach(d => userEmails.push(d.data().email))
+            //     console.log("All app users email:")
+            //     console.log(userEmails.filter(u => u.startsWith("2022")).join(" "))
+            //     console.log("Registered but not app users: ")
+            //     const registeredNotUsers = registeredEmails.filter(u => !userEmails.includes(u))
+            //     console.log(registeredNotUsers.join(" "), registeredNotUsers.length)
+            // })
         })
     }, [])
 
