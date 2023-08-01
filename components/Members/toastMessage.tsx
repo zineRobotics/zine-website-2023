@@ -1,9 +1,15 @@
 import { useEffect } from "react"
 
-const ToastMessage = ({ message, setMessage }: { message: string, setMessage: React.Dispatch<React.SetStateAction<string>> }) => {
+interface ToastMessageData {
+    message: string, 
+    timer?: number,
+    setMessage: React.Dispatch<React.SetStateAction<string>>
+}
+
+const ToastMessage = ({ message, timer, setMessage }: ToastMessageData) => {
     if (!message) return <></>
     useEffect(() => {
-        setTimeout(() => setMessage(""), 10000)
+        setTimeout(() => setMessage(""), timer || 10000)
     }, [])
 
     return (

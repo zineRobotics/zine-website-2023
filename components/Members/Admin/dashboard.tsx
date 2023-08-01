@@ -70,7 +70,7 @@ const Dashboard = () => {
                             <h3 className="text-3xl text-center mt-4 font-bold" style={styles.textNormal}>{months[date.getMonth()]}</h3>
                         </div>
                         <Link href="/admin/registrations">
-                            <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">
+                            <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center">
                                 <h1 className="text-7xl text-center font-extrabold" style={{color: "#0C72B0"}}>{state.registered}</h1>
                                 <div className="text-center mt-4">
                                     <FontAwesomeIcon icon={faCheck} size="2x" style={styles.textSecondary} />
@@ -79,7 +79,7 @@ const Dashboard = () => {
                             </div>
                         </Link>
                         <Link href="/admin/users">
-                            <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">
+                            <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center">
                                 <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{state.users}</h1>
                                 <div className="text-center mt-4">
                                     <FontAwesomeIcon icon={faUsers} size="2x" style={styles.textSecondary} />
@@ -99,7 +99,7 @@ const Dashboard = () => {
                         </div>
             
                         <Link href="/admin/events">
-                            <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">
+                            <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center">
                                 <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{state.events}</h1>
                                 <div className="text-center mt-4">
                                     <FontAwesomeIcon icon={faCalendar} size="2x" style={styles.textSecondary} />
@@ -108,7 +108,7 @@ const Dashboard = () => {
                             </div>
                         </Link>
                         <Link href="/admin/tasks">
-                            <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400">
+                            <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center">
                                 <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{state.tasks}</h1>
                                 <div className="text-center mt-4">
                                     <FontAwesomeIcon icon={faListCheck} size="2x" style={styles.textSecondary} />
@@ -116,13 +116,13 @@ const Dashboard = () => {
                                 <h5 className="text-2xl text-center font-bold mt-2" style={styles.textSecondary}>Tasks</h5>
                             </div>
                         </Link>
-                        <div className="col-span-4 row-span-2 bg-white rounded-xl py-2 border-transparent border-2 hover:border-blue-400">
+                        <div className="col-span-4 row-span-2 bg-white rounded-xl py-2 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center">
                             <div className="text-center mt-2">
                                 <FontAwesomeIcon icon={faVolumeOff} size="2x" style={styles.textSecondary} />
                             </div>
                             <h5 className="text-2xl text-center font-bold mt-2" style={styles.textSecondary}>Announcements</h5>
                         </div>
-                        <div className="col-span-2 row-span-2 bg-white rounded-xl py-2 border-transparent border-2 hover:border-blue-400">
+                        <div className="col-span-2 row-span-2 bg-white rounded-xl py-2 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center">
                             <div className="text-center mt-2">
                                 <FontAwesomeIcon icon={faMessage} size="2x" style={styles.textSecondary} />
                             </div>
