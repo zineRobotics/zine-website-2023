@@ -45,7 +45,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   }, []);
 
   const logIn = (email: string, password: string) => signInWithEmailAndPassword(auth, email, password);
-  const signIn = (name: string, email: string, password: string) => createUserWithEmailAndPassword(auth, email, password)
+  const signUp = (name: string, email: string, password: string) => createUserWithEmailAndPassword(auth, email, password)
 
   const logOut = async () => {
     setUser({ email: null, uid: null});
@@ -54,7 +54,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   };
 
   return (
-    <AuthContext.Provider value={{ user, authUser, logIn, logOut, signIn }}>
+    <AuthContext.Provider value={{ user, authUser, logIn, logOut, signUp }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router'
-import ZineLogo from "../../images/logo_without_shadow.webp"
+import ZineLogo from "../../images/zinelogo.png"
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
 import { db } from '../../firebase';
@@ -14,44 +14,53 @@ interface ILoginData {
     passwordConfirmation: string;
 }
 
+const errorMessages: { [key: string]: string; } = {
+    "auth/email-already-in-use": "This email is already in use. Contact Zine Team",
+    "auth/internal-error": "An internal error has occurred. Please try again later",
+    "auth/network-request-failed": "Network request error. Please check your internet and try again",
+    "auth/user-disabled": "User with this email has been disabled",
+    "auth/quota-exceeded": "Quota exceeded. Please contact Zine Team",
+    "auth/timeout": "Timeout. Please check your internet and try again later",
+    "default": "An unknown error has occurred"
+};
+
 const validateEmail = (email: string) => {
     return /^20\d\d((kucp)|(kuec)|(uar)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)
 }
 
 const Signup = () => {
     const { register, reset, setError, watch, formState: {errors}, handleSubmit } = useForm<ILoginData>()
-    const router = useRouter()
-    const { signIn } = useAuth()
+    const { signUp } = useAuth()
 
     const checkPasswordConfirmation = (passwordConfirmation: string) => {
         return watch('password') === passwordConfirmation
     }
 
     const onSubmit = async (data: ILoginData) => {
-        const {name, email, password, passwordConfirmation} = data
+        const {name, email, password} = data
         reset()
-        signIn(email, password).then(async (userCredential: any) => {
+        signUp(name, email, password).then(async (userCredential: any) => {
             // Signed in
             const _user = userCredential.user;
             console.log(_user)
         }).catch((error: any) => {
-            console.log(error)
-            setError("root.authError", {message: error.message})
+            const message = errorMessages[error.code] || errorMessages["default"]
+            setError("root.authError", { message })
         })
     }
 
     return (
-        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)", marginBottom: -35}}>
-            <div className="bg-white rounded-xl p-8 md:p-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
+        <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+            <div className="bg-white rounded-xl px-8 pb-8 md:px-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
                 <div className="flex justify-center">
-                    <Image src={ZineLogo} width={100} height={50}/>
+                    <Image src={ZineLogo} width={150} height={150}/>
                 </div>
-                <p className="text-center font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
+                <p className="text-center -mt-8 font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
                 <form>
                     <div className="mt-8">
                         <label className="block text-gray-600">Full Name</label>
                         <input type="text" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("name", { required: true })} />
-                        {errors.email && <p className="text-red-500 text-sm" role="alert">Full Name is required</p>}
+                        {errors.name && <p className="text-red-500 text-sm" role="alert">Full Name is required</p>}
                     </div>
 
                     <div className="mt-8">
@@ -63,8 +72,11 @@ const Signup = () => {
 
                     <div className="mt-8">
                         <label className="block text-gray-600">Password</label>
-                        <input type="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true })} />
-                        {errors.password && <p className="text-red-500 text-sm" role="alert">Password is required</p>}
+                        <input type="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true, minLength: 6, maxLength: 12 })} />
+                        {errors.password?.type === "required" && <p className="text-red-500 text-sm" role="alert">Password is required</p>}
+                        {errors.password?.type === "minLength" && <p className="text-red-500 text-sm" role="alert">Password should be atleast 6 characters in length</p>}
+                        {errors.password?.type === "maxLength" && <p className="text-red-500 text-sm" role="alert">Password is too long</p>}
+
                     </div>
 
                     <div className="mt-8">

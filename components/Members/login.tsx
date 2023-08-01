@@ -46,13 +46,13 @@ const Login = () => {
                 <form>
                     <div className="mt-8">
                         <label className="block text-gray-600">Email</label>
-                        <input type="email" id="email" className="block w-full focus:outline-none bottom-border text-lg pt-2" placeholder="xyz@abc.com" {...register("email", { required: true })} />
+                        <input type="email" id="email" className="block w-full focus:outline-none bottom-border pt-2" placeholder="xyz@abc.com" {...register("email", { required: true })} />
                         {errors.email && <p className="text-red-500 text-sm" role="alert">Email ID is required</p>}
                     </div>
 
                     <div className="mt-8">
                         <label className="block text-gray-600">Password</label>
-                        <input type="password" id="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true })} />
+                        <input type="password" id="password" className="block w-full focus:outline-none bottom-border pt-2" {...register("password", { required: true })} />
                         {errors.password && <p className="text-red-500 text-sm" role="alert">Password is required</p>}
                     </div>
 
