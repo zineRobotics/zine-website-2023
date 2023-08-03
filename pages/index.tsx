@@ -13,6 +13,7 @@ import { Footer, SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 
 const Home: NextPage = () => {
+  
   return (
     <div className="bg-body-bg">
       <Head>
