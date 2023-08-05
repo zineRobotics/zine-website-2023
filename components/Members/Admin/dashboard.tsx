@@ -50,9 +50,18 @@ const Dashboard = () => {
 
     const date = new Date()
     const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    let suffix = "TH"
-    if (date.getDate() % 10 == 1) suffix = "ST"
-    else if (date.getDate() % 10 == 2) suffix = "ND"
+    const dayOfMonth = date.getDate();
+    const suffixes = ['th', 'st', 'nd', 'rd'];
+    let suffix = 'th';
+    
+    if (dayOfMonth >= 11 && dayOfMonth <= 13) {
+      // For 11, 12, and 13, always use 'th' suffix
+      suffix = 'th';
+    } else {
+      // For other numbers, use the corresponding suffix
+      const lastDigit = dayOfMonth % 10;
+      suffix = suffixes[lastDigit] || 'th';
+    }
 
     const messages: string[] = []
 

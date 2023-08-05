@@ -1,5 +1,6 @@
 import '../styles/styles.css'
 import '../styles/carousal.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 import type { AppProps } from 'next/app'
 

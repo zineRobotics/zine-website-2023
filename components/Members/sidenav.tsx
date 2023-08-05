@@ -18,7 +18,7 @@ const SideNav = () => {
     return (
         <>
         <div className="col-span-3 pt-8 px-12 text-white hidden relative md:block" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
-            <div className="flex items-center">
+            <div className="flex items-center justify-between">
                 <h3 className="text-3xl font-bold mr-2">{authUser?.name}</h3>
                 <Image src={ZineLogo} width={80} height={80} />
             </div>

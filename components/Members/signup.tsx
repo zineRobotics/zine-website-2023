@@ -5,7 +5,11 @@ import ZineLogo from "../../images/zinelogo.png"
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
 import { db } from '../../firebase';
-import { doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc } from "firebase/firestore";
+import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import { sendEmailVerification } from "firebase/auth";
+import { createUser } from "../../apis/users";
 
 interface ILoginData {
     name: string;
@@ -25,12 +29,13 @@ const errorMessages: { [key: string]: string; } = {
 };
 
 const validateEmail = (email: string) => {
-    return /^20\d\d((kucp)|(kuec)|(uar)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
 }
 
 const Signup = () => {
     const { register, reset, setError, watch, formState: {errors}, handleSubmit } = useForm<ILoginData>()
     const { signUp } = useAuth()
+    const router = useRouter()
 
     const checkPasswordConfirmation = (passwordConfirmation: string) => {
         return watch('password') === passwordConfirmation
@@ -41,16 +46,39 @@ const Signup = () => {
         reset()
         signUp(name, email, password).then(async (userCredential: any) => {
             // Signed in
+            console.log(userCredential)
             const _user = userCredential.user;
-            console.log(_user)
+            await createUser({ uid: _user.uid, name, email })
+
+            sendEmailVerification(_user).then(async () => {
+                toast.success("Verification email sent.")
+
+                setTimeout(() => {
+                    router.push("/login")
+                }, 3000)
+            })
         }).catch((error: any) => {
             const message = errorMessages[error.code] || errorMessages["default"]
             setError("root.authError", { message })
+            console.log(error)
         })
     }
 
     return (
         <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+            <ToastContainer
+                position="top-left"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+
             <div className="bg-white rounded-xl px-8 pb-8 md:px-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
                 <div className="flex justify-center">
                     <Image src={ZineLogo} width={150} height={150}/>
@@ -66,7 +94,7 @@ const Signup = () => {
                     <div className="mt-8">
                         <label className="block text-gray-600">Email</label>
                         <input type="email" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("email", { required: true, validate: validateEmail })} />
-                        {errors.email && <p className="text-red-500 text-sm" role="alert">Email ID is required</p>}
+                        {errors.email?.type === "required" && <p className="text-red-500 text-sm" role="alert">Email ID is required</p>}
                         {errors.email?.type === "validate" && <p className="text-red-500 text-sm" role="alert">Enter a valid college email id</p>}
                     </div>
 
@@ -89,6 +117,9 @@ const Signup = () => {
 
                     {errors.root?.authError && <p className="text-sm text-red-500">{errors.root.authError.message}</p>}
                     <button className="mt-8 p-4 block w-full rounded-3xl text-white" onClick={handleSubmit(onSubmit)} style={{background: "#0C72B0"}}>Sign Up</button>
+                    <p className="mt-8 text-sm text-center">
+                        Already have an account? <Link href="/login"><a className="text-blue-500 underline">Login</a></Link>
+                    </p>
                 </form>
             </div>
         </div>
