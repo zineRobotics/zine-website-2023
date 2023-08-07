@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import SideNav from "../sidenav";
 import ProtectedRoute from "./ProtectedRoute";
-import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
-import { auth, db } from "../../../firebase";
 import styles from "../styles";
-
 import Image from "next/image";
 import ZineBlog from "../../../images/admin/zineblog.png"
-import Link from "next/link";
 import { useAuth } from "../../../context/authContext";
+import { getMessages, announcementRoom } from "../../../apis/room";
 
 
 interface ITimestamp {
@@ -23,7 +21,6 @@ interface IMessageData {
     timeStamp: ITimestamp;
 }
 
-const ANNOUNCEMENT_ROOM = "Announcements"
 const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
 const timestampToHuman = (timeStamp: ITimestamp) => {
@@ -65,17 +62,10 @@ const Announcements = () => {
     const [announcements, setAnnouncements] = useState<IMessageData[]>([])
     const { authUser } = useAuth();
 
-    const roomsCollection = collection(db, 'rooms')
     useEffect(() => {
-        getDocs(query(roomsCollection, where("name", "==", ANNOUNCEMENT_ROOM))).then(roomsSnapshot => {
-            roomsSnapshot.forEach(d => {
-                getDocs(query(collection(d.ref, 'messages'), orderBy("timeStamp", 'desc'), limit(10))).then(msgSnapshot => {
-                    msgSnapshot.forEach(d => {
-                        setAnnouncements(s => [...s, d.data() as IMessageData])
-                    })
-                })
-            })
-        })
+      getMessages(announcementRoom, true, 10).then(msgSnapshot => {
+        setAnnouncements(msgSnapshot.docs.map(d => d.data() as IMessageData))
+      })
     }, [])
 
     const date = new Date()
@@ -96,6 +86,8 @@ const Announcements = () => {
     return (
         <ProtectedRoute>
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+            <SideNav />
+
                 <div className="col-span-12 md:col-span-9 px-4 md:px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-2xl md:text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Dashboard</h1>
                     <div className="grid grid-cols-9 my-4 gap-8">
@@ -137,7 +129,6 @@ const Announcements = () => {
                         }
                     </div>
                 </div>
-                <SideNav />
             </div>
         </ProtectedRoute>
       )

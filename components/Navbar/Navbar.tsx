@@ -108,7 +108,7 @@ const Navbar = () => {
           <div className=" bg-black h-full w-full z-30 shadow-nav_custom absolute">
             <div className="py-6 px-8">
               <button className="text-white px-2 text-xl font-bold" onClick={() => {setHide(false); document.body.style.overflow = "auto"}}>
-                {/* <h1>🠐</h1> */}
+
                 <FontAwesomeIcon icon={faLeftLong}></FontAwesomeIcon>
               </button>
             </div>
@@ -151,7 +151,7 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`sticky top-0 bg-black py-8 h-24 z-10  ${
+        className={`sticky top-0 bg-black py-5 md:py-8 h-18 md:h-24 z-10  ${
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ZineLogo from "../../images/admin/logo.png"
@@ -6,9 +6,24 @@ import { useRouter } from "next/router";
 import { useAuth } from "../../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import hamburger from "../../images/hamburger.svg";
 
 const SideNav = () => {
     const { authUser, logOut } = useAuth()
+    const [hide, setHide] = useState(true)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const updateScreenWidth = () => { setScreenWidth(window.innerWidth); };
+  
+    useEffect(() => {
+      // Add event listener to update screen width on window resize
+      window.addEventListener("resize", updateScreenWidth);
+  
+      // Clean up the event listener on component unmount
+      return () => {
+        window.removeEventListener("resize", updateScreenWidth);
+      };
+    }, []);
+    
     const router = useRouter()
 
     const onLogout = async () => {
@@ -19,10 +34,12 @@ const SideNav = () => {
     const page = router.pathname.split('/').pop()
     return (
         <>
-        <div className="col-span-3 pt-8 px-12 text-white hidden relative md:block" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
-            <div className="flex items-center justify-between">
-                <h3 className="text-3xl font-bold mr-2">{authUser?.name}</h3>
+        {        
+        (!hide || screenWidth > 768) && <div className="fixed h-full w-full col-span-12 md:col-span-3 pt-8 px-12 text-white md:relative md:block" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+
+            <div className="flex flex-col md:flex-row-reverse items-center justify-between">
                 <Image src={ZineLogo} width={80} height={80} />
+                <h3 className="text-3xl font-bold mt-4 md:mr-2">{authUser?.name}</h3>
             </div>
 
             {
@@ -70,12 +87,11 @@ const SideNav = () => {
                 <p className="text-xl text-red-500 py-3 px-4" onClick={onLogout}>Logout</p>
             </div>
         </div>
+        }
 
-        {/* <div className="fixed w-full p-2 top-0 z-10 flex flex-row-reverse" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
-            <div className="bg-white rounded-xl text-center">
-                <p className="text-red-500 px-4">Logout</p>
-            </div>
-        </div> */}
+        <div className="col-span-12 p-2 md:hidden" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+            <Image className="ml-4" height={30} width={40} src={hamburger} onClick={() => setHide(!hide)} />
+        </div>
         </>
       )
 }
