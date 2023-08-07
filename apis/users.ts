@@ -15,6 +15,8 @@ interface ICreateUser {
 }
 
 export const createUser = async ({ uid, name, email }: ICreateUser) => {
+    const roles = []
+    if (email.endsWith('@mnit.ac.in') || email.endsWith('@iiitkota.ac.in')) roles.push('mnit') 
     return setDoc(doc(usersCollection, uid), {
         name, email, uid,
         type: 'user',

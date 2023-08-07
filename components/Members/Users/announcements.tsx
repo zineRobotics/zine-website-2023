@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import SideNav from "../sidenav";
 import ProtectedRoute from "./ProtectedRoute";
 import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
-import { db } from "../../../firebase";
-import ToastMessage from "../toastMessage";
+import { auth, db } from "../../../firebase";
 import styles from "../styles";
+
+import Image from "next/image";
+import ZineBlog from "../../../images/admin/zineblog.png"
+import Link from "next/link";
+import { useAuth } from "../../../context/authContext";
 
 
 interface ITimestamp {
@@ -59,7 +63,7 @@ function RenderMessageWithLinks({ message }: {message: string}) {
 
 const Announcements = () => {
     const [announcements, setAnnouncements] = useState<IMessageData[]>([])
-    const [message, setMessage] = useState("")
+    const { authUser } = useAuth();
 
     const roomsCollection = collection(db, 'rooms')
     useEffect(() => {
@@ -68,7 +72,6 @@ const Announcements = () => {
                 getDocs(query(collection(d.ref, 'messages'), orderBy("timeStamp", 'desc'), limit(10))).then(msgSnapshot => {
                     msgSnapshot.forEach(d => {
                         setAnnouncements(s => [...s, d.data() as IMessageData])
-                        console.log(d.data())
                     })
                 })
             })
@@ -92,8 +95,6 @@ const Announcements = () => {
 
     return (
         <ProtectedRoute>
-            <ToastMessage message={message} setMessage={setMessage} />
-
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-12 md:col-span-9 px-4 md:px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-2xl md:text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Dashboard</h1>
@@ -104,12 +105,17 @@ const Announcements = () => {
                             <h3 className="text-3xl text-center mt-4 font-bold" style={styles.textNormal}>{months[date.getMonth()]}</h3>
                         </div>
 
-                        <div className="hidden md:flex flex-col col-span-3 row-span-4 bg-white rounded-xl py-4 px-16 justify-center">
-                        </div>
+                        <Link href="/blogs">
+                          <div className="hidden md:flex col-span-3 row-span-4 bg-white py-3 rounded-xl items-center border-transparent border-2 hover:border-blue-400 ">
+                            <Image src={ZineBlog} />
+                          </div>
+                        </Link>
                         
                         <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8" style={{ background: "linear-gradient(135deg, #9B9C9C 0%, #D4D4D4 100%)" }}>
-                            <h1 className="text-2xl text-white font-extrabold mt-12">2021UCP1011</h1>
-                            <h3 className="text-lg text-white">Mashaal Sayeed</h3>
+                            <div className="mt-24">
+                              <h1 className="text-2xl text-white font-extrabold">{ authUser.email.split('@')[0].toUpperCase() }</h1>
+                              <h3 className="text-lg text-white">{ authUser.name } </h3>
+                            </div>
                         </div>
                     </div>
 

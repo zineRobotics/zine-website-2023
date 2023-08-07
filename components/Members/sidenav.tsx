@@ -4,6 +4,8 @@ import Image from "next/image";
 import ZineLogo from "../../images/admin/logo.png"
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/authContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const SideNav = () => {
     const { authUser, logOut } = useAuth()
@@ -52,10 +54,10 @@ const SideNav = () => {
                 </div>
             }
             {
-                authUser.type === "user" && authUser.roles.includes("stage4") &&
+                authUser.type === "user" &&
                 <div className="mt-24">
                     <Link href="/users/projects">
-                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
+                        <p className={`text-xl text-gray-300 pointer-events-none ${page === "projects" ? "font-bold" : ""}`}>Projects <FontAwesomeIcon icon={faLock}/></p>
                     </Link>
                     <Link href="/users/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
