@@ -11,6 +11,7 @@ import {
 } from "../components/Home";
 import { Footer, SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
+import Chat from "../components/Chat/chat";
 
 const Home: NextPage = () => {
   
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
       </Head>
       <Navbar />
       {/* <Video /> */}
+      <Chat />
       <Carousal />
       <LandingPage />
       <ZineText />

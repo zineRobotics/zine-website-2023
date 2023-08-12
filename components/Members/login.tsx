@@ -7,6 +7,7 @@ import { useAuth } from "../../context/authContext";
 import { db } from '../../firebase';
 import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
 
 interface ILoginData {
     email: string;
@@ -25,7 +26,14 @@ const Login = () => {
     const onSubmit = async (data: ILoginData) => {
         const {email, password} = data
         reset()
-        logIn(email, password).then(async (userCredential: any) => {
+        const promise = logIn(email, password)
+        toast.promise(promise, {
+            pending: "Logging In",
+            success: "Login Success!",
+            error: "Login Failed"
+        })
+
+        promise.then(async (userCredential: any) => {
             // Signed in
             const _user = userCredential.user;
             console.log(_user)
@@ -47,6 +55,19 @@ const Login = () => {
 
     return (
         <div className="flex flex-col items-center" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+            <ToastContainer
+                position="top-left"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+
             <div className="bg-white rounded-xl px-8 pb-8 md:px-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
                 <div className="flex justify-center">
                     <Image src={ZineLogo} width={150} height={150}/>

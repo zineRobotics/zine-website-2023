@@ -34,14 +34,12 @@ interface IEventCard {
 const CreateEvent = ({ setMessage }: IEventCard) => {
     const { register, setError, formState: {errors}, handleSubmit } = useForm<IEventForm>()
     const eventsCollection = collection(db, "events");
-    const router = useRouter()
     const onSubmit = (data: IEventForm) => {
         const { date, time, ...formdata } = data
         const timeDate = new Date(`${date} ${time}`)
 
         addDoc(eventsCollection, { timeDate, ...formdata })
         .then((docRef) => {
-            //setMessage("Event successfuly created!")
             setMessage("Created event successfully")
         })
         .catch((error) => {

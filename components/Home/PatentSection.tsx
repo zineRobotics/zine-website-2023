@@ -1,7 +1,4 @@
 import React from "react";
-import Link from "next/link";
-import Macbook from "../../images/macbook.svg";
-import Image from "next/image";
 import CountUp from 'react-countup';
 import VisibilitySensor from 'react-visibility-sensor';
 
@@ -49,7 +46,7 @@ const PatentSection = () => {
       {
        isVisible
         ?
-        <CountUp duration={1} end={10} />:10
+        <CountUp duration={1} end={16} />:16
   
       }+
       </p>}

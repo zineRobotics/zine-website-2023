@@ -44,23 +44,26 @@ const Signup = () => {
     const onSubmit = async (data: ILoginData) => {
         const {name, email, password} = data
         reset()
-        signUp(name, email, password).then(async (userCredential: any) => {
+        
+        const promise = signUp(name, email, password).then(async (userCredential: any) => {
             // Signed in
-            console.log(userCredential)
+            // console.log(userCredential)
             const _user = userCredential.user;
             await createUser({ uid: _user.uid, name, email })
+            await sendEmailVerification(_user)
+            return true
+        })
 
-            sendEmailVerification(_user).then(async () => {
-                toast.success("Verification email sent.")
-
-                setTimeout(() => {
-                    router.push("/login")
-                }, 3000)
-            })
+        const success = await toast.promise(promise, {
+            pending: "Signing Up",
+            error: "Sign up unsuccessful",
+            success: "Verification email sent!"
+        }).then(() => {
+            setTimeout(() => router.push("/login"), 3000)
         }).catch((error: any) => {
             const message = errorMessages[error.code] || errorMessages["default"]
             setError("root.authError", { message })
-            console.log(error)
+            return false
         })
     }
 

@@ -3,10 +3,10 @@ import SideNav from "../sidenav";
 import ProtectedRoute from "./ProtectedRoute";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { DocumentData, DocumentReference, Timestamp, addDoc, collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { useAuth } from "../../../context/authContext";
 import ToastMessage from "../toastMessage";
+import { announcementRoom, getMessages } from "../../../apis/room";
 
 interface ITimestamp {
     seconds: number;
@@ -20,8 +20,6 @@ interface IMessageData {
     timeStamp: ITimestamp;
 }
 
-const ANNOUNCEMENT_ROOM = "Announcements"
-
 const timestampToHuman = (timeStamp: ITimestamp) => {
     const date = new Date(timeStamp.seconds * 1000)
     return {
@@ -33,7 +31,6 @@ const timestampToHuman = (timeStamp: ITimestamp) => {
 const Announcements = () => {
     const [announcements, setAnnouncements] = useState<IMessageData[]>([])
     const [msg, setMsg] = useState("")
-    const [announcementRoom, setAnnouncementRoom] = useState<DocumentReference<DocumentData>>()
     const [message, setMessage] = useState("")
 
     const { authUser } = useAuth();
@@ -58,19 +55,11 @@ const Announcements = () => {
         setMessage("Successfully sent message to announcement channel")
     }
 
-    const roomsCollection = collection(db, 'rooms')
     useEffect(() => {
-        getDocs(query(roomsCollection, where("name", "==", ANNOUNCEMENT_ROOM))).then(roomsSnapshot => {
-            roomsSnapshot.forEach(d => {
-                setAnnouncementRoom(d.ref)
-                getDocs(query(collection(d.ref, 'messages'), orderBy("timeStamp", 'desc'))).then(msgSnapshot => {
-                    msgSnapshot.forEach(d => {
-                        setAnnouncements(s => [...s, d.data() as IMessageData])
-                    })
-                })
-            })
+        getMessages(announcementRoom, true, 10).then(msgSnapshot => {
+          setAnnouncements(msgSnapshot.docs.map(d => d.data() as IMessageData))
         })
-    }, [])
+      }, [])
 
     return (
         <ProtectedRoute>

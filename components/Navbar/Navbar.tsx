@@ -98,21 +98,15 @@ const Navbar = () => {
 
     return (
       <>
-        <div className="font-poppins z-30 top-0 flex fixed h-full w-full">
-          <div
-            className="z-20 bg-cover opacity-50 w-full h-full transparent"
-            onClick={() => {
-              document.body.style.overflow = "auto"; setHide(false);
-            }}
-          ></div>
-          <div className=" bg-black h-full w-full z-30 shadow-nav_custom absolute">
-            <div className="py-6 px-8">
+        <div className="font-poppins w-full transition-max-h duration-300 h-full">
+          <div className="bg-black w-full z-30 absolute h-full">
+            {/* <div className="py-6 px-8">
               <button className="text-white px-2 text-xl font-bold" onClick={() => {setHide(false); document.body.style.overflow = "auto"}}>
 
                 <FontAwesomeIcon icon={faLeftLong}></FontAwesomeIcon>
               </button>
-            </div>
-            <div>
+            </div> */}
+            <div className="mt-8">
               {data3.map((item, index) => (
                 <div key={index}>
                   <Link href={item.link}>
@@ -151,38 +145,25 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`sticky top-0 bg-black py-5 md:py-8 h-18 md:h-24 z-10  ${
+        className={`sticky top-0 bg-black h-18 md:h-24 z-10  ${
           scroll ? "hiddenNav" : "activeNav"
         }`}
       >
-        <div className="mx-12 lg:mx-16 grid grid-cols-12 text-white">
-          <div className="col-span-1">
-            <div className="cursor-pointer -mt-8 hidden md:block">
-              <Link href="/">
-                <Image height={100} width={130} src={logo} />
-              </Link>
-            </div>
+        <div className="mx-6 md:mx-12 lg:mx-16 flex justify-between items-center text-white">
+          <div className="cursor-pointer">
+            <Link href="/">
+                <div className="h-14 w-18 mt-2 md:h-24 md:w-32 relative">
+                  <Image layout="fill" src={logo} />
+                </div>
+            </Link>
           </div>
-          <div className="col-span-4"></div>
-          <div className="col-span-7">
-            <div className="flex text-xl justify-between">
+          <div>
+            <div className="flex text-xl justify-between gap-4">
               <Link href="/">
                 <div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
                   <div className="link">HOME</div>
                 </div>
               </Link>
-              {/* <Link href="/team">
-                <div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
-                  <div className="link ">
-                    Team
-                  </div>
-                </div>
-              </Link>
-                <div className="px-1 hidden lg:inline-block">|</div>
-              <Link href="/alumni"><div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
-                <div className="link ">
-                  Alumni
-                </div></div></Link>  */}
               <div className="mb-2 hidden lg:inline-block hover:text-gray-300 dropdown h-full">
                 <div className="link hover:text-gray-300">TEAM</div>
                 <div className="hidden dropdown-content cursor-pointer bg-black z-50 p-3 -ml-3">
@@ -211,18 +192,6 @@ const Navbar = () => {
                 </div>
               </Link>
 
-              {/* <div className="mb-2 hidden lg:inline-block dropdown h-full">
-                  <div className="link hover:text-gray-300">Workshops</div>
-                  <div className="hidden dropdown-content cursor-pointer z-50 bg-black p-3 -ml-2">
-                    <Link href="/workshops"><div className="hover:text-gray-300">Workshops</div></Link>
-                    <Link href="/blogs"><div className="hover:text-gray-300">Blogs</div></Link>
-                    <Link href="/login"><div className="hover:text-gray-300">Projects</div></Link>
-                  </div>
-                </div> */}
-              {/* <Link href="/blogs"><div className="mb-2 cursor-pointer hidden lg:inline-block">
-          <div className="link ">
-            Blogs
-          </div></div></Link> */}
               <Link href="/gallery">
                 <div className="mb-2 cursor-pointer hidden lg:inline-block hover:text-gray-300">
                   <div className="link ">GALLERY</div>
@@ -239,14 +208,8 @@ const Navbar = () => {
               </Link>
             </div>
 
-            
-            <div className="w-9 h-8 inline-block lg:hidden absolute right-8 mb-8">
-              <Image
-                src={hamburger}
-                onClick={() => {
-                  setHide(true);
-                }}
-              />
+            <div className="w-9 h-8 z-40 inline-block mt-3 lg:hidden">
+              <Image src={hamburger} onClick={() => {setHide(!Hide); document.body.style.overflow = Hide ? "auto" : "hidden";}} />
             </div>
           </div>
         </div>

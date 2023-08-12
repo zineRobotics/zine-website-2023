@@ -15,10 +15,7 @@ const SideNav = () => {
     const updateScreenWidth = () => { setScreenWidth(window.innerWidth); };
   
     useEffect(() => {
-      // Add event listener to update screen width on window resize
       window.addEventListener("resize", updateScreenWidth);
-  
-      // Clean up the event listener on component unmount
       return () => {
         window.removeEventListener("resize", updateScreenWidth);
       };

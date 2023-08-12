@@ -1,4 +1,4 @@
 import Footer from './Footer';
-import SecFooter from './Footer2';
+import SecFooter from './Footer';
 
 export {Footer, SecFooter};

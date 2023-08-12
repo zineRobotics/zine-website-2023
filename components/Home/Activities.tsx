@@ -20,7 +20,7 @@ const ZineActivities = () => {
                     <h1 className="text-xl lg:h-10 py-4">Research and Development</h1>
                     <p className="lg:h-88 xl:h-84 2xl:h-72 lg:pt-9 ">Our research falls in many domains including Artifical Intelligence, Controls and System, Gait Analysis, Human Robot Interaction, Algorithm Development and many more. Spanning all domains, ZINE Robotics has 10+ patents and multiple papers in reputed IEEE Journals. ZINE has also collaborated with several hospitals for research and development.</p>
                 </div>
-                <Link href="/workshops">
+                <Link href="/">
                     <div className="col-span-1 bg-gray-100 rounded-xl p-4 shadow-xl hover:bg-gray-200 transition duration-500 ease-in-out">
                         <Image src={Workshop} className="rounded-lg"/>
                         <h1 className="text-xl lg:h-10 py-4">Workshop</h1>
