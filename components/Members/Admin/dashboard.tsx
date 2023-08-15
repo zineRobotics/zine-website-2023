@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCalendar, faUsers, faVolumeOff, faMessage, faListCheck } from "@fortawesome/free-solid-svg-icons";
 import SideNav from "../sidenav";
-import styles from "../styles";
+import styles from "../../../constants/styles";
 import { db } from '../../../firebase';
 import { collection, query, getCountFromServer } from "firebase/firestore";
 import ProtectedRoute from "./ProtectedRoute";

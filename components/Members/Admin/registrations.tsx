@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import SideNav from "../sidenav";
-import styles from "../styles";
+import styles from "../../../constants/styles";
 import ProtectedRoute from "./ProtectedRoute";
 import { useForm } from "react-hook-form";
 import { db } from '../../../firebase';

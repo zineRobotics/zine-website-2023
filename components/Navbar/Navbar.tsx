@@ -3,6 +3,7 @@ import logo from "../../images/zine1.png";
 import hamburger from "../../images/hamburger.svg";
 import Image, { StaticImageData } from "next/image";
 import React, { useEffect, useState } from "react";
+// import {useRouter} from "next/router";
 import home from "../../images/home-icon.webp";
 import about from "../../images/about.webp";
 import Project from "../../images/project-icon.webp";
@@ -10,8 +11,7 @@ import Team from "../../images/team-icon.webp";
 import Alumni from "../../images/graduation.ico";
 import Achievements from "../../images/badge-icon.webp";
 import Blogs from "../../images/blogs-icon.png";
-import { faLeftLong } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const Navbar = () => {
   const [Hide, setHide] = useState(false);
@@ -87,19 +87,16 @@ const Navbar = () => {
   ];
 
   function Nav_Out() {
-    document.body.style.overflow = "hidden"
+    // document.body.style.overflow = "hidden"
     const LinkClick = (e: React.MouseEvent) => {
       setHide(false);
       document.body.style.overflow = "auto"
       e.preventDefault();
     };
 
-
-
     return (
-      <>
-        <div className="font-poppins w-full transition-max-h duration-300 h-full">
-          <div className="bg-black w-full z-30 absolute h-full">
+        <div className="lg:hidden font-poppins">
+          <div className={`bg-black z-30 w-full absolute h-full overflow-hidden duration-1000 ease-in-out transition-all`}>
             {/* <div className="py-6 px-8">
               <button className="text-white px-2 text-xl font-bold" onClick={() => {setHide(false); document.body.style.overflow = "auto"}}>
 
@@ -133,7 +130,6 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </>
     );
   }
 
@@ -215,6 +211,7 @@ const Navbar = () => {
         </div>
       </div>
       {Hide ? <Nav_Out /> : null}
+      {/* <Nav_Out /> */}
     </>
   );
 };

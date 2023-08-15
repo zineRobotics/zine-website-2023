@@ -1,5 +1,5 @@
 import { Timestamp, arrayUnion, collection, doc, getDocs, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
-import styles from "./styles"
+import styles from "../../constants/styles"
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { db } from "../../firebase";

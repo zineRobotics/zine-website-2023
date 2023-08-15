@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SideNav from "../sidenav";
-import styles from "../styles";
+import styles from "../../../constants/styles";
 import {db,storage} from '../../../firebase';
 import { collection, addDoc, getDocs, updateDoc, query, where } from "firebase/firestore";
 import { useForm } from "react-hook-form";

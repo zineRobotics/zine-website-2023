@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import SideNav from "../sidenav"
-import styles from "../styles"
+import styles from "../../../constants/styles"
 import ProtectedRoute from "./ProtectedRoute"
 import { DocumentReference, collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../../../firebase";

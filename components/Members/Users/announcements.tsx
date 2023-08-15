@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import SideNav from "../sidenav";
 import ProtectedRoute from "./ProtectedRoute";
-import styles from "../styles";
+import styles from "../../../constants/styles";
 import Image from "next/image";
 import ZineBlog from "../../../images/admin/zineblog.png"
 import { useAuth } from "../../../context/authContext";

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import SideNav from "../sidenav";
-import styles from "../styles";
+import styles from "../../../constants/styles";
 import { db, storage } from '../../../firebase';
 import { collection, addDoc, getDocs, query, where, doc, DocumentReference, updateDoc, arrayUnion, Timestamp, getDoc } from "firebase/firestore";
 import ProtectedRoute from "./ProtectedRoute";

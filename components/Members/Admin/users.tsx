@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";import { useForm } from "reac
 import { db } from '../../../firebase';
 import { collection, arrayUnion, arrayRemove, updateDoc, getDocs, query, where } from "firebase/firestore";
 import SideNav from "../sidenav";
-import styles from "../styles";
+import styles from "../../../constants/styles";
 import ProtectedRoute from "./ProtectedRoute";
 import ToastMessage from "../toastMessage";
 
