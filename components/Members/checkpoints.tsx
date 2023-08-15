@@ -3,7 +3,7 @@ import styles from "../../constants/styles"
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { db } from "../../firebase";
-import sendFCMMessage from "../../sendFcm";
+import sendFCMMessage from "../../apis/sendFcm";
 
 interface IUserData {
     name: string;

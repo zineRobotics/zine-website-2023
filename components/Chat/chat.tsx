@@ -60,8 +60,7 @@ const Chat = () => {
     return (
         <div className="md:container mx-auto">
             <div className="flex flex-col font-poppins mx-2 lg:mx-32" style={{ height: "calc(100vh - 6rem)" }}>
-                {/* Placeholders */}
-                <div className="flex-1 text-center overflow-scroll">
+                <div className="flex-1 text-center overflow-auto">
                 { chat.length === 0 &&  <div>
                         <h2 className="text-2xl md:text-4xl font-extrabold mt-8 md:mt-8" style={{ color: "#0C72B0F2" }}>ZINE AI (BETA)</h2>
                         <div className="mt-4 md:mt-8">
@@ -109,7 +108,7 @@ const Chat = () => {
                     </div>
                 }
                 </div>
-                <div className="flex text-sm font-medium mt-4 gap-1 md:gap-2 overflow-x-scroll" style={{ color: "#0C72B0F2" }}>
+                <div className="flex text-sm font-medium mt-4 gap-1 md:gap-2 overflow-x-auto" style={{ color: "#0C72B0F2" }}>
                     {
                         prompts.map(p => (
                             <div key={p} className="rounded-3xl py-2 px-3 cursor-pointer whitespace-nowrap hover:opacity-75" onClick={() => {sendMessage(p)}} style={{ background: "#C2FFF48A", borderColor: "#0C72B0", borderWidth: 1.5 }}>{p}</div>

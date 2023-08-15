@@ -6,7 +6,7 @@ import { collection, addDoc, getDocs, query, where, doc, DocumentReference, upda
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from "../../../context/authContext";
 import Checkpoints, { IProject } from "../checkpoints";
-import sendFCMMessage from "../../../sendFcm";
+import sendFCMMessage from "../../../apis/sendFcm";
 
 
 interface IProjectData {

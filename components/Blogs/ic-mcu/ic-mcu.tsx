@@ -10,10 +10,6 @@ import Microprocessor from "../../../images/blog/ic-mcu/home/microprocessor.jpg"
 const ICMCU = () => {
     return (
         <div className="text-black bg-white w-screen">
-          <div className="bg-blog-bg bg-no-repeat bg-center bg-cover bg-fixed py-96">
-          </div>
-
-          {/* Links to blogs */}
           <div className="mx-auto text-center text-2xl lg:text-3xl xl:text-4xl mt-8">
             BLOGS
           </div>

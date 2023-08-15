@@ -58,7 +58,7 @@ const Footer_Main = () => {
           <Link href="/projects">
             <p className="cursor-pointer hover:text-gray-300">Projects</p>
           </Link>
-          <Link href="">
+          <Link href="https://github.com/zine-robotics">
             <p className="cursor-pointer hover:text-gray-300">Contribute</p>
           </Link>
         </div>
