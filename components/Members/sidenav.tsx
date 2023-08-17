@@ -13,12 +13,9 @@ const SideNav = () => {
     const [hide, setHide] = useState(true)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const updateScreenWidth = () => { setScreenWidth(window.innerWidth); };
-  
     useEffect(() => {
       window.addEventListener("resize", updateScreenWidth);
-      return () => {
-        window.removeEventListener("resize", updateScreenWidth);
-      };
+      return () => window.removeEventListener("resize", updateScreenWidth);
     }, []);
     
     const router = useRouter()

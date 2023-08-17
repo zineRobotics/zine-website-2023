@@ -1,5 +1,5 @@
 import { db } from '../firebase';
-import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc } from "firebase/firestore";
+import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp } from "firebase/firestore";
 
 
 const roomsCollection = collection(db, "rooms")
@@ -21,4 +21,14 @@ export const getMessages = async (room: DocumentReference, descending=true, coun
 
     if (count > -1) return getDocs(query(msgCollection, orderBy("timeStamp", sorting), limit(count)))
     return getDocs(query(msgCollection, orderBy("timeStamp", sorting)))
-} 
+}
+
+export const sendMessage = async (room: DocumentReference, message: string, user: any) => {
+    return addDoc(collection(room, 'messages'), {
+        from: user.name,
+        group: room.id,
+        message,
+        sender_id: user.id,
+        timeStamp: Timestamp.fromDate(new Date())
+    })
+}

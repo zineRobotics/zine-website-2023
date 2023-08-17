@@ -7,6 +7,7 @@ import {
 } from "../components/Projects";
 import { SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
+import { ChatButton } from "../components/Chat";
 
 const Home: NextPage = () => {
   return (
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
+      <ChatButton />
       <Carousal />
       <Projects />
       <SecFooter />

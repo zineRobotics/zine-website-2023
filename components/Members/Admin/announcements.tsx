@@ -34,6 +34,7 @@ const Announcements = () => {
     const [message, setMessage] = useState("")
 
     const { authUser } = useAuth();
+    console.log(authUser)
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMsg(e.target.value)
