@@ -14,7 +14,7 @@ interface IForgotPasswordData {
 
 
 const ForgotPassword = () => {
-    const { register, reset, setError, formState: {errors}, handleSubmit } = useForm<IForgotPasswordData>()
+    const { register, formState: {errors}, handleSubmit } = useForm<IForgotPasswordData>()
     const router = useRouter()
 
     const onSubmit = ({ email }: IForgotPasswordData) => {
@@ -52,7 +52,7 @@ const ForgotPassword = () => {
                 <p className="text-center -mt-8 font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
                 <form>
                     <div className="mt-8">
-                        <label className="block text-gray-600">Email</label>
+                        <label className="block text-gray-600">Email<span className="text-red-500">*</span></label>
                         <input type="email" id="email" className="block w-full focus:outline-none bottom-border pt-2" placeholder="xyz@abc.com" {...register("email", { required: true })} />
                         {errors.email && <p className="text-red-500 text-sm" role="alert">Email ID is required</p>}
                     </div>

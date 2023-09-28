@@ -4,8 +4,6 @@ import { useRouter } from 'next/router'
 import ZineLogo from "../../images/zinelogo.png"
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
-import { db } from '../../firebase';
-import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import { sendEmailVerification } from "firebase/auth";
@@ -89,20 +87,20 @@ const Signup = () => {
                 <p className="text-center -mt-8 font-semibold" style={{color: "#0C72B0"}}>Robotics and Research Group</p>
                 <form>
                     <div className="mt-8">
-                        <label className="block text-gray-600">Full Name</label>
+                        <label className="block text-gray-600">Full Name<span className="text-red-500">*</span></label>
                         <input type="text" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("name", { required: true })} />
                         {errors.name && <p className="text-red-500 text-sm" role="alert">Full Name is required</p>}
                     </div>
 
                     <div className="mt-8">
-                        <label className="block text-gray-600">Email</label>
+                        <label className="block text-gray-600">Email<span className="text-red-500">*</span></label>
                         <input type="email" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("email", { required: true, validate: validateEmail })} />
                         {errors.email?.type === "required" && <p className="text-red-500 text-sm" role="alert">Email ID is required</p>}
                         {errors.email?.type === "validate" && <p className="text-red-500 text-sm" role="alert">Enter a valid college email id</p>}
                     </div>
 
                     <div className="mt-8">
-                        <label className="block text-gray-600">Password</label>
+                        <label className="block text-gray-600">Password<span className="text-red-500">*</span></label>
                         <input type="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("password", { required: true, minLength: 6, maxLength: 12 })} />
                         {errors.password?.type === "required" && <p className="text-red-500 text-sm" role="alert">Password is required</p>}
                         {errors.password?.type === "minLength" && <p className="text-red-500 text-sm" role="alert">Password should be atleast 6 characters in length</p>}
@@ -111,7 +109,7 @@ const Signup = () => {
                     </div>
 
                     <div className="mt-8">
-                        <label className="block text-gray-600">Password Confirmation</label>
+                        <label className="block text-gray-600">Password Confirmation<span className="text-red-500">*</span></label>
                         <input type="password" className="block w-full focus:outline-none bottom-border text-lg pt-2" {...register("passwordConfirmation", { required: true, validate: checkPasswordConfirmation })} />
                         {errors.passwordConfirmation?.type === "required" && <p className="text-red-500 text-sm" role="alert">Passwords Confirmation is required</p>}
                         {errors.passwordConfirmation?.type === "validate" && <p className="text-red-500 text-sm" role="alert">Passwords do not match</p>}

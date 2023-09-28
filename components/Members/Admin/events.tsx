@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import SideNav from "../sidenav";
 import styles from "../../../constants/styles";
-import {db,storage} from '../../../firebase';
-import { collection, addDoc, getDocs, updateDoc, query, where } from "firebase/firestore";
+import { db } from '../../../firebase';
+import { collection, getDocs } from "firebase/firestore";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
 import ProtectedRoute from "./ProtectedRoute";
-import ToastMessage from "../toastMessage";
+import { ToastContainer, toast } from "react-toastify";
 
 const eventTypes = ["Workshop", "Meeting", "Discussion", "Showcase", "Exhibition"] as const
 interface IEventForm {
@@ -16,6 +15,7 @@ interface IEventForm {
     venue: string;
     date: string;
     time: string;
+    id: string;
 }
 
 interface IEventData {
@@ -27,178 +27,291 @@ interface IEventData {
     timeDate: {seconds: number, nanoseconds: number};
 }
 
-interface IEventCard {
-    setMessage: React.Dispatch<React.SetStateAction<string>>;
-}
+// const CreateEvent = ({ setMessage }: IEventCard) => {
 
-const CreateEvent = ({ setMessage }: IEventCard) => {
-    const { register, setError, formState: {errors}, handleSubmit } = useForm<IEventForm>()
+// }
+
+// const EditEvent = ({ setMessage }: IEventCard) => {
+//     const { register, setValue, setError, formState: {errors}, handleSubmit } = useForm<IEventForm>()
+//     const [events, setEvents] = useState<IEventForm[]>([])
+//     const [selected, setSelected] = useState(0)
+//     const eventsCollection = collection(db, "events");
+
+//     const onSubmit = async (data: IEventForm) => {
+//         const {time, date, ...event} = data
+//         const res = await getDocs(query(eventsCollection, where("name", "==", events[selected].name)))
+//         const promises: Promise<void>[] = []
+//         res.forEach(d => {
+//             promises.push(updateDoc(d.ref, {
+//                 timeDate: new Date(`${date} ${time}`),
+//                 ...event
+//             }))
+//         })
+
+//         await Promise.all(promises)
+//         setMessage("Updated event successfully")
+//     }
+
+//     const setFormValues = (event: IEventForm) => {
+//         setValue('name', event.name)
+//         setValue('description', event.description)
+//         setValue('eventType', event.eventType)
+//         setValue('venue', event.venue)
+//         setValue('date', event.date)
+//         setValue('time', event.time)
+//     }
+
+//     const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+//         const v = parseInt(e.target.value)
+//         setSelected(parseInt(e.target.value))
+//         setFormValues(events[v])
+//     }
+
+//     useEffect(() => {
+//         getDocs(eventsCollection).then(res => {
+//             const rawevents: IEventData[] = []
+
+//             res.forEach(d => rawevents.push(d.data() as IEventData))
+//             const fetchedevents = rawevents.map(({timeDate, ...e}) => {
+//                 const date = new Date(timeDate.seconds * 1000)
+//                 return {...e, date: date.toLocaleDateString('en-CA'), time: date.toTimeString().substring(0,5)}
+//             })
+//             setEvents(fetchedevents)
+//             setFormValues(fetchedevents[0])
+//             console.log(fetchedevents)
+//         })
+//     }, [])
+
+//     return (
+//         <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full">
+//             <h1 className="text-2xl font-bold" style={styles.textPrimary}>Edit Event</h1>
+//             <div className="grid grid-cols-5 gap-6 mt-4">
+//                 <div className="col-span-5">
+//                     <label className="block text-gray-600 text-sm">Select Event</label>
+//                     <select className="block w-full focus:outline-none bottom-border pt-2" value={selected} onChange={onSelectChange}>
+//                         {
+//                             events.map((e, id) => (
+//                                 <option key={e.name} value={id}>{e.name}</option>
+//                             ))
+//                         }
+//                     </select>
+//                 </div>
+//                 <div className="col-span-3">
+//                     <label className="block text-gray-600 text-sm">Event Name</label>
+//                     <input type="text" id="name" className="block w-full focus:outline-none bottom-border pt-2" {...register("name", {required: true})}/>
+//                 </div>
+//                 <div className="col-span-3">
+//                     <label className="block text-gray-600 text-sm">Event Description</label>
+//                     <input type="text" id="description" className="block w-full focus:outline-none bottom-border pt-2" {...register("description", {required: true})} />
+//                 </div>
+//                 <div className="col-span-2">
+//                     <label className="block text-gray-600 text-sm">Type</label>
+//                     <select id="type" className="block w-full focus:outline-none bottom-border pt-2" {...register("eventType")}>
+//                         {
+//                             eventTypes.map(event => (
+//                                 <option key={event}>{event}</option>
+//                             ))
+//                         }
+//                     </select>
+//                 </div>
+//                 <div className="col-span-3">
+//                     <label className="block text-gray-600 text-sm">Event Location</label>
+//                     <input type="text" id="location" className="block w-full focus:outline-none bottom-border pt-2" {...register("venue", {required: true})} />
+//                 </div>
+//                 <div className="col-span-3">
+//                     <label className="block text-gray-600 text-sm">Event Date</label>
+//                     <input type="date" id="date" className="block w-full focus:outline-none bottom-border pt-2" {...register("date", {required: true})} />
+//                 </div>
+//                 <div className="col-span-2">
+//                     <label className="block text-gray-600 text-sm">Event Time</label>
+//                     <input type="time" id="time" className="block w-full focus:outline-none bottom-border pt-2" {...register("time", {required: true})} />
+//                 </div>
+//             </div>
+//             <button className="p-3 block w-40 rounded-3xl text-white mt-8" style={{background: "#0C72B0"}} onClick={handleSubmit(onSubmit)}>Edit</button>
+//         </div>
+//     )
+// }
+
+const Events = () => {
+    // const [message, setMessage] = useState("")
+    const [events, setEvents] = useState<IEventForm[]>([])
+    const [state, setState] = useState({ search: "", editing: false, editingID: "" })
+
+    const { register, setValue, reset, formState: {errors}, handleSubmit } = useForm<IEventForm>()
     const eventsCollection = collection(db, "events");
     const onSubmit = (data: IEventForm) => {
         const { date, time, ...formdata } = data
         const timeDate = new Date(`${date} ${time}`)
-
-        addDoc(eventsCollection, { timeDate, ...formdata })
-        .then((docRef) => {
-            setMessage("Created event successfully")
-        })
-        .catch((error) => {
-            console.error("Error adding document: ", error);
-        });
-    }
-
-    return (
-        <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full">
-            <h1 className="text-2xl font-bold" style={styles.textPrimary}>Create Event</h1>
-            <div className="grid grid-cols-5 gap-6 mt-4">
-                <div className="col-span-3">
-                    <label className="block text-gray-600 text-sm">Event Name</label>
-                    <input type="text" id="name" className="block w-full focus:outline-none bottom-border pt-2" {...register("name", {required: true})} />
-                </div>
-                <div className="col-span-3">
-                    <label className="block text-gray-600 text-sm">Event Description</label>
-                    <input type="text" id="description" className="block w-full focus:outline-none bottom-border pt-2" {...register("description", {required: true})} />
-                </div>
-                <div className="col-span-2">
-                    <label className="block text-gray-600 text-sm">Type</label>
-                    <select id="type" className="block w-full focus:outline-none bottom-border pt-2" {...register("eventType")}>
-                        {
-                            eventTypes.map(event => (
-                                <option key={event}>{event}</option>
-                            ))
-                        }
-                    </select>
-                </div>
-                <div className="col-span-3">
-                    <label className="block text-gray-600 text-sm">Event Location</label>
-                    <input type="text" id="location" className="block w-full focus:outline-none bottom-border pt-2" {...register("venue", {required: true})} />
-                </div>
-                <div className="col-span-3">
-                    <label className="block text-gray-600 text-sm">Event Date</label>
-                    <input type="date" id="date" className="block w-full focus:outline-none bottom-border pt-2" {...register("date", {required: true})} />
-                </div>
-                <div className="col-span-2">
-                    <label className="block text-gray-600 text-sm">Event Time</label>
-                    <input type="time" id="time" className="block w-full focus:outline-none bottom-border pt-2" {...register("time", {required: true})} />
-                </div>
-            </div>
-            <button className="p-3 block w-40 rounded-3xl text-white mt-8" style={{background: "#0C72B0"}} onClick={handleSubmit(onSubmit)}>Create</button>
-        </div>
-    )
-}
-
-const EditEvent = ({ setMessage }: IEventCard) => {
-    const { register, setValue, setError, formState: {errors}, handleSubmit } = useForm<IEventForm>()
-    const [events, setEvents] = useState<IEventForm[]>([])
-    const [selected, setSelected] = useState(0)
-    const eventsCollection = collection(db, "events");
-
-    const onSubmit = async (data: IEventForm) => {
-        const {time, date, ...event} = data
-        const res = await getDocs(query(eventsCollection, where("name", "==", events[selected].name)))
-        const promises: Promise<void>[] = []
-        res.forEach(d => {
-            promises.push(updateDoc(d.ref, {
-                timeDate: new Date(`${date} ${time}`),
-                ...event
-            }))
-        })
-
-        await Promise.all(promises)
-        setMessage("Updated event successfully")
-    }
-
-    const setFormValues = (event: IEventForm) => {
-        setValue('name', event.name)
-        setValue('description', event.description)
-        setValue('eventType', event.eventType)
-        setValue('venue', event.venue)
-        setValue('date', event.date)
-        setValue('time', event.time)
-    }
-
-    const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const v = parseInt(e.target.value)
-        setSelected(parseInt(e.target.value))
-        setFormValues(events[v])
+        console.log({ timeDate, ...formdata })
+        // addDoc(eventsCollection, { timeDate, ...formdata })
+        // .then((docRef) => {
+        //     // setMessage("Created event successfully")
+        // })
+        // .catch((error) => {
+        //     console.error("Error adding document: ", error);
+        // });
     }
 
     useEffect(() => {
+        // if (events) return
         getDocs(eventsCollection).then(res => {
             const rawevents: IEventData[] = []
 
             res.forEach(d => rawevents.push(d.data() as IEventData))
             const fetchedevents = rawevents.map(({timeDate, ...e}) => {
                 const date = new Date(timeDate.seconds * 1000)
-                return {...e, date: date.toLocaleDateString('en-CA'), time: date.toTimeString().substring(0,5)}
+                return {...e, date: date.toLocaleDateString('en-CA'), time: date.toTimeString().substring(0,5), id: ""}
             })
             setEvents(fetchedevents)
-            setFormValues(fetchedevents[0])
             console.log(fetchedevents)
         })
     }, [])
 
-    return (
-        <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full">
-            <h1 className="text-2xl font-bold" style={styles.textPrimary}>Edit Event</h1>
-            <div className="grid grid-cols-5 gap-6 mt-4">
-                <div className="col-span-5">
-                    <label className="block text-gray-600 text-sm">Select Event</label>
-                    <select className="block w-full focus:outline-none bottom-border pt-2" value={selected} onChange={onSelectChange}>
-                        {
-                            events.map((e, id) => (
-                                <option key={e.name} value={id}>{e.name}</option>
-                            ))
-                        }
-                    </select>
-                </div>
-                <div className="col-span-3">
-                    <label className="block text-gray-600 text-sm">Event Name</label>
-                    <input type="text" id="name" className="block w-full focus:outline-none bottom-border pt-2" {...register("name", {required: true})}/>
-                </div>
-                <div className="col-span-3">
-                    <label className="block text-gray-600 text-sm">Event Description</label>
-                    <input type="text" id="description" className="block w-full focus:outline-none bottom-border pt-2" {...register("description", {required: true})} />
-                </div>
-                <div className="col-span-2">
-                    <label className="block text-gray-600 text-sm">Type</label>
-                    <select id="type" className="block w-full focus:outline-none bottom-border pt-2" {...register("eventType")}>
-                        {
-                            eventTypes.map(event => (
-                                <option key={event}>{event}</option>
-                            ))
-                        }
-                    </select>
-                </div>
-                <div className="col-span-3">
-                    <label className="block text-gray-600 text-sm">Event Location</label>
-                    <input type="text" id="location" className="block w-full focus:outline-none bottom-border pt-2" {...register("venue", {required: true})} />
-                </div>
-                <div className="col-span-3">
-                    <label className="block text-gray-600 text-sm">Event Date</label>
-                    <input type="date" id="date" className="block w-full focus:outline-none bottom-border pt-2" {...register("date", {required: true})} />
-                </div>
-                <div className="col-span-2">
-                    <label className="block text-gray-600 text-sm">Event Time</label>
-                    <input type="time" id="time" className="block w-full focus:outline-none bottom-border pt-2" {...register("time", {required: true})} />
-                </div>
-            </div>
-            <button className="p-3 block w-40 rounded-3xl text-white mt-8" style={{background: "#0C72B0"}} onClick={handleSubmit(onSubmit)}>Edit</button>
-        </div>
-    )
-}
+    const deleteEvent = async (event: IEventForm) => {
+        console.log('Deleting:', event)
+        toast.error("Not implemented")
 
-const Events = () => {
-    const [message, setMessage] = useState("")
+        // await deleteDoc(event.id)
+        // setMessage(`event ${event.title} deleted successfully`)
+        // setevents(events.filter(t => t.id !== event.id))
+    }
+
+    const editEvent = async (event: IEventForm) => {
+        setValue("name", event.name)
+        setValue("description", event.description)
+        // @ts-ignore
+        setValue("date", event.date)
+        setValue("time", event.time)
+        setValue("venue", event.venue)
+        setValue("eventType", event.eventType)
+
+        setState({ ...state, editing: true, editingID: event.id })
+    }
+
+    const onEdit = async (data: IEventForm) => {
+        toast.error("Not Implemented")
+    }
+
+    const onCancel = () => {
+        setState({ ...state, editing: false, editingID: "" })
+        reset()
+    }
+
+    const onSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setState({ ...state, search: e.target.value })
+    }
+
 
     return (
         <ProtectedRoute>
+            <ToastContainer
+                position="top-left"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
-                <ToastMessage message={message} setMessage={setMessage} />
                 <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Events</h1>
-                    <CreateEvent setMessage={setMessage} />
-                    <EditEvent setMessage={setMessage} />
+                    <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full">
+                    <h1 className="text-2xl font-bold" style={styles.textPrimary}>{state.editing ? "Edit Event" : "Create Event"}</h1>
+                    <div className="grid grid-cols-5 gap-6 mt-4">
+                        <div className="col-span-3">
+                            <label className="block text-gray-600 text-sm">Event Name<span className="text-red-500">*</span></label>
+                            <input type="text" id="name" className="block w-full focus:outline-none bottom-border pt-2" {...register("name", {required: true})} />
+                            {errors.name && <p className="text-red-500 text-sm" role="alert">Event name is required</p>}
+                        </div>
+                        <div className="col-span-2">
+                            <label className="block text-gray-600 text-sm">Type</label>
+                            <select id="type" className="block w-full focus:outline-none bottom-border pt-2" {...register("eventType")}>
+                                {
+                                    eventTypes.map(event => (
+                                        <option key={event}>{event}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className="col-span-5">
+                            <label className="block text-gray-600 text-sm">Event Description<span className="text-red-500">*</span></label>
+                            <textarea id="description" className="block w-full focus:outline-none bottom-border pt-2" rows={1} {...register("description", {required: true})}></textarea>
+                            {errors.description && <p className="text-red-500 text-sm" role="alert">Description is required</p>}
+                        </div>
+                        <div className="col-span-3">
+                            <label className="block text-gray-600 text-sm">Event Location<span className="text-red-500">*</span></label>
+                            <input type="text" id="location" className="block w-full focus:outline-none bottom-border pt-2" {...register("venue", {required: true})} />
+                            {errors.venue && <p className="text-red-500 text-sm" role="alert">Venue is required</p>}
+                        </div>
+                        <div className="col-span-3">
+                            <label className="block text-gray-600 text-sm">Event Date<span className="text-red-500">*</span></label>
+                            <input type="date" id="date" className="block w-full focus:outline-none bottom-border pt-2" {...register("date", {required: true, valueAsDate: true})} />
+                            {errors.date && <p className="text-red-500 text-sm" role="alert">Date is required</p>}
+                        </div>
+                        <div className="col-span-2">
+                            <label className="block text-gray-600 text-sm">Event Time<span className="text-red-500">*</span></label>
+                            <input type="time" id="time" className="block w-full focus:outline-none bottom-border pt-2" {...register("time", {required: true})} />
+                            {errors.time && <p className="text-red-500 text-sm" role="alert">Time is required</p>}
+                        </div>
+                    </div>
+                    {/* <button className="p-3 block w-40 rounded-3xl text-white mt-8" style={{background: "#0C72B0"}} onClick={handleSubmit(onSubmit)}>Create</button> */}
+                    {
+                        !state.editing ? 
+                            <button className="p-3 block w-40 rounded-3xl text-white mt-8" style={{background: "#0C72B0"}} onClick={handleSubmit(onSubmit)}>Create</button> :
+                            <div className="text-white mt-8 flex gap-2">
+                                <button className="p-3 block w-40 rounded-3xl" style={{background: "#0C72B0"}} onClick={handleSubmit(onEdit)}>Edit</button>
+                                <button className="p-3 block w-40 rounded-3xl bg-red-500" onClick={() => onCancel()}>Cancel</button>
+                            </div>
+                    }
+                </div>
+                    {/* <EditEvent setMessage={setMessage} /> */}
+                <div className="bg-white py-4 px-6 mb-8 rounded-xl">
+                    <div className="grid grid-cols-6 gap-4">
+                            <div className="col-span-4 flex flex-col">
+                                <label className="text-gray-500">Search</label>
+                                <input id="search" type="text" className="text-lg pt-2 bottom-border" onChange={onSearchChange} placeholder="Search email ID or name" value={state?.search}/>
+                            </div>
+
+                            {/* <button className="p-2 mt-4 text-white rounded-xl" style={{background: "#0C72B0"}}>Search</button> */}
+                    </div>
+                    <table className="table-auto w-full mt-8 text-center">
+                            <thead>
+                                <tr className="text-left">
+                                    <th className="border p-1">S.No</th>
+                                    <th className="border p-1">Name</th>
+                                    <th className="border p-1">Type</th>
+                                    <th className="border p-1">Date</th>
+                                    <th className="border p-1">Venue</th>
+                                    <th className="border p-1">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    events
+                                    .filter(u => !state.search || u.name.toLowerCase().includes(state.search!.toLowerCase()) || u.venue?.toLowerCase().includes(state.search!.toLowerCase()))
+                                    .map((u,index) => (
+                                        <tr key={u.name} className="text-left border-black">
+                                            <td className="border p-1">{index + 1}</td>
+                                            <td className="border p-1">{u.name}</td>
+                                            <td className="border p-1">{u.eventType}</td>
+                                            <td className="border p-1">{u.date}</td>
+                                            <td className="border p-1">{u.venue}</td>
+                                            <td className="border p-1">
+                                                <button className="bg-yellow-500 text-white py-1 px-4 rounded-lg" onClick={() => editEvent(u)}>Edit</button>
+                                                <button className="bg-red-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => deleteEvent(u)}>Delete</button>
+
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                        { !events.length && <p className="text-center text-xl mt-4">No results found</p>}
+                    </div>
                 </div>
                 <SideNav />
             </div>

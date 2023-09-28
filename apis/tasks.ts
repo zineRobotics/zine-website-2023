@@ -1,10 +1,9 @@
 import { db } from '../firebase';
-import { collection, addDoc, getDoc, DocumentReference } from "firebase/firestore";
-import { createRoom } from './room';
+import { collection, addDoc, getDoc, DocumentReference, Timestamp } from "firebase/firestore";
+import { createRoom, getRoom } from './room';
 
 const tasksCollection = collection(db, "tasks");
 const userTasksCollection = collection(db, "userTasks")
-const roomsCollection = collection(db, "rooms")
 
 interface ITaskCreateData {
     title: string;
@@ -12,14 +11,24 @@ interface ITaskCreateData {
     link: string;
     subheading: string;
     description: string;
-    dueDate: string;
-    mentors: DocumentReference[];
+    submissionLink: string;
+    dueDate: Date;
+    mentors: string[];
     createRoom: boolean;
     roomName?: string; // if createRoom is true
-    roomid?: DocumentReference;
 }
 
-export const createTask = async (taskData: ITaskCreateData) => {
+export const createTask = async (data: ITaskCreateData) => {
+    var roomid = null;
+    if (data.createRoom == false && data.roomName) roomid = getRoom(data.roomName)
+
+    const taskData = {
+        ...data,
+        createdDate: Timestamp.fromDate(new Date()),
+        roomid,
+        dueDate:  Timestamp.fromDate(data.dueDate)
+    }
+    
     return addDoc(tasksCollection, taskData)
 }
 

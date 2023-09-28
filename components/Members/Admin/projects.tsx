@@ -68,7 +68,7 @@ const Projects = () => {
                         checkpoints: userProject.checkpoints,
                         status: userProject.status,
                         user: {name, email},
-                        task: tasks[userProject.task.id],
+                        task: tasks[userProject.task?.id],
                         id: d.id
                     }
 
