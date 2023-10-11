@@ -7,7 +7,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { useForm } from "react-hook-form";
 import { db } from '../../../firebase';
 import { DocumentReference, collection, deleteDoc, getDocs } from "firebase/firestore";
-import ToastMessage from "../toastMessage";
+import { ToastContainer, toast } from "react-toastify";
 
 interface IAddRegistration {
     email: string;
@@ -41,7 +41,6 @@ const Registrations = () => {
     const regCollection = collection(db, "registrations")
 
     const [users, setUsers] = useState<IRegisteredUsers[]>([])
-    const [message, setMessage] = useState("");
     const [refMap, setRefMap] = useState<{[key: string]: DocumentReference}>({})
     const [state, setState] = useState<ISearchData>({ search: "", platform: "N/A", gender: "N/A"})
     const onSubmit = (data: IAddRegistration) => {
@@ -55,7 +54,7 @@ const Registrations = () => {
 
     const deleteRegistration = async (email: string) => {
         await deleteDoc(refMap[email])
-        setMessage(`Registration ${email} deleted successfully`)
+        toast.success(`Registration ${email} deleted successfully`)
         setUsers(users.filter(u => u.email !== email))
     }
 
@@ -69,24 +68,24 @@ const Registrations = () => {
                 setRefMap((state) => {return {...state, [d.data().email]: d.ref}})
             })
             setUsers(newusers)
-
-            // const userEmails: string[] = []
-            // getDocs(collection(db, "users")).then((res) => {
-            //     res.forEach(d => userEmails.push(d.data().email))
-            //     console.log("All app users email:")
-            //     console.log(userEmails.filter(u => u.startsWith("2022")).join(" "))
-            //     console.log("Registered but not app users: ")
-            //     const registeredNotUsers = registeredEmails.filter(u => !userEmails.includes(u))
-            //     console.log(registeredNotUsers.join(" "), registeredNotUsers.length)
-            // })
         })
     }, [])
 
     return (
         <ProtectedRoute>
-            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
-                <ToastMessage message={message} setMessage={setMessage} />
-                
+            <ToastContainer
+                position="top-left"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}> 
                 <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Registrations</h1>
                     <div className="grid grid-cols-9 gap-8 my-8">

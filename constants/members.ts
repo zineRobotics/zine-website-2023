@@ -1242,7 +1242,7 @@ export const year2023: Member[] = [
   {
     name: "APOORVA RAJ",
     image: apoorva,
-    desc: "Mechanical Engineering",
+    desc: "SDE at BOX 8",
     github: "",
     linkedin: "https://www.linkedin.com/in/apoorva-raj-840a871ab",
     twitter: "",
@@ -1252,7 +1252,7 @@ export const year2023: Member[] = [
   {
     name: "ARYAMAN SINGH",
     image: aryaman,
-    desc: "Electrical Engineering",
+    desc: "SDE at Airtel",
     github: "",
     linkedin: "https://www.linkedin.com/in/aryaman-singh-kushwaha-a139491b0/",
     twitter: "",
@@ -1262,7 +1262,7 @@ export const year2023: Member[] = [
   {
     name: "CHIRAYU RANKAWAT",
     image: chirayu,
-    desc: "Mechanical Engineering",
+    desc: "Associate Software Engineer at Dassault Systèmes",
     github: "",
     linkedin: "https://in.linkedin.com/in/chirayu-rankawat",
     twitter: "",
@@ -1272,7 +1272,7 @@ export const year2023: Member[] = [
   {
     name: "DARSHAN DUSAD",
     image: darshan,
-    desc: "Computer Science Engineering",
+    desc: "Engineering Analyst at Goldman Sachs",
     github: "",
     linkedin: "https://www.linkedin.com/in/darshan-dusad-22b96b1ab/",
     twitter: "",
@@ -1282,7 +1282,7 @@ export const year2023: Member[] = [
   {
     name: "DEVANSH GARG",
     image: devansh,
-    desc: "Mechanical Engineering",
+    desc: "Associate Software Engineer at Droom",
     github: "",
     linkedin: "https://www.linkedin.com/in/DevanshGarg31",
     twitter: "",
@@ -1292,7 +1292,7 @@ export const year2023: Member[] = [
   {
     name: "HARSHIT GARG",
     image: harshit,
-    desc: "Mechanical Engineering",
+    desc: "Engineering Analyst at Goldman Sachs",
     github: "",
     linkedin: "https://www.linkedin.com/in/harshitgrg",
     twitter: "",
@@ -1302,7 +1302,7 @@ export const year2023: Member[] = [
   {
     name: "ISHIKA PANWAR",
     image: ishika,
-    desc: "Computer Science Engineering",
+    desc: "SDE at Optum",
     github: "",
     linkedin: "https://www.linkedin.com/in/ishika-panwar-23a5551a1/",
     twitter: "",
@@ -1312,7 +1312,7 @@ export const year2023: Member[] = [
   {
     name: "PAVNESH CHATURVEDI",
     image: pavnesh,
-    desc: "Electronics and Communication Engineering",
+    desc: "Software Engineer at Crio.do",
     github: "",
     linkedin: "https://www.linkedin.com/in/pavnesh-chaturvedi-208b15197/",
     twitter: "",
@@ -1322,7 +1322,7 @@ export const year2023: Member[] = [
   {
     name: "PUNEET SINGH",
     image: puneet,
-    desc: "Electronics and Communication Engineering",
+    desc: "SDE at Oracle",
     github: "",
     linkedin: "https://www.linkedin.com/in/puneet-singh-2001/",
     twitter: "",
@@ -1332,7 +1332,7 @@ export const year2023: Member[] = [
   {
     name: "RAHUL RAJ",
     image: rahul,
-    desc: "Mechanical Engineering",
+    desc: "Quant Developer at Futures First",
     github: "",
     linkedin: "https://www.linkedin.com/in/rahul-raj-4b6a271ba/",
     twitter: "",
@@ -1525,14 +1525,14 @@ export const year2025: Member[] = [
     instagram: "",
     facebook: "",
   },
-  {
-    name: "Moordhan Songadhe",
-    image: moordhan,
-    desc: "Computer Science Engineering",
-    github: "",
-    linkedin: "",
-    twitter: "",
-    instagram: "",
-    facebook: "",
-  },
+  // {
+  //   name: "Moordhan Songadhe",
+  //   image: moordhan,
+  //   desc: "Computer Science Engineering",
+  //   github: "",
+  //   linkedin: "",
+  //   twitter: "",
+  //   instagram: "",
+  //   facebook: "",
+  // },
 ];

@@ -3,7 +3,7 @@ import logo from "../../images/zine1.png";
 import hamburger from "../../images/hamburger.svg";
 import Image, { StaticImageData } from "next/image";
 import React, { useEffect, useState } from "react";
-// import {useRouter} from "next/router";
+import {useRouter} from "next/router";
 import home from "../../images/home-icon.webp";
 import about from "../../images/about.webp";
 import Project from "../../images/project-icon.webp";
@@ -16,6 +16,7 @@ import Blogs from "../../images/blogs-icon.png";
 const Navbar = () => {
   const [Hide, setHide] = useState(false);
   const [scroll, setscroll] = useState(false);
+  const router = useRouter()
   let scrollpos = 0;
 
   useEffect(() => {
@@ -32,13 +33,13 @@ const Navbar = () => {
     setscroll(visible);
   };
 
-  interface nav_detail {
+  interface INavData {
     text: string;
     image: StaticImageData;
     link: string;
   }
 
-  const data3: nav_detail[] = [
+  const navList: INavData[] = [
     {
       text: "Home",
       image: home,
@@ -87,7 +88,6 @@ const Navbar = () => {
   ];
 
   function Nav_Out() {
-    // document.body.style.overflow = "hidden"
     const LinkClick = (e: React.MouseEvent) => {
       setHide(false);
       document.body.style.overflow = "auto"
@@ -95,62 +95,55 @@ const Navbar = () => {
     };
 
     return (
-        <div className="lg:hidden font-poppins">
-          <div className={`bg-black z-30 w-full absolute h-full overflow-hidden duration-1000 ease-in-out transition-all`}>
-            {/* <div className="py-6 px-8">
-              <button className="text-white px-2 text-xl font-bold" onClick={() => {setHide(false); document.body.style.overflow = "auto"}}>
+      <div className="lg:hidden font-poppins">
+        <div className={`bg-black z-30 w-full absolute h-full overflow-hidden duration-1000 ease-in-out transition-all`}>
+          <div className="mt-8">
+            {navList.map((item, index) => (
+              <div key={index}>
+                <Link href={item.link}>
+                  <h1 className="text-white w-auto px-24 text-xl py-3 flex items-center">
+                    <Image src={item.image} alt="zine-logo" width="24" height="24" />
+                    {item.link === router.pathname ? (
+                      <a className="ml-3 font-extrabold text-xl" href={item.link} onClick={LinkClick}>{item.text}</a>
+                    ) : (
+                      <a className="ml-3" href={item.link}>{item.text}</a>
+                    )}
+                  </h1>
+                </Link>
+              </div>
+            ))}
 
-                <FontAwesomeIcon icon={faLeftLong}></FontAwesomeIcon>
-              </button>
-            </div> */}
-            <div className="mt-8">
-              {data3.map((item, index) => (
-                <div key={index}>
-                  <Link href={item.link}>
-                    <h1 className="text-white w-auto px-24 text-xl py-3 flex items-center">
-                        <Image src={item.image} width="24" height="24" />
-                        {item.link === location.pathname ? (
-                          <a className="ml-3 font-extrabold text-xl"  href={item.link} onClick={LinkClick}>{item.text}</a>
-                        ) : (
-                          <a className="ml-3" href={item.link}>{item.text}</a>
-                        )}
-                    </h1>
-                  </Link>
-                </div>
-              ))}
-
-              <Link href="/login" >
-                <div className="group flex gap-2 mx-24 mt-16 justify-center items-center bg-black text-white text-sm px-4 py-2 cursor-pointer border border-white hover:bg-white hover:text-black hover:border-black transition-colors">
-                  LOGIN
-                  <svg className="text-white stroke-white group-hover:text-black group-hover:stroke-black" width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
-                    <path id="Vector" d="M1.65685 0.656867V2.65091L9.55524 2.65798L0.949747 11.2635L2.36396 12.6777L10.9695 4.07219L10.9765 11.9706H12.9706V0.656867H1.65685Z" fill="currentColor" />
-                  </svg>
-                </div>
-              </Link>
-            </div>
+            <Link href="/login" >
+              <div className="group flex gap-2 mx-24 mt-16 justify-center items-center bg-black text-white text-sm px-4 py-2 cursor-pointer border border-white hover:bg-white hover:text-black hover:border-black transition-colors">
+                LOGIN
+                <svg className="text-white stroke-white group-hover:text-black group-hover:stroke-black" width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
+                  <path id="Vector" d="M1.65685 0.656867V2.65091L9.55524 2.65798L0.949747 11.2635L2.36396 12.6777L10.9695 4.07219L10.9765 11.9706H12.9706V0.656867H1.65685Z" fill="currentColor" />
+                </svg>
+              </div>
+            </Link>
           </div>
         </div>
+      </div>
     );
   }
 
   useEffect(() => {
     if (!Hide) document.body.style.overflow = "auto"
   }, [])
-  
+
 
   return (
     <>
       <div
-        className={`sticky top-0 bg-black h-18 md:h-24 z-10  ${
-          scroll ? "hiddenNav" : "activeNav"
-        }`}
+        className={`sticky top-0 bg-black h-18 md:h-24 z-10  ${scroll ? "hiddenNav" : "activeNav"
+          }`}
       >
         <div className="mx-6 md:mx-12 lg:mx-16 flex justify-between items-center text-white">
           <div className="cursor-pointer">
             <Link href="/">
-                <div className="h-14 w-18 mt-1 md:h-24 md:w-32 relative">
-                  <Image layout="fill" src={logo} />
-                </div>
+              <div className="h-14 w-18 mt-1 md:h-24 md:w-32 relative">
+                <Image layout="fill" src={logo} />
+              </div>
             </Link>
           </div>
           <div>
@@ -205,13 +198,12 @@ const Navbar = () => {
             </div>
 
             <div className="w-9 h-8 z-40 inline-block mt-3 lg:hidden">
-              <Image src={hamburger} onClick={() => {setHide(!Hide); document.body.style.overflow = Hide ? "auto" : "hidden";}} />
+              <Image src={hamburger} onClick={() => { setHide(!Hide); document.body.style.overflow = Hide ? "auto" : "hidden"; }} />
             </div>
           </div>
         </div>
       </div>
-      {Hide ? <Nav_Out /> : null}
-      {/* <Nav_Out /> */}
+      { Hide ? <Nav_Out /> : "" }
     </>
   );
 };

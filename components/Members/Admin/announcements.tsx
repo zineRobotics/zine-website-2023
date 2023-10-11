@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { useAuth } from "../../../context/authContext";
-import ToastMessage from "../toastMessage";
 import { announcementRoom, getMessages } from "../../../apis/room";
+import { ToastContainer, toast } from "react-toastify";
 
 interface ITimestamp {
     seconds: number;
@@ -31,8 +31,6 @@ const timestampToHuman = (timeStamp: ITimestamp) => {
 const Announcements = () => {
     const [announcements, setAnnouncements] = useState<IMessageData[]>([])
     const [msg, setMsg] = useState("")
-    const [message, setMessage] = useState("")
-
     const { authUser } = useAuth();
     console.log(authUser)
 
@@ -53,7 +51,7 @@ const Announcements = () => {
         await addDoc(collection(announcementRoom, "messages"), newAnnouncement)
         setMsg("")
         setAnnouncements([newAnnouncement, ...announcements])
-        setMessage("Successfully sent message to announcement channel")
+        toast.success("Successfully sent message to announcement channel")
     }
 
     useEffect(() => {
@@ -64,7 +62,18 @@ const Announcements = () => {
 
     return (
         <ProtectedRoute>
-            <ToastMessage message={message} setMessage={setMessage} />
+            <ToastContainer
+                position="top-left"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
 
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
@@ -83,7 +92,7 @@ const Announcements = () => {
                             announcements.map(msg => {
                                 const date = timestampToHuman(msg.timeStamp)
                                 return (
-                                    <div className="bg-white rounded-xl py-4 px-6 mt-2 w-full">
+                                    <div className="bg-white rounded-xl py-4 px-6 mt-2 w-full" key={msg.timeStamp.seconds}>
                                         <p className="text-gray-500 text-sm">{msg.from} | {date.time} {date.date}</p>
                                         <p>{msg.message}</p>
                                     </div>

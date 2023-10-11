@@ -4,7 +4,7 @@ import { collection, arrayUnion, arrayRemove, updateDoc, getDocs, query, where }
 import SideNav from "../sidenav";
 import styles from "../../../constants/styles";
 import ProtectedRoute from "./ProtectedRoute";
-import ToastMessage from "../toastMessage";
+import { ToastContainer, toast } from "react-toastify";
 
 interface IUserChannel {
     emails: string;
@@ -14,7 +14,6 @@ interface IUserChannel {
 
 interface IUserChannelCard {
     channels: string[];
-    setMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const validateEmail = (emailids: string) => {
@@ -26,7 +25,7 @@ const validateEmail = (emailids: string) => {
 
 const firstyear = "2022"
 
-const AddUser = ({ channels, setMessage }: IUserChannelCard) => {
+const AddUser = ({ channels }: IUserChannelCard) => {
     const {register, handleSubmit} = useForm<IUserChannel>()
     const usersCollection = collection(db, "users")
 
@@ -48,7 +47,7 @@ const AddUser = ({ channels, setMessage }: IUserChannelCard) => {
         })
 
         Promise.all(results).then(() => {
-            setMessage(`Successfully added ${results.length} user(s) to ${data.channel.length} channel(s)`)
+            toast.success(`Successfully added ${results.length} user(s) to ${data.channel.length} channel(s)`)
         })
     }
 
@@ -88,7 +87,7 @@ const AddUser = ({ channels, setMessage }: IUserChannelCard) => {
     )
 }
 
-const RemoveUser = ({ channels, setMessage }: IUserChannelCard) => {
+const RemoveUser = ({ channels }: IUserChannelCard) => {
     const {register, handleSubmit} = useForm<IUserChannel>()
     const usersCollection = collection(db, "users")
     const onSubmit = async (data: IUserChannel) => {
@@ -109,7 +108,7 @@ const RemoveUser = ({ channels, setMessage }: IUserChannelCard) => {
         })
 
         Promise.all(results).then(() => {
-            setMessage(`Successfully removed ${results.length} user(s) from ${data.channel.length} channel(s)`)
+            toast.success(`Successfully removed ${results.length} user(s) from ${data.channel.length} channel(s)`)
         })
     }
 
@@ -150,7 +149,6 @@ const RemoveUser = ({ channels, setMessage }: IUserChannelCard) => {
 const Users = () => {
     const roomsCollection = collection(db, "rooms")
     const [channels, setChannels] = useState<string[]>([])
-    const [message, setMessage] = useState("")
 
     useEffect(() => {
         const fetchedChannels = [] as string[]
@@ -163,12 +161,23 @@ const Users = () => {
     return (
         <ProtectedRoute>
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
-            <ToastMessage message={message} setMessage={setMessage} />
+            <ToastContainer
+                position="top-left"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
                 <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Users And Channels</h1>
                     <div className="grid gap-8 my-8 flex-1">
-                        <AddUser setMessage={setMessage} channels={channels} />
-                        <RemoveUser setMessage={setMessage} channels={channels} />
+                        <AddUser channels={channels} />
+                        <RemoveUser channels={channels} />
                     </div>
                 </div>
                 <SideNav />

@@ -282,7 +282,7 @@ const Web = () => {
             <p>&lt;/head&gt;</p>
             <p>&lt;body&gt;</p>
             <p>&lt;p &gt;Hello&lt;p&gt;</p>
-            <p>&lt;p class="fresher"&gt;Freshers&lt;p&gt;</p>
+            <p>&lt;p className="fresher"&gt;Freshers&lt;p&gt;</p>
             <p>
               &lt;p id="welcome"&gt;Welcome to the zine Recruitmeent&lt;p&gt;
             </p>

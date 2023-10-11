@@ -73,7 +73,8 @@ const Projects = () => {
                     }
 
                     setProjects(state => [...state, project])
-                    console.log(`${project.user.name},${project.user.email},${project.task.title}`)
+                    // console.log(`${project.user.name},${project.user.email},${project.task?.title}`)
+                    if (!project.task) console.log(project.user.email, project.id)
                 })
             })
         })
@@ -81,7 +82,6 @@ const Projects = () => {
 
     return (
         <ProtectedRoute>
-            {/* <ToastMessage message={message} setMessage={setMessage} /> */}
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-12 md:col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Projects</h1>

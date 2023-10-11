@@ -29,7 +29,7 @@ const Footer_Main = () => {
 
         <div className="col-start-2 hidden md:block">
           <Link href="/login">
-            <a class="cursor-pointer bg-black text-white font-semibold border border-white py-3 px-16 hover:bg-white hover:text-black hover:border-black transition-colors">
+            <a className="cursor-pointer bg-black text-white font-semibold border border-white py-3 px-16 hover:bg-white hover:text-black hover:border-black transition-colors">
               LOGIN
             </a>
           </Link>
@@ -96,47 +96,49 @@ const Footer_Main = () => {
           <div className="flex gap-4">
             <div className="w-8 md:w-8 col-span-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
               <Link href="https://www.instagram.com/zine.robotics/">
-                <FontAwesomeIcon
-                  icon={faInstagram}
-                  className="text-white mr-4"
-                  size="2x"
-                />
+                <a>
+                  <FontAwesomeIcon
+                    icon={faInstagram}
+                    className="text-white mr-4"
+                    size="2x"
+                  />
+                </a>
               </Link>
             </div>
             <div className="w-8 md:w-8 col-span-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
               <Link href="https://github.com/zine-robotics">
-                <FontAwesomeIcon
+                <a><FontAwesomeIcon
                   icon={faGithub}
                   className="text-white mr-4"
                   size="2x"
-                />
+                /></a>
               </Link>
             </div>
             <div className="w-8 md:w-8 col-span-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
               <Link href="https://www.facebook.com/ROBOTICS.ZINE/">
-                <FontAwesomeIcon
+                <a><FontAwesomeIcon
                   icon={faFacebook}
                   className="text-white mr-4"
                   size="2x"
-                />
+                /></a>
               </Link>
             </div>
             <div className="w-8 md:w-8 col-span-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
               <Link href="https://www.linkedin.com/company/de-zine-limited/mycompany/">
-                <FontAwesomeIcon
+                <a><FontAwesomeIcon
                   icon={faLinkedin}
                   className="text-white mr-4"
                   size="2x"
-                />
+                /></a>
               </Link>
             </div>
             <div className="w-8 md:w-8 col-span-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
               <Link href="https://www.youtube.com/channel/UC92-Bhcl13KcI0UUU2ZrN1Q">
-                <FontAwesomeIcon
+                <a><FontAwesomeIcon
                   icon={faYoutube}
                   className="text-white mr-4"
                   size="2x"
-                />
+                /></a>
               </Link>
             </div>
           </div>

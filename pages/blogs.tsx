@@ -3,7 +3,7 @@ import Head from "next/head";
 import {
   Blogs,
 } from "../components/Blogs";
-import { Footer, SecFooter } from "../components/Footer";
+import { SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 
 const Home: NextPage = () => {

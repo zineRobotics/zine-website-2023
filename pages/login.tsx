@@ -3,7 +3,7 @@ import Head from "next/head";
 import {
   Login,
 } from "../components/Members";
-import { Footer, SecFooter } from "../components/Footer";
+import { SecFooter } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import { AuthContextProvider } from "../context/authContext";
 

@@ -117,7 +117,7 @@ const Announcements = () => {
                             announcements.map(msg => {
                                 const date = timestampToHuman(msg.timeStamp)
                                 return (
-                                    <div className="bg-white rounded-xl py-4 px-6 w-full">
+                                    <div className="bg-white rounded-xl py-4 px-6 w-full" key={msg.timeStamp.seconds}>
                                         <p className="text-gray-500 text-sm">{msg.from} | {date.time} {date.date}</p>
                                         {/* <p className="whitespace-pre-wrap">
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}

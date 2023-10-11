@@ -7,10 +7,8 @@ import styles from "../../../constants/styles";
 import { db } from '../../../firebase';
 import { collection, query, getCountFromServer } from "firebase/firestore";
 import ProtectedRoute from "./ProtectedRoute";
-import ToastMessage from "../toastMessage";
 
 const Dashboard = () => {
-    const [message, setMessage] = useState("")
     const [state, setState] = useState({
         registered: 0,
         users: 0,
@@ -24,14 +22,14 @@ const Dashboard = () => {
     const tasksCollection = collection(db, "tasks")
     useEffect(() => {
         // Perform localStorage action
-        const item = localStorage.getItem('message')
-        setMessage(item || "")
-        if (item) {
-            setTimeout(() => {
-                setMessage("")
-                localStorage.removeItem("message")
-            }, 2000)
-        }
+        // const item = localStorage.getItem('message')
+        // setMessage(item || "")
+        // if (item) {
+        //     setTimeout(() => {
+        //         setMessage("")
+        //         localStorage.removeItem("message")
+        //     }, 2000)
+        // }
 
         getCountFromServer(query(registeredCollection)).then((res) => setState((prevstate) => { 
             return { ...prevstate, registered: res.data().count }
@@ -69,8 +67,6 @@ const Dashboard = () => {
         <ProtectedRoute>
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
-                    <ToastMessage message={message} setMessage={setMessage} />
-            
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Admin Panel</h1>
                     <div className="grid grid-cols-9 grid-rows-10 gap-8 my-8 flex-1">
                         <div className="col-span-3 row-span-4 bg-white rounded-xl py-4 px-16 flex flex-col justify-center">
