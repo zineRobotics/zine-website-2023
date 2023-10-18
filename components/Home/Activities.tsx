@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link"
-import Script from "next/script"
 import Image from "next/image"
 import Competition from "../../images/compet_11zon.webp"
 import RandD from "../../images/research_11zon.webp"

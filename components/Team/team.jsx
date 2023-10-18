@@ -10,7 +10,7 @@ import { founders, year2024, year2025 } from "../../constants/members";
 
 const Team = () => {
     return(
-      <div className="text-black bg-white w-screen justify-center pb-16">
+      <div className="text-black bg-white justify-center pb-16">
         <div className="keen-slider__slide number-slide11 h-60 md:h-100 lg:h-130 mb-4">
           <div className="absolute left-8 pl-16 text-xl md:text-3xl lg:text-5xl">
             <p>Team</p>

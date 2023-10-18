@@ -24,11 +24,18 @@ export const getMessages = async (room: DocumentReference, descending=true, coun
 }
 
 export const sendMessage = async (room: DocumentReference, message: string, user: any) => {
-    return addDoc(collection(room, 'messages'), {
+    const msgData = {
         from: user.name,
         group: room.id,
         message,
         sender_id: user.id,
         timeStamp: Timestamp.fromDate(new Date())
-    })
+    }
+
+    await addDoc(collection(room, 'messages'), msgData)
+    return msgData
+}
+
+export const deleteRoom = async () => {
+    
 }

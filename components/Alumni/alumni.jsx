@@ -9,7 +9,7 @@ import { year2009, year2010, year2011, year2012, year2016, year2017, year2018, y
 
 const Alumni = () => {
     return(
-      <div className="text-black bg-white w-screen justify-center pb-16">
+      <div className="text-black bg-white justify-center pb-16">
         {/* <div className="bg-cover bg-bg-alumni h-80 md:h-100 lg:h-130 px-12 lg:px-24"></div> */}
         <div className="keen-slider__slide number-slide12 h-60 md:h-100 lg:h-130 mb-4">
           <div className="absolute left-8 pl-16 text-xl md:text-3xl lg:text-5xl">

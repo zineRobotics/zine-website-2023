@@ -73,7 +73,6 @@ const Projects = () => {
                     }
 
                     setProjects(state => [...state, project])
-                    // console.log(`${project.user.name},${project.user.email},${project.task?.title}`)
                     if (!project.task) console.log(project.user.email, project.id)
                 })
             })

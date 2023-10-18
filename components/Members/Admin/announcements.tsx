@@ -3,9 +3,8 @@ import SideNav from "../sidenav";
 import ProtectedRoute from "./ProtectedRoute";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { useAuth } from "../../../context/authContext";
-import { announcementRoom, getMessages } from "../../../apis/room";
+import { announcementRoom, getMessages, sendMessage } from "../../../apis/room";
 import { ToastContainer, toast } from "react-toastify";
 
 interface ITimestamp {
@@ -32,25 +31,13 @@ const Announcements = () => {
     const [announcements, setAnnouncements] = useState<IMessageData[]>([])
     const [msg, setMsg] = useState("")
     const { authUser } = useAuth();
-    console.log(authUser)
-
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMsg(e.target.value)
-    }
 
     const onSubmit = async () => {
         if (!announcementRoom) return
-        const name = authUser.name
-        const newAnnouncement = {
-            from: name,
-            group: announcementRoom.id,
-            message: msg,
-            timeStamp: Timestamp.fromDate(new Date())
-        }
-
-        await addDoc(collection(announcementRoom, "messages"), newAnnouncement)
+        // await addDoc(collection(announcementRoom, "messages"), newAnnouncement)
+        const m = await sendMessage(announcementRoom, msg, authUser)
         setMsg("")
-        setAnnouncements([newAnnouncement, ...announcements])
+        setAnnouncements([m, ...announcements])
         toast.success("Successfully sent message to announcement channel")
     }
 
@@ -80,7 +67,7 @@ const Announcements = () => {
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Announcements</h1>
                     <p className="mt-8 text-gray-500">Create Announcement</p>
                     <div className="bg-white rounded-xl py-4 px-6 mt-2 w-full flex items-center">
-                        <input type="text" id="name" className="block w-full focus:outline-none bottom-border pt-2 mr-5" value={msg} onChange={onChange} />
+                        <input type="text" id="name" className="block w-full focus:outline-none bottom-border pt-2 mr-5" value={msg} onChange={(e) => {setMsg(e.target.value)}} />
                         <div onClick={onSubmit}>
                             <FontAwesomeIcon icon={faPaperPlane}/>
                         </div>

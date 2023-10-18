@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import SideNav from "../sidenav";
 import styles from "../../../constants/styles";
-import { db } from '../../../firebase';
-import { collection, getDocs } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import ProtectedRoute from "./ProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
+import { createEvent, deleteEvent, editEvent, eventTypes, fetchEvents } from "../../../apis/events";
 
-const eventTypes = ["Workshop", "Meeting", "Discussion", "Showcase", "Exhibition"] as const
 interface IEventForm {
     name: string;
     description: string;
     eventType: typeof eventTypes[number];
     venue: string;
-    date: string;
+    date: Date;
     time: string;
     id: string;
 }
@@ -22,60 +20,57 @@ interface IEventData {
     name: string;
     description: string;
     eventType: typeof eventTypes[number];
-    stage: number;
     venue: string;
     timeDate: {seconds: number, nanoseconds: number};
 }
 
 const Events = () => {
-    // const [message, setMessage] = useState("")
     const [events, setEvents] = useState<IEventForm[]>([])
     const [state, setState] = useState({ search: "", editing: false, editingID: "" })
 
     const { register, setValue, reset, formState: {errors}, handleSubmit } = useForm<IEventForm>()
-    const eventsCollection = collection(db, "events");
     const onSubmit = (data: IEventForm) => {
         const { date, time, ...formdata } = data
-        const timeDate = new Date(`${date} ${time}`)
-        console.log({ timeDate, ...formdata })
-        // addDoc(eventsCollection, { timeDate, ...formdata })
-        // .then((docRef) => {
-        //     // setMessage("Created event successfully")
-        // })
-        // .catch((error) => {
-        //     console.error("Error adding document: ", error);
-        // });
+        const eventData = { ...formdata, timeDate: new Date(`${date.toLocaleDateString('en-CA')} ${time}`) }
+        reset()
+        createEvent(eventData).then((res) => {
+            toast.success("Created event successfully")
+            setEvents(oldEvents => [ ...oldEvents, data])
+        }).catch((error) => {
+            console.log(error)
+            toast.error("Error adding document: ", error);
+        });
     }
 
     useEffect(() => {
         // if (events) return
-        getDocs(eventsCollection).then(res => {
-            const rawevents: IEventData[] = []
+        fetchEvents().then(res => {
+            const fetchedEvents: IEventForm[] = []
 
-            res.forEach(d => rawevents.push(d.data() as IEventData))
-            const fetchedevents = rawevents.map(({timeDate, ...e}) => {
-                const date = new Date(timeDate.seconds * 1000)
-                return {...e, date: date.toLocaleDateString('en-CA'), time: date.toTimeString().substring(0,5), id: ""}
+            res.forEach(d => {
+                const data = d.data() as IEventData
+                const date = new Date(data.timeDate.seconds * 1000)
+                fetchedEvents.push({...data, date: date, time: date.toTimeString().substring(0,5), id: d.id})
             })
-            setEvents(fetchedevents)
-            console.log(fetchedevents)
+            setEvents(fetchedEvents)
+            console.log(fetchedEvents)
         })
     }, [])
 
-    const deleteEvent = async (event: IEventForm) => {
-        console.log('Deleting:', event)
-        toast.error("Not implemented")
-
-        // await deleteDoc(event.id)
-        // setMessage(`event ${event.title} deleted successfully`)
-        // setevents(events.filter(t => t.id !== event.id))
+    const eventRemove = async (event: IEventForm) => {
+        toast.promise(deleteEvent(event.id), {
+            pending: 'Deleting Event',
+            success: `Event ${event.name} deleted successfully`,
+        }).then(() => {
+            setEvents(events.filter(t => t.id !== event.id))
+        })
     }
 
-    const editEvent = async (event: IEventForm) => {
+    const eventEdit = async (event: IEventForm) => {
         setValue("name", event.name)
         setValue("description", event.description)
         // @ts-ignore
-        setValue("date", event.date)
+        setValue("date", event.date.toLocaleDateString('en-CA'))
         setValue("time", event.time)
         setValue("venue", event.venue)
         setValue("eventType", event.eventType)
@@ -84,7 +79,16 @@ const Events = () => {
     }
 
     const onEdit = async (data: IEventForm) => {
-        toast.error("Not Implemented")
+        const { date, time, ...formdata } = data
+        const eventData = { ...formdata, timeDate: new Date(`${date.toLocaleDateString('en-CA')} ${time}`) }
+        reset()
+        editEvent(state.editingID, eventData).then((res) => {
+            toast.success("Edited event successfully")
+            setEvents(oldEvents => [...oldEvents.filter(e => e.id !== state.editingID), data])
+        }).catch((error) => {
+            console.log(error)
+            toast.error("Error adding document: ", error);
+        });
     }
 
     const onCancel = () => {
@@ -163,12 +167,14 @@ const Events = () => {
                             </div>
                     }
                 </div>
-                    {/* <EditEvent setMessage={setMessage} /> */}
+                    {/* <eventEdit setMessage={setMessage} /> */}
                 <div className="bg-white py-4 px-6 mb-8 rounded-xl">
+                    <h1 className="text-2xl font-bold" style={styles.textPrimary}>Search Events</h1>
+
                     <div className="grid grid-cols-6 gap-4">
                             <div className="col-span-4 flex flex-col">
-                                <label className="text-gray-500">Search</label>
-                                <input id="search" type="text" className="text-lg pt-2 bottom-border" onChange={onSearchChange} placeholder="Search email ID or name" value={state?.search}/>
+                                {/* <label className="text-gray-500">Search</label> */}
+                                <input id="search" type="text" className="text-lg pt-2 bottom-border focus:outline-none" onChange={onSearchChange} placeholder="Search name or venue" value={state?.search}/>
                             </div>
 
                             {/* <button className="p-2 mt-4 text-white rounded-xl" style={{background: "#0C72B0"}}>Search</button> */}
@@ -188,16 +194,17 @@ const Events = () => {
                                 {
                                     events
                                     .filter(u => !state.search || u.name.toLowerCase().includes(state.search!.toLowerCase()) || u.venue?.toLowerCase().includes(state.search!.toLowerCase()))
+                                    .sort((a, b) => a.date.getTime() - b.date.getTime())
                                     .map((u,index) => (
                                         <tr key={u.name} className="text-left border-black">
                                             <td className="border p-1">{index + 1}</td>
                                             <td className="border p-1">{u.name}</td>
                                             <td className="border p-1">{u.eventType}</td>
-                                            <td className="border p-1">{u.date}</td>
+                                            <td className="border p-1">{u.date.toLocaleDateString('en-CA')}</td>
                                             <td className="border p-1">{u.venue}</td>
                                             <td className="border p-1">
-                                                <button className="bg-yellow-500 text-white py-1 px-4 rounded-lg" onClick={() => editEvent(u)}>Edit</button>
-                                                <button className="bg-red-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => deleteEvent(u)}>Delete</button>
+                                                <button className="bg-yellow-500 text-white py-1 px-4 rounded-lg" onClick={() => eventEdit(u)}>Edit</button>
+                                                <button className="bg-red-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => eventRemove(u)}>Delete</button>
 
                                             </td>
                                         </tr>

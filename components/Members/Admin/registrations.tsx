@@ -58,18 +58,18 @@ const Registrations = () => {
         setUsers(users.filter(u => u.email !== email))
     }
 
-    useEffect(() => {
-        // const registeredEmails: any[] = []
-        getDocs(regCollection).then(res => {
-            const newusers: IRegisteredUsers[] = []
-            res.forEach(d => { 
-                newusers.push(d.data() as IRegisteredUsers)
-                // registeredEmails.push(d.data().email)
-                setRefMap((state) => {return {...state, [d.data().email]: d.ref}})
-            })
-            setUsers(newusers)
-        })
-    }, [])
+    // useEffect(() => {
+    //     // const registeredEmails: any[] = []
+    //     getDocs(regCollection).then(res => {
+    //         const newusers: IRegisteredUsers[] = []
+    //         res.forEach(d => { 
+    //             newusers.push(d.data() as IRegisteredUsers)
+    //             // registeredEmails.push(d.data().email)
+    //             setRefMap((state) => {return {...state, [d.data().email]: d.ref}})
+    //         })
+    //         setUsers(newusers)
+    //     })
+    // }, [])
 
     return (
         <ProtectedRoute>

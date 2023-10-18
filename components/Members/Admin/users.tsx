@@ -160,7 +160,6 @@ const Users = () => {
 
     return (
         <ProtectedRoute>
-            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
             <ToastContainer
                 position="top-left"
                 autoClose={5000}
@@ -173,6 +172,7 @@ const Users = () => {
                 pauseOnHover
                 theme="light"
             />
+            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Users And Channels</h1>
                     <div className="grid gap-8 my-8 flex-1">
