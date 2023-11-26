@@ -1,5 +1,5 @@
 import { db } from '../firebase';
-import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp } from "firebase/firestore";
+import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp, deleteDoc } from "firebase/firestore";
 
 
 const roomsCollection = collection(db, "rooms")
@@ -36,6 +36,6 @@ export const sendMessage = async (room: DocumentReference, message: string, user
     return msgData
 }
 
-export const deleteRoom = async () => {
-    
+export const deleteRoom = async (roomid: string) => {
+    return deleteDoc(doc(roomsCollection, roomid))   
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from 'next/router'
 import ZineLogo from "../../images/zinelogo.png"
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/authContext";
+import { signUp, useAuth } from "../../context/authContext";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import { sendEmailVerification } from "firebase/auth";
@@ -32,7 +32,6 @@ const validateEmail = (email: string) => {
 
 const Signup = () => {
     const { register, reset, setError, watch, formState: {errors}, handleSubmit } = useForm<ILoginData>()
-    const { signUp } = useAuth()
     const router = useRouter()
 
     const checkPasswordConfirmation = (passwordConfirmation: string) => {

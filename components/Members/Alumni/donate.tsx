@@ -33,8 +33,8 @@ const Donate = () => {
             currency,
             remarks,
             receipt: "ZINE Donation",
-            email: authUser.email,
-            userid: authUser.uid
+            email: authUser!.email,
+            userid: authUser!.uid
         }).then(order => {
             const data = order.data as ICreateOrderResult
             const rzpay = new Razorpay({
@@ -48,8 +48,8 @@ const Donate = () => {
                     color: "#0C72B0"
                 },
                 prefill: {
-                    name: authUser.name,
-                    email: authUser.email,
+                    name: authUser!.name,
+                    email: authUser!.email,
                 },
                 handler: async (response) => {
                     console.log(response)
@@ -77,7 +77,7 @@ const Donate = () => {
     }
 
     useEffect(() => {
-        fetchAllDonations(authUser.uid).then(res => {
+        fetchAllDonations(authUser!.uid).then(res => {
             setDonations(res.docs.map(d => {
                 const data = d.data()
                 return { ...data, date: new Date(data.date.seconds * 1000) } as IDonation

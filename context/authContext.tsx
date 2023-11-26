@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { getDoc, doc } from "firebase/firestore";
+import { Router, useRouter } from "next/router";
 
 interface UserType {
   email: string | null;
@@ -16,25 +17,39 @@ interface UserType {
 interface IAuthUser {
   name: string;
   email: string;
-  type: "user" | "admin";
+  type: "user" | "admin" | "alumni";
+  uid: string
 }
 
-const AuthContext = createContext({});
-export const useAuth = () => useContext<any>(AuthContext);
+interface IAuthContext {
+  user: UserType,
+  authUser: IAuthUser | undefined,
+  logOut: () => Promise<void>
+}
+
+const AuthContext = createContext<IAuthContext>({ user: { email: null, uid: null }, authUser: undefined, logOut: async () => {} });
+export const useAuth = () => useContext<IAuthContext>(AuthContext);
+
+export const logIn = (email: string, password: string) => signInWithEmailAndPassword(auth, email, password);
+export const signUp = (name: string, email: string, password: string) => createUserWithEmailAndPassword(auth, email, password)
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserType>({ email: null, uid: null });
-  const [authUser, setAuthUser] = useState<IAuthUser>();
+  const [authUser, setAuthUser] = useState<IAuthUser | undefined>();
   const [loading, setLoading] = useState(true);
+  const router = useRouter()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (u) => {
       if (u) {
         setUser({ email: u.email, uid: u.uid });
-        
-        const snapshot = await getDoc(doc(db, "users", u.uid))
-        setAuthUser(snapshot.data() as IAuthUser)
-        console.log('Authenticated')
+
+        if (!authUser) {
+          const snapshot = await getDoc(doc(db, "users", u.uid));
+          const userData = snapshot.data() as IAuthUser;
+          setAuthUser(userData);
+          console.log('Authenticated');
+        }
       } else {
         setUser({ email: null, uid: null });
       }
@@ -44,17 +59,15 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return () => unsubscribe();
   }, []);
 
-  const logIn = (email: string, password: string) => signInWithEmailAndPassword(auth, email, password);
-  const signUp = (name: string, email: string, password: string) => createUserWithEmailAndPassword(auth, email, password)
-
   const logOut = async () => {
-    setUser({ email: null, uid: null});
+    setUser({ email: null, uid: null });
     setAuthUser(undefined);
+    await router.push("/login")
     await signOut(auth);
   };
 
   return (
-    <AuthContext.Provider value={{ user, authUser, logIn, logOut, signUp }}>
+    <AuthContext.Provider value={{ user, authUser, logOut }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

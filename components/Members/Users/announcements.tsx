@@ -105,8 +105,8 @@ const Announcements = () => {
                         
                         <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8" style={{ background: "linear-gradient(135deg, #9B9C9C 0%, #D4D4D4 100%)" }}>
                             <div className="mt-24">
-                              <h1 className="text-2xl text-white font-extrabold">{ authUser.email.split('@')[0].toUpperCase() }</h1>
-                              <h3 className="text-lg text-white">{ authUser.name } </h3>
+                              <h1 className="text-2xl text-white font-extrabold">{ authUser!.email.split('@')[0].toUpperCase() }</h1>
+                              <h3 className="text-lg text-white">{ authUser!.name } </h3>
                             </div>
                         </div>
                     </div>

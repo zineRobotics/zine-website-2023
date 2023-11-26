@@ -37,7 +37,7 @@ const SideNav = () => {
             </div>
 
             {
-                authUser.type === "admin" && 
+                authUser!.type === "admin" && 
                 <div className="mt-24">
                     <Link href="/admin/dashboard">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "dashboard" ? "font-bold" : ""}`}>Dashboard</p>
@@ -65,7 +65,7 @@ const SideNav = () => {
                 </div>
             }
             {
-                authUser.type === "user" &&
+                authUser!.type === "user" &&
                 <div className="mt-24">
                     <Link href="/users/projects">
                         <p className={`text-xl text-gray-300 pointer-events-none ${page === "projects" ? "font-bold" : ""}`}>Projects <FontAwesomeIcon icon={faLock}/></p>

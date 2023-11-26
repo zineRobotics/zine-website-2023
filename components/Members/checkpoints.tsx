@@ -74,7 +74,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
 
     const onSubmit = async () => {
         if (!groupid) return
-        const name = authUser.name
+        const name = authUser!.name
         const timeStamp = Timestamp.fromDate(new Date())
         const newMessage = {
             from: name,
@@ -85,7 +85,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
         
         setInputMessage("")
         await setDoc(doc(db, "rooms", groupid, "messages", timeStamp.nanoseconds.toString()), newMessage)
-        await sendFCMMessage(roomName, roomName, `${authUser.name}: ${inputMessage.trim()}`)
+        await sendFCMMessage(roomName, roomName, `${authUser!.name}: ${inputMessage.trim()}`)
         setMessages([...messages, newMessage])
     }
 
@@ -97,7 +97,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
         const checkpointData = {
             message: checkpointMessage.trim(),
             timeDate: Timestamp.fromDate(new Date()),
-            user: authUser.name as string
+            user: authUser!.name
         }
 
         updateDoc(doc(db, "userTasks", project.id), {
@@ -107,14 +107,14 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
             setProject({ ...project, checkpoints: newCheckpoints })
             const timeStamp = Timestamp.fromDate(new Date())
             const newMessage = {
-                from: authUser.name,
+                from: authUser!.name,
                 group: groupid,
-                message: `${authUser.type === "admin" ? "[REMARK]:" : "[CHECKPOINT]:"} ${checkpointMessage.trim()}`,
+                message: `${authUser!.type === "admin" ? "[REMARK]:" : "[CHECKPOINT]:"} ${checkpointMessage.trim()}`,
                 timeStamp
             }
 
             await setDoc(doc(db, "rooms", groupid, "messages", timeStamp.nanoseconds.toString()), newMessage)
-            await sendFCMMessage(roomName, roomName, `${authUser.name}: ${authUser.type === "admin" ? "Remark Added" : "Checkpoint Added"}\n${checkpointMessage}`)
+            await sendFCMMessage(roomName, roomName, `${authUser!.name}: ${authUser!.type === "admin" ? "Remark Added" : "Checkpoint Added"}\n${checkpointMessage}`)
         })
     }
 

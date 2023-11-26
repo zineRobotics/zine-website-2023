@@ -55,7 +55,7 @@ const Projects = () => {
                         task: projectData,
                         checkpoints: taskData.checkpoints,
                         status: taskData.status,
-                        user: { name: authUser.name, email: authUser.email },
+                        user: { name: authUser!.name, email: authUser!.email },
                         id: taskData.id
                     })
                     setState("inprogress")
@@ -92,25 +92,25 @@ const Projects = () => {
         const userProject = {
             checkpoints: [],
             status: "Assigned",
-            users: [doc(db, "users", authUser.uid)],
+            users: [doc(db, "users", authUser!.uid)],
             task: doc(db, "tasks", confirmProject.id)
         }
 
         addDoc(userTasksCollection, userProject).then(res => {
             setSelectedProject({
                 ...userProject,
-                user: { name: authUser.name, email: authUser.email },
+                user: { name: authUser!.name, email: authUser!.email },
                 task: confirmProject,
                 id: res.id
             })
             setState("inprogress")
         })
 
-        const roomName = `${confirmProject.title.split(' ')[0]}-${authUser.email.slice(4).split('@')[0]}`
+        const roomName = `${confirmProject.title.split(' ')[0]}-${authUser!.email.slice(4).split('@')[0]}`
         addDoc(roomsCollection, {
             name: roomName,
         }).then(async () => {
-            const emails = [authUser.email, ...confirmProject.mentors]
+            const emails = [authUser!.email, ...confirmProject.mentors]
             const allusers = await getDocs(query(usersCollection, where("email", "in", emails)))
             const results: Promise<void>[] = []
             allusers.forEach(async (u) => {
@@ -119,7 +119,7 @@ const Projects = () => {
 
             return Promise.all(results)
         }).then(() => {
-            sendFCMMessage(roomName, `${authUser.name}: Project Room Created`, `Ask your doubts related to ${confirmProject.title} project to your mentors in this channel`)
+            sendFCMMessage(roomName, `${authUser!.name}: Project Room Created`, `Ask your doubts related to ${confirmProject.title} project to your mentors in this channel`)
         })
     }
 

@@ -34,20 +34,23 @@ interface ITaskData {
     roomName?: string;
 }
 
-// const validateEmail = (emailids: string) => {
-//     for (const email of emailids) {
-//         if (!/^20\d\d((kucp)|(kuec)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)) return false
-//     }
-//     return true
-// }
+const validateEmail = (emailids: string) => {
+    for (const email of emailids) {
+        if (!/^20\d\d((kucp)|(kuec)|(ucp)|(uec)|(uee)|(uch)|(ume)|(uce)|(umt))\d{4}@((mnit)|(iiitkota)).ac.in$/g.test(email)) return false
+    }
+    return true
+}
 
 const EmailListInput = ({ control }: { control: Control<ITaskForm, any> }) => {
     const { fields, append, remove } = useFieldArray({ control, name: 'mentors' });
     const [nextEmail, setNextEmail] = useState('')
     const handleAddEmail = () => {
-        if (fields.some(f => f.value === nextEmail)) return
-        append({ value: nextEmail });
-        setNextEmail("")
+        nextEmail.split(/[ ,]+/).map(e => {
+            if (fields.some(f => f.value === e)) return
+            if (!/^\S+@\S+\.\S+$/.test(e)) return
+            append({ value: e });
+            setNextEmail("")
+        })
     };
 
     return (
