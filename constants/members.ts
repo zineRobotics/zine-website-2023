@@ -118,7 +118,10 @@ import alokK from "../images/members/2026/alok.webp";
 import shubh from "../images/members/2026/shubh.webp";
 import mahaveer from "../images/members/2026/mahaveer.webp";
 import krishna from "../images/members/2026/krishna.webp";
-import question from "../images/members/2026/Question_mark_(black).svg.webp";
+import anas from "../images/members/2026/anas.webp";
+import nitin from "../images/members/2026/nitin.webp";
+import kushal from "../images/members/2026/kushal.webp";
+import adityaW from "../images/members/2026/adityaW.webp";
 
 interface Member {
   name: string;
@@ -1578,7 +1581,7 @@ export const year2026: Member[] = [
   },
   {
     name: "Aditya Wadje",
-    image: question,
+    image: adityaW,
     github: "",
     desc: "Electronics and Communication Engineering",
     linkedin: "https://www.linkedin.com/in/aditya-wadje-a53140289/",
@@ -1598,7 +1601,7 @@ export const year2026: Member[] = [
   },
   {
     name: "Kushal Gajjar",
-    image: question,
+    image: kushal,
     desc: "Electronics and Communication Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/kushal-gajjar-a12a3a290/",
@@ -1608,10 +1611,10 @@ export const year2026: Member[] = [
   },
   {
     name: "Nitin Jangir",
-    image: question,
+    image: nitin,
     desc: "Civil Engineering",
     github: "",
-    linkedin: "http://www.linkedin.com/in/bansalanmol1606",
+    linkedin: "https://www.linkedin.com/in/nitin-jangir-860787258",
     twitter: "",
     instagram: "",
     facebook: "",
@@ -1638,10 +1641,10 @@ export const year2026: Member[] = [
   },
   {
     name: "Mohd Anas Ansari",
-    image: question,
+    image: anas,
     desc: "Electronics and Communication Engineering",
     github: "",
-    linkedin: "http://www.linkedin.com/in/bansalanmol1606",
+    linkedin: "https://www.linkedin.com/in/mohd-anas-ansari-12370a292/",
     twitter: "",
     instagram: "",
     facebook: "",
