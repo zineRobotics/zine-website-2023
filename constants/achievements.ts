@@ -1,5 +1,17 @@
 export const achievements = [
     {
+        cardTitle: "Maze Solver",
+        title: "November 2023",
+        cardDetailedText: "1st position in a autonomous bot competition hosted by NIT Jaipur Sphinx. Designed an autonomous line follower robot to traverse a given maze and then traverse it using the most optimized path",
+        cardSubtitle: "Team Members: "
+    },
+    {
+        cardTitle: "Meshmerize",
+        title: "October 2023",
+        cardDetailedText: "1st position in a autonomous bot competition hosted by IIT Bombay Techfest. Designed an autonomous line follower robot to traverse a given maze and then traverse it using the most optimized path",
+        cardSubtitle: "Team Members: "
+    },
+    {
         cardTitle: "Meshmerize",
         title: "December 2022",
         cardDetailedText: "1st position in a autonomous bot competition hosted by IIT Bombay Techfest. Designed an autonomous line follower robot to traverse a given maze and then traverse it using the most optimized path",
