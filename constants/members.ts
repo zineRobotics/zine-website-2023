@@ -112,6 +112,17 @@ import mashaal from "../images/members/2025/mashaal.webp";
 import anmol from "../images/members/2025/anmol.webp";
 import moordhan from "../images/members/2025/moordhan.webp";
 
+import aswin from "../images/members/2026/aswin.webp";
+import divyanshR from "../images/members/2026/divyansh.webp";
+import alokK from "../images/members/2026/alok.webp";
+import shubh from "../images/members/2026/shubh.webp";
+import mahaveer from "../images/members/2026/mahaveer.webp";
+import krishna from "../images/members/2026/krishna.webp";
+import anas from "../images/members/2026/anas.webp";
+import nitin from "../images/members/2026/nitin.webp";
+import kushal from "../images/members/2026/kushal.webp";
+import adityaW from "../images/members/2026/adityaW.webp";
+
 interface Member {
   name: string;
   image: StaticImageData;
@@ -1440,7 +1451,7 @@ export const year2025: Member[] = [
     image: priyansh,
     desc: "Computer Science Engineering",
     github: "",
-    linkedin: "https://www.linkedin.com/in/priyansh-kothari-648a161a5/",
+    linkedin: "https://www.linkedin.com/in/aswin-arunkumar-7b3796273",
     twitter: "",
     instagram: "",
     facebook: "",
@@ -1535,4 +1546,107 @@ export const year2025: Member[] = [
   //   instagram: "",
   //   facebook: "",
   // },
+];
+
+export const year2026: Member[] = [
+  {
+    name: "Aswin Arunkumar",
+    image: aswin,
+    desc: "Computer Science Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/aswin-arunkumar-7b3796273/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Shubh Chordia",
+    image: shubh,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/shubh-chordia-a402b2259/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Mahaveer Jeenger",
+    image: mahaveer,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/mahaveer-jeenger-4a836a274/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Aditya Wadje",
+    image: adityaW,
+    github: "",
+    desc: "Electronics and Communication Engineering",
+    linkedin: "https://www.linkedin.com/in/aditya-wadje-a53140289/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Divyansh Ramola",
+    image: divyanshR,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/divyansh-ramola-b87100299/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Kushal Gajjar",
+    image: kushal,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/kushal-gajjar-a12a3a290/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Nitin Jangir",
+    image: nitin,
+    desc: "Civil Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/nitin-jangir-860787258",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Alok Kumar",
+    image: alokK,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/alok-kumar-994709285/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Krishna Singh",
+    image: krishna,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/krishna-singh-903533290/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Mohd Anas Ansari",
+    image: anas,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/mohd-anas-ansari-12370a292/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
 ];
