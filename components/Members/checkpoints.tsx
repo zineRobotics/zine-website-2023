@@ -133,10 +133,10 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                     <button className="w-full p-2 font-bold rounded-tr-xl" style={panel === "messages" ? {background: "white", color: "#0C72B0" }: {background: "#0C72B0", color: "white" }} onClick={() => setPanel("messages")}>Messages</button>
                 </div>
                 
-                <div className="flex flex-col px-4 p-8 pb-4 gap-6">
+                <div className="flex flex-col px-4 pt-2 pb-4">
                     {
                         panel === "checkpoints" && !project.checkpoints.length &&
-                        <div className="px-4" style={{color: "#AAAAAA"}}>
+                        <div className="px-4 mt-2" style={{color: "#AAAAAA"}}>
                         <p className="text-center text-lg">Add all the checkpoints, challenges faced with brief description for your project here</p>
                         <p className="text-center text-lg">Make sure to update your project checkpoint everyday</p>
                         <p className="text-center text-lg mt-2">Start by adding your github repository link here</p>
@@ -144,7 +144,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                     }
                     {
                         panel === "checkpoints" && project.checkpoints.map(checkpoint => (
-                            <div key={checkpoint.timeDate.seconds} className="flex flex-wrap flex-col md:flex-row">
+                            <div key={checkpoint.timeDate.seconds} className="flex flex-wrap flex-col md:flex-row my-2">
                                 <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{color: "#8D989F"}}>
                                     <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
                                     <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>
@@ -157,9 +157,12 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                         ))
                     }
 
+                    { 
+                        panel === "messages" && <div className="text-sm text-blue-500 text-center">View these messages on the Zine App!</div>
+                    }
                     {
                         panel === "messages" && messages.map(message => (
-                            <div key={message.timeStamp.seconds} className="flex flex-wrap flex-col md:flex-row">
+                            <div key={message.timeStamp.seconds} className="flex flex-wrap flex-col md:flex-row my-2">
                                 <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{color: "#8D989F"}}>
                                     <p className="font-bold">{message.timeStamp.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
                                     <p className="font-bold">{message.timeStamp.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>

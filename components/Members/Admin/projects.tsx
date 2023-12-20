@@ -51,7 +51,7 @@ const Projects = () => {
     }
 
     useEffect(() => {
-        getDocs(query(tasksCollection, where("type", "==", "Project"))).then(snapshots => {
+        getDocs(query(tasksCollection)).then(snapshots => {
             const tasks: {[key: string]: IProjectData} = {}
             snapshots.forEach(d => {
                 tasks[d.id] = d.data() as IProjectData

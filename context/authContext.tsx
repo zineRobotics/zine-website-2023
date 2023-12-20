@@ -7,23 +7,17 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { getDoc, doc } from "firebase/firestore";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
+import { IUser } from "../apis/users";
 
 interface UserType {
   email: string | null;
   uid: string | null;
 }
 
-interface IAuthUser {
-  name: string;
-  email: string;
-  type: "user" | "admin" | "alumni";
-  uid: string
-}
-
 interface IAuthContext {
   user: UserType,
-  authUser: IAuthUser | undefined,
+  authUser: IUser | undefined,
   logOut: () => Promise<void>
 }
 
@@ -35,7 +29,7 @@ export const signUp = (name: string, email: string, password: string) => createU
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserType>({ email: null, uid: null });
-  const [authUser, setAuthUser] = useState<IAuthUser | undefined>();
+  const [authUser, setAuthUser] = useState<IUser | undefined>();
   const [loading, setLoading] = useState(true);
   const router = useRouter()
 
@@ -46,7 +40,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
 
         if (!authUser) {
           const snapshot = await getDoc(doc(db, "users", u.uid));
-          const userData = snapshot.data() as IAuthUser;
+          const userData = snapshot.data() as IUser;
           setAuthUser(userData);
           console.log('Authenticated');
         }
@@ -60,10 +54,10 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   }, []);
 
   const logOut = async () => {
+    await signOut(auth);
+    await router.push("/login")
     setUser({ email: null, uid: null });
     setAuthUser(undefined);
-    await router.push("/login")
-    await signOut(auth);
   };
 
   return (

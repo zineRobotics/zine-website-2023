@@ -11,8 +11,8 @@ export const getRoom = async (name: string) => {
     return getDocs(query(roomsCollection, where("name", "==", name)))
 }
 
-export const createRoom = async (name: string, members: DocumentReference[]) => {
-    return addDoc(roomsCollection, { name, members })
+export const createRoom = async (name: string, members: string[], type: "project" | "group") => {
+    return addDoc(roomsCollection, { name, members, type })
 }
 
 export const getMessages = async (room: DocumentReference, descending=true, count=-1) => {

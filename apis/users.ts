@@ -1,12 +1,22 @@
 import { db } from '../firebase';
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { DocumentReference, arrayUnion, collection, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 const usersCollection = collection(db, "users")
+export interface IUser {
+    name: string;
+    email: string;
+    type: "user" | "admin" | "alumni";
+    uid: string
+}
+
+
+export const getUser = async (email: string) => {
+    return getDocs(query(usersCollection, where("email", "==", email)))
+}
 
 export const getUserEmailIn = async (emailList: string[]) => {
     return getDocs(query(usersCollection, where("email", "in", emailList)))
 }
-
 
 interface ICreateUser {
     uid: string;
@@ -26,4 +36,10 @@ export const createUser = async ({ uid, name, email }: ICreateUser) => {
         rooms: [],
         roles: []
     })
+}
+
+
+export const addUserRoom = async (uid: string, roomnames: string[], roomids: string[]) => {
+    console.log(roomnames, roomids)
+    return updateDoc(doc(usersCollection, uid), { rooms: arrayUnion(...roomnames), roomids: arrayUnion(...roomids) })
 }
