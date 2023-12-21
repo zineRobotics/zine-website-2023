@@ -1,47 +1,11 @@
-import { Timestamp, arrayUnion, collection, doc, getDocs, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
+import { Timestamp, arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import styles from "../../constants/styles"
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { db } from "../../firebase";
 import sendFCMMessage from "../../apis/sendFcm";
-
-interface IUserData {
-    name: string;
-    email: string;
-}
-
-interface IProjectData {
-    createdDate: {seconds: number, nanoseconds: number};
-    description: string;
-    dueDate: {seconds: number, nanoseconds: number};
-    link: string;
-    title: string;
-    type: string;
-    submissionLink: string;
-    tags: string[];
-    id: string; // added for reference
-}
-
-export interface ICheckPoint {
-    message: string;
-    timeDate: Timestamp;
-    user: string;
-}
-
-export interface IProject {
-    checkpoints: ICheckPoint[]
-    status: string;
-    user: IUserData;
-    task: IProjectData;
-    id: string;
-}
-
-interface IMessageData {
-    from: string;
-    group: string;
-    message: string;
-    timeStamp: Timestamp;
-}
+import { IMessageData, getMessages, getRoom } from "../../apis/room";
+import { IProject } from "../../apis/projects";
 
 const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
@@ -54,14 +18,13 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
     const [groupid, setGroupID] = useState("")
     const { authUser } = useAuth();
 
-    const roomsCollection = collection(db, "rooms")
-    const roomName = `${projectData.task.title.split(' ')[0]}-${project.user.email.slice(4).split('@')[0]}`
+    const roomName = `${projectData.taskData.title.split(' ')[0]}-${project.usersData[0].email.slice(4).split('@')[0]}`
     useEffect(() => {
-        getDocs(query(roomsCollection, where("name", "==", roomName))).then(snapshots => {
+        getRoom(roomName).then(snapshots => {
             snapshots.forEach(d => {
                 setGroupID(d.id)
                 const newmsg: IMessageData[] = []
-                getDocs(query(collection(d.ref, 'messages'), orderBy("timeStamp", 'asc'))).then(msgSnapshot => {
+                getMessages(d.ref, true, 20).then(msgSnapshot => {
                     msgSnapshot.forEach(d => {
                         newmsg.push(d.data() as IMessageData)
                     })
@@ -120,11 +83,11 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
 
     return (
         <div className="">
-            <h2 className="text-3xl font-bold my-2" style={styles.textPrimary}>{project.task.title}</h2>
+            <h2 className="text-3xl font-bold my-2" style={styles.textPrimary}>{project.taskData.title}</h2>
 
             <div className="flex justify-between mb-2">
-                <h2 className="text-2xl font-bold" style={styles.textPrimary}>{project.user.name}</h2>
-                <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer" style={{background: "#0C72B0"}} href={project.task?.link} target="_blank">Problem Statement</a>
+                <h2 className="text-2xl font-bold" style={styles.textPrimary}>{project.usersData[0].name}</h2>
+                <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer" style={{background: "#0C72B0"}} href={project.taskData?.link} target="_blank">Problem Statement</a>
             </div>
 
             <div className="flex flex-col bg-white rounded-xl">

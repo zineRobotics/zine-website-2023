@@ -19,6 +19,7 @@ export interface ITaskData {
     mentors: string[];
     createRoom: boolean;
     roomName?: string;
+    tags?: string[];
 }
 
 export const fetchTasks = async () => {
@@ -99,14 +100,16 @@ const createTaskRoom = async (task: ITaskData, groups: IUser[][]) => {
 export const assignTask = async (task: ITaskData, users: IUser[]) => {
     if (!users.length) return
     if (task.type === 'Individual') {
-        await Promise.all(users.map(async u => await createProject(task.id, [u.uid])))
+        const projects = await Promise.all(users.map(async u => await createProject(task.id, [u.uid])))
         
         // All in one group
         await createTaskRoom(task, [users])
+        return projects
     } else {
-        await createProject(task.id, users.map(u => u.uid))
+        const projects = await createProject(task.id, users.map(u => u.uid))
 
         // All in seperate groups
         await createTaskRoom(task, users.map(u => [u]))
+        return projects
     }
 }

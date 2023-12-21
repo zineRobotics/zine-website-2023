@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { ITaskData, assignTask, createTask, deleteTask, editTask, fetchTasks } from "../../../apis/tasks";
 import { Control, useFieldArray, useForm } from "react-hook-form";
 import { IUser, getUserEmailIn } from "../../../apis/users";
-import { useAuth } from "../../../context/authContext";
+import Modal from "../modal";
 
 
 interface ITaskForm {
@@ -34,37 +34,6 @@ interface IAssignState {
     input: string;
     emails: string[];
 }
-
-const Modal = ({ isOpen, onClose, children }: any) => {
-    if (!isOpen) return null;
-  
-    return (
-      <div className="fixed inset-0 flex items-center justify-center z-50">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="bg-white p-6 rounded-lg z-10 relative">
-          <div className="flex justify-end absolute top-0 right-0 p-4">
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          {children}
-        </div>
-      </div>
-    );
-};
 
 const EmailListInput = ({ control }: { control: Control<ITaskForm, any> }) => {
     const { fields, append, remove } = useFieldArray({ control, name: 'mentors' });
@@ -351,7 +320,7 @@ const Tasks = () => {
             </div>
 
             {/* Confirm delete modal */}
-            <Modal isOpen={state.deleteTask} onClose={() => setState({...state, deleteTask: null})}>
+            <Modal isOpen={state.deleteTask !== null} onClose={() => setState({...state, deleteTask: null})}>
                 <div className="p-4 md:p-5 text-center">
                     <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
@@ -365,7 +334,7 @@ const Tasks = () => {
             </Modal>
 
             {/* Assign Task Modal */}
-            <Modal isOpen={state.assignTask} onClose={() => setState({...state, assignTask: null})}>
+            <Modal isOpen={state.assignTask !== null} onClose={() => setState({...state, assignTask: null})}>
                 <div className="p-4 md:p-5 text-center">
                     <h3 className="mb-2 text-lg font-bold text-gray-500">Assign Task {state.assignTask?.title}</h3>
                     <div className="flex text-sm">
