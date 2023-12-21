@@ -102,8 +102,6 @@ const Tasks = () => {
     const [assignState, setAssignState] = useState<IAssignState>({ input: "", emails: [] })
     const [tasks, setTasks] = useState<ITaskData[]>([])
 
-    const { authUser } = useAuth()
-
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<ITaskForm>()
     const watchCreateRoom = watch('createRoom', false)
 
@@ -125,9 +123,10 @@ const Tasks = () => {
         const { mentors, submissionLink, ...formData } = data
         const mentorsArray = mentors.map(m => m.value)
 
+        reset()
         editTask(state.editingID, { submissionLink: submissionLink || "", mentors: mentorsArray, ...formData }).then(task => {
             toast.success("Task successfully edited!")
-            reset()
+            setState({ ...state, editing: false, editingID: "" })
         }).catch((err) => {
             console.log(err)
             toast.error("An error occurred. Contact zine team")
@@ -185,15 +184,15 @@ const Tasks = () => {
 
     const _assignTask = async () => {
         if (!state.assignTask) return
+        const task = state.assignTask
         if (assignState.emails.length === 0) return toast.error('No users added!')
+        setState({...state, assignTask: null})
         const members = await getUserEmailIn(assignState.emails)
-        const promise = assignTask(state.assignTask, members.docs.map(d => d.data() as IUser))
+        const promise = assignTask(task, members.docs.map(d => d.data() as IUser))
         await toast.promise(promise, {
             pending: `Assigning tasks to ${assignState.emails.length} users`,
             success: `Assigned tasks to ${assignState.emails.length} users`,
             error: `An error occured. Contact Zine team`
-        }).then(() => {
-            setState({...state, assignTask: null})
         })
     }
 

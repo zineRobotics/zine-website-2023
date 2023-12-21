@@ -130,7 +130,7 @@ const Projects = () => {
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <SideNav />
 
-                <div className="col-span-12 px-6 flex flex-col relative overflow-y-scroll md:px-12 md:col-span-9">
+                <div className="col-span-12 px-6 relative overflow-y-scroll md:px-12 md:col-span-9">
 
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>
                         {(state === "selection" || state === "confirmation") && "Choose your major project"}

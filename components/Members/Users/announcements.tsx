@@ -98,7 +98,7 @@ const Announcements = () => {
                         </div>
 
                         <Link href="/blogs">
-                          <div className="hidden md:flex col-span-3 row-span-4 bg-white py-3 rounded-xl items-center border-transparent border-2 hover:border-blue-400 ">
+                          <div className="hidden md:flex col-span-3 row-span-4 bg-white py-3 rounded-xl items-center border-transparent border-2 hover:border-blue-400 cursor-pointer">
                             <Image src={ZineBlog} />
                           </div>
                         </Link>

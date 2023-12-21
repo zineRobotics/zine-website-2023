@@ -25,7 +25,7 @@ const SideNav = () => {
         {        
         (!hide || screenWidth > 768) && <div className="fixed h-full w-full col-span-12 md:col-span-3 pt-8 px-12 text-white md:relative md:block z-50" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
 
-            <div className="flex flex-col md:flex-row-reverse items-center justify-between">
+            <div className="flex flex-col items-center justify-between">
                 <Image src={ZineLogo} width={80} height={80} />
                 <h3 className="text-3xl font-bold mt-4 md:mr-2">{authUser?.name}</h3>
             </div>
@@ -52,7 +52,9 @@ const SideNav = () => {
                     <Link href="/admin/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
                     </Link>
-                    <p className="text-xl">Channels</p>
+                    <Link href="/admin/rooms">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "rooms" ? "font-bold" : ""}`}>Rooms</p>
+                    </Link>
                     <Link href="/admin/projects">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
                     </Link>
