@@ -89,9 +89,9 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                 <h2 className="text-2xl font-bold" style={styles.textPrimary}>{project.usersData[0].name}</h2>
                 <div className='flex gap-2 justify-between md:justify-start'>
                     <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{background: "#0C72B0"}} href={project.taskData?.link} target="_blank">Problem Statement</a>
-                    <div className="bg-white p-2 rounded-xl border text-red-500 relative shadow-md text-center font-bold">
-                        <p className="absolute top-1 left-9 text-xs">Due Date</p>
-                        <p>{(project.taskData.dueDate as unknown as Timestamp).toDate().toLocaleDateString('en-CA')}</p>
+                    <div className="bg-white px-2 pt-3 pb-1 rounded-xl border text-gray-500 relative shadow-md text-center">
+                        <p className="absolute top-0 left-7 font-semibold text-xs text-gray-500">Due Date</p>
+                        <p className="font-bold">{(project.taskData.dueDate as unknown as Timestamp).toDate().toLocaleDateString('en-CA')}</p>
                     </div>
                 </div>
             </div>
@@ -147,15 +147,15 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
                     {
                         panel === "checkpoints" &&
                         <div className="flex mt-auto flex-col md:flex-row gap-4">
-                            <textarea rows={3} className="w-full rounded-xl p-2 shadow-md" value={checkpointMessage} onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
-                            <button className="font-bold p-2 rounded-xl cursor-pointer shadow-md" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => addCheckpoint()}>Add Checkpoint</button>
+                            <textarea rows={3} className="w-full rounded-xl p-2 focus:outline-none shadow-md" value={checkpointMessage} placeholder="Add checkpoints here" onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF", outline: "0.5px #808080 solid"}}/>
+                            <button className="font-bold p-2 rounded-xl cursor-pointer hover:opacity-80 shadow-md" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => addCheckpoint()}>Add Checkpoint</button>
                         </div>
                     }
 
                     {
                         panel === "messages" &&
                         <div className="flex mt-auto flex-col md:flex-row gap-4">
-                            <textarea rows={3} className="w-full rounded-xl p-2 shadow-md" value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
+                            <textarea rows={3} className="w-full rounded-xl p-2 focus:outline-none shadow-md" value={inputMessage} placeholder="Write your message here" onChange={(e) => setInputMessage(e.target.value)} style={{background: "#EFEFEF", outline: "0.5px #808080 solid"}}/>
                             <button className="font-bold p-2 rounded-xl cursor-pointer hover:opacity-80 shadow-md" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => onSubmit()}>Send Message</button>
                         </div>
                     }

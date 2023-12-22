@@ -77,10 +77,10 @@ const Projects = () => {
 
     return (
         <ProtectedRoute>
-            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+            <div className="flex flex-col md:grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <SideNav />
 
-                <div className="col-span-12 px-6 relative overflow-y-scroll md:px-12 md:col-span-9">
+                <div className="px-6 relative overflow-y-scroll md:px-12 md:col-span-9">
 
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>
                         {(state === "selection" || state === "confirmation") && "Choose your major project"}
@@ -96,10 +96,10 @@ const Projects = () => {
                         <p className="mt-2 text-lg font-bold" style={{color: "#AAAAAA"}}>You can choose any one project that you feel you can complete in 5 days. You will be assigned mentors for each project</p>
                     }
 
-                    <div className="my-8">
+                    
                     {
-                        state === "selection" && 
-                        projects.map((project, index) => (
+                        state === "selection" && <div className="my-8">
+                        { projects.map((project, index) => (
                             <div key={project.title} className="row-span-5 bg-white rounded-xl mb-8 w-full grid grid-cols-7 md:grid-cols-8">
                                 <div className="col-span-7 p-4 md:p-8">
                                     <h3 className="md:text-3xl font-extrabold text-2xl" style={styles.textPrimary}>{project.title}</h3>
@@ -117,9 +117,9 @@ const Projects = () => {
                                     <a className="text-center flex-1 md:flex-none py-4 px-2 rounded-br-xl cursor-pointer" style={{background: "#0C72B0"}} onClick={() => onChoose(index)}>CHOOSE</a>
                                 </div>
                             </div>
-                        ))             
+                        )) }            
+                        </div>
                     }
-                    </div>
 
                     {
                         state === "confirmation" && 
@@ -141,8 +141,8 @@ const Projects = () => {
                         <>
                         <Checkpoints projectData={selectedProject!} />
                         <div className="my-4 flex justify-between text-white">
-                            <a className="font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.taskData.submissionLink} target="_blank">Add Submission</a>
-                            <p className="font-bold rounded-xl py-2 px-5 text-center" style={{background: "#0C72B0"}}>{selectedProject?.status}</p>
+                            { selectedProject?.taskData.submissionLink && <a className="font-bold float-right px-3 py-2 rounded-xl shadow-md" style={{background: "#0C72B0"}} href={selectedProject?.taskData.submissionLink} target="_blank">Add Submission</a> }
+                            <p className="font-bold rounded-xl py-2 px-5 text-center shadow-md" style={{background: "#0C72B0"}}>{selectedProject?.status}</p>
                         </div>
                         </>
                     }
