@@ -91,7 +91,7 @@ const Projects = () => {
             />
 
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
-                <div className="col-span-12 md:col-span-9 px-12 flex flex-col overflow-y-scroll">
+                <div className="col-span-12 md:col-span-9 px-6 md:px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Projects</h1>
                     
                     {                   
@@ -129,10 +129,10 @@ const Projects = () => {
                         userProject &&
                         <>
                         <Checkpoints projectData={userProject} />
-                        <div className="flex justify-between text-white my-2">
-                            <button className="bg-white text-gray-500 border hover:bg-gray-100 py-2 px-5 rounded-xl" onClick={() => setUserProject(undefined)}>Back</button>
-                            <button className="bg-red-500 py-2 px-5 rounded-xl font-bold" onClick={() => setConfirmDelete(true)}>Delete Project</button>
-                            <select className="rounded-xl py-2 px-5 text-center font-bold" value={userProject.status} onChange={(e) => onStatusChange(e.target.value)} style={{background: "#0C72B0"}}>
+                        <div className="flex justify-between text-white my-2 gap-2 text-sm md:text-normal">
+                            <button className="bg-white text-gray-500 border hover:bg-gray-100 py-2 px-5 rounded-xl shadow-md" onClick={() => setUserProject(undefined)}>Back</button>
+                            <button className="bg-red-500 py-2 px-5 rounded-xl font-bold shadow-md" onClick={() => setConfirmDelete(true)}>Delete Project</button>
+                            <select className="rounded-xl py-2 px-5 text-center font-bold shadow-md" value={userProject.status} onChange={(e) => onStatusChange(e.target.value)} style={{background: "#0C72B0"}}>
                                 <option>Assigned</option>
                                 <option>Stage 1</option>
                                 <option>Stage 2</option>

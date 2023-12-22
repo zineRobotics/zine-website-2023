@@ -156,11 +156,15 @@ const Tasks = () => {
         const task = state.assignTask
         if (assignState.emails.length === 0) return toast.error('No users added!')
         setState({...state, assignTask: null})
-        const members = await getUserEmailIn(assignState.emails)
-        const promise = assignTask(task, members.docs.map(d => d.data() as IUser))
+        const memberSnapshot = await getUserEmailIn(assignState.emails)
+        const members = memberSnapshot.docs.map(d => d.data() as IUser)
+        const promise = assignTask(task, members)
+        
+        let notfound = ""
+        if (assignState.emails.length !== members.length) notfound = ` (${assignState.emails.length - members.length} users not found)`
         await toast.promise(promise, {
-            pending: `Assigning tasks to ${assignState.emails.length} users`,
-            success: `Assigned tasks to ${assignState.emails.length} users`,
+            pending: `Assigning tasks to ${members.length} users${notfound}`,
+            success: `Assigned tasks to ${members.length} users${notfound}`,
             error: `An error occured. Contact Zine team`
         })
     }
@@ -194,7 +198,7 @@ const Tasks = () => {
             <div className="grid grid-cols-12 h-screen" style={{ background: "#EFEFEF" }}>
                 <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-4xl font-bold mt-8" style={{ color: "#AAAAAA" }}>Tasks</h1>
-                    <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full">
+                    <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full shadow-md">
                         <h1 className="text-2xl font-bold" style={styles.textPrimary}>{state.editing ? "Edit Task" : "Create Task"}</h1>
                         <form>
                             <div className="grid grid-cols-5 gap-6 mt-4">
@@ -269,11 +273,11 @@ const Tasks = () => {
                         </form>
                     </div>
 
-                    <div className="bg-white py-4 px-6 mb-8 rounded-xl">
+                    <div className="bg-white py-4 px-6 mb-8 rounded-xl shadow-md">
                         <div className="grid grid-cols-6 gap-4">
                             <div className="col-span-4 flex flex-col">
                                 <label className="text-gray-500">Search</label>
-                                <input id="search" type="text" className="text-lg pt-2 bottom-border focus:outline-none" onChange={onSearchChange} placeholder="Search email ID or name" value={state?.search} autoComplete="off" />
+                                <input id="search" type="text" className="pt-2 bottom-border focus:outline-none" onChange={onSearchChange} placeholder="Search email ID or name" value={state?.search} autoComplete="off" />
                             </div>
 
                             {/* <button className="p-2 mt-4 text-white rounded-xl" style={{background: "#0C72B0"}}>Search</button> */}
@@ -302,7 +306,7 @@ const Tasks = () => {
                                                 <td className="border p-1">{u.type}</td>
                                                 <td className="border p-1">{u.dueDate.toDateString()}</td>
                                                 <td className="border p-1 text-center">{u.mentors.length}</td>
-                                                <td className="border p-1 text-blue-500 overflow-hidden text-center"><a href={u.link}>Link</a></td>
+                                                <td className="border p-1 text-blue-500 overflow-hidden text-center"><a href={u.link} target="_blank">Link</a></td>
                                                 <td className="border p-1">
                                                     <button className="bg-yellow-500 text-white py-1 px-2 rounded-lg" onClick={() => taskEdit(u)}>Edit</button>
                                                     <button className="bg-red-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => setState({...state, deleteTask: u})}>Delete</button>

@@ -41,16 +41,17 @@ const Projects = () => {
             return !snapshots.empty
         }).then((isAssigned) => {
             if (isAssigned) return
-            getDocs(query(tasksCollection, where("type", "==", "Project"))).then(snapshots => {
-                snapshots.forEach(d => {
-                    const taskData = { ...d.data(), id: d.id } as ITaskData
-                    setProjects(state => [...state, taskData ])
-                })
-                // TODO: add this
-                // setState("selection")
-            })
+            // TODO: add this for 2023 recruitments
+            // getDocs(query(tasksCollection, where("type", "==", "Project"))).then(snapshots => {
+            //     snapshots.forEach(d => {
+            //         const taskData = { ...d.data(), id: d.id } as ITaskData
+            //         setProjects(state => [...state, taskData ])
+            //     })
+            //     
+            //     setState("selection")
+            // })
         })
-    }, [authUser])
+    }, [])
 
     const onChoose = (index: number) => {
         setState("confirmation")
@@ -76,7 +77,6 @@ const Projects = () => {
 
     return (
         <ProtectedRoute>
-            {/* // <ToastMessage message={message} setMessage={setMessage} /> */}
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <SideNav />
 
@@ -86,6 +86,11 @@ const Projects = () => {
                         {(state === "selection" || state === "confirmation") && "Choose your major project"}
                         {state === "inprogress" && "Project Progress"}
                     </h1>
+                    {
+                        !state && <div className="flex justify-center text-2xl mt-16 font-bold" style={{color: "#AAAAAA"}}>
+                            You have no projects at the moment!
+                        </div>
+                    }
                     {
                         state && state !== "inprogress" &&
                         <p className="mt-2 text-lg font-bold" style={{color: "#AAAAAA"}}>You can choose any one project that you feel you can complete in 5 days. You will be assigned mentors for each project</p>

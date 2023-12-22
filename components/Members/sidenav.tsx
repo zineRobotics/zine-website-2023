@@ -73,7 +73,7 @@ const SideNav = () => {
             }
 
 
-            <div className="bg-white rounded-3xl text-center cursor-pointer absolute bottom-5 mx-8 left-0 right-0">
+            <div className="bg-white rounded-3xl text-center cursor-pointer absolute bottom-5 mx-8 left-0 right-0 shadow-md hover:bg-gray-100">
                 <p className="text-xl text-red-500 py-3 px-4" onClick={logOut}>Logout</p>
             </div>
         </div>

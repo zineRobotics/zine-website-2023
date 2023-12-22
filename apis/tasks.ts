@@ -102,14 +102,14 @@ export const assignTask = async (task: ITaskData, users: IUser[]) => {
     if (task.type === 'Individual') {
         const projects = await Promise.all(users.map(async u => await createProject(task.id, [u.uid])))
         
-        // All in one group
-        await createTaskRoom(task, [users])
+        // All in seperate groups
+        await createTaskRoom(task, users.map(u => [u]))
         return projects
     } else {
         const projects = await createProject(task.id, users.map(u => u.uid))
 
-        // All in seperate groups
-        await createTaskRoom(task, users.map(u => [u]))
+        // All in one group
+        await createTaskRoom(task, [users])
         return projects
     }
 }
