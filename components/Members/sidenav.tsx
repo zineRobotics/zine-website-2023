@@ -4,7 +4,7 @@ import Image from "next/image";
 import ZineLogo from "../../images/admin/logo.png"
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/authContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import hamburger from "../../images/hamburger.svg";
 
@@ -26,8 +26,16 @@ const SideNav = () => {
         (!hide || screenWidth > 768) && <div className="fixed h-full w-full col-span-12 md:col-span-3 pt-8 px-12 text-white md:relative md:block z-50" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
 
             <div className="flex flex-col items-center justify-between">
-                <Image src={ZineLogo} width={80} height={80} />
-                <h3 className="text-3xl font-bold mt-4 md:mr-2">{authUser?.name}</h3>
+                <div className="flex">
+                <Image src={ZineLogo} width={90} height={80} />
+                <div className="flex flex-col justify-center ml-1 font-extrabold">
+                    <span className="whitespace-no-wrap m-0">Robotics</span>
+                    <span className="whitespace-no-wrap p-0">and</span>
+                    <span className="whitespace-no-wrap">Research</span>
+                    <span className="whitespace-no-wrap">Group</span>
+                </div>
+                </div>
+                {/* <h3 className="text-3xl font-bold mt-4 md:mr-2">{authUser?.name}</h3> */}
             </div>
 
             {
@@ -62,13 +70,24 @@ const SideNav = () => {
             }
             {
                 authUser!.type === "user" &&
-                <div className="mt-24">
-                    <Link href="/users/projects">
+                <div className="mt-18">
+                    {/* <Link href="/users/projects">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
                     </Link>
                     <Link href="/users/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
-                    </Link>
+                    </Link> */}
+                    <div className={`bg-white w-11/12 py-2 px-10 rounded-2xl ${page === "dashboard" ? "bg-opacity-20" : "bg-opacity-5"}`}>
+                        <p className={`text-white text-xl cursor-pointer font-extrabold`}>Dashboard</p>
+                    </div>
+                    <div className={`bg-white w-11/12  py-2 px-10 rounded-2xl mt-2 ${page === "tasks" ? "bg-opacity-20" : "bg-opacity-5"}`}>
+                        <p className={`text-white text-xl cursor-pointer font-extrabold`}>Tasks</p>
+                    </div>
+                    <div className={`bg-white w-11/12 py-2 px-10 rounded-2xl mt-2 ${page === "channels" ? "bg-opacity-20" : "bg-opacity-5"}`}>
+                        <Link href="/users/channels">
+                            <p className={`text-white text-xl cursor-pointer font-extrabold opacity-100`}>Channels</p>
+                        </Link>
+                    </div>
                 </div>
             }
 

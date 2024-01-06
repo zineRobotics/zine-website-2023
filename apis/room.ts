@@ -32,13 +32,14 @@ export const getMessages = async (room: DocumentReference, descending=true, coun
     return getDocs(query(msgCollection, orderBy("timeStamp", sorting)))
 }
 
-export const sendMessage = async (room: DocumentReference, message: string, user: any) => {
+export const sendMessage = async (room: DocumentReference, message: string, user: any, replyTo: any) => {
     const msgData = {
         from: user.name,
         group: room.id,
         message,
         sender_id: user.id,
-        timeStamp: Timestamp.fromDate(new Date())
+        timeStamp: Timestamp.fromDate(new Date()),
+        replyTo: replyTo //repyTo: message id 
     }
 
     await addDoc(collection(room, 'messages'), msgData)
