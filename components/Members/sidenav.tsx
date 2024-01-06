@@ -19,19 +19,13 @@ const SideNav = () => {
     }, []);
     
     const router = useRouter()
-
-    const onLogout = async () => {
-        await router.push('/login')
-        await logOut()
-    }
-
     const page = router.pathname.split('/').pop()
     return (
         <>
         {        
-        (!hide || screenWidth > 768) && <div className="fixed h-full w-full col-span-12 md:col-span-3 pt-8 px-12 text-white md:relative md:block" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+        (!hide || screenWidth > 768) && <div className="fixed h-full w-full col-span-12 md:col-span-3 pt-8 px-12 text-white md:relative md:block z-50" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
 
-            <div className="flex flex-col md:flex-row-reverse items-center justify-between">
+            <div className="flex flex-col items-center justify-between">
                 <Image src={ZineLogo} width={80} height={80} />
                 <h3 className="text-3xl font-bold mt-4 md:mr-2">{authUser?.name}</h3>
             </div>
@@ -58,7 +52,9 @@ const SideNav = () => {
                     <Link href="/admin/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
                     </Link>
-                    <p className="text-xl">Channels</p>
+                    <Link href="/admin/rooms">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "rooms" ? "font-bold" : ""}`}>Rooms</p>
+                    </Link>
                     <Link href="/admin/projects">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
                     </Link>
@@ -68,7 +64,7 @@ const SideNav = () => {
                 authUser!.type === "user" &&
                 <div className="mt-24">
                     <Link href="/users/projects">
-                        <p className={`text-xl text-gray-300 pointer-events-none ${page === "projects" ? "font-bold" : ""}`}>Projects <FontAwesomeIcon icon={faLock}/></p>
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
                     </Link>
                     <Link href="/users/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
@@ -77,14 +73,14 @@ const SideNav = () => {
             }
 
 
-            <div className="bg-white rounded-3xl text-center cursor-pointer absolute bottom-5 mx-8 left-0 right-0">
-                <p className="text-xl text-red-500 py-3 px-4" onClick={onLogout}>Logout</p>
+            <div className="bg-white rounded-3xl text-center cursor-pointer absolute bottom-5 mx-8 left-0 right-0 shadow-md hover:bg-gray-100">
+                <p className="text-xl text-red-500 py-3 px-4" onClick={logOut}>Logout</p>
             </div>
         </div>
         }
 
         <div className="col-span-12 p-2 md:hidden" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
-            <Image className="ml-4" height={30} width={40} src={hamburger} onClick={() => setHide(!hide)} />
+            <Image className="ml-4 z-50" height={30} width={40} src={hamburger} onClick={() => setHide(!hide)} />
         </div>
         </>
       )

@@ -39,16 +39,16 @@ const Login = () => {
     const onSubmit = async (data: ILoginData) => {
         const {email, password} = data
         reset()
-        const promise = logIn(email, password).catch((error: any) => {
-            console.log(error)
-            const message = errorMessages[error.code] || errorMessages["default"]
-            setError("root.authError", { message })
-        })
-
+        
+        const promise = logIn(email, password)
         toast.promise(promise, {
             pending: "Logging In",
             success: "Login Success!",
             error: "Login Failed"
+        }).catch((error: any) => {
+            console.log(error)
+            const message = errorMessages[error.code] || errorMessages["default"]
+            setError("root.authError", { message })
         })
 
         // promise.then(async (userCredential: any) => {
@@ -82,7 +82,7 @@ const Login = () => {
                 theme="light"
             />
 
-            <div className="bg-white rounded-xl px-8 pb-8 md:px-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
+            <div className="bg-white shadow-md rounded-xl px-8 pb-8 md:px-16 my-16 w-11/12 md:w-1/2" style={{maxWidth: 651}}>
                 <div className="flex justify-center">
                     <Image src={ZineLogo} width={150} height={150}/>
                 </div>
@@ -111,7 +111,7 @@ const Login = () => {
                         {/* {errors.root?.notQualified && <p className="text-sm text-red-500">{errors.root.notQualified.message}</p>} */}
                     </div>
 
-                    <button className="mt-8 p-4 block w-full rounded-3xl text-white" onClick={handleSubmit(onSubmit)} style={{background: "#0C72B0"}}>Login</button>
+                    <button className="mt-8 p-4 block w-full rounded-3xl text-white opacity-90 hover:opacity-100" onClick={handleSubmit(onSubmit)} style={{background: "#0C72B0"}}>Login</button>
                     <p className="mt-8 text-sm text-center">
                         Dont have an account? <Link href="/signup"><a className="text-blue-500 underline">Signup</a></Link>
                     </p>

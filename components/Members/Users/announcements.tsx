@@ -85,25 +85,25 @@ const Announcements = () => {
 
     return (
         <ProtectedRoute>
-            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+            <div className="flex flex-col md:grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
             <SideNav />
 
-                <div className="col-span-12 md:col-span-9 px-4 md:px-12 flex flex-col overflow-y-scroll">
+                <div className="md:col-span-9 px-4 md:px-12 flex flex-col overflow-y-scroll">
                     <h1 className="text-2xl md:text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Dashboard</h1>
                     <div className="grid grid-cols-9 my-4 gap-8">
-                        <div className="hidden md:flex flex-col col-span-3 row-span-4 bg-white rounded-xl py-4 px-16 justify-center">
+                        <div className="hidden md:flex flex-col col-span-3 row-span-4 bg-white rounded-xl py-4 px-16 justify-center shadow-md">
                             <h5 className="text-xl text-right font-bold" style={styles.textPrimary}>{suffix}</h5>
                             <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{date.getDate()}</h1>
                             <h3 className="text-3xl text-center mt-4 font-bold" style={styles.textNormal}>{months[date.getMonth()]}</h3>
                         </div>
 
                         <Link href="/blogs">
-                          <div className="hidden md:flex col-span-3 row-span-4 bg-white py-3 rounded-xl items-center border-transparent border-2 hover:border-blue-400 ">
+                          <div className="hidden md:flex col-span-3 row-span-4 bg-white py-3 rounded-xl items-center border-transparent border-2 hover:border-blue-400 cursor-pointer shadow-md">
                             <Image src={ZineBlog} />
                           </div>
                         </Link>
                         
-                        <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8" style={{ background: "linear-gradient(135deg, #9B9C9C 0%, #D4D4D4 100%)" }}>
+                        <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8 shadow-xl" style={{ background: "linear-gradient(135deg, #9B9C9C 0%, #D4D4D4 100%)" }}>
                             <div className="mt-24">
                               <h1 className="text-2xl text-white font-extrabold">{ authUser!.email.split('@')[0].toUpperCase() }</h1>
                               <h3 className="text-lg text-white">{ authUser!.name } </h3>
@@ -117,7 +117,7 @@ const Announcements = () => {
                             announcements.map(msg => {
                                 const date = timestampToHuman(msg.timeStamp)
                                 return (
-                                    <div className="bg-white rounded-xl py-4 px-6 w-full" key={msg.timeStamp.seconds}>
+                                    <div className="bg-white rounded-xl py-4 px-6 w-full shadow-md" key={msg.timeStamp.seconds}>
                                         <p className="text-gray-500 text-sm">{msg.from} | {date.time} {date.date}</p>
                                         {/* <p className="whitespace-pre-wrap">
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}

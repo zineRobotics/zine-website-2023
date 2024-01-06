@@ -1,9 +1,26 @@
 import { db } from '../firebase';
 import { collection, addDoc, getDoc, DocumentReference, Timestamp, updateDoc, doc, deleteDoc, getDocs } from "firebase/firestore";
 import { createRoom, getRoom } from './room';
+import { createProject } from './projects';
+import { IUser, addUserRoom, getUserEmailIn } from './users';
+import sendFCMMessage from './sendFcm';
 
 const tasksCollection = collection(db, "tasks");
-const userTasksCollection = collection(db, "userTasks")
+
+export interface ITaskData {
+    id: string;
+    title: string;
+    type: "Team" | "Individual";
+    link: "";
+    subheading: "";
+    description: string;
+    submissionLink: string;
+    dueDate: Date;
+    mentors: string[];
+    createRoom: boolean;
+    roomName?: string;
+    tags?: string[];
+}
 
 export const fetchTasks = async () => {
     return getDocs(tasksCollection)
@@ -55,36 +72,44 @@ export const deleteTask = async (taskid: string) => {
     return deleteDoc(doc(tasksCollection, taskid))
 }
 
+const createTaskRoom = async (task: ITaskData, groups: IUser[][]) => {
+    const mentorSnapshot = await getUserEmailIn(task.mentors)
+    const mentors = mentorSnapshot.docs.map(d => d.data() as IUser)
+    console.log('mentors', mentors)
 
-interface ITaskSelectData {
-    taskid: DocumentReference;
-    members: DocumentReference[];
-}
-export const selectTask = async (createTaskData: ITaskSelectData) => {
-    let result = await getDoc(createTaskData.taskid)
-    const task = result.data()
-    if (!task) return
-
-    let roomid = null;
     if (task.createRoom) {
-        const room = await createRoom(task.roomName, createTaskData.members)
-        roomid = room.id
+        // Create room automatically
+        return Promise.all(groups.map(async (g) => {
+            console.log('group', g)
+            const roomName = task.roomName || `${task.title.split(' ')[0]}-${g[0].email.slice(4).split('@')[0]}`
+            const room = await createRoom(roomName, [], "project")
+            const members = g.concat(mentors)
+    
+            await Promise.all(members.map(m => addUserRoom(m.uid, [roomName], [room.id])))
+            return sendFCMMessage(roomName, `Project Room Created`, `Ask your doubts related to ${task.title} project to your mentors in this channel`)
+        }))
     } else {
-        roomid = task.roomid;
+        // Add user to already existing room
+        const room = await getRoom(task.roomName!)
+        return Promise.all(groups.map(async (g) => {
+            await Promise.all(g.map(async u => await addUserRoom(u.uid, [task.roomName!], [room.docs[0].id])))
+        }))
     }
-
-    return addDoc(userTasksCollection, {
-        status: "Assigned",
-        room: roomid,
-        task: createTaskData.taskid,
-        dueDate: task.dueDate,
-        users: createTaskData.members,
-        submissionLinks: [],
-        checkpoints: [],
-    })
 }
 
+export const assignTask = async (task: ITaskData, users: IUser[]) => {
+    if (!users.length) return
+    if (task.type === 'Individual') {
+        const projects = await Promise.all(users.map(async u => await createProject(task.id, [u.uid])))
+        
+        // All in seperate groups
+        await createTaskRoom(task, users.map(u => [u]))
+        return projects
+    } else {
+        const projects = await createProject(task.id, users.map(u => u.uid))
 
-export const assignTask = async (taskData: ITaskSelectData) => {
-
+        // All in one group
+        await createTaskRoom(task, [users])
+        return projects
+    }
 }

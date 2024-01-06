@@ -2,41 +2,20 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import SideNav from "../sidenav";
 import styles from "../../../constants/styles";
 import { db, storage } from '../../../firebase';
-import { collection, addDoc, getDocs, query, where, doc, DocumentReference, updateDoc, arrayUnion, Timestamp, getDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where, doc, getDoc } from "firebase/firestore";
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from "../../../context/authContext";
-import Checkpoints, { IProject } from "../checkpoints";
-import sendFCMMessage from "../../../apis/sendFcm";
-
-
-interface IProjectData {
-    createdDate: {seconds: number, nanoseconds: number};
-    description: string;
-    dueDate: {seconds: number, nanoseconds: number};
-    link: string;
-    title: string;
-    type: string;
-    submissionLink: string;
-    tags: string[];
-    mentors: string[];
-    id: string; // added for reference
-}
-
-interface IUserProject {
-    checkpoints: any[]
-    status: string;
-    users: DocumentReference[];
-    task: DocumentReference;
-    id: string; // added for reference
-}
+import Checkpoints from "../checkpoints";
+import { ITaskData, assignTask } from "../../../apis/tasks";
+import { IProject, IUserProject } from "../../../apis/projects";
 
 
 const Projects = () => {
     const { authUser } = useAuth();
     const [state, setState] = useState("")
-    const [projects, setProjects] = useState<IProjectData[]>([])
+    const [projects, setProjects] = useState<ITaskData[]>([])
     const [selectedProject, setSelectedProject] = useState<IProject>()
-    const [confirmProject, setConfirmProject] = useState<IProjectData>()
+    const [confirmProject, setConfirmProject] = useState<ITaskData>()
 
     const userTasksCollection = collection(db, "userTasks")
     const tasksCollection = collection(db, "tasks")
@@ -49,14 +28,12 @@ const Projects = () => {
             snapshots.forEach(d => {
                 const taskData = { ...d.data(), id: d.id } as IUserProject
                 getDoc(taskData.task).then(res => {
-                    const projectData = { ...res.data(), id: res.id } as IProjectData
+                    const projectData = { ...res.data(), id: res.id } as ITaskData
                     setConfirmProject(projectData)
-                    setSelectedProject({ 
-                        task: projectData,
-                        checkpoints: taskData.checkpoints,
-                        status: taskData.status,
-                        user: { name: authUser!.name, email: authUser!.email },
-                        id: taskData.id
+                    setSelectedProject({
+                        ...taskData,
+                        taskData: projectData,
+                        usersData: [authUser],
                     })
                     setState("inprogress")
                 })
@@ -64,15 +41,17 @@ const Projects = () => {
             return !snapshots.empty
         }).then((isAssigned) => {
             if (isAssigned) return
-            getDocs(query(tasksCollection, where("type", "==", "Project"))).then(snapshots => {
-                snapshots.forEach(d => {
-                    const taskData = { ...d.data(), id: d.id } as IProjectData
-                    setProjects(state => [...state, taskData ])
-                })
-                setState("selection")
-            })
+            // TODO: add this for 2023 recruitments
+            // getDocs(query(tasksCollection, where("type", "==", "Project"))).then(snapshots => {
+            //     snapshots.forEach(d => {
+            //         const taskData = { ...d.data(), id: d.id } as ITaskData
+            //         setProjects(state => [...state, taskData ])
+            //     })
+            //     
+            //     setState("selection")
+            // })
         })
-    }, [authUser])
+    }, [])
 
     const onChoose = (index: number) => {
         setState("confirmation")
@@ -84,67 +63,49 @@ const Projects = () => {
         setConfirmProject(undefined)
     }
 
-    const roomsCollection = collection(db, "rooms")
-    const usersCollection = collection(db, "users")
-    const selectProject = () => {
+    const selectProject = async () => {
         if (!confirmProject) return
 
-        const userProject = {
-            checkpoints: [],
-            status: "Assigned",
-            users: [doc(db, "users", authUser!.uid)],
-            task: doc(db, "tasks", confirmProject.id)
-        }
-
-        addDoc(userTasksCollection, userProject).then(res => {
-            setSelectedProject({
-                ...userProject,
-                user: { name: authUser!.name, email: authUser!.email },
-                task: confirmProject,
-                id: res.id
-            })
-            setState("inprogress")
+        const userProject = await assignTask(confirmProject, [authUser!]) as IUserProject[]
+        setSelectedProject({
+            ...userProject[0],
+            usersData: [authUser!],
+            taskData: confirmProject,
         })
-
-        const roomName = `${confirmProject.title.split(' ')[0]}-${authUser!.email.slice(4).split('@')[0]}`
-        addDoc(roomsCollection, {
-            name: roomName,
-        }).then(async () => {
-            const emails = [authUser!.email, ...confirmProject.mentors]
-            const allusers = await getDocs(query(usersCollection, where("email", "in", emails)))
-            const results: Promise<void>[] = []
-            allusers.forEach(async (u) => {
-                results.push(updateDoc(u.ref, { rooms: arrayUnion(roomName) }))
-            })
-
-            return Promise.all(results)
-        }).then(() => {
-            sendFCMMessage(roomName, `${authUser!.name}: Project Room Created`, `Ask your doubts related to ${confirmProject.title} project to your mentors in this channel`)
-        })
+        setState("inprogress")
     }
 
     return (
         <ProtectedRoute>
-            {/* // <ToastMessage message={message} setMessage={setMessage} /> */}
-            <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
-                <div className="col-span-12 px-6 flex flex-col relative overflow-y-scroll md:px-12 md:col-span-9">
+            <div className="flex flex-col md:grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+                <SideNav />
 
-                    <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>{state !== "inprogress" ? "Stage 3: Choose your major project" : "Stage 3: Project Progress"}</h1>
+                <div className="px-6 relative overflow-y-scroll md:px-12 md:col-span-9">
+
+                    <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>
+                        {(state === "selection" || state === "confirmation") && "Choose your major project"}
+                        {state === "inprogress" && "Project Progress"}
+                    </h1>
                     {
-                        state !== "inprogress" &&
+                        !state && <div className="flex justify-center text-2xl mt-16 font-bold" style={{color: "#AAAAAA"}}>
+                            You have no projects at the moment!
+                        </div>
+                    }
+                    {
+                        state && state !== "inprogress" &&
                         <p className="mt-2 text-lg font-bold" style={{color: "#AAAAAA"}}>You can choose any one project that you feel you can complete in 5 days. You will be assigned mentors for each project</p>
                     }
 
-                    <div className="my-8">
+                    
                     {
-                        state === "selection" && 
-                        projects.map((project, index) => (
+                        state === "selection" && <div className="my-8">
+                        { projects.map((project, index) => (
                             <div key={project.title} className="row-span-5 bg-white rounded-xl mb-8 w-full grid grid-cols-7 md:grid-cols-8">
                                 <div className="col-span-7 p-4 md:p-8">
                                     <h3 className="md:text-3xl font-extrabold text-2xl" style={styles.textPrimary}>{project.title}</h3>
                                     <div className="flex gap-2 mt-2 flex-col text-center md:flex-row text-sm md:text-normal">
                                         {
-                                            project.tags.map(tag => (
+                                            project.tags?.map(tag => (
                                                 <div key={tag} className="py-1 px-4 rounded-xl" style={{background: "#C2FFF4"}}><p>{tag}</p></div>
                                             ))
                                         }
@@ -156,9 +117,9 @@ const Projects = () => {
                                     <a className="text-center flex-1 md:flex-none py-4 px-2 rounded-br-xl cursor-pointer" style={{background: "#0C72B0"}} onClick={() => onChoose(index)}>CHOOSE</a>
                                 </div>
                             </div>
-                        ))             
+                        )) }            
+                        </div>
                     }
-                    </div>
 
                     {
                         state === "confirmation" && 
@@ -180,13 +141,12 @@ const Projects = () => {
                         <>
                         <Checkpoints projectData={selectedProject!} />
                         <div className="my-4 flex justify-between text-white">
-                            <a className="font-bold float-right px-3 py-2 rounded-xl" style={{background: "#0C72B0"}} href={selectedProject?.task.submissionLink} target="_blank">Add Submission</a>
-                            <p className="font-bold rounded-xl py-2 px-5 text-center" style={{background: "#0C72B0"}}>{selectedProject?.status}</p>
+                            { selectedProject?.taskData.submissionLink && <a className="font-bold float-right px-3 py-2 rounded-xl shadow-md" style={{background: "#0C72B0"}} href={selectedProject?.taskData.submissionLink} target="_blank">Add Submission</a> }
+                            <p className="font-bold rounded-xl py-2 px-5 text-center shadow-md" style={{background: "#0C72B0"}}>{selectedProject?.status}</p>
                         </div>
                         </>
                     }
                 </div>
-                <SideNav />
             </div>
         </ProtectedRoute>
       )

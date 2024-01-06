@@ -43,7 +43,7 @@ const AddUser = ({ channels }: IUserChannelCard) => {
             if (data.group && data.group.includes('firstyears') && !e.startsWith(firstyear)) return
             if (data.group && data.group.includes('admins') && u.data().type !== "admin") return
             
-            results.push(updateDoc(u.ref, { rooms: arrayUnion(...data.channel) }))
+            results.push(updateDoc(u.ref, { rooms: arrayUnion(...data.channel), roomids: arrayUnion() }))
         })
 
         Promise.all(results).then(() => {

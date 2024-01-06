@@ -1,18 +1,27 @@
 import { db } from '../firebase';
-import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp, deleteDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp, deleteDoc, updateDoc, arrayRemove } from "firebase/firestore";
 
 
 const roomsCollection = collection(db, "rooms")
+const usersCollection = collection(db, "users")
+
 
 export const ANNOUNCEMENT_ROOM_ID = "Hn9GSQnvi5zh9wabLGuT"
 export const announcementRoom  = doc(roomsCollection, ANNOUNCEMENT_ROOM_ID)
 
-export const getRoom = async (name: string) => {
-    return getDocs(query(roomsCollection, where("name", "==", name)))
+export interface IMessageData {
+    from: string;
+    group: string;
+    message: string;
+    timeStamp: Timestamp;
 }
 
-export const createRoom = async (name: string, members: DocumentReference[]) => {
-    return addDoc(roomsCollection, { name, members })
+export const getRoom = async (name: string) => {
+    return getDocs(query(roomsCollection, where("name", "==", name), limit(1)))
+}
+
+export const createRoom = async (name: string, members: string[], type: "project" | "group") => {
+    return addDoc(roomsCollection, { name, members, type })
 }
 
 export const getMessages = async (room: DocumentReference, descending=true, count=-1) => {
@@ -36,6 +45,12 @@ export const sendMessage = async (room: DocumentReference, message: string, user
     return msgData
 }
 
-export const deleteRoom = async (roomid: string) => {
-    return deleteDoc(doc(roomsCollection, roomid))   
+export const deleteRoomByName = async (roomName: string) => {
+    const raw = await getRoom(roomName)
+    const room = raw.docs[0]
+    await deleteDoc(room.ref)
+    const members = await getDocs(query(usersCollection, where('roomids', 'array-contains', room.id)))
+    return Promise.all(members.docs.map(async (m) => {
+        return updateDoc(m.ref, { roomids: arrayRemove(room.id), rooms: arrayRemove(roomName) })
+    }))
 }

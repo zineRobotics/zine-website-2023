@@ -1,47 +1,11 @@
-import { Timestamp, arrayUnion, collection, doc, getDocs, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
+import { Timestamp, arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import styles from "../../constants/styles"
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { db } from "../../firebase";
 import sendFCMMessage from "../../apis/sendFcm";
-
-interface IUserData {
-    name: string;
-    email: string;
-}
-
-interface IProjectData {
-    createdDate: {seconds: number, nanoseconds: number};
-    description: string;
-    dueDate: {seconds: number, nanoseconds: number};
-    link: string;
-    title: string;
-    type: string;
-    submissionLink: string;
-    tags: string[];
-    id: string; // added for reference
-}
-
-export interface ICheckPoint {
-    message: string;
-    timeDate: Timestamp;
-    user: string;
-}
-
-export interface IProject {
-    checkpoints: ICheckPoint[]
-    status: string;
-    user: IUserData;
-    task: IProjectData;
-    id: string;
-}
-
-interface IMessageData {
-    from: string;
-    group: string;
-    message: string;
-    timeStamp: Timestamp;
-}
+import { IMessageData, getMessages, getRoom } from "../../apis/room";
+import { IProject } from "../../apis/projects";
 
 const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
@@ -54,14 +18,13 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
     const [groupid, setGroupID] = useState("")
     const { authUser } = useAuth();
 
-    const roomsCollection = collection(db, "rooms")
-    const roomName = `${projectData.task.title.split(' ')[0]}-${project.user.email.slice(4).split('@')[0]}`
+    const roomName = `${projectData.taskData.title.split(' ')[0]}-${project.usersData[0].email.slice(4).split('@')[0]}`
     useEffect(() => {
-        getDocs(query(roomsCollection, where("name", "==", roomName))).then(snapshots => {
+        getRoom(roomName).then(snapshots => {
             snapshots.forEach(d => {
                 setGroupID(d.id)
                 const newmsg: IMessageData[] = []
-                getDocs(query(collection(d.ref, 'messages'), orderBy("timeStamp", 'asc'))).then(msgSnapshot => {
+                getMessages(d.ref, true, 20).then(msgSnapshot => {
                     msgSnapshot.forEach(d => {
                         newmsg.push(d.data() as IMessageData)
                     })
@@ -120,52 +83,61 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
 
     return (
         <div className="">
-            <h2 className="text-3xl font-bold my-2" style={styles.textPrimary}>{project.task.title}</h2>
+            <h2 className="text-3xl font-bold my-2" style={styles.textPrimary}>{project.taskData.title}</h2>
 
-            <div className="flex justify-between mb-2">
-                <h2 className="text-2xl font-bold" style={styles.textPrimary}>{project.user.name}</h2>
-                <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer" style={{background: "#0C72B0"}} href={project.task?.link} target="_blank">Problem Statement</a>
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                <h2 className="text-2xl font-bold" style={styles.textPrimary}>{project.usersData[0].name}</h2>
+                <div className='flex gap-2 justify-between md:justify-start'>
+                    <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{background: "#0C72B0"}} href={project.taskData?.link} target="_blank">Problem Statement</a>
+                    <div className="bg-white px-2 pt-3 pb-1 rounded-xl border text-gray-500 relative shadow-md text-center">
+                        <p className="absolute top-0 left-7 font-semibold text-xs text-gray-500">Due Date</p>
+                        <p className="font-bold">{(project.taskData.dueDate as unknown as Timestamp).toDate().toLocaleDateString('en-CA')}</p>
+                    </div>
+                </div>
             </div>
 
-            <div className="flex flex-col bg-white rounded-xl">
+            <div className="flex flex-col bg-white rounded-xl shadow-md" style={{ minHeight: "50vh" }}>
                 <div className="flex">
-                    <button className="w-full p-2 font-bold rounded-tl-xl" style={panel === "checkpoints" ? {background: "white", color: "#0C72B0" }: {background: "#0C72B0", color: "white" }} onClick={() => setPanel("checkpoints")}>Checkpoints</button>
-                    <button className="w-full p-2 font-bold rounded-tr-xl" style={panel === "messages" ? {background: "white", color: "#0C72B0" }: {background: "#0C72B0", color: "white" }} onClick={() => setPanel("messages")}>Messages</button>
+                    <button className="w-full p-2 font-bold rounded-tl-xl shadow-md" style={panel === "checkpoints" ? {background: "white", color: "#0C72B0" }: {background: "#0C72B0", color: "white" }} onClick={() => setPanel("checkpoints")}>Checkpoints</button>
+                    <button className="w-full p-2 font-bold rounded-tr-xl shadow-md" style={panel === "messages" ? {background: "white", color: "#0C72B0" }: {background: "#0C72B0", color: "white" }} onClick={() => setPanel("messages")}>Messages</button>
                 </div>
                 
-                <div className="flex flex-col px-4 p-8 pb-4 gap-6">
+                <div className="flex flex-1 flex-col px-4 pt-2 pb-4">
                     {
                         panel === "checkpoints" && !project.checkpoints.length &&
-                        <div className="px-4" style={{color: "#AAAAAA"}}>
-                        <p className="text-center text-lg">Add all the checkpoints, challenges faced with brief description for your project here</p>
-                        <p className="text-center text-lg">Make sure to update your project checkpoint everyday</p>
-                        <p className="text-center text-lg mt-2">Start by adding your github repository link here</p>
+                        <div className="px-4 mt-2 flex-1 text-normal md:text-lg" style={{color: "#AAAAAA"}}>
+                        <p className="text-center">Add all the checkpoints, challenges faced with brief description for your project here</p>
+                        <p className="text-center">Make sure to update your project checkpoint everyday</p>
+                        <p className="text-center mt-2">Start by adding your github repository link here</p>
                         </div>
                     }
                     {
                         panel === "checkpoints" && project.checkpoints.map(checkpoint => (
-                            <div key={checkpoint.timeDate.seconds} className="flex flex-wrap flex-col md:flex-row">
+                            <div key={checkpoint.timeDate.seconds} className="flex flex-1 flex-wrap flex-col md:flex-row my-2">
                                 <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{color: "#8D989F"}}>
                                     <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
                                     <p className="font-bold">{checkpoint.timeDate.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>
                                     <p className="">{checkpoint.user}</p>
                                 </div>
-                                <div className="break-words w-full md:w-10/12 md:ml-auto">
+                                <div className="text-sm md:text-normal break-words w-full md:w-10/12 md:ml-auto">
                                     <p>{checkpoint.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}</p>
                                 </div>
                             </div>
                         ))
                     }
 
+                    { 
+                        panel === "messages" && <div className="text-xs md:text-sm text-blue-500 text-center">View these messages on the Zine App!</div>
+                    }
                     {
                         panel === "messages" && messages.map(message => (
-                            <div key={message.timeStamp.seconds} className="flex flex-wrap flex-col md:flex-row">
+                            <div key={message.timeStamp.seconds} className="flex flex-1 flex-wrap flex-col md:flex-row my-2">
                                 <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{color: "#8D989F"}}>
                                     <p className="font-bold">{message.timeStamp.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
                                     <p className="font-bold">{message.timeStamp.toDate().toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" })}</p>
                                     <p className="">{message.from}</p>
                                 </div>
-                                <div className="break-words w-full md:w-10/12 md:ml-auto">
+                                <div className="text-sm md:text-normal break-words w-full md:w-10/12 md:ml-auto">
                                     <p>{message.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}</p>
                                 </div>
                             </div>
@@ -174,17 +146,17 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
 
                     {
                         panel === "checkpoints" &&
-                        <div className="flex mt-4 flex-col md:flex-row gap-4">
-                            <textarea rows={3} className="w-full rounded-xl p-2" value={checkpointMessage} onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
-                            <button className="font-bold p-2 rounded-xl cursor-pointer" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => addCheckpoint()}>Add Checkpoint</button>
+                        <div className="flex mt-auto flex-col md:flex-row gap-4">
+                            <textarea rows={3} className="w-full rounded-xl p-2 focus:outline-none shadow-md" value={checkpointMessage} placeholder="Add checkpoints here" onChange={(e) => setCheckpointMessage(e.target.value)} style={{background: "#EFEFEF", outline: "0.5px #808080 solid"}}/>
+                            <button className="font-bold p-2 rounded-xl cursor-pointer hover:opacity-80 shadow-md" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => addCheckpoint()}>Add Checkpoint</button>
                         </div>
                     }
 
                     {
                         panel === "messages" &&
-                        <div className="flex mt-4 flex-col md:flex-row gap-4">
-                            <textarea rows={3} className="w-full rounded-xl p-2" value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} style={{background: "#EFEFEF"}}/>
-                            <button className="font-bold p-2 rounded-xl cursor-pointer" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => onSubmit()}>Send Message</button>
+                        <div className="flex mt-auto flex-col md:flex-row gap-4">
+                            <textarea rows={3} className="w-full rounded-xl p-2 focus:outline-none shadow-md" value={inputMessage} placeholder="Write your message here" onChange={(e) => setInputMessage(e.target.value)} style={{background: "#EFEFEF", outline: "0.5px #808080 solid"}}/>
+                            <button className="font-bold p-2 rounded-xl cursor-pointer hover:opacity-80 shadow-md" style={{...styles.textPrimary, background: "#C2FFF4"}} onClick={() => onSubmit()}>Send Message</button>
                         </div>
                     }
                 </div>

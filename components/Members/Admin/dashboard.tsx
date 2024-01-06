@@ -56,10 +56,10 @@ const Dashboard = () => {
     return (
         <ProtectedRoute>
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
-                <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
+                <div className="col-span-12 px-6 md:px-12 flex flex-col overflow-y-scroll md:col-span-9">
                     <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Admin Panel</h1>
-                    <div className="grid grid-cols-9 grid-rows-10 gap-8 my-8 flex-1">
-                        <div className="col-span-3 row-span-4 bg-white shadow-md  rounded-xl py-4 px-16 flex flex-col justify-center">
+                    <div className="grid grid-cols-6 md:grid-cols-9 grid-rows-10 gap-4 md:gap-8 my-8 flex-1">
+                        <div className="col-span-3 row-span-4 bg-white shadow-md  rounded-xl py-4 px-6 md:px-16 flex flex-col justify-center">
                             <h5 className="text-xl text-right font-bold" style={styles.textPrimary}>{suffix}</h5>
                             <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{date.getDate()}</h1>
                             <h3 className="text-3xl text-center mt-4 font-bold" style={styles.textNormal}>{months[date.getMonth()]}</h3>
@@ -83,7 +83,7 @@ const Dashboard = () => {
                             </div>
                         </Link>
                         <div className="col-span-3 row-span-6 bg-white shadow-md rounded-xl py-4 px-4">
-                            <h1 className="text-3xl text-center font-bold" style={styles.textPrimary}>Notifications</h1>
+                            <h1 className="text-xl md:text-3xl text-center font-bold" style={styles.textPrimary}>Notifications</h1>
                             <div className="mt-4 px-2 overflow-auto" style={{height: 220}}>
                                 {
                                     messages.map((m, id) => (
