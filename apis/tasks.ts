@@ -85,14 +85,14 @@ const createTaskRoom = async (task: ITaskData, groups: IUser[][]) => {
             const room = await createRoom(roomName, [], "project")
             const members = g.concat(mentors)
     
-            await Promise.all(members.map(m => addUserRoom(m.uid, [roomName], [room.id])))
+            await Promise.all(members.map(m => addUserRoom(m, [roomName], [room.id])))
             return sendFCMMessage(roomName, `Project Room Created`, `Ask your doubts related to ${task.title} project to your mentors in this channel`)
         }))
     } else {
         // Add user to already existing room
         const room = await getRoom(task.roomName!)
         return Promise.all(groups.map(async (g) => {
-            await Promise.all(g.map(async u => await addUserRoom(u.uid, [task.roomName!], [room.docs[0].id])))
+            await Promise.all(g.map(async u => await addUserRoom(u, [task.roomName!], [room.docs[0].id])))
         }))
     }
 }

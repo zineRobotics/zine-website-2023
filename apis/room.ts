@@ -1,5 +1,6 @@
 import { db } from '../firebase';
-import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp, deleteDoc, updateDoc, arrayRemove } from "firebase/firestore";
+import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp, deleteDoc, updateDoc, arrayRemove, arrayUnion, getDoc } from "firebase/firestore";
+import { IUser, addUserRoom } from './users';
 
 
 const roomsCollection = collection(db, "rooms")
@@ -16,12 +17,67 @@ export interface IMessageData {
     timeStamp: Timestamp;
 }
 
+export interface IRoomData{
+    id: string;
+    members: string[];
+    name: string;
+    type: "project" | "group";
+}
+
+export interface IRoomCreateData{
+    members: string[];
+    name: string;
+    type: "project" | "group";
+}
+
 export const getRoom = async (name: string) => {
     return getDocs(query(roomsCollection, where("name", "==", name), limit(1)))
 }
 
+export const fetchRooms = async () =>{
+    return getDocs(roomsCollection)
+}
+
 export const createRoom = async (name: string, members: string[], type: "project" | "group") => {
     return addDoc(roomsCollection, { name, members, type })
+}
+
+export const editRoom = async (roomid: string, data: IRoomCreateData) => {
+
+    const roomData = {
+        ...data,
+    }
+
+    console.log(data, roomid)
+    return updateDoc(doc(roomsCollection, roomid), roomData)
+}
+
+export const assignRoom = async (room: IRoomData, users: IUser[]) => {
+    if (!users.length) return
+    const emailIDs = users.map((doc)=>doc.email)
+    await Promise.all(users.map(async(u)=>{
+        await updateDoc(doc(db,"users", u.uid), {
+            rooms: arrayUnion(room.name),
+            roomids: arrayUnion(room.id)
+        })
+    }))
+    return updateDoc(doc(db, "rooms", room.id), {
+        members: arrayUnion(...emailIDs)
+    })
+}
+
+export const removeUsers = async (room: IRoomData, users: IUser[]) => {
+    if (!users.length) return
+    const emailIDs = users.map((doc)=>doc.email)
+    await Promise.all(users.map(async(u)=>{
+        await updateDoc(doc(db,"users", u.uid), {
+            rooms: arrayRemove(room.name),
+            roomids: arrayRemove(room.id)
+        })
+    }))
+    return updateDoc(doc(db, "rooms", room.id), {
+        members: arrayRemove(...emailIDs)
+    })
 }
 
 export const getMessages = async (room: DocumentReference, descending=true, count=-1) => {
@@ -52,5 +108,15 @@ export const deleteRoomByName = async (roomName: string) => {
     const members = await getDocs(query(usersCollection, where('roomids', 'array-contains', room.id)))
     return Promise.all(members.docs.map(async (m) => {
         return updateDoc(m.ref, { roomids: arrayRemove(room.id), rooms: arrayRemove(roomName) })
+    }))
+}
+
+export const deleteRoomByID = async (roomid: string) => {
+    const room = await getDoc(doc(roomsCollection, roomid))
+    const roomName = room.data()?.name 
+    await deleteDoc(doc(roomsCollection, roomid))
+    const members = await getDocs(query(usersCollection, where('roomids', 'array-contains', roomid)))
+    return Promise.all(members.docs.map(async (m) => {
+        return updateDoc(m.ref, { roomids: arrayRemove(roomid), rooms: arrayRemove(roomName) })
     }))
 }
