@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import hamburger from "../../images/hamburger.svg";
 
+
 const SideNav = () => {
     const { authUser, logOut } = useAuth()
     const [hide, setHide] = useState(true)
@@ -68,6 +69,17 @@ const SideNav = () => {
                     </Link>
                     <Link href="/users/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
+                    </Link>
+                </div>
+            }
+            {
+                authUser!.type === "alumni" && 
+                <div className="mt-24">
+                    <Link href="/alumni/dashboard">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "dashboard" ? "font-bold" : ""}`}>Dashboard</p>
+                    </Link>
+                    <Link href="/alumni/donate">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "donate" ? "font-bold" : ""}`}>Donate</p>
                     </Link>
                 </div>
             }

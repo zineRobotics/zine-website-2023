@@ -76,14 +76,14 @@ const Donate = () => {
         })
     }
 
-    useEffect(() => {
-        fetchAllDonations(authUser!.uid).then(res => {
-            setDonations(res.docs.map(d => {
-                const data = d.data()
-                return { ...data, date: new Date(data.date.seconds * 1000) } as IDonation
-            }))
-        })
-    }, [])
+    // useEffect(() => {
+    //     fetchAllDonations(authUser!.uid).then(res => {
+    //         setDonations(res.docs.map(d => {
+    //             const data = d.data()
+    //             return { ...data, date: new Date(data.date.seconds * 1000) } as IDonation
+    //         }))
+    //     })
+    // }, [])
 
 
     return (
@@ -100,10 +100,13 @@ const Donate = () => {
                 pauseOnHover
                 theme="light"
             />
-            <div className="grid grid-cols-12 h-screen" style={{ background: "#EFEFEF" }}>
-                <div className="col-span-9 px-12 flex flex-col">
+            <div className="flex flex-col md:grid grid-cols-12 h-screen" style={{ background: "#EFEFEF" }}>
+                <SideNav />
+
+                <div className="px-6 col-span-9 md:px-12 flex flex-col">
                     <h1 className="text-4xl font-bold mt-8" style={{ color: "#AAAAAA" }}>Donate</h1>
-                    <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full">
+
+                    <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full shadow-md">
                         <h1 className="text-2xl font-bold" style={styles.textPrimary}>Make A Donation</h1>
                         <div className="grid grid-cols-5 gap-6 mt-4">
                             <div className="col-span-3">
@@ -126,10 +129,10 @@ const Donate = () => {
                             </div>
                             {/* <div className="col-span-2">
                                 <label className="block text-gray-600 text-sm">Currency</label>
-                                <select id="projectName" className="block w-full focus:outline-none bottom-border pt-2" {...register("currency")}>
+                                <select id="currencyName" className="block w-full focus:outline-none bottom-border pt-2" {...register("currency")}>
                                     {
-                                        currencies.map(project => (
-                                            <option key={project}>{project}</option>
+                                        currencies.map(curr => (
+                                            <option key={curr}>{curr}</option>
                                         ))
                                     }
                                 </select>
@@ -140,10 +143,10 @@ const Donate = () => {
                                 {errors.remarks && <p className="text-red-500 text-sm" role="alert">Remarks is required</p>}
                             </div>
                         </div>
-                        <button className="p-3 block w-40 rounded-3xl text-white mt-8" style={{ background: "#0C72B0" }} onClick={handleSubmit(onSubmit)}>Donate</button>
+                        <button className="p-3 block w-40 rounded-3xl text-white mt-8 shadow-md hover:opacity-80" style={{ background: "#0C72B0" }} onClick={handleSubmit(onSubmit)}>Donate</button>
                     </div>
 
-                    <div className="bg-white py-4 px-6 mb-8 rounded-xl">
+                    <div className="bg-white py-4 px-6 mb-8 rounded-xl shadow-md">
                         <h1 className="text-2xl font-bold" style={styles.textPrimary}>Donations Made</h1>
                         <div className="flex flex-col">
                             {
@@ -156,7 +159,6 @@ const Donate = () => {
                         </div>
                     </div>
                 </div>
-                <SideNav />
             </div>
         </ProtectedRoute>
     )

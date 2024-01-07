@@ -50,21 +50,6 @@ const Login = () => {
             const message = errorMessages[error.code] || errorMessages["default"]
             setError("root.authError", { message })
         })
-
-        // promise.then(async (userCredential: any) => {
-        //     // Signed in
-        //     const _user = userCredential.user;
-
-        //     const snapshot = await getDoc(doc(db, "users", _user.uid))
-        //     if (!snapshot.exists()) return setError("root.authError", {message: "Invalid username or password"})
-        //     if (!_user.emailVerified) return setError("root.authError", {message: "Email is not verified"})
-
-        //     if (snapshot.data().type == "admin") return await router.push('/admin/dashboard')
-
-        //     // if (snapshot.data().roles?.includes("stage4")) return await router.push('/users/projects')
-        //     // setError("root.notQualified", {message: "Sorry you have not qualified for stage 3"})
-        //     return await router.push('/users/announcements')
-        // })
     }
 
     return (
