@@ -26,11 +26,11 @@ const SideNav = () => {
         (!hide || screenWidth > 768) && <div className="fixed h-full w-full col-span-12 md:col-span-3 pt-8 px-12 text-white md:relative md:block z-50" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
 
             <div className="flex flex-col items-center justify-between">
-                <div className="flex">
-                <Image src={ZineLogo} width={90} height={80} />
-                <div className="flex flex-col justify-center ml-1 font-extrabold">
-                    <span className="whitespace-no-wrap m-0">Robotics</span>
-                    <span className="whitespace-no-wrap p-0">and</span>
+                <div className="flex w-full">
+                <Image src={ZineLogo} width={80} height={80} />
+                <div className="flex flex-col text-left justify-center ml-1 font-extrabold text-xs">
+                    <span className="whitespace-no-wrap">Robotics</span>
+                    <span className="whitespace-no-wrap">and</span>
                     <span className="whitespace-no-wrap">Research</span>
                     <span className="whitespace-no-wrap">Group</span>
                 </div>
@@ -70,35 +70,39 @@ const SideNav = () => {
             }
             {
                 authUser!.type === "user" &&
-                <div className="mt-18">
+                <div className="mt-18 w-full">
                     {/* <Link href="/users/projects">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
                     </Link>
                     <Link href="/users/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
                     </Link> */}
-                    <div className={`bg-white w-11/12 py-2 px-10 rounded-2xl ${page === "dashboard" ? "bg-opacity-20" : "bg-opacity-5"}`}>
+                    <div className={`bg-white md:w-full py-2 px-10 rounded-2xl ${page === "dashboard" ? "bg-opacity-20" : "bg-opacity-5"}`}>
                         <p className={`text-white text-xl cursor-pointer font-extrabold`}>Dashboard</p>
                     </div>
-                    <div className={`bg-white w-11/12  py-2 px-10 rounded-2xl mt-2 ${page === "tasks" ? "bg-opacity-20" : "bg-opacity-5"}`}>
+                    <div className={`bg-white md:w-full  py-2 px-10 rounded-2xl mt-2 ${page === "tasks" ? "bg-opacity-20" : "bg-opacity-5"}`}>
                         <p className={`text-white text-xl cursor-pointer font-extrabold`}>Tasks</p>
                     </div>
-                    <div className={`bg-white w-11/12 py-2 px-10 rounded-2xl mt-2 ${page === "channels" ? "bg-opacity-20" : "bg-opacity-5"}`}>
+                    <div className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${page === "channels" ? "bg-opacity-20" : "bg-opacity-5"}`}>
                         <Link href="/users/channels">
                             <p className={`text-white text-xl cursor-pointer font-extrabold opacity-100`}>Channels</p>
                         </Link>
                     </div>
                 </div>
             }
-
-
-            <div className="bg-white rounded-3xl text-center cursor-pointer absolute bottom-5 mx-8 left-0 right-0 shadow-md hover:bg-gray-100">
-                <p className="text-xl text-red-500 py-3 px-4" onClick={logOut}>Logout</p>
+            <div className="w-11/12 absolute bottom-5 right-0 left-0 mx-auto pt-2 pb-2 bg-white bg-opacity-5 rounded-2xl">
+                <div className="w-11/12 font-bold mx-auto pl-2">{authUser?.name}</div>
+                <div className=" w-11/12 text-sm mx-auto pl-2">{authUser?.email}</div>
+            
+            
+            <div className="bg-white rounded-3xl text-center cursor-pointer mx-auto w-11/12 left-0 right-0 shadow-md hover:bg-gray-100">
+                <p className="text-l text-red-500 py-2 px-4" onClick={logOut}>Logout</p>
+            </div>
             </div>
         </div>
         }
 
-        <div className="col-span-12 p-2 md:hidden" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+        <div className="col-span-12 p-2 md:hidden sm:w-full" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
             <Image className="ml-4 z-50" height={30} width={40} src={hamburger} onClick={() => setHide(!hide)} />
         </div>
         </>
