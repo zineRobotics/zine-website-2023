@@ -58,8 +58,12 @@ const Donate = () => {
                 handler: async (response) => {
                     const result = await verifyPayment({ orderId: orderData.orderId, paymentId: response.razorpay_payment_id, signature: response.razorpay_signature })
                     const resdata = result.data
-                    if (resdata) toast.success("Payment Successful! Thank you for your donation!")
-                    else toast.error("Error")
+                    if (resdata) {
+                        toast.success("Payment Successful! Thank you for your donation!")
+                        setDonations([...donations, orderData])
+                    } else {
+                        toast.error("Error")
+                    }
                 },
                 modal: {
                     ondismiss: () => toast.info("Payment Cancelled")
@@ -72,9 +76,6 @@ const Donate = () => {
             rzpay.on("payment.ondismiss", () => {
                 toast.info('Payment Cancelled')
             });
-
-            setDonations([...donations, orderData])
-
             return rzpay.open()
         }).catch(err => {
             toast.error(err)
