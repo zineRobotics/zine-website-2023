@@ -10,7 +10,7 @@ interface ICreateOrder {
 
 }
 
-const PAYMENT_BACKEND_SERVER = "http://zinedocker.onrender.com/api"
+const PAYMENT_BACKEND_SERVER = "https://zinedocker.onrender.com/api"
 // const PAYMENT_BACKEND_SERVER = "http://localhost:8080/api"
 
 export const createOrder = async (order: ICreateOrder) => {
