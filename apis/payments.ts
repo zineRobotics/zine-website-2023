@@ -1,6 +1,4 @@
 import axios from "axios"
-import { Timestamp, collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../firebase";
 
 interface ICreateOrder {
     amount: string;
@@ -12,8 +10,8 @@ interface ICreateOrder {
 
 }
 
-// const PAYMENT_BACKEND_SERVER = "http://zinedocker.onrender.com/api"
-const PAYMENT_BACKEND_SERVER = "http://localhost:8080/api"
+const PAYMENT_BACKEND_SERVER = "http://zinedocker.onrender.com/api"
+// const PAYMENT_BACKEND_SERVER = "http://localhost:8080/api"
 
 export const createOrder = async (order: ICreateOrder) => {
     return axios.post(`${PAYMENT_BACKEND_SERVER}/create-order`, order)
