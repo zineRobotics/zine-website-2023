@@ -9,7 +9,12 @@ interface ICreateEvent {
     description: string;
     eventType: typeof eventTypes[number];
     venue: string;
-    timeDate: Date
+    timeDate: Date;
+    recruitment: boolean;
+    isHeading: boolean;
+    stage: string; //number as string
+    image: string;
+    imagepath: string;
 }
 
 export const fetchEvents = async () => {
@@ -25,5 +30,23 @@ export const deleteEvent = async (eventid: string) => {
 }
 
 export const editEvent = async (eventid: string, data: ICreateEvent) => {
-    return updateDoc(doc(eventsCollection, eventid), { ...data, timeDate: Timestamp.fromDate(data.timeDate) })
+    const eventData = {
+        ...data
+    } 
+    
+    if(data.image){
+        return updateDoc(doc(eventsCollection, eventid), eventData)
+    }
+    else return updateDoc(doc(eventsCollection, eventid), {
+        name: data.name,
+        description: data.description,
+        eventType: data.eventType,
+        venue: data.venue,
+        timeDate: data.timeDate,
+        recruitment: data.recruitment,
+        isHeading: data.isHeading,
+        stage: data.stage,
+    })
+    
+    //return updateDoc(doc(eventsCollection, eventid), { ...data, timeDate: Timestamp.fromDate(data.timeDate) })
 }

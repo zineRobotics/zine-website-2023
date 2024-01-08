@@ -8,11 +8,14 @@ import { IRoomData, assignRoom, createRoom, deleteRoomByID, editRoom, fetchRooms
 import { IUser, getUser, getUserEmailIn } from "../../../apis/users";
 import { getDoc, query } from "firebase/firestore";
 import Modal from "../modal";
+import { deleteImage, uploadImage } from "../../../apis/image";
 
 interface IRoomForm{
     members: { value: string }[];
     name: string;
     type: "project" | "group";
+    image: any;
+    imagepath: string;
 }
 
 interface IState {
@@ -36,9 +39,21 @@ const Rooms = () => {
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<IRoomForm>();
 
     const onSubmit = async (data: IRoomForm) => {
-        const { members, name, type } = data
+        console.log(data.image)
+        if (data.image[0]){
+            var imageName = new Date().getTime().toString()
+            data.imagepath = `/rooms/${imageName}`
+            var imagelink = await uploadImage(data.image[0], data.imagepath)
+            data.image = imagelink
+        }
+        else{
+            data.image = ""
+            data.imagepath= ""
+        }
+        
+        const { members, name, type, image, imagepath } = data
         const roomcreate = async() =>{
-            createRoom(name, members.map(m=>m.value), type).then(room => {
+            createRoom(name, [], type, image, imagepath).then(room => {
                 toast.success("Room successfully created!")
                 reset()
                 console.log("Room created:", room.id)
@@ -51,6 +66,16 @@ const Rooms = () => {
     }
 
     const onEdit = async (data: IRoomForm) => {
+        
+        var imageexists = data.image[0]
+        data.image = ""
+        if (imageexists){
+            if(data.imagepath) deleteImage(data.imagepath)
+            var imageName = new Date().getTime().toString()
+            data.imagepath = `/rooms/${imageName}`
+            var imagelink = await uploadImage(imageexists, data.imagepath)
+            data.image = imagelink
+        }
         const { members, ...formData } = data
         const memberArray = members.map(m => m.value)
 
@@ -87,6 +112,7 @@ const Rooms = () => {
         setValue("name", room.name)
         setValue("members", room.members.map(m => ({ value: m })))
         setValue("type", room.type)
+        setValue("imagepath", room.imagepath)
 
         setState({ ...state, editing: true, editingID: room.id })
     }
@@ -183,6 +209,10 @@ const Rooms = () => {
                                         <option>project</option>
                                         <option>group</option>
                                     </select>
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block text-gray-600 text-sm">Image</label>
+                                    <input type="file" id="image" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('image', { required: false })} />
                                 </div>
                             </div>
                             {

@@ -1,6 +1,8 @@
-import { db } from '../firebase';
+import { db, storage } from '../firebase';
+import { deleteObject, ref } from 'firebase/storage';
 import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp, deleteDoc, updateDoc, arrayRemove, arrayUnion, getDoc } from "firebase/firestore";
 import { IUser, addUserRoom } from './users';
+import { deleteImage } from './image';
 
 
 const roomsCollection = collection(db, "rooms")
@@ -22,12 +24,16 @@ export interface IRoomData{
     members: string[];
     name: string;
     type: "project" | "group";
+    image: string
+    imagepath: string
 }
 
 export interface IRoomCreateData{
     members: string[];
     name: string;
     type: "project" | "group";
+    image: string
+    imagepath: string
 }
 
 export const getRoom = async (name: string) => {
@@ -38,8 +44,8 @@ export const fetchRooms = async () =>{
     return getDocs(roomsCollection)
 }
 
-export const createRoom = async (name: string, members: string[], type: "project" | "group") => {
-    return addDoc(roomsCollection, { name, members, type })
+export const createRoom = async (name: string, members: string[], type: "project" | "group", image: string, imagepath: string) => {
+    return addDoc(roomsCollection, { name, members, type, image, imagepath })
 }
 
 export const editRoom = async (roomid: string, data: IRoomCreateData) => {
@@ -49,7 +55,18 @@ export const editRoom = async (roomid: string, data: IRoomCreateData) => {
     }
 
     console.log(data, roomid)
-    return updateDoc(doc(roomsCollection, roomid), roomData)
+    if(data.image){
+        return updateDoc(doc(roomsCollection, roomid), {
+            name: data.name,
+            type: data.type,
+            image: data.image,
+            imagepath: data.imagepath
+        })
+    }
+    else return updateDoc(doc(roomsCollection, roomid), {
+        name: data.name,
+        type: data.type
+    })
 }
 
 export const assignRoom = async (room: IRoomData, users: IUser[]) => {
@@ -114,6 +131,9 @@ export const deleteRoomByName = async (roomName: string) => {
 export const deleteRoomByID = async (roomid: string) => {
     const room = await getDoc(doc(roomsCollection, roomid))
     const roomName = room.data()?.name 
+
+    if(room.data()?.imagepath) deleteImage(room.data()?.imagepath)
+
     await deleteDoc(doc(roomsCollection, roomid))
     const members = await getDocs(query(usersCollection, where('roomids', 'array-contains', roomid)))
     return Promise.all(members.docs.map(async (m) => {
