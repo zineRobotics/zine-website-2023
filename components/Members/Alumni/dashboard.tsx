@@ -72,16 +72,16 @@ const Donate = () => {
                 <SideNav />
                 <div className="col-span-9 px-12 flex-1 flex-col">
                     <h1 className="text-4xl font-bold mt-8" style={{ color: "#AAAAAA" }}>Alumni</h1>
-                    <div className="flex flex-row grid-cols-6 bg-white rounded-xl my-3 w-full shadow-md">
-                        <div className=" w-1/6 rounded-l-xl flex flex-col justify-center bg-blue2" >
-                            <h1 className="text-7xl text-center text-white font-extrabold">{recruitment.length}</h1>
-                            <h5 className="text-2xl text-center text-white font-bold mt-2">Stages</h5>
+                    <div className="flex flex-col md:flex-row grid-cols-6 bg-white rounded-xl my-3 w-full shadow-md">
+                        <div className=" w-full md:w-1/6 rounded-t-xl md:rounded-l-xl flex flex-col justify-center bg-blue2 p-2" >
+                            <h1 className="text-3xl md:text-5xl text-center text-white font-extrabold p-1">{recruitment.length}</h1>
+                            <h5 className="text-xl text-center font-bold mt-2 p-1 text-white">Stages</h5>
                         </div>
-                        <div className=" bg-white w-5/6 rounded-r-xl" >
+                        <div className=" bg-white bg-white md:w-5/6 rounded-b-xl md:rounded-r-xl" >
                             <div>
-                                <h1 className="text-xl text-right text-blue2 pr-5 pt-2 font-bold">Recruitment '23</h1>
+                                <h1 className="text-xl text-center md:text-right text-blue2 pr-5 pt-2 font-bold">Recruitment '23</h1>
                             </div>
-                            <div className={`grid grid-cols-${(recruitment.length>3)?3:recruitment.length} md:grid-cols-${(recruitment.length>6)?6:recruitment.length} lg:grid-cols-${recruitment.length} flex flex-wrap flex-row justify-evenly p-2 mx-auto my-1`} >
+                            <div className={`grid grid-cols-${(recruitment.length>3)?3:recruitment.length} md:grid-cols-${(recruitment.length>8)?8:recruitment.length} flex flex-wrap flex-row justify-evenly p-2 mx-auto my-1`} >
                                 {
                                     recruitment.map((element) => {
                                         return(
@@ -97,12 +97,12 @@ const Donate = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-row grid-cols-6 bg-white rounded-xl my-3 w-full shadow-md">
-                        <div className=" bg-white w-5/6 rounded-l-xl" >
+                    <div className="flex flex-col-reverse md:flex-row grid-cols-6 bg-white rounded-xl my-3 w-full shadow-md">
+                        <div className=" bg-white w-full md:w-5/6 rounded-b-xl md:rounded-l-xl" >
                             <div>
-                                <h1 className="text-xl text-left text-blue2 pl-5 pt-2 font-bold">Workshops '23</h1>
+                                <h1 className="text-xl text-center md:text-left text-blue2 pl-5 pt-2 font-bold">Workshops '23</h1>
                             </div>
-                            <div className={`grid grid-cols-${(workshops.length>3)?3:workshops.length} md:grid-cols-${(workshops.length>6)?6:workshops.length} lg:grid-cols-${workshops.length} flex flex-wrap flex-row justify-evenly p-2 mx-auto my-1`} >
+                            <div className={`grid grid-cols-${(workshops.length>3)?3:workshops.length} md:grid-cols-${(workshops.length>8)?8:workshops.length} flex flex-wrap flex-row justify-evenly p-2 mx-auto my-1`} >
                                 {
                                     workshops.map(element => {
                                         return(
@@ -117,28 +117,28 @@ const Donate = () => {
                                 }
                             </div>
                         </div>
-                        <div className="col-span-1 w-1/6 rounded-r-xl flex flex-col justify-center p-2 bg-blue2">
-                            <h1 className="text-5xl text-center font-extrabold p-1 text-white">{registrations}</h1> {/* to be updated to reflect all events later*/}
+                        <div className="col-span-1 w-full md:w-1/6 rounded-t-xl md:rounded-r-xl flex flex-col justify-center p-2 bg-blue2">
+                            <h1 className="text-3xl md:text-5xl text-center font-extrabold p-1 text-white">{registrations}</h1> {/* to be updated to reflect all events later*/}
                             <h5 className="text-xl text-center font-bold mt-2 p-1 text-white">Registered</h5>
                         </div>
                     </div>
                     <div className="grid grid-cols-6 md:grid-cols-9 grid-rows-10 gap-4 md:gap-8 flex-1 mb-3">
                         <div className="col-span-3 row-span-4 bg-white shadow-md cursor-pointer rounded-xl py-4 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center ">
-                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{workshops.length}</h1> {/* to be updated to reflect all events later*/}
+                            <h1 className="text-3xl md:text-7xl text-center font-extrabold" style={styles.textPrimary}>{workshops.length}</h1> {/* to be updated to reflect all events later*/}
                             <div className="text-center mt-4">
                                 <FontAwesomeIcon icon={faCalendar} size="2x" style={styles.textSecondary} />
                             </div>
                             <h5 className="text-2xl text-center font-bold mt-2" style={styles.textSecondary}>Events</h5>
                         </div>
                         <div className="col-span-3 row-span-4 bg-white shadow-md cursor-pointer rounded-xl py-4 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center ">
-                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{tasks}</h1> {/* to be updated to reflect all events later*/}
+                            <h1 className="text-3xl md:text-7xl text-center font-extrabold" style={styles.textPrimary}>{tasks}</h1> {/* to be updated to reflect all events later*/}
                             <div className="text-center mt-4">
                                 <FontAwesomeIcon icon={faCalendar} size="2x" style={styles.textSecondary} />
                             </div>
                             <h5 className="text-2xl text-center font-bold mt-2" style={styles.textSecondary}>Tasks</h5>
                         </div>
                         <div className="col-span-3 row-span-4 bg-white shadow-md cursor-pointer rounded-xl py-4 border-transparent border-2 hover:border-blue-400 flex flex-col justify-center ">
-                            <h1 className="text-7xl text-center font-extrabold" style={styles.textPrimary}>{users}</h1> {/* to be updated to reflect all events later*/}
+                            <h1 className="text-3xl md:text-7xl text-center font-extrabold" style={styles.textPrimary}>{users}</h1> {/* to be updated to reflect all events later*/}
                             <div className="text-center mt-4">
                                 <FontAwesomeIcon icon={faCalendar} size="2x" style={styles.textSecondary} />
                             </div>
