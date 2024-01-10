@@ -3,6 +3,7 @@
   "name": "zine-robotics-website",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://zine.co.in",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
