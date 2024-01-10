@@ -63,7 +63,7 @@ const Projects = () => {
                     const {name, email, type, uid} = puser.data() as IUser
                     const project = {
                         ...userProject,
-                        usersData: [{ name, email, type, uid }],
+                        usersData: [{ name, email, type, uid, roomids: [] }],
                         taskData: tasks[userProject.task?.id],
                         id: d.id
                     }
