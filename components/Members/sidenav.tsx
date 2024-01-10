@@ -8,6 +8,7 @@ import { useAuth } from "../../context/authContext";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import hamburger from "../../images/hamburger.svg";
 
+
 const SideNav = () => {
     const { authUser, logOut } = useAuth()
     const [hide, setHide] = useState(false)
@@ -92,6 +93,20 @@ const SideNav = () => {
                     </div>
                 </div>
             }
+            
+                        {
+                authUser!.type === "alumni" && 
+                <div className="mt-24">
+                    <Link href="/alumni/dashboard">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "dashboard" ? "font-bold" : ""}`}>Dashboard</p>
+                    </Link>
+                    <Link href="/alumni/donate">
+                        <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "donate" ? "font-bold" : ""}`}>Donate</p>
+                    </Link>
+                </div>
+            }
+            
+       
             <div className="w-11/12 absolute bottom-5 right-0 left-0 mx-auto pt-2 pb-2 bg-white bg-opacity-5 rounded-2xl">
                 <div className="w-11/12 font-bold mx-auto pl-2">{authUser?.name}</div>
                 <div className=" w-11/12 text-sm mx-auto pl-2">{authUser?.email}</div>
@@ -100,6 +115,8 @@ const SideNav = () => {
             <div className="bg-white rounded-3xl text-center cursor-pointer mx-auto w-11/12 left-0 right-0 shadow-md hover:bg-gray-100">
                 <p className="text-l text-red-500 py-2 px-4" onClick={logOut}>Logout</p>
             </div>
+
+
             </div>
         </div>
         }
