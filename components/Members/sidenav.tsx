@@ -10,7 +10,7 @@ import hamburger from "../../images/hamburger.svg";
 
 const SideNav = () => {
     const { authUser, logOut } = useAuth()
-    const [hide, setHide] = useState(true)
+    const [hide, setHide] = useState(false)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const updateScreenWidth = () => { setScreenWidth(window.innerWidth); };
     useEffect(() => {
@@ -25,10 +25,10 @@ const SideNav = () => {
         {        
         (!hide || screenWidth > 768) && <div className="fixed h-full w-full col-span-12 md:col-span-3 pt-8 px-12 text-white md:relative md:block z-50" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
 
-            <div className="flex flex-col items-center justify-between">
-                <div className="flex w-full">
+            <div className="flex flex-col items-center justify-between pt-6">
+                <div className="flex px-auto">
                 <Image src={ZineLogo} width={80} height={80} />
-                <div className="flex flex-col text-left justify-center ml-1 font-extrabold text-xs">
+                <div className="flex flex-col text-left justify-center font-extrabold text-xs ml-1">
                     <span className="whitespace-no-wrap">Robotics</span>
                     <span className="whitespace-no-wrap">and</span>
                     <span className="whitespace-no-wrap">Research</span>
@@ -77,15 +77,17 @@ const SideNav = () => {
                     <Link href="/users/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
                     </Link> */}
-                    <div className={`bg-white md:w-full py-2 px-10 rounded-2xl ${page === "dashboard" ? "bg-opacity-20" : "bg-opacity-5"}`}>
+                    {/* <div className={`bg-white md:w-full py-2 px-10 rounded-2xl ${page === "dashboard" ? "bg-opacity-20" : "bg-opacity-5"}`}>
                         <p className={`text-white text-xl cursor-pointer font-extrabold`}>Dashboard</p>
-                    </div>
+                    </div> */}
                     <div className={`bg-white md:w-full  py-2 px-10 rounded-2xl mt-2 ${page === "tasks" ? "bg-opacity-20" : "bg-opacity-5"}`}>
-                        <p className={`text-white text-xl cursor-pointer font-extrabold`}>Tasks</p>
+                    <Link href="/users/projects">
+                        <p className={`text-white text-xl cursor-pointer font-extrabold`} onClick={()=>{setHide(true)}}>Tasks</p>
+                        </Link>
                     </div>
                     <div className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${page === "channels" ? "bg-opacity-20" : "bg-opacity-5"}`}>
                         <Link href="/users/channels">
-                            <p className={`text-white text-xl cursor-pointer font-extrabold opacity-100`}>Channels</p>
+                            <p className={`text-white text-xl cursor-pointer font-extrabold opacity-100`} onClick={()=>{setHide(true)}}>Channels</p>
                         </Link>
                     </div>
                 </div>
@@ -102,7 +104,7 @@ const SideNav = () => {
         </div>
         }
 
-        <div className="col-span-12 p-2 md:hidden sm:w-full" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
+        <div className="col-span-12 p-2 md:hidden w-full fixed top-0 z-50" style={{background: "linear-gradient(to right, #003D63, #0C72B0)"}}>
             <Image className="ml-4 z-50" height={30} width={40} src={hamburger} onClick={() => setHide(!hide)} />
         </div>
         </>

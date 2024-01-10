@@ -31,7 +31,7 @@ const Login = () => {
             console.log(authUser.type)
             if (authUser.type === "admin") router.push('/admin/dashboard')
             // else if (authUser.type === "user") router.push('/users/announcements')
-            else if (authUser.type === "user") router.push('/users/channels') //CHANGED THIS
+            else if (authUser.type === "user") router.push('/users/announcements') //CHANGED THIS
             else if (authUser.type === "alumni") router.push('/alumni/dashboard')
 
         }
