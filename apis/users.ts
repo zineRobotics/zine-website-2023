@@ -39,7 +39,14 @@ export const createUser = async ({ uid, name, email }: ICreateUser) => {
 }
 
 
-export const addUserRoom = async (uid: string, roomnames: string[], roomids: string[]) => {
+export const addUserRoom = async (user: IUser, roomnames: string[], roomids: string[]) => {
     console.log(roomnames, roomids)
-    return updateDoc(doc(usersCollection, uid), { rooms: arrayUnion(...roomnames), roomids: arrayUnion(...roomids) })
+    await Promise.all(roomids.map(
+        async(id) =>{
+            await updateDoc(doc(db, "rooms", id), {
+                members: arrayUnion(user.email)
+            })
+        }
+    ))
+    return updateDoc(doc(usersCollection, user.uid), { rooms: arrayUnion(...roomnames), roomids: arrayUnion(...roomids) })
 }

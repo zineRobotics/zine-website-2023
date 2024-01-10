@@ -1,39 +1,59 @@
 export const achievements = [
+    
+
+    {
+        cardTitle: "Research Paper",
+        title: "November 2023",
+        cardDetailedText: "\"AI-Enhanced Diagnosis: Pediatric Chest X-Ray Classification for Bronchiolitis and Pneumonia\" presented at 7th International Conference on Image Information Processing ICIIP",
+        cardSubtitle:"Contributors: Priyansh Kothari"
+    },
+    {
+        cardTitle: "Research Paper",
+        title: "November 2023",
+        cardDetailedText: "\"Design Development and Analysis of 3-DOF Robotic Arm\" presented at 9th IEEE India International Conference on Power Electronics, IICPE 2023",
+        cardSubtitle:"Contributor: Ashok Kumar Saini"
+    },
     {
         cardTitle: "Maze Solver",
         title: "November 2023",
         cardDetailedText: "1st position in a autonomous bot competition hosted by NIT Jaipur Sphinx. Designed an autonomous line follower robot to traverse a given maze and then traverse it using the most optimized path",
-        cardSubtitle: "Team Members: "
+        cardSubtitle: ""
+    },
+    {
+        cardTitle: "Research Paper",
+        title: "October 2023",
+        cardDetailedText: "\"GAT-DNet: High Fidelity Graph Attention Network for Distribution Optimal Power Flow Pursuit\" presented at 9th IEEE India International Conference on Power Electronics, IICPE 2023",
+        cardSubtitle:"Contributor: Rupesh Yadav"
     },
     {
         cardTitle: "Meshmerize",
         title: "October 2023",
         cardDetailedText: "1st position in a autonomous bot competition hosted by IIT Bombay Techfest. Designed an autonomous line follower robot to traverse a given maze and then traverse it using the most optimized path",
-        cardSubtitle: "Team Members: "
+        cardSubtitle: ""
+    },
+    {
+        cardTitle: "Utility Patent Published",
+        title: "August 2023",
+        cardDetailedText: "Collaborated with Sahayta Jaipur (NGO) to build an offline lightweight conversational chatbot - a BERT-based model for bilingual conversation on education and assistance on Road safety. Deployed the model on a SBC and published a utility patent.",
+        cardSubtitle:"Contributors: Harshit Sandilya ,Priyansh Kothari"
     },
     {
         cardTitle: "Meshmerize",
         title: "December 2022",
         cardDetailedText: "1st position in a autonomous bot competition hosted by IIT Bombay Techfest. Designed an autonomous line follower robot to traverse a given maze and then traverse it using the most optimized path",
-        cardSubtitle: "Team Members: "
+        cardSubtitle: ""
     },
     {
         cardTitle: "Cozmo Clench",
         title: "December 2022",
         cardDetailedText: "Bagged the 2nd position in a manual-bot competition hosted by IIT Bombay Techfest. Designed a 20x25cm manual gripper robot to traverse various terrains, used frequency remote to control and arduino to process the signals",
-        cardSubtitle: "Team Members: "
+        cardSubtitle: ""
     },
     {
         cardTitle: "Weld Right",
         title: "December 2022",
         cardDetailedText: "Ranked top 10 in India for a machine learning Hackathon organized by Godrej & Byce. Created a DNN model to classify welding defects (multilabel) based on welding parameters, and provide TCO and ROI of model deployment",
-        cardSubtitle: "Team Members: "
-    },
-    {
-        cardTitle: "IEEE Research Paper",
-        title: "November 2020",
-        cardDetailedText: "A research paper on Shortest path evaluation with enhanced linear graph and Dijkstra's A;gprithm was presented at 59th annual conference of SICE",
-        cardSubtitle: "Author: Tanishk Dudi"
+        cardSubtitle: ""
     },
     {
         cardTitle: "CSAW Hack3D Hackathon 2021",
@@ -99,7 +119,7 @@ export const achievements = [
 
     },
     {
-        cardTitle: "Indian Drone Racing League 26, BITS PIlani Goa",
+        cardTitle: "Indian Drone Racing League 26, BITS Pilani Goa",
         title: "February 2020",
         cardDetailedText: "2nd Place in Pro Class Race",
         cardSubtitle: "Team Members : Devnath Nair",
@@ -219,7 +239,7 @@ export const achievements = [
     },
     {
         cardTitle: "Plinth 2019, LNMIIT, Jaipur",
-        title: "November 2020",
+        title: "November 2018",
         cardDetailedText: "1st Place in Drone Obstruction 3rd Place in Drone Obstruction",
         cardSubtitle: "Team Members : Devnath Nair, Vishal Kothari",
 
@@ -276,8 +296,8 @@ export const achievements = [
     {
         cardTitle: "Sphinx 2018, MNIT Jaipur",
         title: "January 2018",
-        cardDetailedText: "1st Place in Robowar 1st Place in Robostone 2nd Place in Android App Development 2nd Place in Robostone",
-        cardSubtitle: "Team Members : Nimesh Khandelwal, Vikalp Saini Team Members : Nimesh Khandelwal, Vikalp Saini Team Members - Saksham Jain, Gaurav Team Members : Rohan Chauhan, Saksham Jain",
+        cardDetailedText: "1st Place in Robowar, 1st Place in Robostone, 2nd Place in Android App Development and 2nd Place in Robostone.",
+        cardSubtitle: "Team Members : Nimesh Khandelwal, Vikalp Saini, Gaurav, Rohan Chauhan, Saksham Jain",
 
     },
     {
@@ -289,7 +309,7 @@ export const achievements = [
     },
     {
         cardTitle: "Science Conclave 2018, MNIT Jaipur",
-        title: "November 2020",
+        title: "November 2018",
         cardDetailedText: "Most Innovative Project (Biped) and Silver for Best College Project (Tricopter)",
         cardSubtitle: "Team Members : Rahul Ravichandran, Devnath Nair, Nimesh Khandelwal",
 
@@ -332,7 +352,7 @@ export const achievements = [
     },
     {
         cardTitle: "Blitzschlag 2015, MNIT jaipur",
-        title: "April 19 2015",
+        title: "April 2015",
         cardDetailedText: "Circuit mania blitz 2015 2nd and 4th position",
         cardSubtitle: "",
 

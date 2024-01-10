@@ -118,10 +118,10 @@ import alokK from "../images/members/2026/alok.webp";
 import shubh from "../images/members/2026/shubh.webp";
 import mahaveer from "../images/members/2026/mahaveer.webp";
 import krishna from "../images/members/2026/krishna.webp";
-import anas from "../images/members/2026/anas.webp";
 import nitin from "../images/members/2026/nitin.webp";
 import kushal from "../images/members/2026/kushal.webp";
 import adityaW from "../images/members/2026/adityaW.webp";
+import herschelle from "../images/members/2026/herschelle.webp"
 
 interface Member {
   name: string;
@@ -1640,13 +1640,13 @@ export const year2026: Member[] = [
     facebook: "",
   },
   {
-    name: "Mohd Anas Ansari",
-    image: anas,
-    desc: "Electronics and Communication Engineering",
+    name: 'Herschelle Mathew Thomas',
+    image: herschelle,
+    desc: "Computer Science and Engineering",
     github: "",
-    linkedin: "https://www.linkedin.com/in/mohd-anas-ansari-12370a292/",
+    linkedin: 'https://www.linkedin.com/in/herschelle-thomas-37513b24b/',
     twitter: "",
     instagram: "",
     facebook: "",
-  },
+  }
 ];

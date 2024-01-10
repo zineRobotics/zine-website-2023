@@ -11,25 +11,25 @@
 }
 
 .number-slide1 {
-  background: url("../images/carousal/1.jpg") rgba(0, 0, 0, 0.5);
+  background: url("../images/carousal/1.webp") rgba(0, 0, 0, 0.5);
   background-blend-mode: darken;
   background-size: cover;
 }
 
 .number-slide2 {
-  background: url("../images/carousal/2.jpg") rgba(0, 0, 0, 0.5);
+  background: url("../images/carousal/2.webp") rgba(0, 0, 0, 0.5);
   background-blend-mode: darken;
   background-size: cover;
 }
 
 .number-slide3 {
-  background: url("../images/carousal/3.jpg") rgba(0, 0, 0, 0.5);
+  background: url("../images/carousal/3.webp") rgba(0, 0, 0, 0.5);
   background-blend-mode: darken;
   background-size: cover;
 }
 
 .number-slide4 {
-  background: url("../images/carousal/4.jpg") rgba(0, 0, 0, 0.5);
+  background: url("../images/carousal/4.webp") rgba(0, 0, 0, 0.5);
   background-blend-mode: darken;
   background-size: cover;
 }
@@ -41,7 +41,7 @@
 }
 
 .number-slide6 {
-  background: url("../images/gallery/carousel/workshop.jpg") rgba(0, 0, 0, 0.5);
+  background: url("../images/gallery/carousel/workshop.webp") rgba(0, 0, 0, 0.5);
   background-blend-mode: darken;
   background-size: cover;
 }

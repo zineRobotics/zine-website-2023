@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import ProtectedRoute from "./ProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
 import { createEvent, deleteEvent, editEvent, eventTypes, fetchEvents } from "../../../apis/events";
+import { deleteImage, uploadImage } from "../../../apis/image";
 
 interface IEventForm {
     name: string;
@@ -14,6 +15,11 @@ interface IEventForm {
     date: Date;
     time: string;
     id: string;
+    recruitment: boolean;
+    isHeading: boolean;
+    stage: string; //number as string
+    image: any;
+    imagepath: string;
 }
 
 interface IEventData {
@@ -22,14 +28,35 @@ interface IEventData {
     eventType: typeof eventTypes[number];
     venue: string;
     timeDate: {seconds: number, nanoseconds: number};
+    recruitment: boolean;
+    isHeading: boolean;
+    stage: string; //number as string
+    image: any;
+    imagepath: string;
 }
 
 const Events = () => {
     const [events, setEvents] = useState<IEventForm[]>([])
     const [state, setState] = useState({ search: "", editing: false, editingID: "" })
 
-    const { register, setValue, reset, formState: {errors}, handleSubmit } = useForm<IEventForm>()
-    const onSubmit = (data: IEventForm) => {
+    const { register, setValue, reset, formState: {errors}, handleSubmit } = useForm<IEventForm>({
+        defaultValues: {
+            isHeading: false,
+            stage: "0",
+            recruitment: false,
+        }
+    })
+    const onSubmit = async(data: IEventForm) => {
+        if (data.image[0]){
+            var imageName = new Date().getTime().toString()
+            data.imagepath = `/events/${imageName}`
+            var imagelink = await uploadImage(data.image[0], data.imagepath)
+            data.image = imagelink
+        }
+        else{
+            data.image = ""
+            data.imagepath= ""
+        }
         const { date, time, ...formdata } = data
         const eventData = { ...formdata, timeDate: new Date(`${date.toLocaleDateString('en-CA')} ${time}`) }
         reset()
@@ -74,11 +101,22 @@ const Events = () => {
         setValue("time", event.time)
         setValue("venue", event.venue)
         setValue("eventType", event.eventType)
+        setValue("imagepath", event.imagepath)
+        setValue("stage", event.stage)
 
         setState({ ...state, editing: true, editingID: event.id })
     }
 
     const onEdit = async (data: IEventForm) => {
+        var imageexists = data.image[0]
+        data.image = ""
+        if (imageexists){
+            if(data.imagepath) deleteImage(data.imagepath)
+            var imageName = new Date().getTime().toString()
+            data.imagepath = `/events/${imageName}`
+            var imagelink = await uploadImage(imageexists, data.imagepath)
+            data.image = imagelink
+        }
         const { date, time, ...formdata } = data
         const eventData = { ...formdata, timeDate: new Date(`${date.toLocaleDateString('en-CA')} ${time}`) }
         reset()
@@ -156,6 +194,31 @@ const Events = () => {
                             <input type="time" id="time" className="block w-full focus:outline-none bottom-border pt-2" {...register("time", {required: true})} />
                             {errors.time && <p className="text-red-500 text-sm" role="alert">Time is required</p>}
                         </div>
+                        <div className="col-span-1">
+                            <label className=" text-gray-600 text-sm">Recruitment</label>
+                            <input type="checkbox" id="recruitment" className="" {...register("recruitment")}></input>
+                        </div>
+                        <div className="col-span-1">
+                            <label className=" text-gray-600 text-sm">isHeading</label>
+                            <input type="checkbox" id="isHeading" className="" {...register("isHeading")}></input>
+                        </div>
+                        <div className="col-span-1">
+                            <label className="block text-gray-600 text-sm">Stage</label>
+                            <select id="stage" className="block w-full focus:outline-none bottom-border pt-2" {...register("stage", {required: true})}>
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                            </select>
+                        </div>
+                        <div className="col-span-2">
+                            <label className="block text-gray-600 text-sm">Image</label>
+                            <input type="file" id="image" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('image', { required: false })} />
+                        </div>
+
                     </div>
                     {/* <button className="p-3 block w-40 rounded-3xl text-white mt-8" style={{background: "#0C72B0"}} onClick={handleSubmit(onSubmit)}>Create</button> */}
                     {

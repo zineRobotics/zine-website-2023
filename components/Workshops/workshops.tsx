@@ -131,7 +131,7 @@ const Workshops = () => {
           }
 
           
-          <h1 className="text-white font-bold mt-24 text-2xl md:text-6xl">Recruitment & Workshop</h1>
+          <h1 className="text-white font-bold mt-24 text-2xl md:text-6xl">Recruitment & Workshops</h1>
           
           {/* <Link href="/workshops/registration">
             <button className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white" style={{width: 300, color: "#0C72B0"}}>Register Now</button>
