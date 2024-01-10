@@ -1,6 +1,5 @@
 import Error from 'next/error'
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuth } from "../../../context/authContext";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
