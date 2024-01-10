@@ -109,6 +109,17 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input {
+  width:100px;
+  vertical-align:top;
+  padding:2px;
+}
+
+select {
+  vertical-align:top;
+  padding: 1px;
+}
+
 .dropdown {
   z-index: 30;
 }

@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideNav from "../sidenav";
 import styles from "../../../constants/styles";
-import { db, storage } from '../../../firebase';
-import { collection, addDoc, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { db } from '../../../firebase';
+import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from "../../../context/authContext";
 import Checkpoints from "../checkpoints";
@@ -18,7 +18,6 @@ const Projects = () => {
     const [confirmProject, setConfirmProject] = useState<ITaskData>()
 
     const userTasksCollection = collection(db, "userTasks")
-    const tasksCollection = collection(db, "tasks")
 
     useEffect(() => {
         if (!authUser) return
