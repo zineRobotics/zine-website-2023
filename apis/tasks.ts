@@ -82,7 +82,7 @@ const createTaskRoom = async (task: ITaskData, groups: IUser[][]) => {
         return Promise.all(groups.map(async (g) => {
             console.log('group', g)
             const roomName = task.roomName || `${task.title.split(' ')[0]}-${g[0].email.slice(4).split('@')[0]}`
-            const room = await createRoom(roomName, [], "project")
+            const room = await createRoom(roomName, [], "project", "", "")
             const members = g.concat(mentors)
     
             await Promise.all(members.map(m => addUserRoom(m, [roomName], [room.id])))
