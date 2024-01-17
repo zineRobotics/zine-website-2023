@@ -29,12 +29,6 @@ const SideNav = () => {
             <div className="flex flex-col items-center justify-between pt-6">
                 <div className="flex px-auto">
                 <Image src={ZineLogo} width={80} height={80} />
-                <div className="flex flex-col text-left justify-center font-extrabold text-xs ml-1">
-                    <span className="whitespace-no-wrap">Robotics</span>
-                    <span className="whitespace-no-wrap">and</span>
-                    <span className="whitespace-no-wrap">Research</span>
-                    <span className="whitespace-no-wrap">Group</span>
-                </div>
                 </div>
                 {/* <h3 className="text-3xl font-bold mt-4 md:mr-2">{authUser?.name}</h3> */}
             </div>
@@ -109,7 +103,7 @@ const SideNav = () => {
        
             <div className="w-11/12 absolute bottom-5 right-0 left-0 mx-auto pt-2 pb-2 bg-white bg-opacity-5 rounded-2xl">
                 <div className="w-11/12 font-bold mx-auto pl-2">{authUser?.name}</div>
-                <div className=" w-11/12 text-sm mx-auto pl-2">{authUser?.email}</div>
+                <div className=" w-11/12 text-sm mx-auto pl-2 mb-2">{authUser?.email}</div>
             
             
             <div className="bg-white rounded-3xl text-center cursor-pointer mx-auto w-11/12 left-0 right-0 shadow-md hover:bg-gray-100">
