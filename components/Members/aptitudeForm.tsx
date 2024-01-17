@@ -28,13 +28,13 @@ const AptitudeForm = () => {
     useState<string>("");
   const [branch, setBranch] =
     useState<string>("");
-  const handleSubmit = async () => {
-    console.log({
-      name: name,
-      email: email,
-      phoneNumber: phoneno,
-      branch: branch,
-    });
+  const [gender, setGender] =
+    useState<string>("");
+  const [platform, setPlatform] =
+    useState<string>("");
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     const userRef = collection(db, "users");
     const isRegistered = query(
       userRef,
@@ -69,14 +69,19 @@ const AptitudeForm = () => {
     }
   };
   const addRegistration = async () => {
+    let data = {
+      name: name,
+      email: email,
+      phoneNumber: phoneno,
+      branch: branch,
+      gender: gender,
+      platform: platform,
+    };
+    console.log(data);
+
     let add = addDoc(
       collection(db, "aptitudeRegs"),
-      {
-        name: name,
-        email: email,
-        phoneNumber: phoneno,
-        branch: branch,
-      }
+      data
     );
     toast.promise(add, {
       pending: "Registering user",
@@ -129,84 +134,129 @@ const AptitudeForm = () => {
         >
           Aptitude Test Registration 2024
         </div>
-        <div className="mt-8">
-          <label className="block text-gray-600">
-            Name
-            <span className="text-red-500">
-              *
-            </span>
-          </label>
-          <input
-            type="text"
-            id="name"
-            className="block w-full focus:outline-none bottom-border pt-2"
-            placeholder=""
-            value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
-          />
-        </div>
-        <div className="mt-8">
-          <label className="block text-gray-600">
-            Email
-            <span className="text-red-500">
-              *
-            </span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="block w-full focus:outline-none bottom-border pt-2"
-            placeholder="xyz@abc.com"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-          />
-        </div>
-        <div className="mt-8">
-          <label className="block text-gray-600">
-            Phone number
-            <span className="text-red-500">
-              *
-            </span>
-          </label>
-          <input
-            type="text"
-            id="phoneno"
-            className="block w-full focus:outline-none bottom-border pt-2"
-            value={phoneno}
-            onChange={(e) =>
-              setPhoneno(e.target.value)
-            }
-          />
-        </div>
-        <div className="mt-8">
-          <label className="block text-gray-600">
-            Branch
-            <span className="text-red-500">
-              *
-            </span>
-          </label>
-          <input
-            type="text"
-            id="branch"
-            className="block w-full focus:outline-none bottom-border pt-2"
-            value={branch}
-            onChange={(e) =>
-              setBranch(e.target.value)
-            }
-          />
-        </div>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className="mt-8">
+            <label className="block text-gray-600">
+              Name
+              <span className="text-red-500">
+                *
+              </span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="block w-full focus:outline-none bottom-border pt-2"
+              placeholder=""
+              value={name}
+              onChange={(e) =>
+                setName(e.target.value)
+              }
+              required
+            />
+          </div>
+          <div className="mt-8">
+            <label className="block text-gray-600">
+              Email
+              <span className="text-red-500">
+                *
+              </span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="block w-full focus:outline-none bottom-border pt-2"
+              placeholder="xyz@abc.com"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+              required
+            />
+          </div>
+          <div className="mt-8">
+            <label className="block text-gray-600">
+              Phone number
+              <span className="text-red-500">
+                *
+              </span>
+            </label>
+            <input
+              type="text"
+              id="phoneno"
+              className="block w-full focus:outline-none bottom-border pt-2"
+              value={phoneno}
+              onChange={(e) =>
+                setPhoneno(e.target.value)
+              }
+              required
+            />
+          </div>
+          <div className="mt-8">
+            <label className="block text-gray-600">
+              Branch
+              <span className="text-red-500">
+                *
+              </span>
+            </label>
+            <input
+              type="text"
+              id="branch"
+              className="block w-full focus:outline-none bottom-border pt-2"
+              value={branch}
+              onChange={(e) =>
+                setBranch(e.target.value)
+              }
+              required
+            />
+          </div>
+          <div className="mt-8">
+            <label className="block text-gray-600">
+              Gender
+              <span className="text-red-500">
+                *
+              </span>
+            </label>
+            <select
+              id="gender"
+              className="block w-full focus:outline-none bottom-border pt-2"
+              value={gender}
+              onChange={(e) =>
+                setGender(e.target.value)
+              }
+            >
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div className="mt-8">
+            <label className="block text-gray-600">
+              Platform
+              <span className="text-red-500">
+                *
+              </span>
+            </label>
+            <select
+              id="branch"
+              className="block w-full focus:outline-none bottom-border pt-2"
+              value={platform}
+              onChange={(e) =>
+                setPlatform(e.target.value)
+              }
+            >
+              <option>Android</option>
+              <option>IOS</option>
+            </select>
+          </div>
 
-        <button
-          className="mt-8 p-4 block w-full rounded-3xl text-white opacity-90 hover:opacity-100"
-          style={{ background: "#0C72B0" }}
-          onClick={() => handleSubmit()}
-        >
-          Register
-        </button>
+          <button
+            className="mt-8 p-4 block w-full rounded-3xl text-white opacity-90 hover:opacity-100"
+            style={{ background: "#0C72B0" }}
+            type="submit"
+          >
+            Register
+          </button>
+        </form>
       </div>
     </div>
   );

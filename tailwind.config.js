@@ -58,6 +58,7 @@ module.exports = {
           1400: "#353535",
           1500: "#FFFFFF",
         },
+        lblue: "#C2FFF4",
       },
       fontFamily: {
         righteous: ["Righteous", "cursive"],
