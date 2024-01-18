@@ -64,8 +64,26 @@ export const createUser = async ({
     type: "user",
     dp: Math.floor(Math.random() * 27),
     registered: false,
-    roomids: [],
-    rooms: [],
+    roomids: ["52vnFJ9cxVALugPY4BiF",
+      "qLrEBufSFtNuy6AKivgc",
+      "epPlq8YRBHXdK0Fo8gwa",
+    "gAbWhESbn0aNTIYjiyG6",
+    "uGvjwISYpVQAIhjKLzot",
+    "u4MsUCWoGfh87G5KOpLD",
+    "ZLu0q9BhvvoithpQTbbZ",
+    "rz4qKqWeaP0u6s0h8ZZK",
+    "zGZeEnyF0K7WdaT0euZn"
+  ],
+    rooms: ["Aptitude Test",
+      "BME",
+      "BEE",
+    "Aeromodelling",
+    "ALGO",
+    "Machine Learning",
+    "OpenCV",
+    "IC/MCU",
+    "IOT"
+  ],
     roles: [],
   });
 };

@@ -12,7 +12,7 @@ interface ICreateEvent {
     timeDate: Date;
     recruitment: boolean;
     isHeading: boolean;
-    stage: string; //number as string
+    stage: number;
     image: string;
     imagepath: string;
 }

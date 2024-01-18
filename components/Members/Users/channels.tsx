@@ -178,6 +178,8 @@ const Channels = () => {
       }
     );
     const final = await Promise.all(promises);
+    console.log("rooms",final);
+    
     // const IDValuePairs = Object.assign({}, ...final);
     setRooms(final);
   };
