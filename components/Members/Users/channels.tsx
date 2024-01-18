@@ -559,11 +559,10 @@ const Channels = () => {
                         }}
                       >
                         <div
-                          className="w-6 h-6 mr-2"
+                          className="w-6 h-6 mr-2 rounded-full"
                           style={{
                             backgroundColor:
-                              "#fff",
-                            borderRadius: "50%",
+                              "white",
                           }}
                         >
                           {ele[1].image ? (
@@ -571,6 +570,11 @@ const Channels = () => {
                               width={50}
                               height={50}
                               src={ele[1].image}
+                              className="rounded-full"
+                              style={{
+                                backgroundColor:
+                                  "#0C72B0",
+                              }}
                             />
                           ) : (
                             <div className="h-full w-full flex flex-col justify-center">
@@ -655,6 +659,11 @@ const Channels = () => {
                                 width={50}
                                 height={50}
                                 src={ele[1].image}
+                                className="rounded-full"
+                              style={{
+                                backgroundColor:
+                                  "#0C72B0",
+                              }}
                               />
                             </div>
                           ) : (
@@ -786,10 +795,15 @@ const Channels = () => {
                             {ele[1].image ? (
                               <div className="h-full w-full flex flex-col justify-center">
                                 <Image
-                                  layout="responsive"
+                                  height={50}
+                                  width={50}
                                   src={
                                     ele[1].image
                                   }
+                                  className="rounded-full"
+                                  style={{
+                                  backgroundColor: "#0C72B0",
+                              }}
                                 />
                               </div>
                             ) : (
@@ -880,6 +894,11 @@ const Channels = () => {
                                   src={
                                     ele[1].image
                                   }
+                                  className="rounded-full"
+                                  style={{
+                                  backgroundColor:
+                                  "#0C72B0",
+                              }}
                                 />
                               </div>
                             ) : (
@@ -919,6 +938,11 @@ const Channels = () => {
                           height={50}
                           width={50}
                           src={currRoomImage}
+                          className="rounded-full"
+                                  style={{
+                                  backgroundColor:
+                                  "#0C72B0",
+                              }}
                         />
                       </div>
                     ) : (
@@ -1132,7 +1156,7 @@ const Channels = () => {
             >
               <div className="bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
                 <div
-                  className="w-8 h-8 mr-2 ml-6 my-auto object-fill rounded-xl align pt-2 py"
+                  className="w-8 h-8 mr-2 ml-6 my-auto object-fill rounded-xl align py"
                   // style={{backgroundColor: "#0C72B0"}}
                 >
                   {currRoomImage ? (
@@ -1140,6 +1164,11 @@ const Channels = () => {
                       height={50}
                       width={50}
                       src={currRoomImage}
+                      className="rounded-full"
+                                  style={{
+                                  backgroundColor:
+                                  "#0C72B0",
+                              }}
                     />
                   ) : (
                     <Image src={ChatDP} />
