@@ -53,7 +53,7 @@ const Achievements = () => {
             <p>Achievements</p>
           </div>
         </div>
-        <Chrono items={achievements} mode="VERTICAL_ALTERNATING" disableClickOnCircle={true} hideControls={true}
+        <Chrono items={achievements} useReadMore={true} mode="VERTICAL_ALTERNATING" disableClickOnCircle={true} hideControls={true}
           theme={{
             secondary: "white",
 

@@ -70,6 +70,7 @@ export const createUser = async ({
   });
 };
 
+
 export const addUserRoom = async (
   uid: string,
   roomnames: string[],
@@ -81,3 +82,15 @@ export const addUserRoom = async (
     roomids: arrayUnion(...roomids),
   });
 };
+
+export const addUserRoom = async (user: IUser, roomnames: string[], roomids: string[]) => {
+    console.log(roomnames, roomids)
+    await Promise.all(roomids.map(
+        async(id) =>{
+            await updateDoc(doc(db, "rooms", id), {
+                members: arrayUnion(user.email)
+            })
+        }
+    ))
+    return updateDoc(doc(usersCollection, user.uid), { rooms: arrayUnion(...roomnames), roomids: arrayUnion(...roomids) })
+}
