@@ -2,10 +2,6 @@ import React from "react";
 import { useKeenSlider } from "keen-slider/react"
 import Image from "next/image";
 import "keen-slider/keen-slider.min.css"
-import a1 from "../../images/carousal/1.jpg"
-import a2 from "../../images/carousal/2.jpg"
-import a3 from "../../images/carousal/3.jpg"
-import a4 from "../../images/carousal/4.jpg"
 import Typical from 'react-typical'
 import VisibilitySensor from 'react-visibility-sensor';
 
