@@ -1,10 +1,12 @@
 import { db } from "../firebase";
 import {
-  DocumentReference,
+  QueryFilterConstraint,
+  and,
   arrayUnion,
   collection,
   doc,
   getDocs,
+  or,
   query,
   setDoc,
   updateDoc,
@@ -39,6 +41,21 @@ export const getUserEmailIn = async (
     )
   );
 };
+
+export const getUsersByRoles = async (roleList: string[]) => {
+  if (!roleList) return null
+  const constraints = roleList.map(r => {
+    if (r.toLowerCase() === 'admin') return where("type", "==", "admin")
+    if (r.toLowerCase() === 'alumni') return where("type", "==", "alumni")
+    if (r.toLowerCase() === '2024') return and(where("email", ">=", "2024"), where("email", "<=", "2024~"))
+    if (r.toLowerCase() === '2023') return and(where("email", ">=", "2023"), where("email", "<=", "2023~"))
+    if (r.toLowerCase() === '2022') return and(where("email", ">=", "2022"), where("email", "<=", "2022~"))
+    return null
+  }).filter(r => r) as QueryFilterConstraint[]
+
+  if(!constraints) return null
+  return getDocs(query(usersCollection, or(...constraints)))
+}
 
 interface ICreateUser {
   uid: string;

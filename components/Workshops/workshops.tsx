@@ -23,6 +23,10 @@ interface IStageProps {
   select: (id: number) => void;
 }
 
+export interface IWorkshopProps {
+  recruitmentEvents: IEventData[]
+}
+
 const Stage = ({
   workshops,
   state,
@@ -115,7 +119,7 @@ const Stage = ({
   );
 };
 
-const Workshops = () => {
+const Workshops = ({ recruitmentEvents }: IWorkshopProps) => {
   const [state, setState] = useState({
     selected: 0,
   });
@@ -131,36 +135,23 @@ const Workshops = () => {
     const workshopdata = [] as IWorkshopData[];
     let currentEvent = 0;
     const currentDate = new Date();
-    fetchRecruitmentEvents().then((data) => {
-      data.forEach((d) => {
-        const { timeDate, ...wdata } = d.data() as IEventData;
-        const _date = new Date(
-          timeDate.seconds * 1000
-        );
-        const date = _date.toLocaleDateString(
-          "en-US",
-          {
-            weekday: "long",
-            month: "long",
-            day: "numeric",
-          }
-        );
-        const time = _date.toLocaleTimeString(
-          "en-US",
-          { hour: "numeric", minute: "numeric" }
-        );
+    recruitmentEvents.map(e => {
+      const { timeDate, ...wdata } = e
+      const _date = new Date(timeDate as unknown as number);
+      const date = _date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+      const time = _date.toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric" });
 
-        if (currentDate > _date) currentEvent++;
-        workshopdata.push({
-          date,
-          time,
-          ...wdata,
-        });
+      if (currentDate > _date) currentEvent++;
+      workshopdata.push({
+        date,
+        time,
+        ...wdata,
       });
+    })
 
-      setWorkshops(workshopdata);
-      setState({ selected: currentEvent });
-    });
+    setWorkshops(workshopdata);
+    setState({ selected: currentEvent });
+
   }, []);
 
   const handleKeyDown = (

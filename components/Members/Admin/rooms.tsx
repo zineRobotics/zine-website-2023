@@ -5,7 +5,7 @@ import styles from "../../../constants/styles";
 import { useEffect, useState } from "react";
 import { Control, useFieldArray, useForm } from "react-hook-form";
 import { IRoomData, assignRoom, createRoom, deleteRoomByID, editRoom, fetchRooms, removeUsers } from "../../../apis/room";
-import { IUser, getUser, getUserEmailIn } from "../../../apis/users";
+import { IUser, getUser, getUserEmailIn, getUsersByRoles } from "../../../apis/users";
 import { getDoc, query } from "firebase/firestore";
 import Modal from "../modal";
 import { deleteImage, uploadImage } from "../../../apis/image";
@@ -123,11 +123,12 @@ const Rooms = () => {
     }
 
     const addAssignEmail = () => {
-        assignState.input.split(/[ ,]+/).map(e => {
+        assignState.input.trim().split(/[ ,]+/).map(e => {
             if (assignState.emails.some(f => f === e)) return
-            if (!/^\S+@\S+\.\S+$/.test(e)) return
+            if (!/^\S+@\S+\.\S+$/.test(e) && !e.startsWith('$')) return
             assignState.emails.push(e)
             setAssignState({ input: "", emails: assignState.emails });
+            return
         })
     };
 
@@ -135,9 +136,15 @@ const Rooms = () => {
         if (!state.assignRoom) return
         const room = state.assignRoom
         if (assignState.emails.length === 0) return toast.error('No users added!')
+
         setState({...state, assignRoom: null})
         const memberSnapshot = await getUserEmailIn(assignState.emails)
-        const members = memberSnapshot.docs.map(d => d.data() as IUser)
+        const members1 = memberSnapshot.docs.map(d => d.data() as IUser)
+
+        const memberSnapshot2 = await getUsersByRoles(assignState.emails.map(e => e.substring(1)))
+        const members2 = memberSnapshot2?.docs.map(d => d.data() as IUser) || []
+        const members = members1.concat(members2)
+
         const promise = assignRoom(room, members)
         
         let notfound = ""
@@ -290,7 +297,7 @@ const Rooms = () => {
                 <div className="p-4 md:p-5 text-center relative bg-white rounded-lg w-3/4 h-3/4"  >
                     <h3 className="mb-2 text-lg font-bold text-gray-500">Manage Users {state.assignRoom?.name}</h3>
                     <div className="flex text-sm">
-                        <input type='text' className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.input} onChange={(e) => setAssignState({...assignState, input: e.target.value})} />
+                        <input type='text' className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.input} placeholder="2021ucp1011@mnit.ac.in, $2023, $admin" onChange={(e) => setAssignState({...assignState, input: e.target.value})} />
                         <button type="button" className="text-white rounded-md ml-2 px-2 py-1" style={{ background: "#0C72B0" }} onClick={addAssignEmail}>Add</button>
                     </div>
 
