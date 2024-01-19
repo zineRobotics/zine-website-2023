@@ -16,7 +16,7 @@ const Dashboard = () => {
         tasks: 0
     })
 
-    const registeredCollection = collection(db, "registrations")
+    const registeredCollection = collection(db, "aptitudeRegs")
     const usersCollection = collection(db, "users")
     const eventsCollection = collection(db, "events")
     const tasksCollection = collection(db, "tasks")

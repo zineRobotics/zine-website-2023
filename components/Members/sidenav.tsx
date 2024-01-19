@@ -13,7 +13,7 @@ import hamburger from "../../images/hamburger.svg";
 
 const SideNav = () => {
   const { authUser, logOut } = useAuth();
-  const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(true);
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth
   );

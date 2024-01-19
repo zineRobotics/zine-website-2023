@@ -89,7 +89,7 @@ const Announcements = () => {
             <SideNav />
 
                 <div className="md:col-span-9 px-4 md:px-12 flex flex-col overflow-y-scroll">
-                    <h1 className="text-2xl md:text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Dashboard</h1>
+                    <h1 className="text-2xl md:text-4xl font-bold mt-14 md:mt-8" style={{color: "#AAAAAA"}}>Dashboard</h1>
                     <div className="grid grid-cols-9 my-4 gap-8">
                         <div className="hidden md:flex flex-col col-span-3 row-span-4 bg-white rounded-xl py-4 px-16 justify-center shadow-md">
                             <h5 className="text-xl text-right font-bold" style={styles.textPrimary}>{suffix}</h5>
