@@ -111,7 +111,7 @@ const AptitudeForm = () => {
           className="font-poppins text-2xl font-bold text-center"
           style={{ color: "#0C72B0" }}
         >
-          Aptitude Test Registration 2024
+          Workshop Registration 2024
         </div>
           <div className="mt-8">
               <label className="block text-gray-600">

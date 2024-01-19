@@ -9,13 +9,10 @@ import { useAuth } from "../../../context/authContext";
 import { db } from "../../../firebase";
 import {
   collection,
-  addDoc,
   getDocs,
   query,
-  where,
   doc,
   getDoc,
-  DocumentReference,
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
@@ -37,7 +34,8 @@ interface ITimestamp {
   seconds: number;
   nanoseconds: number;
 }
-import ChatDP from "../../../images/zine2.png";
+// import ChatDP from "../../../images/zine2.png";
+import ChatDP from "../../../images/admin/logo.png"
 interface IMessageData {
   from: string;
   group: string;
@@ -75,7 +73,7 @@ const Channels = () => {
     string | null
   >(null);
   const [messages, setMessages] =
-    useState<KeyValueArray>();
+    useState<KeyValueArray>([]);
   const [currMsg, setCurrMsg] = useState("");
   const [replyText, setReplyText] =
     useState<string>("");
@@ -202,15 +200,18 @@ const Channels = () => {
           messagesRef,
           orderBy("timeStamp", "asc")
         );
+
         onSnapshot(queryMessages, (snapshot) => {
-          fetchSubCollectionMessages(currRoomID);
-          console.log("reached");
+          snapshot.docs.map(d => {
+            setMessages(oldmessages => [...oldmessages, { id: d.id, data: d.data() as IMessageData}])
+          })
+          console.log("reached", snapshot.size);
         });
       } catch (err) {
         console.log("snap error", err);
       }
     }
-  }, []);
+  }, [currRoomID]);
   useEffect(() => {
     if (lastMessageRef.current) {
       lastMessageRef.current!.scrollIntoView();
@@ -257,8 +258,7 @@ const Channels = () => {
     );
     return {
       date: date.toLocaleDateString("en-US", {
-        weekday: "long",
-        month: "long",
+        month: "short",
         day: "numeric",
       }),
       time: date.toLocaleTimeString("en-US", {
@@ -307,7 +307,7 @@ const Channels = () => {
         disabled={disableStatus}
       >
         <div
-          className={`bg-blue-600 py-3 px-1 pr-3`}
+          className={`bg-blue-600 py-3 px-1 pr-3 w-min`}
           style={{
             backgroundColor: `${
               user ? "#95C5E2" : "#0C72B0"
@@ -336,6 +336,7 @@ const Channels = () => {
             style={{
               cursor: "pointer",
               userSelect: "none",
+              minWidth: "100px"
             }}
           >
             {message
@@ -398,7 +399,7 @@ const Channels = () => {
         }}
       >
         <div
-          className={`text-sm ${
+          className={`text-xs ${
             user ? "ml-auto" : ""
           }`}
           style={{ color: "#8D989F" }}
@@ -896,7 +897,7 @@ const Channels = () => {
                                 />
                               </div>
                             ) : (
-                              <div className="h-full w-full flex justify-center bg-white rounded-full">
+                              <div className="h-full w-full flex flex-col justify-center bg-white rounded-full">
                                 <Image
                                   src={ChatDP}
                                 />
@@ -936,7 +937,7 @@ const Channels = () => {
                         />
                       </div>
                     ) : (
-                      <div className="flex mt-2 justify-center align-center">
+                      <div className="flex justify-center align-center">
                         <Image src={ChatDP} />
                       </div>
                     )}
@@ -980,14 +981,7 @@ const Channels = () => {
                             msg.data.from) ||
                           idx == 0) && (
                           <p
-                            className="text-gray-500 text-xs pl-10 w-full"
-                            style={{
-                              textAlign: `${
-                                user
-                                  ? "right"
-                                  : "left"
-                              }`,
-                            }}
+                            className={`text-gray-500 text-xs w-full ${user ? 'text-right' : 'ml-6 text-left'}`}
                           >
                             {msg.data.from} |{" "}
                             {date.time}{" "}
@@ -998,7 +992,7 @@ const Channels = () => {
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
                                         </p> */}
                         <div
-                          className={`flex ${
+                          className={`flex w-full ${
                             reply && user
                               ? "flex-col"
                               : ""
@@ -1024,7 +1018,7 @@ const Channels = () => {
                             </div>
                           )}
                           {reply && !user && (
-                            <div className="flex flex-col">
+                            <div className="flex flex-col w-full">
                               <GetRepliedText
                                 msgID={reply}
                                 user={user}
@@ -1086,7 +1080,7 @@ const Channels = () => {
                 {replyingMessageID && (
                   <div className="flex mt-2">
                     <div
-                      className="w-fit text-sm"
+                      className="w-fit text-xs"
                       style={{ color: "#8D989F" }}
                     >
                       Replying to{" "}
@@ -1239,7 +1233,7 @@ const Channels = () => {
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
                                         </p> */}
                         <div
-                          className={`flex ${
+                          className={`flex w-full ${
                             reply && user
                               ? "flex-col"
                               : ""
@@ -1265,7 +1259,7 @@ const Channels = () => {
                             </div>
                           )}
                           {reply && !user && (
-                            <div className="flex flex-col ">
+                            <div className="flex flex-col w-full ">
                               <GetRepliedText
                                 msgID={reply}
                                 user={user}
@@ -1327,7 +1321,7 @@ const Channels = () => {
                 {replyingMessageID && (
                   <div className="flex mt-2">
                     <div
-                      className="w-fit text-sm"
+                      className="w-fit text-xs"
                       style={{ color: "#8D989F" }}
                     >
                       Replying to{" "}

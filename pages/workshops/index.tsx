@@ -1,13 +1,11 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import {
   Workshops
 } from "../../components/Workshops";
-import { Footer, SecFooter } from "../../components/Footer";
+import { SecFooter } from "../../components/Footer";
 import { Navbar } from "../../components/Navbar";
 import { fetchRecruitmentEvents } from "../../apis/events";
 import { IWorkshopProps } from "../../components/Workshops/workshops";
-import { Timestamp } from "firebase/firestore";
 
 const Home = ({ recruitmentEvents }: IWorkshopProps) => {
   return (

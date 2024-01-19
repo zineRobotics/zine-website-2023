@@ -135,7 +135,8 @@ const Workshops = ({ recruitmentEvents }: IWorkshopProps) => {
     const workshopdata = [] as IWorkshopData[];
     let currentEvent = 0;
     const currentDate = new Date();
-    recruitmentEvents.map(e => {
+    // TODO: remove filter and apply logic
+    recruitmentEvents.filter(w => w.name !== 'Workshop').map(e => {
       const { timeDate, ...wdata } = e
       const _date = new Date(timeDate as unknown as number);
       const date = _date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
@@ -182,7 +183,7 @@ const Workshops = ({ recruitmentEvents }: IWorkshopProps) => {
         Recruitment & Workshop
       </h1>
 
-      <Link href="/aptitudeForm">
+      <Link href="/workshops/registration">
         <button
           className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white"
           style={{ width: 300, color: "#0C72B0" }}

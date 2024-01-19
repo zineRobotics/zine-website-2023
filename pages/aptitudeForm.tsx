@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import {
   Footer,
   SecFooter,
@@ -7,6 +7,7 @@ import {
 import { Navbar } from "../components/Navbar";
 import AptitudeForm from "../components/Workshops/aptitudeForm";
 
+// TODO: Remove this file
 const Home = () => {
   return (
     <>
@@ -23,5 +24,14 @@ const Home = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // Perform the redirect
+  context.res.writeHead(302, { Location: '/workshops/registration' });
+  context.res.end();
+
+  // Return an empty object to prevent rendering the page
+  return { props: {} };
+}
 
 export default Home;
