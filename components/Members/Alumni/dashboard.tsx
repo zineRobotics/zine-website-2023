@@ -43,7 +43,7 @@ const Donate = () => {
         var w: any = [];
         var r: any = [];
         events.forEach((e)=>{
-            if(e.stage === "2") {
+            if(e.stage == 2 && !e.isHeading) {
                 w.push(e)
                 console.log("pushing")
             } 
@@ -73,7 +73,7 @@ const Donate = () => {
                 <div className="col-span-9 px-12 flex-1 flex-col">
                     <h1 className="text-4xl font-bold mt-8" style={{ color: "#AAAAAA" }}>Alumni</h1>
                     <div className="flex flex-col md:flex-row grid-cols-6 bg-white rounded-xl my-3 w-full shadow-md">
-                        <div className=" w-full md:w-1/6 rounded-t-xl md:rounded-l-xl flex flex-col justify-center bg-blue2 p-2" >
+                        <div className=" w-full md:w-1/6 rounded-t-xl md:rounded-t-none md:rounded-l-xl flex flex-col justify-center bg-blue2 p-2" >
                             <h1 className="text-3xl md:text-5xl text-center text-white font-extrabold p-1">{recruitment.length}</h1>
                             <h5 className="text-xl text-center font-bold mt-2 p-1 text-white">Stages</h5>
                         </div>
@@ -117,7 +117,7 @@ const Donate = () => {
                                 }
                             </div>
                         </div>
-                        <div className="col-span-1 w-full md:w-1/6 rounded-t-xl md:rounded-r-xl flex flex-col justify-center p-2 bg-blue2">
+                        <div className="col-span-1 w-full md:w-1/6 rounded-t-xl md:rounded-t-none md:rounded-r-xl flex flex-col justify-center p-2 bg-blue2">
                             <h1 className="text-3xl md:text-5xl text-center font-extrabold p-1 text-white">{registrations}</h1> {/* to be updated to reflect all events later*/}
                             <h5 className="text-xl text-center font-bold mt-2 p-1 text-white">Registered</h5>
                         </div>
