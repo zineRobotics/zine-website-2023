@@ -5,7 +5,7 @@ import {
   SecFooter,
 } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
-import AptitudeForm from "../components/Members/aptitudeForm";
+import AptitudeForm from "../components/Workshops/aptitudeForm";
 
 const Home = () => {
   return (
@@ -19,6 +19,7 @@ const Home = () => {
       </Head>
       <Navbar />
       <AptitudeForm />
+      <SecFooter />
     </>
   );
 };

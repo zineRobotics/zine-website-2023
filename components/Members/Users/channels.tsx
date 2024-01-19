@@ -481,7 +481,7 @@ const Channels = () => {
                     setReplyingName("");
                     setReplyingMessageID(null);
                   }}
-                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${
+                  className={`flex items-center font-semibold text-sm rounded-2xl mb-1 py-2 pl-4 ${
                     currRoom === "Announcements"
                       ? "bg-white"
                       : "bg-gray-200"
@@ -542,7 +542,7 @@ const Channels = () => {
                             null
                           );
                         }}
-                        className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${
+                        className={`flex items-center font-semibold text-sm rounded-2xl mb-1 py-2 pl-4 ${
                           currRoom === ele[1].name
                             ? "bg-white"
                             : "bg-gray-200"
@@ -577,7 +577,7 @@ const Channels = () => {
                               }}
                             />
                           ) : (
-                            <div className="h-full w-full flex flex-col justify-center">
+                            <div className="h-full w-full flex flex-col justify-center rounded-full">
                               <Image
                                 layout="responsive"
                                 src={ChatDP}
@@ -619,7 +619,7 @@ const Channels = () => {
                             null
                           );
                         }}
-                        className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${
+                        className={`flex items-center font-semibold text-sm rounded-2xl mb-1 py-2 pl-4 ${
                           currRoom === ele[1].name
                             ? "bg-white"
                             : "bg-gray-200"
@@ -645,7 +645,7 @@ const Channels = () => {
                         >
                           {ele[1].image ? (
                             <div
-                              className="h-full w-full flex flex-col justify-center relative"
+                              className="h-full w-full flex flex-col justify-center rounded-full relative"
                               style={{
                                 overflow:
                                   "hidden",
@@ -659,7 +659,6 @@ const Channels = () => {
                                 width={50}
                                 height={50}
                                 src={ele[1].image}
-                                className="rounded-full"
                               style={{
                                 backgroundColor:
                                   "#0C72B0",
@@ -704,7 +703,7 @@ const Channels = () => {
                       setReplyingMessageID(null);
                       setHide(true);
                     }}
-                    className={`flex text-xl rounded-xl mb-1 py-2 pl-4 ${
+                    className={`flex items-center font-semibold text-xl rounded-xl mb-1 py-2 pl-4 ${
                       currRoom === "Announcements"
                         ? "bg-white"
                         : "bg-gray-200"
@@ -767,7 +766,7 @@ const Channels = () => {
                               null
                             );
                           }}
-                          className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${
+                          className={`flex items-center font-semibold rounded-xl text-xl mb-2 py-2 pl-4 ${
                             currRoom ===
                             ele[1].name
                               ? "bg-white"
@@ -851,7 +850,7 @@ const Channels = () => {
                               null
                             );
                           }}
-                          className={`flex rounded-2xl mb-2 py-2 pl-4 text-xl ${
+                          className={`flex items-center font-semibold rounded-2xl mb-2 py-2 pl-4 text-xl ${
                             currRoom ===
                             ele[1].name
                               ? "bg-white"
@@ -869,16 +868,14 @@ const Channels = () => {
                           }}
                         >
                           <div
-                            className="w-8 h-8 mr-5"
+                            className="w-8 h-8 mr-4"
                             style={{
-                              backgroundColor:
-                                "transparent",
                               borderRadius: "50%",
                             }}
                           >
                             {ele[1].image ? (
                               <div
-                                className="h-full w-full flex flex-col justify-center relative bg-white"
+                                className="flex flex-col justify-center bg-white rounded-full"
                                 style={{
                                   overflow:
                                     "hidden",
@@ -887,14 +884,11 @@ const Channels = () => {
                                 }}
                               >
                                 <Image
-                                  layout="fill"
-                                  objectFit="cover"
                                   width={30}
                                   height={30}
                                   src={
                                     ele[1].image
                                   }
-                                  className="rounded-full"
                                   style={{
                                   backgroundColor:
                                   "#0C72B0",
@@ -902,12 +896,8 @@ const Channels = () => {
                                 />
                               </div>
                             ) : (
-                              <div className="h-full w-full flex flex-col justify-center overflow-hidden">
+                              <div className="h-full w-full flex justify-center bg-white rounded-full">
                                 <Image
-                                  layout="fill"
-                                  objectFit="cover"
-                                  height={30}
-                                  width={30}
                                   src={ChatDP}
                                 />
                               </div>
@@ -978,7 +968,7 @@ const Channels = () => {
                       msg.data.replyTo;
                     return (
                       <div
-                        className="pl-7 mt-2"
+                        className="px-4 mt-2"
                         key={
                           msg.data.timeStamp
                             .seconds
@@ -1017,7 +1007,7 @@ const Channels = () => {
                           {whiteRect &&
                             msg.data.from !==
                               authUser?.name && (
-                              <div className="w-6 h-6 bg-white mr-2 mt-auto rounded">
+                              <div className="w-6 h-6 bg-white mr-1 mt-auto rounded-full">
                                 <Image
                                   src={ChatDP}
                                 />
@@ -1154,9 +1144,9 @@ const Channels = () => {
             <div
               className={`bg-gray-100 w-screen flex flex-col h-dvh`}
             >
-              <div className="bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
+              <div className="bg-white flex fixed w-full top-12 z-30 items-center py-5 my-auto">
                 <div
-                  className="w-8 h-8 mr-2 ml-6 my-auto object-fill rounded-xl align py"
+                  className="flex items-center w-9 h-9 mr-2 ml-6 rounded-full"
                   // style={{backgroundColor: "#0C72B0"}}
                 >
                   {currRoomImage ? (
@@ -1164,7 +1154,6 @@ const Channels = () => {
                       height={50}
                       width={50}
                       src={currRoomImage}
-                      className="rounded-full"
                                   style={{
                                   backgroundColor:
                                   "#0C72B0",
@@ -1220,7 +1209,7 @@ const Channels = () => {
                       msg.data.replyTo;
                     return (
                       <div
-                        className="pl-7 mt-2"
+                        className="px-4 mt-2"
                         key={
                           msg.data.timeStamp
                             .seconds
@@ -1259,7 +1248,7 @@ const Channels = () => {
                           {whiteRect &&
                             msg.data.from !==
                               authUser?.name && (
-                              <div className="w-6 h-6 bg-white mr-2 mt-auto rounded">
+                              <div className="w-6 h-6 bg-white mr-2 mt-auto rounded-full">
                                 <Image
                                   src={ChatDP}
                                 />

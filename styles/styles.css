@@ -111,7 +111,7 @@ input[type="number"] {
 }
 
 input {
-  width:100px;
+  /* width:100px; */
   vertical-align:top;
   padding:2px;
 }

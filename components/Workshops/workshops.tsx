@@ -4,26 +4,7 @@ import React, {
   useEffect,
 } from "react";
 import Link from "next/link";
-import { db } from "../../firebase";
-import {
-  collection,
-  query,
-  where,
-  orderBy,
-  getDocs,
-} from "firebase/firestore";
-
-interface IWorkshopRaw {
-  name: string;
-  description: string;
-  eventType: string;
-  timeDate: {
-    seconds: number;
-    nanoseconds: number;
-  };
-  venue: string;
-  stage: number;
-}
+import { IEventData, fetchRecruitmentEvents } from "../../apis/events";
 
 interface IWorkshopData {
   name: string;
@@ -138,7 +119,6 @@ const Workshops = () => {
   const [state, setState] = useState({
     selected: 0,
   });
-  const [message, setMessage] = useState("");
   const [workshops, setWorkshops] = useState(
     [] as IWorkshopData[]
   );
@@ -147,31 +127,13 @@ const Workshops = () => {
     setState({ selected: id });
   };
 
-  const eventsCollection = collection(
-    db,
-    "events"
-  );
-  const q = query(
-    eventsCollection,
-    orderBy("timeDate")
-  );
   useEffect(() => {
-    const item = localStorage.getItem("message");
-    setMessage(item || "");
-    if (item) {
-      setTimeout(() => {
-        setMessage("");
-        localStorage.removeItem("message");
-      }, 2000);
-    }
-
     const workshopdata = [] as IWorkshopData[];
     let currentEvent = 0;
     const currentDate = new Date();
-    getDocs(q).then((data) => {
+    fetchRecruitmentEvents().then((data) => {
       data.forEach((d) => {
-        const { timeDate, ...wdata } =
-          d.data() as IWorkshopRaw;
+        const { timeDate, ...wdata } = d.data() as IEventData;
         const _date = new Date(
           timeDate.seconds * 1000
         );
@@ -224,16 +186,6 @@ const Workshops = () => {
         marginBottom: -35,
       }}
     >
-      {message && (
-        <div
-          className="p-4 bg-green-600 text-white rounded-lg fixed shadow-lg mt-5"
-          role="alert"
-        >
-          <p className="text-sm sm:text-lg">
-            {message}
-          </p>
-        </div>
-      )}
 
       <h1 className="text-white font-bold mt-24 text-2xl md:text-6xl">
         Recruitment & Workshop
