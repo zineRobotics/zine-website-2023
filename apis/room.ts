@@ -4,19 +4,21 @@ import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, 
 import { IUser, addUserRoom } from './users';
 import { deleteImage } from './image';
 
+const roomsCollection = collection(db, "rooms");
+const usersCollection = collection(db, "users");
 
-const roomsCollection = collection(db, "rooms")
-const usersCollection = collection(db, "users")
-
-
-export const ANNOUNCEMENT_ROOM_ID = "Hn9GSQnvi5zh9wabLGuT"
-export const announcementRoom  = doc(roomsCollection, ANNOUNCEMENT_ROOM_ID)
+export const ANNOUNCEMENT_ROOM_ID =
+  "Hn9GSQnvi5zh9wabLGuT";
+export const announcementRoom = doc(
+  roomsCollection,
+  ANNOUNCEMENT_ROOM_ID
+);
 
 export interface IMessageData {
-    from: string;
-    group: string;
-    message: string;
-    timeStamp: Timestamp;
+  from: string;
+  group: string;
+  message: string;
+  timeStamp: Timestamp;
 }
 
 export interface IRoomData{
@@ -37,8 +39,14 @@ export interface IRoomCreateData{
 }
 
 export const getRoom = async (name: string) => {
-    return getDocs(query(roomsCollection, where("name", "==", name), limit(1)))
-}
+  return getDocs(
+    query(
+      roomsCollection,
+      where("name", "==", name),
+      limit(1)
+    )
+  );
+};
 
 export const fetchRooms = async () =>{
     return getDocs(roomsCollection)
@@ -97,26 +105,57 @@ export const removeUsers = async (room: IRoomData, users: IUser[]) => {
     })
 }
 
-export const getMessages = async (room: DocumentReference, descending=true, count=-1) => {
-    const msgCollection = collection(room, 'messages')
-    const sorting = descending ? 'desc' : 'asc'
 
-    if (count > -1) return getDocs(query(msgCollection, orderBy("timeStamp", sorting), limit(count)))
-    return getDocs(query(msgCollection, orderBy("timeStamp", sorting)))
-}
+export const getMessages = async (
+  room: DocumentReference,
+  descending = true,
+  count = -1
+) => {
+  const msgCollection = collection(
+    room,
+    "messages"
+  );
+  const sorting = descending ? "desc" : "asc";
 
-export const sendMessage = async (room: DocumentReference, message: string, user: any) => {
-    const msgData = {
-        from: user.name,
-        group: room.id,
-        message,
-        sender_id: user.id,
-        timeStamp: Timestamp.fromDate(new Date())
-    }
+  if (count > -1)
+    return getDocs(
+      query(
+        msgCollection,
+        orderBy("timeStamp", sorting),
+        limit(count)
+      )
+    );
+  return getDocs(
+    query(
+      msgCollection,
+      orderBy("timeStamp", sorting)
+    )
+  );
+};
 
-    await addDoc(collection(room, 'messages'), msgData)
-    return msgData
-}
+export const sendMessage = async (
+  room: DocumentReference,
+  message: string,
+  user: any,
+  replyTo: any = null
+) => {
+  const msgData = {
+    from: user.name,
+    group: room.id,
+    message,
+    sender_id: user.id,
+    timeStamp: Timestamp.fromDate(new Date()),
+    replyTo: replyTo, //repyTo: message id
+  };
+  console.log(msgData);
+
+  await addDoc(
+    collection(room, "messages"),
+    msgData
+  );
+  return msgData;
+};
+
 
 export const deleteRoomByName = async (roomName: string) => {
     const raw = await getRoom(roomName)
@@ -140,3 +179,4 @@ export const deleteRoomByID = async (roomid: string) => {
         return updateDoc(m.ref, { roomids: arrayRemove(roomid), rooms: arrayRemove(roomName) })
     }))
 }
+

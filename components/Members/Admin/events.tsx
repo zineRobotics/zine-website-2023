@@ -17,7 +17,7 @@ interface IEventForm {
     id: string;
     recruitment: boolean;
     isHeading: boolean;
-    stage: string; //number as string
+    stage: number;
     image: any;
     imagepath: string;
 }
@@ -30,7 +30,7 @@ interface IEventData {
     timeDate: {seconds: number, nanoseconds: number};
     recruitment: boolean;
     isHeading: boolean;
-    stage: string; //number as string
+    stage: number;
     image: any;
     imagepath: string;
 }
@@ -42,11 +42,12 @@ const Events = () => {
     const { register, setValue, reset, formState: {errors}, handleSubmit } = useForm<IEventForm>({
         defaultValues: {
             isHeading: false,
-            stage: "0",
+            stage: 0,
             recruitment: false,
         }
     })
     const onSubmit = async(data: IEventForm) => {
+        console.log("data: ",data);
         if (data.image[0]){
             var imageName = new Date().getTime().toString()
             data.imagepath = `/events/${imageName}`
@@ -204,14 +205,14 @@ const Events = () => {
                         </div>
                         <div className="col-span-1">
                             <label className="block text-gray-600 text-sm">Stage</label>
-                            <select id="stage" className="block w-full focus:outline-none bottom-border pt-2" {...register("stage", {required: true})}>
-                                <option>0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
+                            <select id="stage" className="block w-full focus:outline-none bottom-border pt-2" {...register("stage", {required: true, valueAsNumber: true})}>
+                                <option value={0}>0</option>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
                             </select>
                         </div>
                         <div className="col-span-2">

@@ -13,7 +13,9 @@ import { IUser } from "../../../apis/users";
 
 
 function sortTimestamps(a: ICheckPoint[], b: ICheckPoint[]) {
-    return (a.length || b.length) ? (!a.length ? -1 : !b.length ? 1 : (a.slice(-1)[0].timeDate.seconds - b.slice(-1)[0].timeDate.seconds)) : 0
+    console.log("A", a.length, "B", b?.length);
+    
+    return (a?.length || b?.length) ? (!a.length ? -1 : !b?.length ? 1 : (a.slice(-1)[0].timeDate.seconds - b.slice(-1)[0].timeDate.seconds)) : 0
 }
 
 const Projects = () => {
@@ -63,7 +65,7 @@ const Projects = () => {
                     const {name, email, type, uid} = puser.data() as IUser
                     const project = {
                         ...userProject,
-                        usersData: [{ name, email, type, uid }],
+                        usersData: [{ name, email, type, uid, roomids: [] }],
                         taskData: tasks[userProject.task?.id],
                         id: d.id
                     }
@@ -113,7 +115,7 @@ const Projects = () => {
                                                 <p>{p.taskData?.title}</p>
                                             </div>
                 
-                                            <h2 className="my-4 text-5xl font-extrabold" style={styles.textPrimary}>{p.checkpoints.length}</h2>
+                                            <h2 className="my-4 text-5xl font-extrabold" style={styles.textPrimary}>{p.checkpoints?.length}</h2>
                                             <h3 className="mt-4 text-2xl font-bold" style={{color: "#95C5E2"}}>{p.usersData[0].name}</h3>
                                             <p className="mt-1 mb-4 text-lg font-bold" style={styles.textGray}>{p.usersData[0].email}</p>
                                             <div className="my-4 p-2 text-white font-bold text-xl" style={{background: "#0C72B0"}}>
