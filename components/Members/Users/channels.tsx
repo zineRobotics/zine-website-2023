@@ -112,17 +112,17 @@ const Channels = () => {
         updateScreenWidth
       );
   }, []);
-  useEffect(() => {
-    getMessages(announcementRoom, true, 10).then(
-      (msgSnapshot) => {
-        setAnnouncements(
-          msgSnapshot.docs.map(
-            (d) => d.data() as IMessageData
-          )
-        );
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   getMessages(announcementRoom, true, 10).then(
+  //     (msgSnapshot) => {
+  //       setAnnouncements(
+  //         msgSnapshot.docs.map(
+  //           (d) => d.data() as IMessageData
+  //         )
+  //       );
+  //     }
+  //   );
+  // }, []);
 
   useEffect(() => {
     console.log(currRoomID);
@@ -201,12 +201,12 @@ const Channels = () => {
           orderBy("timeStamp", "asc")
         );
 
-        onSnapshot(queryMessages, (snapshot) => {
-          snapshot.docs.map(d => {
-            setMessages(oldmessages => [...oldmessages, { id: d.id, data: d.data() as IMessageData}])
-          })
-          console.log("reached", snapshot.size);
-        });
+        // onSnapshot(queryMessages, (snapshot) => {
+        //   snapshot.docs.map(d => {
+        //     setMessages(oldmessages => [...oldmessages, { id: d.id, data: d.data() as IMessageData}])
+        //   })
+        //   console.log("reached", snapshot.size);
+        // });
       } catch (err) {
         console.log("snap error", err);
       }
@@ -307,7 +307,7 @@ const Channels = () => {
         disabled={disableStatus}
       >
         <div
-          className={`bg-blue-600 py-3 px-1 pr-3 w-min`}
+          className={`bg-blue-600 py-3 px-1 pr-3 `}
           style={{
             backgroundColor: `${
               user ? "#95C5E2" : "#0C72B0"
@@ -336,7 +336,7 @@ const Channels = () => {
             style={{
               cursor: "pointer",
               userSelect: "none",
-              minWidth: "100px"
+
             }}
           >
             {message
