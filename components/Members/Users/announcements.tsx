@@ -7,6 +7,9 @@ import Image from "next/image";
 import ZineBlog from "../../../images/admin/zineblog.png"
 import { useAuth } from "../../../context/authContext";
 import { getMessages, announcementRoom } from "../../../apis/room";
+import { Registration } from "../../Workshops";
+import { collection, getCountFromServer, query, where } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 
 interface ITimestamp {
@@ -61,11 +64,20 @@ function RenderMessageWithLinks({ message }: {message: string}) {
 const Announcements = () => {
     const [announcements, setAnnouncements] = useState<IMessageData[]>([])
     const { authUser } = useAuth();
+    const [isRegistered, setIsRegistered] = useState<boolean>();
 
     useEffect(() => {
       getMessages(announcementRoom, true, 10).then(msgSnapshot => {
         setAnnouncements(msgSnapshot.docs.map(d => d.data() as IMessageData))
       })
+      const registrationRef = collection(db, "aptitudeRegs");
+      const q = query(registrationRef, where("email", "==", authUser?.email))
+      const checkRegistered = async() =>{
+        const count = await getCountFromServer(q);
+        setIsRegistered(count.data().count?true:false);
+      }
+      checkRegistered();
+
     }, [])
 
     const date = new Date()
@@ -102,13 +114,29 @@ const Announcements = () => {
                             <Image src={ZineBlog} />
                           </div>
                         </Link>
-                        
-                        <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8 shadow-xl" style={{ background: "linear-gradient(135deg, #9B9C9C 0%, #D4D4D4 100%)" }}>
+                        {
+                          isRegistered ?
+                          (
+                            <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8 shadow-xl" style={{ background: "linear-gradient(to right, #003D63, #0C72B0)", }}>
                             <div className="mt-24">
                               <h1 className="text-2xl text-white font-extrabold">{ authUser!.email.split('@')[0].toUpperCase() }</h1>
-                              <h3 className="text-lg text-white">{ authUser!.name } </h3>
+                              <h3 className="text-lg text-white">{ authUser!.name } </h3><br/>
+                              <p className="text-lg text-white">Registered for Aptitude Test</p>
                             </div>
-                        </div>
+                           </div>
+                          ) :
+                          (
+                            <Link href = '/aptitudeForm'>
+                              <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8 shadow-xl hover:border-blue-400 cursor-pointer shadow-md" style={{ background: "linear-gradient(135deg, #9B9C9C 0%, #D4D4D4 100%)" }}>
+                              <div className="mt-24">
+                                <h1 className="text-2xl text-white font-extrabold">{ authUser!.email.split('@')[0].toUpperCase() }</h1>
+                                <h3 className="text-lg text-white">{ authUser!.name } </h3><br/>
+                                <p className="text-lg text-white">Not Registered for Aptitude Test</p>
+                              </div>
+                              </div>
+                            </Link>
+                          )
+                        }
                     </div>
 
                     <h1 className="text-2xl md:text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Announcements</h1>

@@ -14,6 +14,7 @@ interface IWorkshopData {
   time: string;
   venue: string;
   stage: number;
+  isHeading: boolean;
 }
 
 interface IStageProps {
@@ -37,6 +38,7 @@ const Stage = ({
     <>
       {workshops.map((item, key) => {
         if (item.stage !== stage) return;
+        if (item.isHeading && workshops.filter(e=> e.stage == stage).length > 1)return;
         const card = (
           <div
             className={
