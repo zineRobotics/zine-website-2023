@@ -521,6 +521,7 @@ const Channels = () => {
                   Groups
                 </div>
                 {rooms.map((ele) => {
+                  if (ele[1] === null) return; //if room does not exist
                   return (
                     ele[1].type === "group" && (
                       <p
@@ -598,6 +599,7 @@ const Channels = () => {
                   Rooms
                 </div>
                 {rooms.map((ele) => {
+                  if (ele[1] === null) return; //if room does not exist
                   return (
                     ele[1].type === "project" && (
                       <p
@@ -744,6 +746,7 @@ const Channels = () => {
                     Groups
                   </div>
                   {rooms.map((ele) => {
+                    if (ele[1] === null) return; //if room does not exist
                     return (
                       ele[1].type === "group" && (
                         <p
@@ -827,6 +830,7 @@ const Channels = () => {
                     Rooms
                   </div>
                   {rooms.map((ele) => {
+                    if (ele[1] === null) return; //if room does not exist
                     return (
                       ele[1].type ===
                         "project" && (
