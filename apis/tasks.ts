@@ -1,11 +1,11 @@
 import { db } from '../firebase';
-import { collection, addDoc, getDoc, DocumentReference, Timestamp, updateDoc, doc, deleteDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDoc, DocumentReference, Timestamp, updateDoc, doc, deleteDoc, getDocs, query, where } from "firebase/firestore";
 import { createRoom, getRoom } from './room';
-import { createProject } from './projects';
+import { IUserProject, createProject, deleteProject } from './projects';
 import { IUser, addUserRoom, getUserEmailIn } from './users';
 import sendFCMMessage from './sendFcm';
 
-const tasksCollection = collection(db, "tasks");
+export const tasksCollection = collection(db, "tasks");
 
 export interface ITaskData {
     id: string;
@@ -20,6 +20,7 @@ export interface ITaskData {
     createRoom: boolean;
     roomName?: string;
     tags?: string[];
+    roles:string[];
 }
 
 export const fetchTasks = async () => {
@@ -37,6 +38,7 @@ interface ITaskCreateData {
     mentors: string[];
     createRoom: boolean;
     roomName?: string; // if createRoom is true
+    roles?:string[];
 }
 
 export const createTask = async (data: ITaskCreateData) => {

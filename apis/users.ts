@@ -20,6 +20,7 @@ export interface IUser {
   type: "user" | "admin" | "alumni";
   uid: string;
   roomids: any;
+  roles?: string[];
 }
 
 export const getUser = async (email: string) => {
