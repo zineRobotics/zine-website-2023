@@ -22,6 +22,7 @@ interface ITaskForm {
     createRoom: boolean;
     roomName?: string;
     roles: { value: string }[];
+    available?: boolean;
 }
 
 interface IState {
@@ -77,7 +78,9 @@ const RoleListInput = ( { control, roles}: RoleListInputProps) => {
     const [nextRole, setNextRole] = useState('')
     const handleAddRole = () => {
         nextRole.split(/[ ,]+/).map(e => {
-            if (roles.some(r=> r.name !== e)) return
+            console.log(e)
+            if (roles.some(r=> r.name == e)) {}
+            else return
             if (fields.some(f => f.value === e)) return
             append({ value: e });
             setNextRole("")
@@ -174,6 +177,7 @@ const Tasks = () => {
         setValue("type", task.type)
         setValue("roomName", task.roomName)
         setValue("roles", task.roles.map(r => ({  value: r})))
+        setValue("available", task.available)
 
         setState({ ...state, editing: true, editingID: task.id })
     }
@@ -224,7 +228,7 @@ const Tasks = () => {
                 const { ...data } = d.data()
                 return { id: d.id, ...data } as IRoleData
             })
-            console.log(roles)
+            console.log("roles: ",roles)
             setRoles(() => roles)
         })
     }, [])
@@ -288,6 +292,10 @@ const Tasks = () => {
                                     <RoleListInput control={control} roles={roles}/>
                                     {/* <input type="text" id="mentors" className="block w-full focus:outline-none bottom-border pt-2 px-1" placeholder="2021ucp1011@mnit.ac.in, 2021ucp1013@mnit.ac.in" {...register('mentors', {required: true})} /> */}
                                     {errors.roles && <p className="text-red-500 text-sm" role="alert">Role list is required</p>}
+                                </div>
+                                <div className="col-span-2 flex items-center">
+                                    <input type="checkbox" {...register('available')}></input>
+                                    <label className="ml-8">Available for selection</label>
                                 </div>
                                 <div className="col-span-3">
                                     <label className="block text-gray-600 text-sm">Due Date<span className="text-red-500">*</span></label>

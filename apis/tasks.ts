@@ -21,6 +21,7 @@ export interface ITaskData {
     roomName?: string;
     tags?: string[];
     roles:string[];
+    available?: boolean;
 }
 
 export const fetchTasks = async () => {
@@ -39,6 +40,7 @@ interface ITaskCreateData {
     createRoom: boolean;
     roomName?: string; // if createRoom is true
     roles?:string[];
+    available?: boolean;
 }
 
 export const createTask = async (data: ITaskCreateData) => {

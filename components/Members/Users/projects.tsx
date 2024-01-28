@@ -38,12 +38,13 @@ const Projects = () => {
                 })
             })
             return !snapshots.empty
-        }).then((isAssigned) => {
+          }).then((isAssigned) => {
             if (isAssigned) return
             // TODO: add this for 2023 recruitments
             getDocs(query(tasksCollection, where("type", "==", "Individual"))).then(snapshots => {
                 snapshots.forEach(d => {
                     console.log("project: ", d.data())
+                    if (!d.data().available) return;
                     if (authUser.roles?.some(e => { return d.data().roles?.includes(e)}))
                     {
                         const taskData = { ...d.data(), id: d.id } as ITaskData
@@ -68,7 +69,6 @@ const Projects = () => {
 
     const selectProject = async () => {
         if (!confirmProject) return
-
         const userProject = await assignTask(confirmProject, [authUser!]) as IUserProject[]
         setSelectedProject({
             ...userProject[0],
