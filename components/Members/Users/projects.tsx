@@ -6,7 +6,7 @@ import { collection, getDocs, query, where, doc, getDoc } from "firebase/firesto
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from "../../../context/authContext";
 import Checkpoints from "../checkpoints";
-import { ITaskData, assignTask } from "../../../apis/tasks";
+import { ITaskData, assignTask, tasksCollection } from "../../../apis/tasks";
 import { IProject, IUserProject } from "../../../apis/projects";
 
 
@@ -41,14 +41,18 @@ const Projects = () => {
         }).then((isAssigned) => {
             if (isAssigned) return
             // TODO: add this for 2023 recruitments
-            // getDocs(query(tasksCollection, where("type", "==", "Project"))).then(snapshots => {
-            //     snapshots.forEach(d => {
-            //         const taskData = { ...d.data(), id: d.id } as ITaskData
-            //         setProjects(state => [...state, taskData ])
-            //     })
-            //     
-            //     setState("selection")
-            // })
+            getDocs(query(tasksCollection, where("type", "==", "Individual"))).then(snapshots => {
+                snapshots.forEach(d => {
+                    console.log("project: ", d.data())
+                    if (authUser.roles?.some(e => { return d.data().roles?.includes(e)}))
+                    {
+                        const taskData = { ...d.data(), id: d.id } as ITaskData
+                        setProjects(state => [...state, taskData ])
+                    }
+                })
+                
+                setState("selection")
+            })
         })
     }, [])
 
