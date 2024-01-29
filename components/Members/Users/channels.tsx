@@ -15,7 +15,6 @@ interface ITimestamp {
   seconds: number;
   nanoseconds: number;
 }
-// import ChatDP from "../../../images/zine2.png";
 import ChatDP from "../../../images/admin/logo.png";
 interface IMessageData {
   from: string;
@@ -66,11 +65,7 @@ const Channels = () => {
     window.addEventListener("resize", updateScreenWidth);
     return () => window.removeEventListener("resize", updateScreenWidth);
   }, []);
-  useEffect(() => {
-    getMessages(announcementRoom, true, 10).then((msgSnapshot) => {
-      setAnnouncements(msgSnapshot.docs.map((d) => d.data() as IMessageData));
-    });
-  }, []);
+
   useEffect(() => {
     if (currRoomID) {
       const roomRef = doc(db, "rooms", currRoomID);
@@ -91,9 +86,9 @@ const Channels = () => {
           //   console.log("Removed", change.doc.data());
           // }
         });
-        console.log("new docs", newMsg);
+        // console.log("new docs", newMsg);
 
-        console.log("new docs length", newMsg.length);
+        // console.log("new docs length", newMsg.length);
 
         setMessages((oldMsg) => [...oldMsg, ...newMsg]);
       });
@@ -102,54 +97,7 @@ const Channels = () => {
       };
     }
   }, [currRoomID]);
-  const fetchSubCollectionMessages = async (roomID: string) => {
-    try {
-      const roomRef = doc(db, "rooms", roomID);
-      const messagesRef = collection(roomRef, "messages");
-      const q = query(messagesRef, orderBy("timeStamp", "asc"));
-      const unsubscribe = () =>
-        onSnapshot(q, (snapshot) => {
-          const newMsg: KeyValueArray = [];
-          snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-              // console.log(change.doc.data());
-              // console.log(change.doc.id);
-              newMsg.push({ id: change.doc.id, data: change.doc.data() as IMessageData });
-            }
-            // if (change.type === "modified") {
-            //   console.log("Modified", change.doc.data());
-            // }
-            // if (change.type === "removed") {
-            //   console.log("Removed", change.doc.data());
-            // }
-          });
-          console.log("new docs", newMsg);
 
-          console.log("new docs length", newMsg.length);
-
-          setMessages((oldMsg) => [...oldMsg, ...newMsg]);
-        });
-
-      // const roomRef = doc(db, "rooms", roomID);
-      // const messagesRef = collection(roomRef, "messages");
-      // const messagesSnapshot = await getDocs(query(messagesRef, orderBy("timeStamp", "asc")));
-
-      // const documents = messagesSnapshot.docs.map((doc) => ({
-      //   id: doc.id,
-      //   data: doc.data() as IMessageData,
-      // }));
-      // setMessages(documents);
-      // // console.log(
-      // //   "Subcollection Documents:",
-      // //   documents
-      // // );
-    } catch (error) {
-      console.error("Error fetching subcollection documents:", error);
-    }
-  };
-  useEffect(() => {
-    console.log("all messages", messages);
-  }, [messages]);
   const fetchRooms = async () => {
     const promises = authUser?.roomids.map(async (roomID: string) => {
       const roomRef = doc(db, "rooms", roomID);
@@ -169,20 +117,7 @@ const Channels = () => {
   useEffect(() => {
     fetchRooms();
   }, []);
-  // useEffect(() => {
-  //   if (currRoomID) {
-  //     try {
-  //       const roomRef = doc(db, "rooms", currRoomID);
-  //       const messagesRef = collection(roomRef, "messages");
-  //       const queryMessages = query(messagesRef, orderBy("timeStamp", "asc"));
-  //       onSnapshot(queryMessages, (snapshot) => {
-  //         fetchSubCollectionMessages(currRoomID);
-  //       });
-  //     } catch (err) {
-  //       console.log("snap error", err);
-  //     }
-  //   }
-  // }, []);
+
   useEffect(() => {
     if (lastMessageRef.current) {
       lastMessageRef.current!.scrollIntoView();
@@ -328,7 +263,7 @@ const Channels = () => {
 
         <div className="flex h-screen md:col-span-9">
           {screenWidth >= 768 ? (
-            <div className="w-60 bg-white shrink-0 px-3 pt-10 flex justify-center">
+            <div className="w-60 bg-white shrink-0 px-3 pt-10 flex justify-center overflow-y-auto">
               <div className="w-full">
                 <p
                   onClick={() => {
@@ -482,7 +417,7 @@ const Channels = () => {
             </div>
           ) : (
             !hide && (
-              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20">
+              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3">
                 <div className={`w-4/5 mx-auto`}>
                   <p
                     onClick={() => {

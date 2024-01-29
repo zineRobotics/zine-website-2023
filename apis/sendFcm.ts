@@ -1,8 +1,7 @@
 import axios from "axios";
 
 // Define your FCM server key
-const serverKey: string =
-  "AAAAbcVwtbU:APA91bET7ksps569G0nG29zoQXlRSf0jcRCsmGMVaimUz9qWl9Gf51Z1qirKwIfPr-Zjr2tiee8ftel-GoMoHer1_uUyMPSdKLlDzoES08CCmr8zmMKpK5lC6CjY0AeGHKpAuHD_bD6R";
+const serverKey: string = "AAAAbcVwtbU:APA91bET7ksps569G0nG29zoQXlRSf0jcRCsmGMVaimUz9qWl9Gf51Z1qirKwIfPr-Zjr2tiee8ftel-GoMoHer1_uUyMPSdKLlDzoES08CCmr8zmMKpK5lC6CjY0AeGHKpAuHD_bD6R";
 
 interface IMessage {
   notification: {
@@ -43,7 +42,5 @@ async function sendFCMMessage(topic: string, title: string, body: string): Promi
     console.log(`Error sending FCM message to topic ${topic}: ${error}`);
   }
 }
-
-
 
 export default sendFCMMessage;
