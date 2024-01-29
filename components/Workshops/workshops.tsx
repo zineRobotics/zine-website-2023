@@ -4,26 +4,7 @@ import React, {
   useEffect,
 } from "react";
 import Link from "next/link";
-import { db } from "../../firebase";
-import {
-  collection,
-  query,
-  where,
-  orderBy,
-  getDocs,
-} from "firebase/firestore";
-
-interface IWorkshopRaw {
-  name: string;
-  description: string;
-  eventType: string;
-  timeDate: {
-    seconds: number;
-    nanoseconds: number;
-  };
-  venue: string;
-  stage: number;
-}
+import { IEventData, fetchRecruitmentEvents } from "../../apis/events";
 
 interface IWorkshopData {
   name: string;
@@ -33,6 +14,7 @@ interface IWorkshopData {
   time: string;
   venue: string;
   stage: number;
+  isHeading: boolean;
 }
 
 interface IStageProps {
@@ -40,6 +22,10 @@ interface IStageProps {
   state: { selected: number };
   stage: number;
   select: (id: number) => void;
+}
+
+export interface IWorkshopProps {
+  recruitmentEvents: IEventData[]
 }
 
 const Stage = ({
@@ -52,6 +38,7 @@ const Stage = ({
     <>
       {workshops.map((item, key) => {
         if (item.stage !== stage) return;
+        if (item.isHeading && workshops.filter(e=> e.stage == stage).length > 1)return;
         const card = (
           <div
             className={
@@ -134,11 +121,10 @@ const Stage = ({
   );
 };
 
-const Workshops = () => {
+const Workshops = ({ recruitmentEvents }: IWorkshopProps) => {
   const [state, setState] = useState({
     selected: 0,
   });
-  const [message, setMessage] = useState("");
   const [workshops, setWorkshops] = useState(
     [] as IWorkshopData[]
   );
@@ -147,58 +133,28 @@ const Workshops = () => {
     setState({ selected: id });
   };
 
-  const eventsCollection = collection(
-    db,
-    "events"
-  );
-  const q = query(
-    eventsCollection,
-    orderBy("timeDate")
-  );
   useEffect(() => {
-    const item = localStorage.getItem("message");
-    setMessage(item || "");
-    if (item) {
-      setTimeout(() => {
-        setMessage("");
-        localStorage.removeItem("message");
-      }, 2000);
-    }
-
     const workshopdata = [] as IWorkshopData[];
     let currentEvent = 0;
     const currentDate = new Date();
-    getDocs(q).then((data) => {
-      data.forEach((d) => {
-        const { timeDate, ...wdata } =
-          d.data() as IWorkshopRaw;
-        const _date = new Date(
-          timeDate.seconds * 1000
-        );
-        const date = _date.toLocaleDateString(
-          "en-US",
-          {
-            weekday: "long",
-            month: "long",
-            day: "numeric",
-          }
-        );
-        const time = _date.toLocaleTimeString(
-          "en-US",
-          { hour: "numeric", minute: "numeric" }
-        );
+    // TODO: remove filter and apply logic
+    recruitmentEvents.filter(w => w.name !== 'Workshop').map(e => {
+      const { timeDate, ...wdata } = e
+      const _date = new Date(timeDate as unknown as number);
+      const date = _date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+      const time = _date.toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric" });
 
-        if (currentDate > _date) currentEvent++;
-        workshopdata.push({
-          date,
-          time,
-          ...wdata,
-        });
+      if (currentDate > _date) currentEvent++;
+      workshopdata.push({
+        date,
+        time,
+        ...wdata,
       });
+    })
 
-      setWorkshops(workshopdata);
-      setState({ selected: currentEvent });
-    });
+    setWorkshops(workshopdata);
+    setState({ selected: currentEvent });
+
   }, []);
 
   const handleKeyDown = (
@@ -224,22 +180,12 @@ const Workshops = () => {
         marginBottom: -35,
       }}
     >
-      {message && (
-        <div
-          className="p-4 bg-green-600 text-white rounded-lg fixed shadow-lg mt-5"
-          role="alert"
-        >
-          <p className="text-sm sm:text-lg">
-            {message}
-          </p>
-        </div>
-      )}
 
       <h1 className="text-white font-bold mt-24 text-2xl md:text-6xl">
         Recruitment & Workshop
       </h1>
 
-      <Link href="/aptitudeForm">
+      <Link href="/workshops/registration">
         <button
           className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white"
           style={{ width: 300, color: "#0C72B0" }}

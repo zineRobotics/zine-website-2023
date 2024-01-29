@@ -13,9 +13,9 @@ import { IUser } from "../../../apis/users";
 
 
 function sortTimestamps(a: ICheckPoint[], b: ICheckPoint[]) {
-    console.log("A", a.length, "B", b?.length);
+    console.log("A", a?.length, "B", b?.length);
     
-    return (a?.length || b?.length) ? (!a.length ? -1 : !b?.length ? 1 : (a.slice(-1)[0].timeDate.seconds - b.slice(-1)[0].timeDate.seconds)) : 0
+    return (a?.length || b?.length) ? (!a?.length ? -1 : !b?.length ? 1 : (a?.slice(-1)[0].timeDate.seconds - b.slice(-1)[0].timeDate.seconds)) : 0
 }
 
 const Projects = () => {

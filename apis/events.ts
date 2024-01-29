@@ -1,8 +1,29 @@
-import { Timestamp, addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc } from "firebase/firestore"
+import { Timestamp, addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from "firebase/firestore"
 import { db } from "../firebase"
 
 const eventsCollection = collection(db, "events")
 export const eventTypes = ["Workshop", "Meeting", "Discussion", "Showcase", "Exhibition"]
+
+export interface IEventData {
+    name: string;
+    description: string;
+    eventType: typeof eventTypes[number];
+    venue: string;
+    timeDate: Timestamp;
+    recruitment: boolean;
+    isHeading: boolean;
+    stage: number;
+    image: any;
+    imagepath: string;
+}
+
+export const fetchEvents = async () => {
+    return getDocs(query(eventsCollection, orderBy('timeDate')))
+}
+
+export const fetchRecruitmentEvents = async () => {
+    return getDocs(query(eventsCollection, where('eventType', '==', 'Workshop'), orderBy('timeDate')))
+}
 
 interface ICreateEvent {
     name: string;
@@ -15,10 +36,6 @@ interface ICreateEvent {
     stage: number;
     image: string;
     imagepath: string;
-}
-
-export const fetchEvents = async () => {
-    return getDocs(query(eventsCollection, orderBy('timeDate')))
 }
 
 export const createEvent = async (data: ICreateEvent) => {

@@ -15,7 +15,8 @@ interface ITimestamp {
   seconds: number;
   nanoseconds: number;
 }
-import ChatDP from "../../../images/zine2.png";
+// import ChatDP from "../../../images/zine2.png";
+import ChatDP from "../../../images/admin/logo.png";
 interface IMessageData {
   from: string;
   group: string;
@@ -213,8 +214,7 @@ const Channels = () => {
     const date = new Date(timeStamp.seconds * 1000);
     return {
       date: date.toLocaleDateString("en-US", {
-        weekday: "long",
-        month: "long",
+        month: "short",
         day: "numeric",
       }),
       time: date.toLocaleTimeString("en-US", {
@@ -365,6 +365,7 @@ const Channels = () => {
                   Groups
                 </div>
                 {rooms.map((ele) => {
+                  if (ele[1] === null) return; //if room does not exist
                   return (
                     ele[1].type === "group" && (
                       <p
@@ -418,6 +419,7 @@ const Channels = () => {
                   Rooms
                 </div>
                 {rooms.map((ele) => {
+                  if (ele[1] === null) return; //if room does not exist
                   return (
                     ele[1].type === "project" && (
                       <p
@@ -449,7 +451,7 @@ const Channels = () => {
                         >
                           {ele[1].image ? (
                             <div
-                              className="h-full w-full flex flex-col justify-center relative"
+                              className="h-full w-full flex flex-col justify-center rounded-full relative"
                               style={{
                                 overflow: "hidden",
                                 borderRadius: "50%",
@@ -518,6 +520,7 @@ const Channels = () => {
                     Groups
                   </div>
                   {rooms.map((ele) => {
+                    if (ele[1] === null) return; //if room does not exist
                     return (
                       ele[1].type === "group" && (
                         <p
@@ -575,6 +578,7 @@ const Channels = () => {
                     Rooms
                   </div>
                   {rooms.map((ele) => {
+                    if (ele[1] === null) return; //if room does not exist
                     return (
                       ele[1].type === "project" && (
                         <p
@@ -599,7 +603,7 @@ const Channels = () => {
                           }}
                         >
                           <div
-                            className="w-8 h-8 mr-5"
+                            className="w-8 h-8 mr-4"
                             style={{
                               backgroundColor: "transparent",
                               borderRadius: "50%",
@@ -607,15 +611,13 @@ const Channels = () => {
                           >
                             {ele[1].image ? (
                               <div
-                                className="h-full w-full flex flex-col justify-center relative bg-white"
+                                className="flex flex-col justify-center bg-white rounded-full"
                                 style={{
                                   overflow: "hidden",
                                   borderRadius: "50%",
                                 }}
                               >
                                 <Image
-                                  layout="fill"
-                                  objectFit="cover"
                                   width={30}
                                   height={30}
                                   src={ele[1].image}
@@ -663,7 +665,7 @@ const Channels = () => {
                         />
                       </div>
                     ) : (
-                      <div className="flex mt-2 justify-center align-center">
+                      <div className="flex justify-center align-center">
                         <Image src={ChatDP} />
                       </div>
                     )}
@@ -813,7 +815,7 @@ const Channels = () => {
             <div className={`bg-gray-100 w-screen flex flex-col h-dvh`}>
               <div className="bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
                 <div
-                  className="w-8 h-8 mr-2 ml-6 my-auto object-fill rounded-xl align py"
+                  className="flex items-center w-9 h-9 mr-2 ml-6 rounded-full"
                   // style={{backgroundColor: "#0C72B0"}}
                 >
                   {currRoomImage ? (

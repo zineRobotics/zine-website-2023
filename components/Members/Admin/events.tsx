@@ -4,7 +4,7 @@ import styles from "../../../constants/styles";
 import { useForm } from "react-hook-form";
 import ProtectedRoute from "./ProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
-import { createEvent, deleteEvent, editEvent, eventTypes, fetchEvents } from "../../../apis/events";
+import { IEventData, createEvent, deleteEvent, editEvent, eventTypes, fetchEvents } from "../../../apis/events";
 import { deleteImage, uploadImage } from "../../../apis/image";
 
 interface IEventForm {
@@ -15,19 +15,6 @@ interface IEventForm {
     date: Date;
     time: string;
     id: string;
-    recruitment: boolean;
-    isHeading: boolean;
-    stage: number;
-    image: any;
-    imagepath: string;
-}
-
-interface IEventData {
-    name: string;
-    description: string;
-    eventType: typeof eventTypes[number];
-    venue: string;
-    timeDate: {seconds: number, nanoseconds: number};
     recruitment: boolean;
     isHeading: boolean;
     stage: number;

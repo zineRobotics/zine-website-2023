@@ -38,7 +38,7 @@ const validateEmail = (emailids: string) => {
 
 const Registrations = () => {
     const { register, formState: { errors }, handleSubmit } = useForm<IAddRegistration>();
-    const regCollection = collection(db, "registrations")
+    const regCollection = collection(db, "aptitudeRegs")
 
     const [users, setUsers] = useState<IRegisteredUsers[]>([])
     const [refMap, setRefMap] = useState<{[key: string]: DocumentReference}>({})
@@ -58,13 +58,22 @@ const Registrations = () => {
         setUsers(users.filter(u => u.email !== email))
     }
 
+    const fetchRegistrations = async () => {
+        return getDocs(regCollection).then(res => {
+            const newusers: IRegisteredUsers[] = []
+            res.forEach(d => { 
+                newusers.push(d.data() as IRegisteredUsers)
+                setRefMap((state) => {return {...state, [d.data().email]: d.ref}})
+            })
+            setUsers(newusers)
+        })
+    }
+
     // useEffect(() => {
-    //     // const registeredEmails: any[] = []
     //     getDocs(regCollection).then(res => {
     //         const newusers: IRegisteredUsers[] = []
     //         res.forEach(d => { 
     //             newusers.push(d.data() as IRegisteredUsers)
-    //             // registeredEmails.push(d.data().email)
     //             setRefMap((state) => {return {...state, [d.data().email]: d.ref}})
     //         })
     //         setUsers(newusers)
@@ -172,7 +181,13 @@ const Registrations = () => {
                                 }
                             </tbody>
                         </table>
-                        { !users.length && <p className="text-center text-xl mt-4">No results found</p>}
+                        { 
+                        !users.length && 
+                        <div className="text-center mt-4">
+                            {/* <p className="text-xl mt-4">No results found</p> */}
+                            <button className="p-2 text-white rounded-xl" style={{background: "#0C72B0"}} onClick={() => fetchRegistrations()}>Fetch Registrations</button>
+                        </div>
+                        }
 
                     </div>
                 </div>

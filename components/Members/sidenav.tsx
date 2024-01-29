@@ -13,7 +13,7 @@ import hamburger from "../../images/hamburger.svg";
 
 const SideNav = () => {
   const { authUser, logOut } = useAuth();
-  const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(true);
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth
   );
@@ -90,6 +90,17 @@ const SideNav = () => {
                   Users And Channels
                 </p>
               </Link>
+              <Link href="/admin/userRoles">
+                <p
+                  className={`text-xl hover:text-gray-300 cursor-pointer ${
+                    page === "userRoles"
+                      ? "font-bold"
+                      : ""
+                  }`}
+                >
+                  Users And Roles
+                </p>
+              </Link>
               <Link href="/admin/events">
                 <p
                   className={`text-xl hover:text-gray-300 cursor-pointer ${
@@ -135,6 +146,17 @@ const SideNav = () => {
                   Rooms
                 </p>
               </Link>
+              <Link href="/admin/roles">
+                <p
+                  className={`text-xl hover:text-gray-300 cursor-pointer ${
+                    page === "roles"
+                      ? "font-bold"
+                      : ""
+                  }`}
+                >
+                  Roles
+                </p>
+              </Link>
               <Link href="/admin/projects">
                 <p
                   className={`text-xl hover:text-gray-300 cursor-pointer ${
@@ -160,8 +182,26 @@ const SideNav = () => {
                         <p className={`text-white text-xl cursor-pointer font-extrabold`}>Dashboard</p>
                     </div> */}
               <div
-                className={`bg-white md:w-full  py-2 px-10 rounded-2xl mt-2 ${
-                  page === "tasks"
+                className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${
+                  page === "announcements"
+                    ? "bg-opacity-20"
+                    : "bg-opacity-5"
+                }`}
+              >
+                <Link href="/users/announcements">
+                  <p
+                    className={`text-white text-xl cursor-pointer font-extrabold opacity-100`}
+                    onClick={() => {
+                      setHide(true);
+                    }}
+                  >
+                    Dashboard
+                  </p>
+                </Link>
+              </div>
+              <div
+                className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${
+                  page === "projects"
                     ? "bg-opacity-20"
                     : "bg-opacity-5"
                 }`}
@@ -192,24 +232,6 @@ const SideNav = () => {
                     }}
                   >
                     Channels
-                  </p>
-                </Link>
-              </div>
-              <div
-                className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${
-                  page === "channels"
-                    ? "bg-opacity-20"
-                    : "bg-opacity-5"
-                }`}
-              >
-                <Link href="/users/announcements">
-                  <p
-                    className={`text-white text-xl cursor-pointer font-extrabold opacity-100`}
-                    onClick={() => {
-                      setHide(true);
-                    }}
-                  >
-                    Dashboard
                   </p>
                 </Link>
               </div>

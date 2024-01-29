@@ -1,12 +1,13 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import {
-  Workshops,
+  Workshops
 } from "../../components/Workshops";
-import { Footer, SecFooter } from "../../components/Footer";
+import { SecFooter } from "../../components/Footer";
 import { Navbar } from "../../components/Navbar";
+import { fetchRecruitmentEvents } from "../../apis/events";
+import { IWorkshopProps } from "../../components/Workshops/workshops";
 
-const Home: NextPage = () => {
+const Home = ({ recruitmentEvents }: IWorkshopProps) => {
   return (
     <>
       <Head>
@@ -14,10 +15,21 @@ const Home: NextPage = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
-      <Workshops />
+      <Workshops recruitmentEvents={recruitmentEvents} />
       <SecFooter />
     </>
   );
 };
+
+export async function getStaticProps() {
+  const data = await fetchRecruitmentEvents()
+  const recruitmentEvents = data.docs.map(d => ({ ...d.data(), timeDate: d.data().timeDate.toMillis() }))
+  return {
+    props: {
+      recruitmentEvents
+    },
+    revalidate: 60 * 60
+  }
+}
 
 export default Home;

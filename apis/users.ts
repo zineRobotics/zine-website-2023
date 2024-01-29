@@ -1,10 +1,12 @@
 import { db } from "../firebase";
 import {
-  DocumentReference,
+  QueryFilterConstraint,
+  and,
   arrayUnion,
   collection,
   doc,
   getDocs,
+  or,
   query,
   setDoc,
   updateDoc,
@@ -18,6 +20,7 @@ export interface IUser {
   type: "user" | "admin" | "alumni";
   uid: string;
   roomids: any;
+  roles?: string[];
 }
 
 export const getUser = async (email: string) => {
@@ -39,6 +42,21 @@ export const getUserEmailIn = async (
     )
   );
 };
+
+export const getUsersByRoles = async (roleList: string[]) => {
+  if (!roleList) return null
+  const constraints = roleList.map(r => {
+    if (r.toLowerCase() === 'admin') return where("type", "==", "admin")
+    if (r.toLowerCase() === 'alumni') return where("type", "==", "alumni")
+    if (r.toLowerCase() === '2024') return and(where("email", ">=", "2024"), where("email", "<=", "2024~"))
+    if (r.toLowerCase() === '2023') return and(where("email", ">=", "2023"), where("email", "<=", "2023~"))
+    if (r.toLowerCase() === '2022') return and(where("email", ">=", "2022"), where("email", "<=", "2022~"))
+    return null
+  }).filter(r => r) as QueryFilterConstraint[]
+
+  if(!constraints) return null
+  return getDocs(query(usersCollection, or(...constraints)))
+}
 
 interface ICreateUser {
   uid: string;
@@ -64,26 +82,8 @@ export const createUser = async ({
     type: "user",
     dp: Math.floor(Math.random() * 27),
     registered: false,
-    roomids: ["52vnFJ9cxVALugPY4BiF",
-      "qLrEBufSFtNuy6AKivgc",
-      "epPlq8YRBHXdK0Fo8gwa",
-    "gAbWhESbn0aNTIYjiyG6",
-    "uGvjwISYpVQAIhjKLzot",
-    "u4MsUCWoGfh87G5KOpLD",
-    "ZLu0q9BhvvoithpQTbbZ",
-    "rz4qKqWeaP0u6s0h8ZZK",
-    "zGZeEnyF0K7WdaT0euZn"
-  ],
-    rooms: ["Aptitude Test",
-      "BME",
-      "BEE",
-    "Aeromodelling",
-    "ALGO",
-    "Machine Learning",
-    "OpenCV",
-    "IC/MCU",
-    "IOT"
-  ],
+    roomids: [],
+    rooms: [],
     roles: [],
   });
 };

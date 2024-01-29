@@ -4,7 +4,7 @@ import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, 
 import { IUser, addUserRoom } from './users';
 import { deleteImage } from './image';
 
-const roomsCollection = collection(db, "rooms");
+export const roomsCollection = collection(db, "rooms");
 const usersCollection = collection(db, "users");
 
 export const ANNOUNCEMENT_ROOM_ID =

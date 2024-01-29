@@ -7,6 +7,7 @@ import { ITaskData, assignTask, createTask, deleteTask, editTask, fetchTasks } f
 import { Control, useFieldArray, useForm } from "react-hook-form";
 import { IUser, getUserEmailIn } from "../../../apis/users";
 import Modal from "../modal";
+import { IRoleData, fetchRoles } from "../../../apis/roles";
 
 
 interface ITaskForm {
@@ -20,6 +21,8 @@ interface ITaskForm {
     mentors: { value: string }[];
     createRoom: boolean;
     roomName?: string;
+    roles: { value: string }[];
+    available?: boolean;
 }
 
 interface IState {
@@ -33,6 +36,11 @@ interface IState {
 interface IAssignState {
     input: string;
     emails: string[];
+}
+
+interface RoleListInputProps {
+    control: Control<ITaskForm, any>;
+    roles: IRoleData[];
 }
 
 const EmailListInput = ({ control }: { control: Control<ITaskForm, any> }) => {
@@ -65,20 +73,54 @@ const EmailListInput = ({ control }: { control: Control<ITaskForm, any> }) => {
     );
 };
 
+const RoleListInput = ( { control, roles}: RoleListInputProps) => {
+    const { fields, append, remove } = useFieldArray({ control, name: 'roles' });
+    const [nextRole, setNextRole] = useState('')
+    const handleAddRole = () => {
+        nextRole.split(/[ ,]+/).map(e => {
+            console.log(e)
+            if (roles.some(r=> r.name == e)) {}
+            else return
+            if (fields.some(f => f.value === e)) return
+            append({ value: e });
+            setNextRole("")
+        })
+    };
+
+    return (
+        <div>
+            <div className="flex text-sm font-medium flex-wrap gap-1">
+                {fields.map((field, index) => (
+                    <div key={field.id} className="flex py-1 px-2 rounded-3xl" style={{background: "#C2FFF48A", color: "#0C72B0F2"}}>
+                        <input className="font-medium" disabled {...field} />
+                        <button className="ml-2" type="button" onClick={() => remove(index)}>✕</button>
+                    </div>
+                ))}
+            </div>
+            <div className="flex mt-1">
+                <input type='text' className="block w-full focus:outline-none bottom-border pt-2 px-1" value={nextRole} onChange={(e) => setNextRole(e.target.value)} />
+                <button type="button" className="text-white rounded-md ml-2 px-2 py-1" style={{ background: "#0C72B0" }} onClick={handleAddRole}>Add</button>
+            </div>
+        </div>
+    );
+};
+
 
 const Tasks = () => {
     const [state, setState] = useState<IState>({ search: "", editing: false, editingID: "", assignTask: null, deleteTask: null })
     const [assignState, setAssignState] = useState<IAssignState>({ input: "", emails: [] })
     const [tasks, setTasks] = useState<ITaskData[]>([])
+    const [roles, setRoles] = useState<IRoleData[]>([])
 
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<ITaskForm>()
     const watchCreateRoom = watch('createRoom', false)
 
     const onSubmit = async (data: ITaskForm) => {
-        const { mentors, submissionLink, ...formData } = data
+        const { mentors, submissionLink, roles, ...formData } = data
         const mentorsArray = mentors.map(m => m.value)
+        const rolesArray = roles.map(r => r.value)
 
-        createTask({ submissionLink: submissionLink || "", mentors: mentorsArray, ...formData }).then(task => {
+        createTask({ submissionLink: submissionLink || "", mentors: mentorsArray, roles: rolesArray, ...formData }).then(task => {
             toast.success("Task successfully created!")
             reset()
             console.log("Task created:", task.id)
@@ -89,11 +131,12 @@ const Tasks = () => {
     }
 
     const onEdit = async (data: ITaskForm) => {
-        const { mentors, submissionLink, ...formData } = data
+        const { mentors, submissionLink, roles, ...formData } = data
         const mentorsArray = mentors.map(m => m.value)
+        const rolesArray = roles.map(r => r.value)
 
         reset()
-        editTask(state.editingID, { submissionLink: submissionLink || "", mentors: mentorsArray, ...formData }).then(task => {
+        editTask(state.editingID, { submissionLink: submissionLink || "", mentors: mentorsArray, roles: rolesArray, ...formData }).then(task => {
             toast.success("Task successfully edited!")
             setState({ ...state, editing: false, editingID: "" })
         }).catch((err) => {
@@ -133,6 +176,8 @@ const Tasks = () => {
         setValue("mentors", task.mentors.map(m => ({ value: m })))
         setValue("type", task.type)
         setValue("roomName", task.roomName)
+        setValue("roles", task.roles.map(r => ({  value: r})))
+        setValue("available", task.available)
 
         setState({ ...state, editing: true, editingID: task.id })
     }
@@ -177,6 +222,14 @@ const Tasks = () => {
             })
             console.log(tasks)
             setTasks(() => tasks)
+        })
+        fetchRoles().then(res => {
+            const roles = res.docs.map(d => {
+                const { ...data } = d.data()
+                return { id: d.id, ...data } as IRoleData
+            })
+            console.log("roles: ",roles)
+            setRoles(() => roles)
         })
     }, [])
 
@@ -233,6 +286,16 @@ const Tasks = () => {
                                 <div className="col-span-2">
                                     <label className="block text-gray-600 text-sm">Submission Link</label>
                                     <input type="text" id="submissionlink" className="block w-full focus:outline-none bottom-border pt-2" {...register('submissionLink')} />
+                                </div>
+                                <div className="col-span-3">
+                                    <label className="block text-gray-600 text-sm">Roles <span className="text-red-500">*</span></label>
+                                    <RoleListInput control={control} roles={roles}/>
+                                    {/* <input type="text" id="mentors" className="block w-full focus:outline-none bottom-border pt-2 px-1" placeholder="2021ucp1011@mnit.ac.in, 2021ucp1013@mnit.ac.in" {...register('mentors', {required: true})} /> */}
+                                    {errors.roles && <p className="text-red-500 text-sm" role="alert">Role list is required</p>}
+                                </div>
+                                <div className="col-span-2 flex items-center">
+                                    <input type="checkbox" {...register('available')}></input>
+                                    <label className="ml-8">Available for selection</label>
                                 </div>
                                 <div className="col-span-3">
                                     <label className="block text-gray-600 text-sm">Due Date<span className="text-red-500">*</span></label>
