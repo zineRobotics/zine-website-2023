@@ -57,7 +57,7 @@ const Dashboard = () => {
         <ProtectedRoute>
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-12 px-6 md:px-12 flex flex-col overflow-y-scroll md:col-span-9">
-                    <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Admin Panel</h1>
+                    <h1 className="text-4xl font-bold mt-16 md:mt-8" style={{color: "#AAAAAA"}}>Admin Panel</h1>
                     <div className="grid grid-cols-6 md:grid-cols-9 grid-rows-10 gap-4 md:gap-8 my-8 flex-1">
                         <div className="col-span-3 row-span-4 bg-white shadow-md  rounded-xl py-4 px-6 md:px-16 flex flex-col justify-center">
                             <h5 className="text-xl text-right font-bold" style={styles.textPrimary}>{suffix}</h5>

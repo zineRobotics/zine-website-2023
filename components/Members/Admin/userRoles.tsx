@@ -53,7 +53,7 @@ const AddUser = ({ roles }: IUserRoleCard) => {
     }
 
     return (
-        <div className=" bg-white rounded-xl py-4 px-6 w-full relative">
+        <div className=" bg-white shadow-md rounded-xl py-4 px-6 w-full relative">
             <h1 className="text-2xl font-bold" style={styles.textPrimary}>Add role to user</h1>
             <form>
                 <div className="mt-4">
@@ -120,7 +120,7 @@ const RemoveUser = ({ roles }: IUserRoleCard) => {
     }
 
     return (
-        <div className=" bg-white rounded-xl pt-4 px-6 relative">
+        <div className=" bg-white shadow-md rounded-xl pt-4 px-6 relative">
             <h1 className="text-2xl font-bold" style={styles.textGray}>Remove user from role</h1>
             <div className="mt-4">
                 <label className="block text-gray-600 text-sm" style={styles.textGray}>Email Address</label>
@@ -182,7 +182,7 @@ const UserRoles = () => {
             />
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-12 px-6 md:px-12 flex flex-col overflow-y-scroll md:col-span-9">
-                    <h1 className="text-4xl font-bold mt-14 md:mt-8" style={{color: "#AAAAAA"}}>Users And Roles</h1>
+                    <h1 className="text-4xl font-bold mt-16 md:mt-8" style={{color: "#AAAAAA"}}>Users And Roles</h1>
                     <div className="grid gap-8 my-8 flex-1">
                         <AddUser roles={roles} />
                         <RemoveUser roles={roles} />

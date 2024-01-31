@@ -94,7 +94,7 @@ const Projects = () => {
 
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
                 <div className="col-span-12 md:col-span-9 px-6 md:px-12 flex flex-col overflow-y-scroll">
-                    <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Projects</h1>
+                    <h1 className="text-4xl font-bold mt-16 md:mt-8" style={{color: "#AAAAAA"}}>Projects</h1>
                     
                     {                   
                         !userProject && 

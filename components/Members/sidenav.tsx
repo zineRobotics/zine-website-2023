@@ -56,7 +56,7 @@ const SideNav = () => {
           </div>
 
           {authUser!.type === "admin" && (
-            <div className="mt-24">
+            <div className="mt-24 md:mt-20">
               <Link href="/admin/dashboard">
                 <p
                   className={`text-xl hover:text-gray-300 cursor-pointer ${
