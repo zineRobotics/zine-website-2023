@@ -27,7 +27,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
     getRoom(roomName).then((snapshots) => {
       snapshots.forEach((d) => {
         setGroupID(d.id);
-        const newmsg: IMessageData[] = [];
+        let newmsg: IMessageData[] = [];
         getMessages(d.ref, true, 20)
           .then((msgSnapshot) => {
             msgSnapshot.forEach((d) => {
@@ -35,6 +35,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
             });
           })
           .then(() => {
+            newmsg = newmsg.sort((a, b) => -b.timeStamp.seconds + a.timeStamp.seconds);
             setMessages(newmsg);
           });
       });
