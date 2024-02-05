@@ -12,9 +12,6 @@ const Comments = ({ projectData }: { projectData: IProject }) => {
   const [project, setProject] = useState(projectData);
   const [comment, setComment] = useState("");
   const { authUser } = useAuth();
-  useEffect(() => {
-    console.log("project data11", project);
-  }, [project]);
 
   const addComment = () => {
     if (!project) return;
@@ -40,9 +37,6 @@ const Comments = ({ projectData }: { projectData: IProject }) => {
       setProject({ ...project, rating: rating });
     });
   };
-  useEffect(() => {
-    console.log(project.rating);
-  }, [project]);
 
   return (
     <div className="">

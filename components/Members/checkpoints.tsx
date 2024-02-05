@@ -19,9 +19,7 @@ const Checkpoints = ({ projectData }: { projectData: IProject }) => {
   const [url, setURL] = useState("");
   const [urlType, setURLType] = useState("GitHub");
   const { authUser } = useAuth();
-  useEffect(() => {
-    console.log("project data11", project);
-  }, [project]);
+
   const roomName = `${projectData.taskData.title.split(" ")[0]}-${project.usersData[0].email.slice(4).split("@")[0]}`;
   useEffect(() => {
     getRoom(roomName).then((snapshots) => {
