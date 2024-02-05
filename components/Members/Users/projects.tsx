@@ -86,8 +86,8 @@ const Projects = () => {
       <div className="flex flex-col md:grid grid-cols-12 h-screen" style={{ background: "#EFEFEF" }}>
         <SideNav />
 
-        <div className="px-6 relative overflow-y-scroll md:px-12 md:col-span-9">
-          <h1 className="text-4xl font-bold mt-8" style={{ color: "#AAAAAA" }}>
+        <div className="px-4 relative overflow-y-scroll md:px-12 md:col-span-9">
+          <h1 className="text-4xl font-bold mt-14 md:mt-8" style={{ color: "#AAAAAA" }}>
             {(state === "selection" || state === "confirmation") && "Choose your major project"}
             {state === "inprogress" && "Project Progress"}
           </h1>
@@ -98,7 +98,7 @@ const Projects = () => {
           )}
           {state && state !== "inprogress" && (
             <p className="mt-2 text-lg font-bold" style={{ color: "#AAAAAA" }}>
-              You can choose any one project that you feel you can complete in 5 days. You will be assigned mentors for each project
+              You can choose any one project that you feel you can complete. You will be assigned mentors for each project
             </p>
           )}
 

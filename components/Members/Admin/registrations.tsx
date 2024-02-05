@@ -95,17 +95,17 @@ const Registrations = () => {
                 theme="light"
             />
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}> 
-                <div className="col-span-9 px-12 flex flex-col overflow-y-scroll">
-                    <h1 className="text-4xl font-bold mt-8" style={{color: "#AAAAAA"}}>Registrations</h1>
-                    <div className="grid grid-cols-9 gap-8 my-8">
-                        <div className="col-span-3 bg-white rounded-xl py-4">
+                <div className="col-span-12 px-6 md:px-12 flex flex-col overflow-y-scroll md:col-span-9">
+                    <h1 className="text-4xl font-bold mt-16 md:mt-8" style={{color: "#AAAAAA"}}>Registrations</h1>
+                    <div className="grid grid-cols-9 gap-4 md:gap-8 my-8">
+                        <div className="col-span-3 bg-white shadow-md rounded-xl py-4">
                             <h1 className="text-7xl text-center font-extrabold mt-4" style={{color: "#0C72B0"}}>{users.length}</h1>
                             <div className="text-center mt-4">
                                 <FontAwesomeIcon icon={faCheck} size="2x" style={styles.textSecondary} />
                             </div>
                             <h3 className="text-2xl text-center font-bold mt-2" style={styles.textSecondary}>Registered</h3>
                         </div>
-                        <div className="col-span-6 bg-white rounded-xl py-4 px-6">
+                        <div className="col-span-6 bg-white shadow-md rounded-xl py-4 px-6">
                             <h1 className="text-3xl font-bold" style={styles.textPrimary}>Add Registration</h1>
                             <form>
                                 <div className="mt-4">
@@ -119,7 +119,7 @@ const Registrations = () => {
                         </div>
                     </div>
 
-                    <div className="bg-white py-4 px-6 mb-8 rounded-xl">
+                    <div className="bg-white shadow-md py-4 px-2 md:px-6 mb-8 rounded-xl">
                         <div className="grid grid-cols-6 gap-4">
                             <div className="col-span-4 flex flex-col">
                                 <label className="text-gray-500">Search</label>
@@ -169,7 +169,7 @@ const Registrations = () => {
                                     .filter(u => state.gender === "N/A" || u.gender === state.gender)
                                     .filter(u => state.platform === "N/A" || u.platform === state.platform)
                                     .map((u,index) => (
-                                        <tr key={u.email + u.name} className="text-left border-black">
+                                        <tr key={u.email + u.name} className="text-left border-black text-xs md:text-normal">
                                             <td className="border p-1">{index + 1}</td>
                                             <td className="border p-1">{u.name}</td>
                                             <td className="border p-1">{u.email}</td>
