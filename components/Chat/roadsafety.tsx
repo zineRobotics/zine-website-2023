@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Send from "../../images/icons/Send.png"
 import axios from "axios"
 
-const apiURL = "http://34.45.177.163/predict/"
+const apiURL = "https://admittedly-closing-snail.ngrok-free.app/predict"
 
 interface ChatItem {
     message: string;
