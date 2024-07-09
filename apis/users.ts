@@ -1,62 +1,50 @@
 import { db } from "../firebase";
-import {
-  QueryFilterConstraint,
-  and,
-  arrayUnion,
-  collection,
-  doc,
-  getDocs,
-  or,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { QueryFilterConstraint, and, arrayUnion, collection, doc, getDocs, or, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 const usersCollection = collection(db, "users");
+// export interface IUser {
+//   name: string;
+//   email: string;
+//   type: "user" | "admin" | "alumni";
+//   uid: string;
+//   roomids: any;
+//   roles?: string[];
+// }
 export interface IUser {
   name: string;
+  dp: string | null;
   email: string;
+  emailVerified: boolean;
+  id: Number;
+  pushToken: string | null;
+  registered: boolean;
   type: "user" | "admin" | "alumni";
-  uid: string;
-  roomids: any;
-  roles?: string[];
 }
 
 export const getUser = async (email: string) => {
-  return getDocs(
-    query(
-      usersCollection,
-      where("email", "==", email)
-    )
-  );
+  return getDocs(query(usersCollection, where("email", "==", email)));
 };
 
-export const getUserEmailIn = async (
-  emailList: string[]
-) => {
-  return getDocs(
-    query(
-      usersCollection,
-      where("email", "in", emailList)
-    )
-  );
+export const getUserEmailIn = async (emailList: string[]) => {
+  return getDocs(query(usersCollection, where("email", "in", emailList)));
 };
 
 export const getUsersByRoles = async (roleList: string[]) => {
-  if (!roleList) return null
-  const constraints = roleList.map(r => {
-    if (r.toLowerCase() === 'admin') return where("type", "==", "admin")
-    if (r.toLowerCase() === 'alumni') return where("type", "==", "alumni")
-    if (r.toLowerCase() === '2024') return and(where("email", ">=", "2024"), where("email", "<=", "2024~"))
-    if (r.toLowerCase() === '2023') return and(where("email", ">=", "2023"), where("email", "<=", "2023~"))
-    if (r.toLowerCase() === '2022') return and(where("email", ">=", "2022"), where("email", "<=", "2022~"))
-    return null
-  }).filter(r => r) as QueryFilterConstraint[]
+  if (!roleList) return null;
+  const constraints = roleList
+    .map((r) => {
+      if (r.toLowerCase() === "admin") return where("type", "==", "admin");
+      if (r.toLowerCase() === "alumni") return where("type", "==", "alumni");
+      if (r.toLowerCase() === "2024") return and(where("email", ">=", "2024"), where("email", "<=", "2024~"));
+      if (r.toLowerCase() === "2023") return and(where("email", ">=", "2023"), where("email", "<=", "2023~"));
+      if (r.toLowerCase() === "2022") return and(where("email", ">=", "2022"), where("email", "<=", "2022~"));
+      return null;
+    })
+    .filter((r) => r) as QueryFilterConstraint[];
 
-  if(!constraints) return null
-  return getDocs(query(usersCollection, or(...constraints)))
-}
+  if (!constraints) return null;
+  return getDocs(query(usersCollection, or(...constraints)));
+};
 
 interface ICreateUser {
   uid: string;
@@ -64,17 +52,9 @@ interface ICreateUser {
   email: string;
 }
 
-export const createUser = async ({
-  uid,
-  name,
-  email,
-}: ICreateUser) => {
+export const createUser = async ({ uid, name, email }: ICreateUser) => {
   const roles = [];
-  if (
-    email.endsWith("@mnit.ac.in") ||
-    email.endsWith("@iiitkota.ac.in")
-  )
-    roles.push("mnit");
+  if (email.endsWith("@mnit.ac.in") || email.endsWith("@iiitkota.ac.in")) roles.push("mnit");
   return setDoc(doc(usersCollection, uid), {
     name,
     email,
@@ -88,24 +68,24 @@ export const createUser = async ({
   });
 };
 
-export const addUserRoom = async (
-  user: IUser,
-  roomnames: string[],
-  roomids: string[]
-) => {
-  console.log(roomnames, roomids);
-  await Promise.all(
-    roomids.map(async (id) => {
-      await updateDoc(doc(db, "rooms", id), {
-        members: arrayUnion(user.email),
-      });
-    })
-  );
-  return updateDoc(
-    doc(usersCollection, user.uid),
-    {
-      rooms: arrayUnion(...roomnames),
-      roomids: arrayUnion(...roomids),
-    }
-  );
-};
+// export const addUserRoom = async (
+//   user: IUser,
+//   roomnames: string[],
+//   roomids: string[]
+// ) => {
+//   console.log(roomnames, roomids);
+//   await Promise.all(
+//     roomids.map(async (id) => {
+//       await updateDoc(doc(db, "rooms", id), {
+//         members: arrayUnion(user.email),
+//       });
+//     })
+//   );
+//   return updateDoc(
+//     doc(usersCollection, user.uid),
+//     {
+//       rooms: arrayUnion(...roomnames),
+//       roomids: arrayUnion(...roomids),
+//     }
+//   );
+// };
