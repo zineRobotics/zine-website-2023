@@ -6,7 +6,7 @@ import styles from "../../../constants/styles";
 import Image from "next/image";
 import ZineBlog from "../../../images/admin/zineblog.png";
 import { useAuth } from "../../../context/authContext";
-import { getMessages, announcementRoom } from "../../../apis/room";
+import { getRoom, fetchRoomsByUser } from "../../../apis/room";
 import { Registration } from "../../Workshops";
 // import { collection, getCountFromServer, query, where } from "firebase/firestore";
 // import { db } from "../../../firebase";
@@ -58,22 +58,6 @@ const Announcements = () => {
   const [announcements, setAnnouncements] = useState<IMessageData[]>([]);
   const { authUser } = useAuth();
   const [isRegistered, setIsRegistered] = useState<boolean>();
-
-  // useEffect(() => {
-  //   getMessages(announcementRoom, true, 10).then((msgSnapshot) => {
-  //     setAnnouncements(msgSnapshot.docs.map((d) => d.data() as IMessageData));
-  //   });
-  //   const registrationRef = collection(db, "aptitudeRegs");
-  //   const q = query(registrationRef, where("email", "==", authUser?.email));
-  //   const checkRegistered = async () => {
-  //     const count = await getCountFromServer(q);
-  //     setIsRegistered(count.data().count ? true : false);
-  //   };
-  //   checkRegistered();
-  // }, []);
-  useEffect(() => {
-    console.log("announcements", authUser);
-  }, [authUser]);
 
   const date = new Date();
   const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
