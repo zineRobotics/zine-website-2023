@@ -4,18 +4,22 @@ import SideNav from "../sidenav";
 import { useAuth } from "../../../context/authContext";
 import { db } from "../../../firebase";
 import { collection, addDoc, getDocs, query, where, doc, limit, getDoc, DocumentReference, orderBy, onSnapshot } from "firebase/firestore";
-import { sendMessage, getMessages, announcementRoom } from "../../../apis/room";
+import { sendMessage, getMessages, announcementRoom, fetchRoomsByUser, IRoomData } from "../../../apis/room";
 import sendFCMMessage from "../../../apis/sendFcm";
 import Image from "next/image";
 import Send from "../../../images/icons/Send.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faLeftLong, faReply } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import SockJS from "sockjs-client";
+import { Stomp, Client } from "@stomp/stompjs";
+// import {over} from "stompjs";
 interface ITimestamp {
   seconds: number;
   nanoseconds: number;
 }
 import ChatDP from "../../../images/admin/logo.png";
+
 interface IMessageData {
   from: string;
   group: string;
@@ -37,7 +41,6 @@ const ImageWrap = styled.span`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 `;
-
 const Channels = () => {
   type KeyValueArray = Array<{
     id: string;
@@ -45,8 +48,8 @@ const Channels = () => {
   }>;
 
   const { authUser } = useAuth();
-  const [rooms, setRooms] = useState<any[]>([]);
-  const [currRoomID, setCurrRoomID] = useState<string>("");
+  const [rooms, setRooms] = useState<IRoomData[]>([]);
+  const [currRoomID, setCurrRoomID] = useState<Number>();
   const [currRoom, setCurrRoom] = useState<string>("");
   const [messages, setMessages] = useState<KeyValueArray>([]);
   const [currMsg, setCurrMsg] = useState("");
@@ -58,64 +61,55 @@ const Channels = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [hide, setHide] = useState(false);
   const [announcements, setAnnouncements] = useState<IMessageData[]>([]);
+  const [stompClient, setStompClient] = useState<any>(null);
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
   };
+  const onConnected = () => {
+    console.log("connected to server");
+  };
+  const onError = (error: any) => {
+    console.log(error);
+  };
+  const connect = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const client = new Client({
+        webSocketFactory: () =>
+          new SockJS("http://127.0.0.1:8080/ws", null, {
+            withCredentionals: false,
+          }),
+        connectHeaders: { Authorization: `Bearer ${token}` },
+        debug: (str) => {
+          console.log(str);
+        },
+        onConnect: onConnected,
+        onStompError: onError,
+        reconnectDelay: 10000,
+      });
+      client.activate();
+      setStompClient(client);
+    }
+  };
+  useEffect(() => {
+    connect();
+  }, []);
   useEffect(() => {
     window.addEventListener("resize", updateScreenWidth);
     return () => window.removeEventListener("resize", updateScreenWidth);
   }, []);
 
+  // to fetch the rooms once the component loads
   useEffect(() => {
-    if (currRoomID) {
-      const roomRef = doc(db, "rooms", currRoomID);
-      const messagesRef = collection(roomRef, "messages");
-      const q = query(messagesRef, orderBy("timeStamp", "asc"));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const newMsg: KeyValueArray = [];
-        snapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
-            // console.log(change.doc.data());
-            // console.log(change.doc.id);
-            newMsg.push({ id: change.doc.id, data: change.doc.data() as IMessageData });
-          }
-          // if (change.type === "modified") {
-          //   console.log("Modified", change.doc.data());
-          // }
-          // if (change.type === "removed") {
-          //   console.log("Removed", change.doc.data());
-          // }
+    if (authUser?.email) {
+      fetchRoomsByUser(authUser.email)
+        .then((res) => {
+          setRooms(res);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        // console.log("new docs", newMsg);
-
-        // console.log("new docs length", newMsg.length);
-
-        setMessages((oldMsg) => [...oldMsg, ...newMsg]);
-      });
-      return () => {
-        unsubscribe();
-      };
     }
-  }, [currRoomID]);
-
-  const fetchRooms = async () => {
-    const promises = authUser?.roomids.map(async (roomID: string) => {
-      const roomRef = doc(db, "rooms", roomID);
-      const roomSnapshot = await getDoc(roomRef);
-      if (roomSnapshot.exists()) {
-        return [roomID, roomSnapshot.data()];
-      } else {
-        return [roomID, null];
-      }
-    });
-    const final = await Promise.all(promises);
-    // console.log("rooms", final);
-
-    // const IDValuePairs = Object.assign({}, ...final);
-    setRooms(final);
-  };
-  useEffect(() => {
-    fetchRooms();
   }, []);
 
   useEffect(() => {
@@ -123,27 +117,28 @@ const Channels = () => {
       lastMessageRef.current!.scrollIntoView();
     }
   }, [messages]);
-  const handleSend = async () => {
-    if (!currMsg) return;
-    const roomCollection = collection(db, "rooms");
-    const roomDoc = doc(roomCollection, currRoomID);
-    const user = {
-      name: authUser?.name,
-      id: authUser?.uid,
-    };
-    //console.log(user, currMsg,roomRef);
-    //console.log("user data", user);
-    //console.log("id", replyingMessageID);
-    const res = await sendMessage(roomDoc, currMsg, user, replyingMessageID);
-    await sendFCMMessage(currRoom, currRoom, currMsg);
 
-    //console.log(res);
-    //fetchSubCollectionMessages(roomDoc.id);
-    setCurrMsg("");
-    setReplyText("");
-    setReplyingName("");
-    setReplyingMessageID(null);
-    //console.log("message sent",res);
+  const handleSend = async () => {
+    // if (!currMsg) return;
+    // const roomCollection = collection(db, "rooms");
+    // const roomDoc = doc(roomCollection, currRoomID);
+    // const user = {
+    //   name: authUser?.name,
+    //   // id: authUser?.uid,
+    //   id: 1
+    // };
+    // //console.log(user, currMsg,roomRef);
+    // //console.log("user data", user);
+    // //console.log("id", replyingMessageID);
+    // const res = await sendMessage(roomDoc, currMsg, user, replyingMessageID);
+    // await sendFCMMessage(currRoom, currRoom, currMsg);
+    // //console.log(res);
+    // //fetchSubCollectionMessages(roomDoc.id);
+    // setCurrMsg("");
+    // setReplyText("");
+    // setReplyingName("");
+    // setReplyingMessageID(null);
+    // //console.log("message sent",res);
   };
   const timestampToHuman = (timeStamp: ITimestamp) => {
     const date = new Date(timeStamp.seconds * 1000);
@@ -270,7 +265,7 @@ const Channels = () => {
                     setCurrRoom("Announcements");
                     currRoom !== "Announcements" && setMessages([]);
                     // fetchSubCollectionMessages("Hn9GSQnvi5zh9wabLGuT");
-                    setCurrRoomID("Hn9GSQnvi5zh9wabLGuT");
+                    // setCurrRoomID("Hn9GSQnvi5zh9wabLGuT");
                     setReplyText("");
                     setReplyingName("");
                     setReplyingMessageID(null);
@@ -299,120 +294,122 @@ const Channels = () => {
                 <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
                   Groups
                 </div>
-                {rooms.map((ele) => {
-                  if (ele[1] === null) return; //if room does not exist
-                  return (
-                    ele[1].type === "group" && (
-                      <p
-                        onClick={() => {
-                          // console.log(ele[0]);
-                          currRoomID !== ele[0] && setMessages([]);
-                          setCurrRoomID(ele[0]);
-                          // fetchSubCollectionMessages(ele[0]);
-                          setCurrRoom(ele[1].name);
-                          setCurrRoomImage(ele[1].image);
-                          setReplyText("");
-                          setReplyingName("");
-                          setReplyingMessageID(null);
-                        }}
-                        key={ele}
-                        className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele[1].name ? "bg-white" : "bg-gray-200"}`}
-                        style={{
-                          color: "#003d63",
-                          border: `${currRoom === ele[1].name ? "1px solid #003d63" : ""}`,
-                          cursor: "pointer",
-                        }}
-                      >
-                        <div
-                          className="w-6 h-6 mr-2 rounded-full"
+                {rooms &&
+                  rooms.map((ele) => {
+                    if (ele.id === null) return; //if room does not exist
+                    return (
+                      ele.type === "group" && (
+                        <p
+                          onClick={() => {
+                            // console.log(ele[0]);
+                            currRoomID !== ele.id && setMessages([]);
+                            setCurrRoomID(ele.id);
+                            // fetchSubCollectionMessages(ele[0]);
+                            setCurrRoom(ele.name);
+                            setCurrRoomImage(ele.dpUrl);
+                            setReplyText("");
+                            setReplyingName("");
+                            setReplyingMessageID(null);
+                          }}
+                          key={ele.name}
+                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
                           style={{
-                            backgroundColor: "white",
+                            color: "#003d63",
+                            border: `${currRoom === ele.name ? "1px solid #003d63" : ""}`,
+                            cursor: "pointer",
                           }}
                         >
-                          {ele[1].image ? (
-                            <Image
-                              width={50}
-                              height={50}
-                              src={ele[1].image}
-                              className="rounded-full"
-                              style={{
-                                backgroundColor: "#0C72B0",
-                              }}
-                            />
-                          ) : (
-                            <div className="h-full w-full flex flex-col justify-center">
-                              <Image layout="responsive" src={ChatDP} />
-                            </div>
-                          )}
-                        </div>
-                        {ele[1].name}
-                      </p>
-                    )
-                  );
-                })}
-                <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
-                  Rooms
-                </div>
-                {rooms.map((ele) => {
-                  if (ele[1] === null) return; //if room does not exist
-                  return (
-                    ele[1].type === "project" && (
-                      <p
-                        key={ele}
-                        onClick={() => {
-                          // console.log(ele[0]);
-                          currRoomID !== ele[0] && setMessages([]);
-                          setCurrRoomID(ele[0]);
-                          // fetchSubCollectionMessages(ele[0]);
-                          setCurrRoom(ele[1].name);
-                          setCurrRoomImage(ele[1].image);
-                          setReplyText("");
-                          setReplyingName("");
-                          setReplyingMessageID(null);
-                        }}
-                        className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele[1].name ? "bg-white" : "bg-gray-200"}`}
-                        style={{
-                          color: "#003d63",
-                          border: `${currRoom === ele[1].name ? "1px solid #003d63" : ""}`,
-                          cursor: "pointer",
-                        }}
-                      >
-                        <div
-                          className="w-6 h-6 z-4 mr-2"
-                          style={{
-                            backgroundColor: "white",
-                            borderRadius: "50%",
-                          }}
-                        >
-                          {ele[1].image ? (
-                            <div
-                              className="h-full w-full flex flex-col justify-center rounded-full relative"
-                              style={{
-                                overflow: "hidden",
-                                borderRadius: "50%",
-                              }}
-                            >
+                          <div
+                            className="w-6 h-6 mr-2 rounded-full"
+                            style={{
+                              backgroundColor: "white",
+                            }}
+                          >
+                            {ele.dpUrl ? (
                               <Image
                                 width={50}
                                 height={50}
-                                src={ele[1].image}
+                                src={ele.dpUrl}
                                 className="rounded-full"
                                 style={{
                                   backgroundColor: "#0C72B0",
                                 }}
                               />
-                            </div>
-                          ) : (
-                            <div className="h-full w-full flex flex-col justify-center relative">
-                              <Image layout="responsive" objectFit="cover" src={ChatDP} />
-                            </div>
-                          )}
-                        </div>
-                        {ele[1].name}
-                      </p>
-                    )
-                  );
-                })}
+                            ) : (
+                              <div className="h-full w-full flex flex-col justify-center">
+                                <Image layout="responsive" src={ChatDP} />
+                              </div>
+                            )}
+                          </div>
+                          {ele.name}
+                        </p>
+                      )
+                    );
+                  })}
+                <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                  Rooms
+                </div>
+                {rooms &&
+                  rooms.map((ele) => {
+                    if (ele.id === null) return; //if room does not exist
+                    return (
+                      ele.type === "project" && (
+                        <p
+                          key={ele.name}
+                          onClick={() => {
+                            // console.log(ele[0]);
+                            currRoomID !== ele.id && setMessages([]);
+                            setCurrRoomID(ele.id);
+                            // fetchSubCollectionMessages(ele[0]);
+                            setCurrRoom(ele.name);
+                            setCurrRoomImage(ele.dpUrl);
+                            setReplyText("");
+                            setReplyingName("");
+                            setReplyingMessageID(null);
+                          }}
+                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
+                          style={{
+                            color: "#003d63",
+                            border: `${currRoom === ele.name ? "1px solid #003d63" : ""}`,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <div
+                            className="w-6 h-6 z-4 mr-2"
+                            style={{
+                              backgroundColor: "white",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {ele.dpUrl ? (
+                              <div
+                                className="h-full w-full flex flex-col justify-center rounded-full relative"
+                                style={{
+                                  overflow: "hidden",
+                                  borderRadius: "50%",
+                                }}
+                              >
+                                <Image
+                                  width={50}
+                                  height={50}
+                                  src={ele.dpUrl}
+                                  className="rounded-full"
+                                  style={{
+                                    backgroundColor: "#0C72B0",
+                                  }}
+                                />
+                              </div>
+                            ) : (
+                              <div className="h-full w-full flex flex-col justify-center relative">
+                                <Image layout="responsive" objectFit="cover" src={ChatDP} />
+                              </div>
+                            )}
+                          </div>
+                          {ele.name}
+                        </p>
+                      )
+                    );
+                  })}
               </div>
             </div>
           ) : (
@@ -424,7 +421,7 @@ const Channels = () => {
                       setCurrRoom("Announcements");
                       currRoom !== "Announcements" && setMessages([]);
                       // fetchSubCollectionMessages("Hn9GSQnvi5zh9wabLGuT");
-                      setCurrRoomID("Hn9GSQnvi5zh9wabLGuT");
+                      // setCurrRoomID("Hn9GSQnvi5zh9wabLGuT");
                       setReplyText("");
                       setReplyingName("");
                       setReplyingMessageID(null);
@@ -454,125 +451,127 @@ const Channels = () => {
                   <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
                     Groups
                   </div>
-                  {rooms.map((ele) => {
-                    if (ele[1] === null) return; //if room does not exist
-                    return (
-                      ele[1].type === "group" && (
-                        <p
-                          key={ele}
-                          onClick={() => {
-                            // console.log(ele[0]);
-                            setCurrRoomID(ele[0]);
-                            currRoomID !== ele[0] && setMessages([]);
-                            // fetchSubCollectionMessages(ele[0]);
-                            setCurrRoom(ele[1].name);
-                            setCurrRoomImage(ele[1].image);
-                            setHide(true);
-                            setReplyText("");
-                            setReplyingName("");
-                            setReplyingMessageID(null);
-                          }}
-                          className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${currRoom === ele[1].name ? "bg-white" : "bg-gray-200"}`}
-                          style={{
-                            color: "#003d63",
-                            border: `${currRoom === ele[1].name ? "1px solid #003d63" : ""}`,
-                            cursor: "pointer",
-                          }}
-                        >
-                          <div
-                            className="w-8 h-8 mr-4"
+                  {rooms &&
+                    rooms.map((ele) => {
+                      if (ele.id === null) return; //if room does not exist
+                      return (
+                        ele.type === "group" && (
+                          <p
+                            key={ele.name}
+                            onClick={() => {
+                              // console.log(ele.id);
+                              setCurrRoomID(ele.id);
+                              currRoomID !== ele.id && setMessages([]);
+                              // fetchSubCollectionMessages(ele[0]);
+                              setCurrRoom(ele.name);
+                              setCurrRoomImage(ele.dpUrl);
+                              setHide(true);
+                              setReplyText("");
+                              setReplyingName("");
+                              setReplyingMessageID(null);
+                            }}
+                            className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
                             style={{
-                              backgroundColor: "#fff",
-                              borderRadius: "50%",
+                              color: "#003d63",
+                              border: `${currRoom === ele.name ? "1px solid #003d63" : ""}`,
+                              cursor: "pointer",
                             }}
                           >
-                            {ele[1].image ? (
-                              <div className="h-full w-full flex flex-col justify-center">
-                                <Image
-                                  height={50}
-                                  width={50}
-                                  src={ele[1].image}
-                                  className="rounded-full"
-                                  style={{
-                                    backgroundColor: "#0C72B0",
-                                  }}
-                                />
-                              </div>
-                            ) : (
-                              <div className="h-full w-full flex flex-col justify-center">
-                                <Image layout="responsive" src={ChatDP} />
-                              </div>
-                            )}
-                          </div>
-                          {ele[1].name}
-                        </p>
-                      )
-                    );
-                  })}
+                            <div
+                              className="w-8 h-8 mr-4"
+                              style={{
+                                backgroundColor: "#fff",
+                                borderRadius: "50%",
+                              }}
+                            >
+                              {ele.dpUrl ? (
+                                <div className="h-full w-full flex flex-col justify-center">
+                                  <Image
+                                    height={50}
+                                    width={50}
+                                    src={ele.dpUrl}
+                                    className="rounded-full"
+                                    style={{
+                                      backgroundColor: "#0C72B0",
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div className="h-full w-full flex flex-col justify-center">
+                                  <Image layout="responsive" src={ChatDP} />
+                                </div>
+                              )}
+                            </div>
+                            {ele.name}
+                          </p>
+                        )
+                      );
+                    })}
                   <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
                     Rooms
                   </div>
-                  {rooms.map((ele) => {
-                    if (ele[1] === null) return; //if room does not exist
-                    return (
-                      ele[1].type === "project" && (
-                        <p
-                          key={ele[1].name}
-                          onClick={() => {
-                            // console.log(ele[0]);
-                            currRoomID !== ele[0] && setMessages([]);
-                            setCurrRoomID(ele[0]);
-                            // fetchSubCollectionMessages(ele[0]);
-                            setCurrRoom(ele[1].name);
-                            setCurrRoomImage(ele[1].image);
-                            setHide(true);
-                            setReplyText("");
-                            setReplyingName("");
-                            setReplyingMessageID(null);
-                          }}
-                          className={`flex rounded-2xl mb-2 py-2 pl-4 text-xl ${currRoom === ele[1].name ? "bg-white" : "bg-gray-200"}`}
-                          style={{
-                            color: "#003d63",
-                            border: `${currRoom === ele[1].name ? "1px solid #003d63" : ""}`,
-                            cursor: "pointer",
-                          }}
-                        >
-                          <div
-                            className="w-8 h-8 mr-4"
+                  {rooms &&
+                    rooms.map((ele) => {
+                      if (ele.id === null) return; //if room does not exist
+                      return (
+                        ele.type === "project" && (
+                          <p
+                            key={ele.name}
+                            onClick={() => {
+                              // console.log(ele[0]);
+                              currRoomID !== ele.id && setMessages([]);
+                              setCurrRoomID(ele.id);
+                              // fetchSubCollectionMessages(ele[0]);
+                              setCurrRoom(ele.name);
+                              setCurrRoomImage(ele.dpUrl);
+                              setHide(true);
+                              setReplyText("");
+                              setReplyingName("");
+                              setReplyingMessageID(null);
+                            }}
+                            className={`flex rounded-2xl mb-2 py-2 pl-4 text-xl ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
                             style={{
-                              backgroundColor: "transparent",
-                              borderRadius: "50%",
+                              color: "#003d63",
+                              border: `${currRoom === ele.name ? "1px solid #003d63" : ""}`,
+                              cursor: "pointer",
                             }}
                           >
-                            {ele[1].image ? (
-                              <div
-                                className="flex flex-col justify-center bg-white rounded-full"
-                                style={{
-                                  overflow: "hidden",
-                                  borderRadius: "50%",
-                                }}
-                              >
-                                <Image
-                                  width={30}
-                                  height={30}
-                                  src={ele[1].image}
-                                  className="rounded-full"
+                            <div
+                              className="w-8 h-8 mr-4"
+                              style={{
+                                backgroundColor: "transparent",
+                                borderRadius: "50%",
+                              }}
+                            >
+                              {ele.dpUrl ? (
+                                <div
+                                  className="flex flex-col justify-center bg-white rounded-full"
                                   style={{
-                                    backgroundColor: "#0C72B0",
+                                    overflow: "hidden",
+                                    borderRadius: "50%",
                                   }}
-                                />
-                              </div>
-                            ) : (
-                              <div className="h-full w-full flex flex-col justify-center overflow-hidden rounded-full bg-white">
-                                <Image layout="responsive" src={ChatDP} />
-                              </div>
-                            )}
-                          </div>
-                          {ele[1].name}
-                        </p>
-                      )
-                    );
-                  })}
+                                >
+                                  <Image
+                                    width={30}
+                                    height={30}
+                                    src={ele.dpUrl}
+                                    className="rounded-full"
+                                    style={{
+                                      backgroundColor: "#0C72B0",
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div className="h-full w-full flex flex-col justify-center overflow-hidden rounded-full bg-white">
+                                  <Image layout="responsive" src={ChatDP} />
+                                </div>
+                              )}
+                            </div>
+                            {ele.name}
+                          </p>
+                        )
+                      );
+                    })}
                 </div>
               </div>
             )
