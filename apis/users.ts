@@ -4,6 +4,7 @@ import {
   and,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   or,
@@ -109,3 +110,18 @@ export const addUserRoom = async (
     }
   );
 };
+
+export const deleteUserFromEmail = async(email: string | undefined) => {
+  const q = query(usersCollection, where("email", "==", email));
+
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) {
+      console.log(`No document found with email ${email}.`);
+  }
+
+  querySnapshot.forEach(async(user) => {
+      await deleteDoc(doc(usersCollection, user.id))
+  })
+  return true
+}

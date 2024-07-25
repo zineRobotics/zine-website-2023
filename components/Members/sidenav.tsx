@@ -10,10 +10,17 @@ import { useAuth } from "../../context/authContext";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import hamburger from "../../images/hamburger.svg";
+import Modal from "./modal";
+import { getAuth, deleteUser } from "firebase/auth";
+import { deleteUserFromEmail } from "../../apis/users";
+import { toast } from "react-toastify";
+import { ITaskData, deleteTask } from "../../apis/tasks";
+import tasks from "./Admin/tasks";
 
 const SideNav = () => {
   const { authUser, logOut } = useAuth();
   const [hide, setHide] = useState(true);
+  const [deleteAccount, setDeleteAccount] = useState(false);
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth
   );
@@ -31,6 +38,24 @@ const SideNav = () => {
         updateScreenWidth
       );
   }, []);
+
+  const _deleteAccount = async (email: string|undefined) => {
+      
+      const auth = getAuth()
+      const user = auth.currentUser
+
+      if(user==null){
+        setDeleteAccount(false)
+        toast.error("Delete Account Failed!")
+      }
+      else{
+        deleteUser(user).then(()=>{
+          deleteUserFromEmail(email).then(logOut).then(()=>{
+            toast.success("Account deleted Successfully")
+          })
+        })
+      }
+  }
 
   const router = useRouter();
   const page = router.pathname.split("/").pop();
@@ -281,6 +306,17 @@ const SideNav = () => {
                 Logout
               </p>
             </div>
+            {authUser!.type === "user" && (
+              <div className="py-2">
+                <div className="bg-red-500 rounded-3xl text-center cursor-pointer mx-auto w-11/12 left-0 right-0 shadow-md hover:bg-red-300 border-2 border-red-500">
+                  <p
+                    className="text-xs text-white py-1 px-4"
+                    onClick={()=>setDeleteAccount(true)}
+                  >
+                    Delete Account
+                  </p>
+                </div>
+              </div>)}
           </div>
         </div>
       )}
@@ -300,7 +336,30 @@ const SideNav = () => {
           onClick={() => setHide(!hide)}
         />
       </div>
+      <Modal isOpen={deleteAccount == true} onClose={() => setDeleteAccount(false)}>
+          <div className="p-4 md:p-5 text-center">
+              <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+              </svg>
+              <h3 className="mb-5 text-lg font-normal text-gray-500">Are you sure you want to delete account? This will permanently remove your account data within 30 days.</h3>
+              <button type="button" className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2" onClick={
+                () => {
+                  if (authUser?.email==undefined){
+                    setDeleteAccount(false)
+                    toast.error("Delete Account Failed!")
+                  }
+                  else{
+                    _deleteAccount(authUser?.email)
+                  }
+                }
+              }>
+                  Delete
+              </button>
+              <button type="button" className="text-gray-500 bg-white hover:bg-gray-100 rounded-lg border ml-2 border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900" onClick={() => setDeleteAccount(false)}>Cancel</button>
+          </div>
+      </Modal>
     </>
+    
   );
 };
 
