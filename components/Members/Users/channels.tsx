@@ -4,7 +4,7 @@ import SideNav from "../sidenav";
 import { useAuth } from "../../../context/authContext";
 import { db } from "../../../firebase";
 import { collection, addDoc, getDocs, query, where, doc, limit, getDoc, DocumentReference, orderBy, onSnapshot } from "firebase/firestore";
-import { sendMessage, getMessages, announcementRoom, fetchRoomsByUser, IRoomData } from "../../../apis/room";
+import { sendMessage, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData } from "../../../apis/room";
 import sendFCMMessage from "../../../apis/sendFcm";
 import Image from "next/image";
 import Send from "../../../images/icons/Send.png";
@@ -20,14 +20,6 @@ interface ITimestamp {
 }
 import ChatDP from "../../../images/admin/logo.png";
 
-interface IMessageData {
-  from: string;
-  group: string;
-  message: string;
-  replyTo: string;
-  timeStamp: ITimestamp;
-  sender_id: string;
-}
 const ImageWrap = styled.span`
   margin-top: 5px;
   box-sizing: content-box;
@@ -49,13 +41,13 @@ const Channels = () => {
 
   const { authUser } = useAuth();
   const [rooms, setRooms] = useState<IRoomData[]>([]);
-  const [currRoomID, setCurrRoomID] = useState<Number>();
+  const [currRoomID, setCurrRoomID] = useState<number>();
   const [currRoom, setCurrRoom] = useState<string>("");
-  const [messages, setMessages] = useState<KeyValueArray>([]);
+  const [messages, setMessages] = useState<IMessageData[]>([]);
   const [currMsg, setCurrMsg] = useState("");
   const [replyText, setReplyText] = useState<string>("");
   const [replyingName, setReplyingName] = useState<string>("");
-  const [replyingMessageID, setReplyingMessageID] = useState<string | null>(null);
+  const [replyingMessageID, setReplyingMessageID] = useState<number | null>(null);
   const [currRoomImage, setCurrRoomImage] = useState<string>("");
   const lastMessageRef = useRef<HTMLDivElement | null>(null);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -65,9 +57,29 @@ const Channels = () => {
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
   };
+  const onMessageReceived = (payload: any) => {
+    var payloadData = JSON.parse(payload.body);
+    console.log("data revd", payloadData);
+  };
   const onConnected = () => {
     console.log("connected to server");
   };
+
+  useEffect(() => {
+    if (currRoomID) {
+      stompClient;
+    }
+  }, []);
+  useEffect(() => {
+    if (currRoomID) {
+      stompClient.subscribe("/room/" + currRoomID, (msg: any) => {
+        console.log(JSON.parse(msg.body));
+      });
+      return () => {
+        stompClient.unsubscribe();
+      };
+    }
+  }, [currRoomID]);
   const onError = (error: any) => {
     console.log(error);
   };
@@ -119,29 +131,26 @@ const Channels = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    // if (!currMsg) return;
-    // const roomCollection = collection(db, "rooms");
-    // const roomDoc = doc(roomCollection, currRoomID);
-    // const user = {
-    //   name: authUser?.name,
-    //   // id: authUser?.uid,
-    //   id: 1
-    // };
-    // //console.log(user, currMsg,roomRef);
-    // //console.log("user data", user);
-    // //console.log("id", replyingMessageID);
-    // const res = await sendMessage(roomDoc, currMsg, user, replyingMessageID);
-    // await sendFCMMessage(currRoom, currRoom, currMsg);
-    // //console.log(res);
-    // //fetchSubCollectionMessages(roomDoc.id);
-    // setCurrMsg("");
-    // setReplyText("");
-    // setReplyingName("");
-    // setReplyingMessageID(null);
-    // //console.log("message sent",res);
+    if (!currMsg) return;
+    const msgBody = {
+      type: "text",
+      content: currMsg,
+      sentFrom: authUser?.id,
+      roomId: currRoomID,
+      replyTo: replyingMessageID,
+      contentUrl: null,
+    };
+    if (msgBody.sentFrom) {
+      // const res = await sendMessage(msgBody);
+      stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
+    }
+    setCurrMsg("");
+    setReplyText("");
+    setReplyingName("");
+    setReplyingMessageID(null);
   };
-  const timestampToHuman = (timeStamp: ITimestamp) => {
-    const date = new Date(timeStamp.seconds * 1000);
+  const timestampToHuman = (unixTimestamp: number) => {
+    const date = new Date(unixTimestamp * 1000);
     return {
       date: date.toLocaleDateString("en-US", {
         month: "short",
@@ -169,7 +178,7 @@ const Channels = () => {
     user: boolean;
     space: boolean;
     name: string;
-    id: string;
+    id: number;
     text: string;
     disableStatus: boolean;
     mobile: boolean;
@@ -204,38 +213,38 @@ const Channels = () => {
     );
   }
   const GetRepliedText = ({ msgID, user, space }: { msgID: string; user: boolean; space: boolean }) => {
-    const msg = messages?.find((item) => item.id === msgID);
-    return (
-      <div
-        className={`flex flex-col ${user ? "ml-auto" : "mr-auto"}`}
-        style={{
-          marginLeft: `${user ? "auto" : space ? "2rem" : "0rem"}`,
-        }}
-      >
-        <div className={`text-sm ${user ? "ml-auto" : ""}`} style={{ color: "#8D989F" }}>{`Replying to ${msg?.data.from.split(" ")[0]}`}</div>
-        <div className={`flex ${!user ? "flex" : ""}`}>
-          {!user && (
-            <div
-              className={`w-1 h-fit`}
-              style={{
-                backgroundColor: "#95C5E2",
-              }}
-            ></div>
-          )}
-          <div className={`bg-white w-4/5 text-sm px-6 py-3 ${user ? "ml-auto" : ""}`} style={{ borderRadius: `${user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"}` }}>
-            {truncateString(msg?.data.message || "")}
-          </div>
-          {user && (
-            <div
-              className={`w-1 h-fit`}
-              style={{
-                backgroundColor: "#95C5E2",
-              }}
-            ></div>
-          )}
-        </div>
-      </div>
-    );
+    // const msg = messages?.find((item) => item.id === msgID);
+    // return (
+    //   <div
+    //     className={`flex flex-col ${user ? "ml-auto" : "mr-auto"}`}
+    //     style={{
+    //       marginLeft: `${user ? "auto" : space ? "2rem" : "0rem"}`,
+    //     }}
+    //   >
+    //     <div className={`text-sm ${user ? "ml-auto" : ""}`} style={{ color: "#8D989F" }}>{`Replying to ${msg?.from.split(" ")[0]}`}</div>
+    //     <div className={`flex ${!user ? "flex" : ""}`}>
+    //       {!user && (
+    //         <div
+    //           className={`w-1 h-fit`}
+    //           style={{
+    //             backgroundColor: "#95C5E2",
+    //           }}
+    //         ></div>
+    //       )}
+    //       <div className={`bg-white w-4/5 text-sm px-6 py-3 ${user ? "ml-auto" : ""}`} style={{ borderRadius: `${user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"}` }}>
+    //         {truncateString(msg?.message || "")}
+    //       </div>
+    //       {user && (
+    //         <div
+    //           className={`w-1 h-fit`}
+    //           style={{
+    //             backgroundColor: "#95C5E2",
+    //           }}
+    //         ></div>
+    //       )}
+    //     </div>
+    //   </div>
+    // );
   };
   const truncateString = (str: string) => {
     let end = "";
@@ -244,11 +253,22 @@ const Channels = () => {
     }
     return str?.substring(0, 50) + end;
   };
-  const displayReply = (id: string, name: string, text: string) => {
+  const displayReply = (id: number, name: string, text: string) => {
     setReplyingMessageID(id);
     setReplyingName(name);
     setReplyText(text);
   };
+
+  const displayRoomMessages = (id: number) => {
+    fetchRoomMessages(id).then((res) => {
+      console.log(res);
+      setMessages(res);
+    });
+  };
+
+  useEffect(() => {
+    console.log("messages", messages);
+  }, [messages]);
   return (
     <ProtectedRoute>
       <div className="flex flex-col md:grid grid-cols-12 h-screen w-screen font-poppins" style={{ background: "#EFEFEF" }}>
@@ -304,7 +324,8 @@ const Channels = () => {
                             // console.log(ele[0]);
                             currRoomID !== ele.id && setMessages([]);
                             setCurrRoomID(ele.id);
-                            // fetchSubCollectionMessages(ele[0]);
+                            // fetchRoomMessages(ele.id);
+                            displayRoomMessages(ele.id);
                             setCurrRoom(ele.name);
                             setCurrRoomImage(ele.dpUrl);
                             setReplyText("");
@@ -614,46 +635,42 @@ const Channels = () => {
                                         </p> */}
               <div className="overflow-auto h-screen">
                 {messages?.map((msg, idx, array) => {
-                  const date = timestampToHuman(msg.data.timeStamp);
-                  const whiteRect = (idx + 1 < array.length && array[idx + 1].data.from !== msg.data.from) || idx == array.length - 1;
-                  const user = msg.data.from === authUser?.name;
-                  const reply = msg.data.replyTo;
+                  const date = timestampToHuman(msg.timeStamp);
+                  const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
+                  const user = msg.sentFrom.id === authUser?.id;
+                  const reply = msg.replyTo;
                   return (
-                    <div className="pl-7 mt-2" key={msg.data.timeStamp.seconds}>
-                      {((idx > 0 && array[idx - 1].data.from !== msg.data.from) || idx == 0) && (
+                    <div className="pl-7 mt-2" key={msg.timeStamp}>
+                      {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
                         <p
                           className="text-gray-500 text-xs pl-10 w-full"
                           style={{
                             textAlign: `${user ? "right" : "left"}`,
                           }}
                         >
-                          {msg.data.from} | {date.time} {date.date}
+                          {msg.sentFrom.name} | {date.time} {date.date}
                         </p>
                       )}
 
                       <div className={`flex ${reply && user ? "flex-col" : ""}`}>
-                        {whiteRect && msg.data.from !== authUser?.name && (
+                        {whiteRect && msg.sentFrom.id !== authUser?.id && (
                           <div className="w-6 h-6 bg-white mr-2 mt-auto rounded">
                             <Image src={ChatDP} />
                           </div>
                         )}
 
-                        {reply && user && (
-                          <div className="flex w-fit">
-                            <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
-                          </div>
-                        )}
+                        {reply && user && <div className="flex w-fit">{/* <GetRepliedText msgID={reply} user={user} space={!whiteRect} /> */}</div>}
                         {reply && !user && (
                           <div className="flex flex-col">
-                            <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
+                            {/* <GetRepliedText msgID={reply} user={user} space={!whiteRect} /> */}
                             <div className="flex">
                               <RenderMessageWithLinks
-                                message={msg.data.message}
+                                message={msg.content}
                                 user={user}
                                 space={!whiteRect}
-                                name={msg.data.from}
+                                name={msg.sentFrom.name}
                                 id={msg.id}
-                                text={msg.data.message}
+                                text={msg.content}
                                 disableStatus={currRoom === "Announcements"}
                                 mobile={screenWidth < 768}
                               />
@@ -661,7 +678,7 @@ const Channels = () => {
                                 className="ml-2 cursor-pointer mt-2"
                                 style={{ color: "#a9a9a9" }}
                                 onClick={() => {
-                                  displayReply(msg.id, msg.data.from, msg.data.message);
+                                  displayReply(msg.id, msg.sentFrom.name, msg.content);
                                 }}
                               >
                                 <FontAwesomeIcon icon={faReply} />
@@ -672,12 +689,12 @@ const Channels = () => {
                         {(!reply || user) && (
                           <>
                             <RenderMessageWithLinks
-                              message={msg.data.message}
+                              message={msg.content}
                               user={user}
                               space={!whiteRect}
-                              name={msg.data.from}
+                              name={msg.sentFrom.name}
                               id={msg.id}
-                              text={msg.data.message}
+                              text={msg.content}
                               disableStatus={currRoom === "Announcements"}
                               mobile={screenWidth < 768}
                             />
@@ -686,7 +703,7 @@ const Channels = () => {
                                 className="ml-2 cursor-pointer mt-2"
                                 style={{ color: "#a9a9a9" }}
                                 onClick={() => {
-                                  displayReply(msg.id, msg.data.from, msg.data.message);
+                                  displayReply(msg.id, msg.sentFrom.name, msg.content);
                                 }}
                               >
                                 <FontAwesomeIcon icon={faReply} />
@@ -783,48 +800,44 @@ const Channels = () => {
               </div>
               <div className={`pt-32 ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
                 {messages?.map((msg, idx, array) => {
-                  const date = timestampToHuman(msg.data.timeStamp);
-                  const whiteRect = (idx + 1 < array.length && array[idx + 1].data.from !== msg.data.from) || idx == array.length - 1;
-                  const user = msg.data.from === authUser?.name;
-                  const reply = msg.data.replyTo;
+                  const date = timestampToHuman(msg.timeStamp);
+                  const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
+                  const user = msg.sentFrom.id === authUser?.id;
+                  const reply = msg.replyTo;
                   return (
-                    <div className="pl-7 mt-2" key={msg.data.timeStamp.seconds}>
-                      {((idx > 0 && array[idx - 1].data.from !== msg.data.from) || idx == 0) && (
+                    <div className="pl-7 mt-2" key={msg.timeStamp}>
+                      {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
                         <p
                           className="text-gray-500 text-xs pl-10 w-full"
                           style={{
                             textAlign: `${user ? "right" : "left"}`,
                           }}
                         >
-                          {msg.data.from} | {date.time} {date.date}
+                          {msg.sentFrom.id} | {date.time} {date.date}
                         </p>
                       )}
                       {/* <p className="whitespace-pre-wrap">
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
                                         </p> */}
                       <div className={`flex ${reply && user ? "flex-col" : ""}`}>
-                        {whiteRect && msg.data.from !== authUser?.name && (
+                        {whiteRect && msg.sentFrom.id !== authUser?.id && (
                           <div className="w-6 h-6 bg-white mr-2 mt-auto rounded">
                             <Image src={ChatDP} />
                           </div>
                         )}
 
-                        {reply && user && (
-                          <div className="flex w-fit">
-                            <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
-                          </div>
-                        )}
+                        {reply && user && <div className="flex w-fit">{/* <GetRepliedText msgID={reply} user={user} space={!whiteRect} /> */}</div>}
                         {reply && !user && (
                           <div className="flex flex-col">
-                            <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
+                            {/* <GetRepliedText msgID={reply} user={user} space={!whiteRect} /> */}
                             <div className="flex">
                               <RenderMessageWithLinks
-                                message={msg.data.message}
+                                message={msg.content}
                                 user={user}
                                 space={!whiteRect}
-                                name={msg.data.from}
+                                name={msg.sentFrom.name}
                                 id={msg.id}
-                                text={msg.data.message}
+                                text={msg.content}
                                 disableStatus={currRoom === "Announcements"}
                                 mobile={screenWidth < 768}
                               />
@@ -832,7 +845,7 @@ const Channels = () => {
                                 className="ml-2 cursor-pointer mt-2"
                                 style={{ color: "#a9a9a9" }}
                                 onClick={() => {
-                                  displayReply(msg.id, msg.data.from, msg.data.message);
+                                  displayReply(msg.id, msg.sentFrom.name, msg.content);
                                 }}
                               >
                                 <FontAwesomeIcon icon={faReply} />
@@ -843,12 +856,12 @@ const Channels = () => {
                         {(!reply || user) && (
                           <>
                             <RenderMessageWithLinks
-                              message={msg.data.message}
+                              message={msg.content}
                               user={user}
                               space={!whiteRect}
-                              name={msg.data.from}
+                              name={msg.sentFrom.name}
                               id={msg.id}
-                              text={msg.data.message}
+                              text={msg.content}
                               disableStatus={currRoom === "Announcements"}
                               mobile={screenWidth < 768}
                             />
@@ -857,7 +870,7 @@ const Channels = () => {
                                 className="ml-2 cursor-pointer mt-2"
                                 style={{ color: "#a9a9a9" }}
                                 onClick={() => {
-                                  displayReply(msg.id, msg.data.from, msg.data.message);
+                                  displayReply(msg.id, msg.sentFrom.name, msg.content);
                                 }}
                               >
                                 <FontAwesomeIcon icon={faReply} />

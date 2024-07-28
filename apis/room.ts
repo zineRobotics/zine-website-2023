@@ -14,15 +14,17 @@ export const announcementRoom = doc(roomsCollection, ANNOUNCEMENT_ROOM_ID);
 const roomURL = "/rooms";
 const memberURL = "/members";
 
-export interface IMessageData {
-  from: string;
-  group: string;
-  message: string;
-  timeStamp: Timestamp;
+export interface IMessageCreateData {
+  type: string;
+  content: string;
+  contentUrl: string | null;
+  sentFrom: Number | undefined;
+  roomId: number | undefined;
+  replyTo: number | null;
 }
 
 export interface IRoomData {
-  id: Number;
+  id: number;
   name: string;
   description: string;
   type: "project" | "group";
@@ -36,7 +38,19 @@ export interface IRoomCreateData {
   description: string;
   dpUrl: string;
 }
-
+export interface IMessageData {
+  id: number;
+  type: string;
+  content: string;
+  contentUrl: string;
+  timeStamp: number;
+  sentFrom: {
+    id: number;
+    name: string;
+  };
+  roomId: number;
+  replyTo: number;
+}
 export interface IMembersList {
   room: Number;
   members: IMembers[];
@@ -131,19 +145,29 @@ export const getMessages = async (room: DocumentReference, descending = true, co
   return getDocs(query(msgCollection, orderBy("timeStamp", sorting)));
 };
 
-export const sendMessage = async (room: DocumentReference, message: string, user: any, replyTo: any = null) => {
-  const msgData = {
-    from: user.name,
-    group: room.id,
-    message,
-    sender_id: user.id,
-    timeStamp: Timestamp.fromDate(new Date()),
-    replyTo: replyTo, //repyTo: message id
-  };
-  console.log(msgData);
+export const sendMessage = async (msgBody: IMessageCreateData) => {
+  axios
+    .post("/messages/http-msg", msgBody)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
-  await addDoc(collection(room, "messages"), msgData);
-  return msgData;
+export const fetchRoomMessages = async (roomID: number): Promise<IMessageData[]> => {
+  try {
+    const response = await axios.get("/messages/roomMsg", {
+      params: {
+        roomId: roomID,
+      },
+    });
+    return response.data as IMessageData[];
+  } catch (error) {
+    console.error("Error fetching room messages:", error);
+    return [];
+  }
 };
 
 // export const deleteRoomByName = async (roomName: string) => {
