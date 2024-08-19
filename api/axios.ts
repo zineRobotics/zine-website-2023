@@ -1,5 +1,9 @@
 import axios from "axios";
+
+// let db_url = (process.env.ENVIRONMENT === "development") ? process.env.DEV_URL : process.env.PROD_URL;
+let db_url = process.env.NEXT_PUBLIC_API_URL;
+
+console.log("db_url", db_url);
 export default axios.create({
-  baseURL: "http://127.0.0.1:8080",
-  // baseURL: "https://zinebackend-2b7b.onrender.com",
-});
+  baseURL: db_url,
+})

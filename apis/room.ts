@@ -18,18 +18,9 @@ export interface IMessageCreateData {
   type: string;
   content: string;
   contentUrl: string | null;
-  sentFrom: Number | undefined;
+  sentFrom: number | undefined;
   roomId: number | undefined;
   replyTo: number | null;
-}
-
-export interface IRoomData {
-  id: number;
-  name: string;
-  description: string;
-  type: "project" | "group";
-  dpUrl: string;
-  timestamp: Number[];
 }
 
 export interface IRoomCreateData {
@@ -37,6 +28,12 @@ export interface IRoomCreateData {
   type: "project" | "group";
   description: string;
   dpUrl: string;
+}
+export interface IRoomData extends IRoomCreateData {
+  id: number;
+}
+export interface IRoomResponseData extends IRoomData {
+  timestamp: number;
 }
 export interface IMessageData {
   id: number;
@@ -51,27 +48,38 @@ export interface IMessageData {
   roomId: number;
   replyTo: number;
 }
-export interface IMembersList {
-  room: Number;
-  members: IMembers[];
-}
-
 export interface IMembers {
   userEmail: string;
   role: string;
 }
-export const createRoom = async (roomData: IRoomCreateData) => {
-  axios
+export interface IMembersList {
+  room: number;
+  members: IMembers[];
+}
+export interface IRoomMember{
+  email: string;
+  role: string;
+}
+
+// Creates Room and returns as IRoomResponseData. If it fails, it returns undefined or the corersponding 
+export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|undefined>  => {
+  try{
+    const response = await axios
     .post(roomURL + "/create", roomData)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    if(response.status === 200){
+      return response.data as IRoomData;
+    }
+    else{
+      return undefined;
+    }
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
 };
 
-export const getRoom = async (roomID: Number) => {
+export const getRoom = async (roomID: number) => {
   axios
     .get(roomURL + "/get?roomId=" + roomID)
     .then((res) => {
@@ -82,48 +90,105 @@ export const getRoom = async (roomID: Number) => {
     });
 };
 
-export const editRoom = async (roomid: string, data: IRoomCreateData) => {
-  axios
-    .post(roomURL + "/update?roomId=" + roomid, data)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+export const editRoom = async (data: IRoomData):  Promise<number|undefined> => {
+  try{
+    const {id, ...datatopass} = data;
+    const response = await axios.post(roomURL + "/update?roomId=" + id, datatopass)
+    return response.status;
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
 };
 
-export const deleteRoomByID = async (roomIDList: Number[]) => {
-  axios
-    .post(roomURL + "/delete", roomIDList)
-    .then((res) => {
-      res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+export const deleteRoom = async (roomIDList: number[]): Promise<number|undefined> => {
+  try{
+    const response = await axios.post(roomURL + "/delete", roomIDList);
+    return response.status;
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
 };
+
+export const getMembers = async (roomID: number): Promise<IRoomMember[]|undefined> => {
+  try{
+    const response = await axios.get(memberURL + "/get?roomId=" + roomID);
+    if(response.status === 200){
+      return response.data as IRoomMember[];
+    }
+    return undefined;
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
+};
+
+export const removeMembers = async (roomID: number, emailList: string[]): Promise<number|undefined> => {
+  try{
+    const response = await axios.post(memberURL + "/remove", {room: roomID, members: emailList});
+    return response.status;
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
+}
+
+export const editMemberRole = async (roomID: number, email: string, role: string): Promise<IRoomMember|undefined> => {
+  try{
+    const response = await axios.post(memberURL + "/update", {room: roomID, memberEmail: email, role: role});
+    if(response.status === 200){
+      return response.data as IRoomMember;
+    }
+    return undefined;
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
+}
 
 export const fetchRoomsByUser = async (email: string) => {
-  const response = await axios.get(roomURL + "/user?email=" + email);
-  return response.data;
+  try{
+    const response = await axios.get(roomURL + "/user?email=" + email);
+    if(response.status === 200){
+      return response.data;
+    }
+    return response.status;
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
 };
 
-export const assignRoom = async (memList: IMembersList[]) => {
-  if (!memList.length) return;
-  axios
-    .post(memberURL + "/add", memList)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+export const addUsersToRoom = async (memList: IMembersList): Promise<string | undefined> => {
+  if (!memList.members.length) return;
+  try{
+    const response = await axios.post(memberURL + "/add", memList)
+    if(response.status){
+      if(response.status === 200){
+        console.log(response);
+        
+        return response.data;
+      }
+      //add for other error codes?
+      return undefined;
+    }
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
 };
 
 // export const removeUsers = async (room: IRoomData, users: IUser[]) => {
 //   if (!users.length) return;
-//   const emailIDs = users.map((doc) => doc.email);
+//   const emailIDs = users.map((doc) => doc.email); 
 //   await Promise.all(
 //     users.map(async (u) => {
 //       await updateDoc(doc(db, "users", u.uid), {
@@ -137,13 +202,6 @@ export const assignRoom = async (memList: IMembersList[]) => {
 //   });
 // };
 
-export const getMessages = async (room: DocumentReference, descending = true, count = -1) => {
-  const msgCollection = collection(room, "messages");
-  const sorting = descending ? "desc" : "asc";
-
-  if (count > -1) return getDocs(query(msgCollection, orderBy("timeStamp", sorting), limit(count)));
-  return getDocs(query(msgCollection, orderBy("timeStamp", sorting)));
-};
 
 export const sendMessage = async (msgBody: IMessageCreateData) => {
   axios
@@ -170,14 +228,12 @@ export const fetchRoomMessages = async (roomID: number): Promise<IMessageData[]>
   }
 };
 
-// export const deleteRoomByName = async (roomName: string) => {
-//   const raw = await getRoom(roomName);
-//   const room = raw.docs[0];
-//   await deleteDoc(room.ref);
-//   const members = await getDocs(query(usersCollection, where("roomids", "array-contains", room.id)));
-//   return Promise.all(
-//     members.docs.map(async (m) => {
-//       return updateDoc(m.ref, { roomids: arrayRemove(room.id), rooms: arrayRemove(roomName) });
-//     })
-//   );
-// };
+export const fetchAllRooms = async (): Promise<IRoomData[]> => {
+  try {
+    const response = await axios.get(roomURL + "/get-all");
+    return response.data as IRoomData[];
+  } catch (error) {
+    console.error("Error fetching all rooms:", error);
+    return [];
+  }
+}

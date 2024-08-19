@@ -4,10 +4,7 @@ import { useRouter } from "next/router";
 import ZineLogo from "../../images/zinelogo.png";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
-import { db } from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
-import { Redirect } from "next";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "../../api/axios";
 

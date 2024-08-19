@@ -7,7 +7,6 @@ import { useAuth } from "../../context/authContext";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import { sendEmailVerification } from "firebase/auth";
-import { createUser } from "../../apis/users";
 
 interface ILoginData {
   name: string;
@@ -54,8 +53,6 @@ const Signup = () => {
       // Signed in
       // console.log(userCredential)
       const _user = userCredential.user;
-      // await createUser({ uid: _user.uid, name, email });
-      // await sendEmailVerification(_user);
       return true;
     });
 

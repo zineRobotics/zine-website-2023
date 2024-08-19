@@ -8,7 +8,7 @@ import { log } from "console";
 
 interface UserType {
   email: string | null;
-  uid: Number | null;
+  uid: number | null;
 }
 
 interface IAuthContext {
@@ -41,7 +41,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
       const response = await axios.get("/auth/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      // console.log("inside user details", response);
+      console.log("inside user details", response);
       return response.data;
     } catch (err) {
       console.log(err);

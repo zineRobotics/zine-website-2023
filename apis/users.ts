@@ -1,4 +1,5 @@
 import { db } from "../firebase";
+import axios from "../api/axios";
 import { QueryFilterConstraint, and, arrayUnion, collection, doc, getDocs, or, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 const usersCollection = collection(db, "users");
@@ -15,8 +16,7 @@ export interface IUser {
   dp: string | null;
   email: string;
   emailVerified: boolean;
-  id: Number;
-  pushToken: string | null;
+  id: number;
   registered: boolean;
   type: "user" | "admin" | "alumni";
 }
@@ -25,9 +25,28 @@ export const getUser = async (email: string) => {
   return getDocs(query(usersCollection, where("email", "==", email)));
 };
 
-export const getUserEmailIn = async (emailList: string[]) => {
-  return getDocs(query(usersCollection, where("email", "in", emailList)));
-};
+// export const getUserEmailIn = async (emailList: string[]) => {
+//   return getDocs(query(usersCollection, where("email", "in", emailList)));
+// };
+
+export const getUserByEmailIn = async (emailList: string[]):Promise<IUser[]|undefined> => {
+  try {
+    const response = await axios.get(`/user/emailList`, {
+      params: {
+        emailList: emailList
+      }
+    });
+    if(response.status === 200) return response.data;
+    else{
+      console.log("Error code:", response.status);
+      return undefined;
+    }
+  }
+  catch (error) {
+    console.error("Error fetching user by email list:", error);
+    return undefined;
+  }
+}
 
 export const getUsersByRoles = async (roleList: string[]) => {
   if (!roleList) return null;
@@ -52,21 +71,22 @@ interface ICreateUser {
   email: string;
 }
 
-export const createUser = async ({ uid, name, email }: ICreateUser) => {
-  const roles = [];
-  if (email.endsWith("@mnit.ac.in") || email.endsWith("@iiitkota.ac.in")) roles.push("mnit");
-  return setDoc(doc(usersCollection, uid), {
-    name,
-    email,
-    uid,
-    type: "user",
-    dp: Math.floor(Math.random() * 27),
-    registered: false,
-    roomids: [],
-    rooms: [],
-    roles: [],
-  });
-};
+//not used
+// export const createUser = async ({ uid, name, email }: ICreateUser) => {
+//   const roles = [];
+//   if (email.endsWith("@mnit.ac.in") || email.endsWith("@iiitkota.ac.in")) roles.push("mnit");
+//   return setDoc(doc(usersCollection, uid), {
+//     name,
+//     email,
+//     uid,
+//     type: "user",
+//     dp: Math.floor(Math.random() * 27),
+//     registered: false,
+//     roomids: [],
+//     rooms: [],
+//     roles: [],
+//   });
+// };
 
 // export const addUserRoom = async (
 //   user: IUser,
