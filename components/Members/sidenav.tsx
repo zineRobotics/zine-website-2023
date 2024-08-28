@@ -87,7 +87,7 @@ const SideNav = () => {
                       : ""
                   }`}
                 >
-                  Users And Channels
+                  Users & Channels
                 </p>
               </Link>
               <Link href="/admin/userRoles">
@@ -98,7 +98,7 @@ const SideNav = () => {
                       : ""
                   }`}
                 >
-                  Users And Roles
+                  Users & Roles
                 </p>
               </Link>
               <Link href="/admin/events">
@@ -109,7 +109,7 @@ const SideNav = () => {
                       : ""
                   }`}
                 >
-                  Events
+                  Recruitments & Events
                 </p>
               </Link>
               <Link href="/admin/tasks">

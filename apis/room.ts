@@ -1,15 +1,4 @@
-import { db, storage } from "../firebase";
-import { deleteObject, ref } from "firebase/storage";
-import { collection, query, where, getDocs, DocumentReference, addDoc, orderBy, limit, doc, Timestamp, deleteDoc, updateDoc, arrayRemove, arrayUnion, getDoc } from "firebase/firestore";
-// import { IUser, addUserRoom } from "./users";
-import { deleteImage } from "./image";
 import axios from "../api/axios";
-
-export const roomsCollection = collection(db, "rooms");
-const usersCollection = collection(db, "users");
-
-export const ANNOUNCEMENT_ROOM_ID = "Hn9GSQnvi5zh9wabLGuT";
-export const announcementRoom = doc(roomsCollection, ANNOUNCEMENT_ROOM_ID);
 
 const roomURL = "/rooms";
 const memberURL = "/members";
@@ -185,23 +174,6 @@ export const addUsersToRoom = async (memList: IMembersList): Promise<string | un
     return undefined;
   }
 };
-
-// export const removeUsers = async (room: IRoomData, users: IUser[]) => {
-//   if (!users.length) return;
-//   const emailIDs = users.map((doc) => doc.email); 
-//   await Promise.all(
-//     users.map(async (u) => {
-//       await updateDoc(doc(db, "users", u.uid), {
-//         rooms: arrayRemove(room.name),
-//         roomids: arrayRemove(room.id),
-//       });
-//     })
-//   );
-//   return updateDoc(doc(db, "rooms", room.id), {
-//     members: arrayRemove(...emailIDs),
-//   });
-// };
-
 
 export const sendMessage = async (msgBody: IMessageCreateData) => {
   axios

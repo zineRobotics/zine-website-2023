@@ -38,6 +38,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   const getUserDetails = async () => {
     try {
       const token = localStorage.getItem("token");
+      console.log("token", token);
       const response = await axios.get("/auth/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
