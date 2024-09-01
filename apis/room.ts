@@ -40,13 +40,15 @@ export interface IMessageData {
   type: string;
   content: string;
   contentUrl: string;
-  timeStamp: number;
+  timestamp: number;
   sentFrom: {
     id: number;
     name: string;
   };
   roomId: number;
-  replyTo: number;
+  replyTo: {
+    id: number,
+  };
 }
 export interface IMembers {
   userEmail: string;

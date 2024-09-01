@@ -57,10 +57,7 @@ const Channels = () => {
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
   };
-  const onMessageReceived = (payload: any) => {
-    var payloadData = JSON.parse(payload.body);
-    console.log("data revd", payloadData);
-  };
+
   const onConnected = () => {
     console.log("connected to server");
   };
@@ -74,6 +71,9 @@ const Channels = () => {
     if (currRoomID) {
       stompClient.subscribe("/room/" + currRoomID, (msg: any) => {
         console.log(JSON.parse(msg.body));
+        let body = JSON.parse(msg.body) as IMessageData;
+        // body = body as IMessageData;
+        setMessages(prev => [...prev, body]);
       });
       return () => {
         stompClient.unsubscribe();
@@ -88,11 +88,11 @@ const Channels = () => {
     if (token) {
       const client = new Client({
         webSocketFactory: () =>
-          new SockJS("http://127.0.0.1:8080/ws", null, {
+          new SockJS(process.env.NEXT_PUBLIC_API_URL+"/ws", null, {
             withCredentionals: false,
           }),
         connectHeaders: { Authorization: `Bearer ${token}` },
-        debug: (str) => {
+        debug: (str: any) => {
           console.log(str);
         },
         onConnect: onConnected,
@@ -117,6 +117,8 @@ const Channels = () => {
       fetchRoomsByUser(authUser.email)
         .then((res) => {
           setRooms(res);
+          console.log(res);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -148,19 +150,6 @@ const Channels = () => {
     setReplyText("");
     setReplyingName("");
     setReplyingMessageID(null);
-  };
-  const timestampToHuman = (unixTimestamp: number) => {
-    const date = new Date(unixTimestamp * 1000);
-    return {
-      date: date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      }),
-      time: date.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-      }),
-    };
   };
 
   const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
@@ -212,39 +201,39 @@ const Channels = () => {
       </div>
     );
   }
-  const GetRepliedText = ({ msgID, user, space }: { msgID: string; user: boolean; space: boolean }) => {
-    // const msg = messages?.find((item) => item.id === msgID);
-    // return (
-    //   <div
-    //     className={`flex flex-col ${user ? "ml-auto" : "mr-auto"}`}
-    //     style={{
-    //       marginLeft: `${user ? "auto" : space ? "2rem" : "0rem"}`,
-    //     }}
-    //   >
-    //     <div className={`text-sm ${user ? "ml-auto" : ""}`} style={{ color: "#8D989F" }}>{`Replying to ${msg?.from.split(" ")[0]}`}</div>
-    //     <div className={`flex ${!user ? "flex" : ""}`}>
-    //       {!user && (
-    //         <div
-    //           className={`w-1 h-fit`}
-    //           style={{
-    //             backgroundColor: "#95C5E2",
-    //           }}
-    //         ></div>
-    //       )}
-    //       <div className={`bg-white w-4/5 text-sm px-6 py-3 ${user ? "ml-auto" : ""}`} style={{ borderRadius: `${user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"}` }}>
-    //         {truncateString(msg?.message || "")}
-    //       </div>
-    //       {user && (
-    //         <div
-    //           className={`w-1 h-fit`}
-    //           style={{
-    //             backgroundColor: "#95C5E2",
-    //           }}
-    //         ></div>
-    //       )}
-    //     </div>
-    //   </div>
-    // );
+  const GetRepliedText = ({ msgID, user, space }: { msgID: number; user: boolean; space: boolean }) => {
+    const msg = messages?.find((item) => item.id === msgID);
+    return (
+      <div
+        className={`flex flex-col ${user ? "ml-auto" : "mr-auto"}`}
+        style={{
+          marginLeft: `${user ? "auto" : space ? "2rem" : "0rem"}`,
+        }}
+      >
+        <div className={`text-sm ${user ? "ml-auto" : ""}`} style={{ color: "#8D989F" }}>{`Replying to ${msg?.sentFrom.name.split(" ")[0]}`}</div>
+        <div className={`flex ${!user ? "flex" : ""}`}>
+          {!user && (
+            <div
+              className={`w-1 h-fit`}
+              style={{
+                backgroundColor: "#95C5E2",
+              }}
+            ></div>
+          )}
+          <div className={`bg-white w-4/5 text-sm px-6 py-3 ${user ? "ml-auto" : ""}`} style={{ borderRadius: `${user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"}` }}>
+            {truncateString(msg?.content || "")}
+          </div>
+          {user && (
+            <div
+              className={`w-1 h-fit`}
+              style={{
+                backgroundColor: "#95C5E2",
+              }}
+            ></div>
+          )}
+        </div>
+      </div>
+    );
   };
   const truncateString = (str: string) => {
     let end = "";
@@ -266,9 +255,28 @@ const Channels = () => {
     });
   };
 
+  const unixToHumanReadable = (timestamp: number) => {
+    let dataObj = new Date(timestamp);
+    return dataObj.toLocaleString();
+  }
+
   useEffect(() => {
     console.log("messages", messages);
   }, [messages]);
+
+  const handleRoomChange = (room: IRoomData, mobile: boolean) => {
+    setCurrRoomID(room.id);
+    currRoomID !== room.id && setMessages([]);
+    displayRoomMessages(room.id)
+    setCurrRoom(room.name);
+    setCurrRoomImage(room.dpUrl);
+    if(mobile)
+      setHide(true);
+    setReplyText("");
+    setReplyingName("");
+    setReplyingMessageID(null);
+  }
+
   return (
     <ProtectedRoute>
       <div className="flex flex-col md:grid grid-cols-12 h-screen w-screen font-poppins" style={{ background: "#EFEFEF" }}>
@@ -321,22 +329,13 @@ const Channels = () => {
                       ele.type === "group" && (
                         <p
                           onClick={() => {
-                            // console.log(ele[0]);
-                            currRoomID !== ele.id && setMessages([]);
-                            setCurrRoomID(ele.id);
-                            // fetchRoomMessages(ele.id);
-                            displayRoomMessages(ele.id);
-                            setCurrRoom(ele.name);
-                            setCurrRoomImage(ele.dpUrl);
-                            setReplyText("");
-                            setReplyingName("");
-                            setReplyingMessageID(null);
+                            handleRoomChange(ele, false);
                           }}
                           key={ele.name}
                           className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
                           style={{
                             color: "#003d63",
-                            border: `${currRoom === ele.name ? "1px solid #003d63" : ""}`,
+                            border: `${currRoomID === ele.id ? "1px solid #003d63" : ""}`,
                             cursor: "pointer",
                           }}
                         >
@@ -375,23 +374,15 @@ const Channels = () => {
                     if (ele.id === null) return; //if room does not exist
                     return (
                       ele.type === "project" && (
-                        <p
-                          key={ele.name}
+                        <div
+                          key={ele.id}
                           onClick={() => {
-                            // console.log(ele[0]);
-                            currRoomID !== ele.id && setMessages([]);
-                            setCurrRoomID(ele.id);
-                            // fetchSubCollectionMessages(ele[0]);
-                            setCurrRoom(ele.name);
-                            setCurrRoomImage(ele.dpUrl);
-                            setReplyText("");
-                            setReplyingName("");
-                            setReplyingMessageID(null);
+                            handleRoomChange(ele, false);
                           }}
                           className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
                           style={{
                             color: "#003d63",
-                            border: `${currRoom === ele.name ? "1px solid #003d63" : ""}`,
+                            border: `${currRoomID === ele.id ? "1px solid #003d63" : ""}`,
                             cursor: "pointer",
                           }}
                         >
@@ -427,7 +418,7 @@ const Channels = () => {
                             )}
                           </div>
                           {ele.name}
-                        </p>
+                        </div>
                       )
                     );
                   })}
@@ -478,23 +469,15 @@ const Channels = () => {
                       return (
                         ele.type === "group" && (
                           <p
-                            key={ele.name}
+                            key={ele.id}
                             onClick={() => {
                               // console.log(ele.id);
-                              setCurrRoomID(ele.id);
-                              currRoomID !== ele.id && setMessages([]);
-                              // fetchSubCollectionMessages(ele[0]);
-                              setCurrRoom(ele.name);
-                              setCurrRoomImage(ele.dpUrl);
-                              setHide(true);
-                              setReplyText("");
-                              setReplyingName("");
-                              setReplyingMessageID(null);
+                              handleRoomChange(ele, true);
                             }}
                             className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
                             style={{
                               color: "#003d63",
-                              border: `${currRoom === ele.name ? "1px solid #003d63" : ""}`,
+                              border: `${currRoomID === ele.id ? "1px solid #003d63" : ""}`,
                               cursor: "pointer",
                             }}
                           >
@@ -537,23 +520,14 @@ const Channels = () => {
                       return (
                         ele.type === "project" && (
                           <p
-                            key={ele.name}
+                            key={ele.id}
                             onClick={() => {
-                              // console.log(ele[0]);
-                              currRoomID !== ele.id && setMessages([]);
-                              setCurrRoomID(ele.id);
-                              // fetchSubCollectionMessages(ele[0]);
-                              setCurrRoom(ele.name);
-                              setCurrRoomImage(ele.dpUrl);
-                              setHide(true);
-                              setReplyText("");
-                              setReplyingName("");
-                              setReplyingMessageID(null);
+                              handleRoomChange(ele, true);
                             }}
                             className={`flex rounded-2xl mb-2 py-2 pl-4 text-xl ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
                             style={{
                               color: "#003d63",
-                              border: `${currRoom === ele.name ? "1px solid #003d63" : ""}`,
+                              border: `${currRoomID === ele.id ? "1px solid #003d63" : ""}`,
                               cursor: "pointer",
                             }}
                           >
@@ -635,12 +609,12 @@ const Channels = () => {
                                         </p> */}
               <div className="overflow-auto h-screen">
                 {messages?.map((msg, idx, array) => {
-                  const date = timestampToHuman(msg.timeStamp);
+                  const date = unixToHumanReadable(msg.timestamp);
                   const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
                   const user = msg.sentFrom.id === authUser?.id;
-                  const reply = msg.replyTo;
+                  const reply = (msg.replyTo != null) ? msg.replyTo: null;
                   return (
-                    <div className="pl-7 mt-2" key={msg.timeStamp}>
+                    <div className="pl-7 mt-2" key={msg.timestamp}>
                       {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
                         <p
                           className="text-gray-500 text-xs pl-10 w-full"
@@ -648,7 +622,7 @@ const Channels = () => {
                             textAlign: `${user ? "right" : "left"}`,
                           }}
                         >
-                          {msg.sentFrom.name} | {date.time} {date.date}
+                          {msg.sentFrom.name} | {date}
                         </p>
                       )}
 
@@ -659,10 +633,10 @@ const Channels = () => {
                           </div>
                         )}
 
-                        {reply && user && <div className="flex w-fit">{/* <GetRepliedText msgID={reply} user={user} space={!whiteRect} /> */}</div>}
+                        {reply && user && <div className="flex w-fit"><GetRepliedText msgID={reply.id} user={user} space={!whiteRect} /></div>}
                         {reply && !user && (
                           <div className="flex flex-col">
-                            {/* <GetRepliedText msgID={reply} user={user} space={!whiteRect} /> */}
+                            <GetRepliedText msgID={reply.id} user={user} space={!whiteRect} />
                             <div className="flex">
                               <RenderMessageWithLinks
                                 message={msg.content}
@@ -749,11 +723,10 @@ const Channels = () => {
                     }}
                   />
                   <div
-                    className="bg-white cursor-pointer my-auto mr-2"
+                    className="bg-white cursor-pointer h-full pt-2 pb-2"
                     onClick={() => {
                       handleSend();
                     }}
-                    style={{ marginTop: "1.25%" }}
                   >
                     <Image src={Send} height={40} width={40} />
                   </div>
@@ -764,9 +737,9 @@ const Channels = () => {
             </div>
           ) : (
             <div className={`bg-gray-100 w-screen flex flex-col h-dvh`}>
-              <div className="bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
+              <div className="border bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
                 <div
-                  className="flex items-center w-9 h-9 mr-2 ml-6 rounded-full"
+                  className="flex w-9 h-9 mr-2 ml-6 rounded-full border"
                   // style={{backgroundColor: "#0C72B0"}}
                 >
                   {currRoomImage ? (
@@ -783,7 +756,7 @@ const Channels = () => {
                     <Image src={ChatDP} />
                   )}
                 </div>
-                <div className="font-bold text-xl" style={{ color: "#0C72B0" }}>
+                <div className="font-bold text-xl py-auto" style={{ color: "#0C72B0" }}>
                   {currRoom}
                 </div>
                 {hide && (
@@ -800,12 +773,12 @@ const Channels = () => {
               </div>
               <div className={`pt-32 ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
                 {messages?.map((msg, idx, array) => {
-                  const date = timestampToHuman(msg.timeStamp);
+                  const date = unixToHumanReadable(msg.timestamp);
                   const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
                   const user = msg.sentFrom.id === authUser?.id;
-                  const reply = msg.replyTo;
+                  const reply = msg.replyTo?.id;
                   return (
-                    <div className="pl-7 mt-2" key={msg.timeStamp}>
+                    <div className="pl-7 mt-2" key={msg.timestamp}>
                       {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
                         <p
                           className="text-gray-500 text-xs pl-10 w-full"
@@ -813,7 +786,7 @@ const Channels = () => {
                             textAlign: `${user ? "right" : "left"}`,
                           }}
                         >
-                          {msg.sentFrom.id} | {date.time} {date.date}
+                          {msg.sentFrom.id} | {date}
                         </p>
                       )}
                       {/* <p className="whitespace-pre-wrap">
@@ -826,10 +799,10 @@ const Channels = () => {
                           </div>
                         )}
 
-                        {reply && user && <div className="flex w-fit">{/* <GetRepliedText msgID={reply} user={user} space={!whiteRect} /> */}</div>}
+                        {reply && user && <div className="flex w-fit"><GetRepliedText msgID={reply} user={user} space={!whiteRect} /></div>}
                         {reply && !user && (
                           <div className="flex flex-col">
-                            {/* <GetRepliedText msgID={reply} user={user} space={!whiteRect} /> */}
+                            <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
                             <div className="flex">
                               <RenderMessageWithLinks
                                 message={msg.content}
