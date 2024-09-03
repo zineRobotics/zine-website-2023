@@ -32,7 +32,8 @@ const Events = () => {
             }
             for(const event of res){
                 event.startDateTime = new Date(event.startDateTime)
-                event.endDateTime = new Date(event.endDateTime)
+                if(event.endDateTime !== null)
+                    event.endDateTime = new Date(event.endDateTime)
             }
             setEvents(res)
             console.log(res)
@@ -63,6 +64,8 @@ const Events = () => {
                         setState={setState}
                         recruitments={recruitments}
                         setRecruitments={setRecruitments}
+                        events={events}
+                        setEvents={setEvents}
                     />
                     :
                     <EventForm

@@ -4,23 +4,23 @@ import SideNav from "../sidenav"
 import styles from "../../../constants/styles";
 import { useEffect, useState } from "react";
 import { Control, useFieldArray, useForm } from "react-hook-form";
-import { IRoleData,IRoleCreateData,rolesCollection,getRole,fetchRoles,createRoles,editRole,deleteRole, assignRole, removeUsers } from "../../../apis/roles";
+import { IRoleData,IRoleCreateData,getAllRoles,createRole,editRole,deleteRole } from "../../../apis/roles";
 import { IUser, getUser, getUserEmailIn, getUsersByRoles } from "../../../apis/users";
 import { getDoc, query } from "firebase/firestore";
 import Modal from "../modal";
 import { deleteImage, uploadImage } from "../../../apis/image";
+import { get } from "http";
 
 interface IState {
     search: string;
     editing: boolean;
-    editingID: string; //ask about editingID
+    editingID: number;
     deleteRole: IRoleData | null;
     assignRole: IRoleData | null;
 }
 
 interface IRoleForm{
-    members: { value: string }[];
-    name: string;
+    permission: string
 }
 
 interface IAssignState {
@@ -29,44 +29,39 @@ interface IAssignState {
 }
 
 const Roles = () => {
-    const [state, setState] = useState<IState>({ search: "", editing: false, editingID: "", assignRole: null, deleteRole: null });
+    const [state, setState] = useState<IState>({ search: "", editing: false, editingID: -1, assignRole: null, deleteRole: null });
     const [roles, setRoles] = useState<IRoleData[]>([]);
     const [assignState, setAssignState] = useState<IAssignState>({ input: "", emails: [] });
 
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<IRoleForm>();
 
     const onSubmit = async (data: IRoleForm) => {
-        const { members, name} = data
-        const rolecreate = async() =>{
-            createRoles({name:name, members: []}).then(role => {
+        createRole(data).then(role => {
+            if (role) {
+                setRoles([...roles, role])
                 toast.success("Role successfully created!")
-                reset()
-                console.log("Role created:", role.id)
-            }).catch((err) => {
-                console.log(err)
+            } else {
                 toast.error("An error occurred. Contact zine team")
-            })
-        }
-        rolecreate();
+            }
+            reset()
+        })
     }
 
     const onEdit = async (data: IRoleForm) => {
-        
-        const { members, ...formData } = data
-        const memberArray = members.map(m => m.value)
-
-        reset()
-        editRole(state.editingID, {members: memberArray, ...formData}).then(role => {
-            toast.success("Role successfully edited!")
-            setState({ ...state, editing: false, editingID: "" })
-        }).catch((err) => {
-            console.log(err)
-            toast.error("An error occurred. Contact zine team")
+        editRole(data, state.editingID).then(role => {
+            if (role) {
+                setRoles(roles.map(t => t.id === role.id ? role : t))
+                toast.success("Role successfully edited!")
+            } else {
+                toast.error("An error occurred. Contact zine team")
+            }
+            reset()
+            setState({ ...state, editing: false, editingID: -1 })
         })
     }
 
     const onCancel = () => {
-        setState({ ...state, editing: false, editingID: "" })
+        setState({ ...state, editing: false, editingID: -1 })
         reset()
     }
 
@@ -75,9 +70,9 @@ const Roles = () => {
     }
 
     const roleDelete = async (role: IRoleData) => {
-        toast.promise(deleteRole(role), {
+        toast.promise(deleteRole([role.id]), {
             pending: 'Deleting Role',
-            success: `Role ${role.name} deleted successfully`,
+            success: `Role ${role.permission} deleted successfully`,
         }).then(() => {
             setRoles(roles.filter(t => t.id !== role.id))
         })
@@ -85,9 +80,7 @@ const Roles = () => {
     }
 
     const roleEdit = async (role: IRoleData) => {
-        setValue("name", role.name)
-        setValue("members", role.members.map(m => ({ value: m })))
-
+        setValue("permission", role.permission)
         setState({ ...state, editing: true, editingID: role.id })
     }
 
@@ -102,7 +95,6 @@ const Roles = () => {
             if (!/^\S+@\S+\.\S+$/.test(e) && !e.startsWith('$')) return
             assignState.emails.push(e)
             setAssignState({ input: "", emails: assignState.emails });
-            return
         })
     };
 
@@ -146,13 +138,12 @@ const Roles = () => {
     }
 
     useEffect(() => {
-        fetchRoles().then(res => {
-            const roles = res.docs.map(d => {
-                const { ...data } = d.data()
-                return { id: d.id, ...data } as IRoleData
-            })
-            console.log(roles)
-            setRoles(() => roles)
+        getAllRoles().then(roles => {
+            if (roles) setRoles(roles)
+            else {
+                toast.error("Error fetching roles")
+                setRoles([])
+            }
         })
     }, [])
 
@@ -180,9 +171,9 @@ const Roles = () => {
                         <form>
                             <div className="grid grid-cols-5 gap-6 mt-4">
                                 <div className="col-span-3">
-                                    <label className="block text-gray-600 text-sm">Role Name<span className="text-red-500">*</span></label>
-                                    <input type="text" id="name" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('name', { required: true })} />
-                                    {errors.name && <p className="text-red-500 text-sm" role="alert">Title is required</p>}
+                                    <label className="block text-gray-600 text-sm">Permission Name<span className="text-red-500">*</span></label>
+                                    <input type="text" id="permission" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('permission', { required: true })} />
+                                    {errors.permission && <p className="text-red-500 text-sm" role="alert">Title is required</p>}
                                 </div>
                             </div>
                             {
@@ -209,19 +200,19 @@ const Roles = () => {
                                 <tr className="text-left">
                                     <th className="border p-1">S.No</th>
                                     <th className="border p-1">Name</th>
-                                    <th className="border p-1">Members</th>
+                                    {/* <th className="border p-1">Members</th> */}
                                     <th className="border p-1">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     roles
-                                        .filter(u => !state.search || u.name.toLowerCase().includes(state.search!.toLowerCase()))
+                                        .filter(u => !state.search || u.permission.toLowerCase().includes(state.search!.toLowerCase()))
                                         .map((u, index) => (
-                                            <tr key={u.name} className="text-left border-black text-sm">
+                                            <tr key={u.id} className="text-left border-black text-sm">
                                                 <td className="border p-1 text-center">{index + 1}</td>
-                                                <td className="border p-1">{u.name}</td>
-                                                <td className="border p-1 text-center">{ u.members?.length}</td>
+                                                <td className="border p-1">{u.permission}</td>
+                                                {/* <td className="border p-1 text-center">{ u.members?.length}</td> */}
                                                 <td className="border p-1">
                                                     <button className="bg-yellow-500 text-white py-1 px-2 rounded-lg" onClick={() => roleEdit(u)}>Edit</button>
                                                     <button className="bg-red-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => setState({...state, deleteRole: u})}>Delete</button>
@@ -244,7 +235,7 @@ const Roles = () => {
                     <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                     </svg>
-                    <h3 className="mb-5 text-lg font-normal text-gray-500">Are you sure you want to delete {state.deleteRole?.name} role?</h3>
+                    <h3 className="mb-5 text-lg font-normal text-gray-500">Are you sure you want to delete {state.deleteRole?.permission} role?</h3>
                     <button type="button" className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2" onClick={() => roleDelete(state.deleteRole!)}>
                         Delete
                     </button>
@@ -256,7 +247,7 @@ const Roles = () => {
             <Modal isOpen={state.assignRole !== null} onClose={() => setState({...state, assignRole: null})}>
                 <div className="fixed inset-0 flex items-center justify-center overflow-y-auto">
                 <div className="p-4 md:p-5 text-center relative bg-white rounded-lg w-3/4 h-3/4"  >
-                    <h3 className="mb-2 text-lg font-bold text-gray-500">Manage Users {state.assignRole?.name}</h3>
+                    <h3 className="mb-2 text-lg font-bold text-gray-500">Manage Users {state.assignRole?.permission}</h3>
                     <div className="flex text-sm">
                         <input type='text' className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.input} placeholder="2021ucp1011@mnit.ac.in, $2023, $admin" onChange={(e) => setAssignState({...assignState, input: e.target.value})} />
                         <button type="button" className="text-white rounded-md ml-2 px-2 py-1" style={{ background: "#0C72B0" }} onClick={addAssignEmail}>Add</button>

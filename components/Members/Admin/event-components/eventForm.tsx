@@ -47,7 +47,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
             description: "",
             venue: "",
             startDateTime: new Date(),
-            endDateTime: new Date(),
+            endDateTime: null,
             recruitment: state.stage,
             type: "workshop"
         }
@@ -67,7 +67,11 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
         // const { date, time, ...formdata } = data
         data.recruitment = state.stage
         data.startDateTime = formatDateTimeToSQL(data.startDateTime as Date)
-        data.endDateTime = formatDateTimeToSQL(data.endDateTime as Date)
+        console.log("endtime", data.endDateTime)
+        if(data.endDateTime==="")
+            data.endDateTime = null
+        if(data.endDateTime!=null)
+            data.endDateTime = formatDateTimeToSQL(data.endDateTime as Date)
         reset()
         createEvent(data).then((res) => {
             if(res === undefined){
@@ -76,7 +80,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
             }
             toast.success("Created event successfully")
             res.startDateTime = new Date(res.startDateTime)
-            res.endDateTime = new Date(res.endDateTime)
+            if(res.endDateTime != null)    res.endDateTime = new Date(res.endDateTime)
             setEvents((oldEvents)=>[...oldEvents, res])
         }).catch((error) => {
             console.log(error)
@@ -119,7 +123,10 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
         // }
         reset()
         data.startDateTime = formatDateTimeToSQL(data.startDateTime as Date)
-        data.endDateTime = formatDateTimeToSQL(data.endDateTime as Date)
+        if(data.endDateTime=="")
+            data.endDateTime = null
+        if(data.endDateTime!=null)
+            data.endDateTime = formatDateTimeToSQL(data.endDateTime as Date)
         const eventData = { ...data, id: formState.editingID }
         editEvent(eventData).then((res) => {
             if(res === undefined){
@@ -128,7 +135,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
             }
             toast.success("Edited event successfully")
             res.startDateTime = new Date(res.startDateTime)
-            res.endDateTime = new Date(res.endDateTime)
+            if(res.endDateTime !== null) res.endDateTime = new Date(res.endDateTime)
             setEvents(events.map(t => t.id === formState.editingID ? eventData : t))
         }).catch((error) => {
             console.log(error)
@@ -182,9 +189,8 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
                     {errors.startDateTime && <p className="text-red-500 text-sm" role="alert">Date is required</p>}
                 </div>
                 <div className="col-span-2">
-                    <label className="block text-gray-600 text-sm">Event End Date<span className="text-red-500">*</span></label>
-                    <input type="datetime-local" id="endDate" className="block w-full focus:outline-none bottom-border pt-2" {...register("endDateTime", {required: true, valueAsDate: true})} />
-                    {errors.endDateTime && <p className="text-red-500 text-sm" role="alert">Time is required</p>}
+                    <label className="block text-gray-600 text-sm">Event End Date</label>
+                    <input type="datetime-local" id="endDate" className="block w-full focus:outline-none bottom-border pt-2" {...register("endDateTime", {required: false, valueAsDate: true})} />
                 </div>
                 {/* <div className="col-span-1">
                     <label className="block text-gray-600 text-sm">Recruitment</label>
@@ -237,14 +243,14 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
                             .filter(u => u.recruitment === state.stage)
                             // .sort((a, b) => a.startDateTime.getTime() - b.startDateTime.getTime())
                             .map((u,index) => (
-                                <tr key={u.name} className="text-left border-black">
+                                <tr key={u.id} className="text-left border-black">
                                     <td className="border p-1">{index + 1}</td>
                                     <td className="border p-1">{u.name}</td>
                                     <td className="border p-1">{u.type}</td>
                                     <td className="border p-1">{u.venue}</td>
                                     <td className="border p-1">{u.recruitment}</td>
                                     <td className="border p-1">{u.startDateTime.toString()}</td>
-                                    <td className="border p-1">{u.endDateTime.toString()}</td>
+                                    <td className="border p-1">{(u.endDateTime)?u.endDateTime.toString():""}</td>
                                     <td className="border p-1">
                                         <button className="bg-yellow-500 text-white py-1 px-4 rounded-lg" onClick={() => eventEdit(u)}>Edit</button>
                                         <button className="bg-red-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => eventRemove(u)}>Delete</button>

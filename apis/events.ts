@@ -75,7 +75,7 @@ interface IEventCreateData{
     description: string;
     venue: string;
     startDateTime: Date|string;
-    endDateTime: Date|string;
+    endDateTime: Date|string|null;
     recruitment: number;
     type: string;
 }

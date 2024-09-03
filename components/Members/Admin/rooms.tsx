@@ -1,6 +1,5 @@
 //fix the image upload to firebase
 //number of members in a room is currently not implemented
-//do remove users next
 
 import { toast,ToastContainer } from "react-toastify"
 import ProtectedRoute from "./ProtectedRoute"
@@ -9,7 +8,6 @@ import styles from "../../../constants/styles";
 import { useEffect, useState } from "react";
 import { Control, set, useFieldArray, useForm } from "react-hook-form";
 import { IRoomCreateData, IRoomData, IMembersList, IMembers, IRoomMember, IRoomResponseData, addUsersToRoom, createRoom, deleteRoom, editRoom, fetchAllRooms, getMembers, removeMembers, editMemberRole, /* removeUsers, addMembersToRoom,*/  } from "../../../apis/room";
-import { IUser, getUser, getUserByEmailIn, getUsersByRoles } from "../../../apis/users";
 import Modal from "../modal";
 import { deleteImage, uploadImage } from "../../../apis/image";
 

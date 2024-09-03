@@ -7,7 +7,7 @@ import styles from "../../../../constants/styles";
 import { useForm } from "react-hook-form";
 import ProtectedRoute from "../ProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
-import { IRecruitmentData, createRecruitment, deleteRecruitments, editRecruitment, getAllRecruitments } from "../../../../apis/events";
+import { IEventData, IRecruitmentData, createRecruitment, deleteRecruitments, editRecruitment, getAllRecruitments } from "../../../../apis/events";
 import { deleteImage, uploadImage } from "../../../../apis/image";
 import { IRecruitmentForm } from "./types";
 
@@ -16,9 +16,11 @@ interface RecruitmentManagerProps {
     setState: React.Dispatch<React.SetStateAction<IRecruitmentData|null>>;
     recruitments: IRecruitmentData[];
     setRecruitments: React.Dispatch<React.SetStateAction<IRecruitmentData[]>>;
+    events: IEventData[];
+    setEvents: React.Dispatch<React.SetStateAction<IEventData[]>>;
 }
 
-const RecruitmentForm: React.FC<RecruitmentManagerProps> = ({state, setState, recruitments, setRecruitments}) => {
+const RecruitmentForm: React.FC<RecruitmentManagerProps> = ({state, setState, recruitments, setRecruitments, events, setEvents}) => {
     const [formState, setFormState] = useState({ search: "", editing: false, editingID: -1 })
 
     const { register, setValue, reset, formState: {errors}, handleSubmit } = useForm<IRecruitmentForm>({
@@ -81,6 +83,7 @@ const RecruitmentForm: React.FC<RecruitmentManagerProps> = ({state, setState, re
             success: `Event ${recruitment.title} deleted successfully`,
         }).then(() => {
             setRecruitments(recruitments.filter(t => t.id !== recruitment.id))
+            setEvents(events.filter(e => e.recruitment !== recruitment.id))
         })
     }
 
