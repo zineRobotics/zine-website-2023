@@ -2,7 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import ProtectedRoute from "./ProtectedRoute";
 import SideNav from "../sidenav";
 import { useAuth } from "../../../context/authContext";
+import { db } from "../../../firebase";
+import { collection, addDoc, getDocs, query, where, doc, limit, getDoc, DocumentReference, orderBy, onSnapshot } from "firebase/firestore";
 import { getRoom, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData , ANNOUNCEMENT_ROOM_NEW_ID} from "../../../apis/room";
+import sendFCMMessage from "../../../apis/sendFcm";
 import Image from "next/image";
 import Send from "../../../images/icons/Send.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -61,9 +64,11 @@ const Channels = () => {
       stompClient;
     }
   }, []);
+
   useEffect(() => {
     let subscription: any; 
-    if (currRoomID && stompClient !== null) {
+  
+    if (currRoomID) {
       subscription = stompClient.subscribe("/room/" + currRoomID, (msg: any) => {
         let body = JSON.parse(msg.body) as IMessageData;
         setMessages(prev => [...prev, body]);
@@ -222,7 +227,7 @@ const Channels = () => {
               }}
             ></div>
           )}
-          <div className={`bg-white w-4/5 text-sm px-6 py-3 w-full flex-wrap ${user ? "ml-auto" : ""}`} style={{ borderRadius: `${user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"}` }}>
+          <div className={`bg-white w-4/5 text-sm px-6 py-3 ${user ? "ml-auto" : ""}`} style={{ borderRadius: `${user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"}` }}>
             {truncateString(msg?.content || "")}
           </div>
           {user && (
@@ -277,20 +282,20 @@ const Channels = () => {
     setReplyText("");
     setReplyingName("");
     setReplyingMessageID(null);
-  }
+  } 
 
   const handleAnnouncementRoomChange = (mobile: boolean, room: IRoomData) => {
-    setCurrRoomID(room.id);
-    currRoomID !== room.id && setMessages([]);
-    displayRoomMessages(room.id)
-    setCurrRoom(room.name);
-    setCurrRoomImage(room.dpUrl);
-    if(mobile)
-      setHide(true);
-    setReplyText("");
-    setReplyingName("");
-    setReplyingMessageID(null);
-}
+      setCurrRoomID(room.id);
+      currRoomID !== room.id && setMessages([]);
+      displayRoomMessages(room.id)
+      setCurrRoom(room.name);
+      setCurrRoomImage(room.dpUrl);
+      if(mobile)
+        setHide(true);
+      setReplyText("");
+      setReplyingName("");
+      setReplyingMessageID(null);
+  }
 
   return (
     <ProtectedRoute>
@@ -303,11 +308,11 @@ const Channels = () => {
           {screenWidth >= 768 ? (
             <div className="w-60 bg-white shrink-0 px-3 pt-10 flex justify-center overflow-y-auto">
               <div className="w-full">
-                <p
+                <div
                   onClick={() => {
                     handleAnnouncementRoomChange(false, announcementRoom as IRoomData);
                   }}
-                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${currRoom === "Announcements" ? "bg-white" : "bg-gray-200"}`}
+                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${currRoom === announcementRoom?.name ? "bg-white" : "bg-gray-200"}`}
                   style={{
                     color: "#003d63",
                     border: `${currRoom === "Announcements" ? "1px solid #003d63" : ""}`,
@@ -326,7 +331,7 @@ const Channels = () => {
                     </div>
                   </div>
                   {"Announcements"}
-                </p>
+                </div>
 
                 <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
                   Groups
@@ -435,7 +440,7 @@ const Channels = () => {
             </div>
           ) : (
             !hide && (
-              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3">
+              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3" style={{"display": isConnected? "": "none"}}>
                 <div className={`w-4/5 mx-auto`}>
                   <p
                     onClick={() => {
@@ -576,7 +581,7 @@ const Channels = () => {
 
           {/* CHAT PART */}
           {screenWidth >= 768 ? (
-            <div className="flex-1 bg-gray-100 flex flex-col sm:w-full ">
+            <div className="flex-1 bg-gray-100 flex flex-col sm:w-full">
               {currRoomID && (
                 <div className="bg-white flex w-full py-3 my-auto">
                   <div
@@ -609,7 +614,7 @@ const Channels = () => {
               {/* <p className="whitespace-pre-wrap">
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
                                         </p> */}
-              <div className="overflow-auto h-screen overflow-x-hidden">
+              <div className="overflow-auto h-screen">
                 {messages?.map((msg, idx, array) => {
                   const date = unixToHumanReadable(msg.timestamp);
                   const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
@@ -637,9 +642,9 @@ const Channels = () => {
 
                         {reply && user && <div className="flex w-full"><GetRepliedText msgID={reply.id} user={user} space={!whiteRect} /></div>}
                         {reply && !user && (
-                          <div className="flex flex-col w-full">
+                          <div className="flex flex-col">
                             <GetRepliedText msgID={reply.id} user={user} space={!whiteRect} />
-                            <div className="flex w-full">
+                            <div className="flex">
                               <RenderMessageWithLinks
                                 message={msg.content}
                                 user={user}
@@ -713,7 +718,7 @@ const Channels = () => {
                 )}
                 {replyText && <div className="block w-fit">{truncateString(replyText)}</div>}
               </div>
-              {currRoom !== "Announcements" && currRoom !== "" ? (
+              {currRoom !== "" ? (
                 <div className="flex rounded-xl mx-2 border-2 mb-2 md:mb-2 mt-2 md:mx-4 bg-white max-h-16">
                   <textarea
                     className="w-full px-3 py-4 pl-5 outline-none bg-white rounded-xl"
@@ -773,14 +778,14 @@ const Channels = () => {
                   </div>
                 )}
               </div>
-              <div className={`pt-32 overflow-x-hidden ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
+              <div className={`pt-32 ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
                 {messages?.map((msg, idx, array) => {
                   const date = unixToHumanReadable(msg.timestamp);
                   const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
                   const user = msg.sentFrom.id === authUser?.id;
                   const reply = msg.replyTo?.id;
                   return (
-                    <div className="pl-7 mt-2 w-full" key={msg.timestamp}>
+                    <div className="pl-7 mt-2" key={msg.timestamp}>
                       {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
                         <p
                           className="text-gray-500 text-xs pl-10 w-full"
@@ -788,7 +793,7 @@ const Channels = () => {
                             textAlign: `${user ? "right" : "left"}`,
                           }}
                         >
-                          {msg.sentFrom.name} | {date}
+                          {msg.sentFrom.id} | {date}
                         </p>
                       )}
                       {/* <p className="whitespace-pre-wrap">
@@ -801,7 +806,7 @@ const Channels = () => {
                           </div>
                         )}
 
-                        {reply && user && <div className="flex"><GetRepliedText msgID={reply} user={user} space={!whiteRect} /></div>}
+                        {reply && user && <div className="flex w-fit"><GetRepliedText msgID={reply} user={user} space={!whiteRect} /></div>}
                         {reply && !user && (
                           <div className="flex flex-col">
                             <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
@@ -879,7 +884,7 @@ const Channels = () => {
                 )}
                 {replyText && <div className="block w-fit">{truncateString(replyText)}</div>}
               </div>
-              {currRoom !== "Announcements" && currRoom !== "" ? (
+              {currRoom !== "" ? (
                 <div className="max-h-14 flex rounded-xl mx-2 overflow-hidden border-2 mb-2 md:mb-2 mt-2 md:mx-4 bg-white">
                   <textarea
                     className="w-full px-3 py-4 pl-5 outline-none bg-white rounded-xl"

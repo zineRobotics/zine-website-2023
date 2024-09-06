@@ -168,6 +168,17 @@ const SideNav = () => {
                   Projects
                 </p>
               </Link>
+              <Link href="/admin/channels">
+                <p
+                  className={`text-xl hover:text-gray-300 cursor-pointer ${
+                    page === "projects"
+                      ? "font-bold"
+                      : ""
+                  }`}
+                >
+                 Channels
+                </p>
+              </Link>
             </div>
           )}
           {authUser!.type === "user" && (
