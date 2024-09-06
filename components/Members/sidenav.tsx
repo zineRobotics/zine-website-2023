@@ -17,7 +17,6 @@ import { toast } from "react-toastify";
 const SideNav = () => {
   const { authUser, logOut } = useAuth();
   const [hide, setHide] = useState(true);
-  const [deleteAccount, setDeleteAccount] = useState(false);
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth
   );
@@ -93,28 +92,6 @@ const SideNav = () => {
                   }`}
                 >
                   Rooms
-                </p>
-              </Link>
-              <Link href="/admin/roles">
-                <p
-                  className={`text-xl hover:text-gray-300 cursor-pointer ${
-                    page === "roles"
-                      ? "font-bold"
-                      : ""
-                  }`}
-                >
-                  Roles
-                </p>
-              </Link>
-              <Link href="/admin/projects">
-                <p
-                  className={`text-xl hover:text-gray-300 cursor-pointer ${
-                    page === "projects"
-                      ? "font-bold"
-                      : ""
-                  }`}
-                >
-                  Projects
                 </p>
               </Link>
               <Link href="/admin/channels">
