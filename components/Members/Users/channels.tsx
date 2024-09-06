@@ -88,7 +88,7 @@ const Channels = () => {
     if (token) {
       const client = new Client({
         webSocketFactory: () =>
-          new SockJS(process.env.NEXT_PUBLIC_API_URL+"ws", null, {
+          new SockJS(process.env.NEXT_PUBLIC_API_URL+"/ws", null, {
             withCredentionals: false,
           }),
         connectHeaders: { Authorization: `Bearer ${token}` },
