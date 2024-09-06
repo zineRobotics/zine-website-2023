@@ -95,6 +95,39 @@ const SideNav = () => {
                   Rooms
                 </p>
               </Link>
+              <Link href="/admin/roles">
+                <p
+                  className={`text-xl hover:text-gray-300 cursor-pointer ${
+                    page === "roles"
+                      ? "font-bold"
+                      : ""
+                  }`}
+                >
+                  Roles
+                </p>
+              </Link>
+              <Link href="/admin/projects">
+                <p
+                  className={`text-xl hover:text-gray-300 cursor-pointer ${
+                    page === "projects"
+                      ? "font-bold"
+                      : ""
+                  }`}
+                >
+                  Projects
+                </p>
+              </Link>
+              <Link href="/admin/channels">
+                <p
+                  className={`text-xl hover:text-gray-300 cursor-pointer ${
+                    page === "projects"
+                      ? "font-bold"
+                      : ""
+                  }`}
+                >
+                 Channels
+                </p>
+              </Link>
             </div>
           )}
           {authUser!.type === "user" && (

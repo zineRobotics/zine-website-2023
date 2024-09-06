@@ -3,6 +3,8 @@ import axios from "../api/axios";
 const roomURL = "/rooms";
 const memberURL = "/members";
 
+export const ANNOUNCEMENT_ROOM_NEW_ID = 452;
+
 export interface IMessageCreateData {
   type: string;
   content: string;
@@ -29,13 +31,15 @@ export interface IMessageData {
   type: string;
   content: string;
   contentUrl: string;
-  timeStamp: number;
+  timestamp: number;
   sentFrom: {
     id: number;
     name: string;
   };
   roomId: number;
-  replyTo: number;
+  replyTo: {
+    id: number,
+  };
 }
 export interface IMembers {
   userEmail: string;
@@ -69,14 +73,17 @@ export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|u
 };
 
 export const getRoom = async (roomID: number) => {
-  axios
-    .get(roomURL + "/get?roomId=" + roomID)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
+    try{
+      const response = await axios.get(roomURL + "/get?roomId=" + roomID);
+      if(response.status === 200){
+        return response.data;
+      }
+      return response.status;
+    }
+    catch(err){
       console.log(err);
-    });
+      return undefined;
+    }
 };
 
 export const editRoom = async (data: IRoomData):  Promise<number|undefined> => {
