@@ -3,4 +3,4 @@ import Events from "./events"
 import Rooms from "./rooms"
 import Channels from "./channels"
 
-export {Dashboard, Events, Rooms}
+export {Dashboard, Events, Rooms, Channels }
