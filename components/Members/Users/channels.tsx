@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import ProtectedRoute from "./ProtectedRoute";
 import SideNav from "../sidenav";
 import { useAuth } from "../../../context/authContext";
-import { getRoom, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData , ANNOUNCEMENT_ROOM_NEW_ID} from "../../../apis/room";
+import { getRoom, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData , updateLastSeen, lastSeen, ANNOUNCEMENT_ROOM_NEW_ID, getAnnouncementRoom} from "../../../apis/room";
 import Image from "next/image";
 import Send from "../../../images/icons/Send.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,6 +47,7 @@ const Channels = () => {
   const [hide, setHide] = useState(false);
   const [stompClient, setStompClient] = useState<any>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [roomLastSeen, setRoomLastSeen] = useState<number>(0);
 
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
@@ -67,6 +68,7 @@ const Channels = () => {
       subscription = stompClient.subscribe("/room/" + currRoomID, (msg: any) => {
         let body = JSON.parse(msg.body) as IMessageData;
         setMessages(prev => [...prev, body]);
+        setRoomLastSeen(body.timestamp)
       });
     }
   
@@ -115,15 +117,13 @@ const Channels = () => {
         .then((res) => {
           setRooms(res);
           console.log(res);
-          
         })
         .catch((err) => {
           console.log(err);
         });
-        getRoom(ANNOUNCEMENT_ROOM_NEW_ID).then((res) => {
+        getAnnouncementRoom().then((res) => {
           setAnnouncementRoom(res);
-          console.log(res);
-          
+          console.log(res); 
         })
     }
   }, []);
@@ -267,30 +267,25 @@ const Channels = () => {
   }, [messages]);
 
   const handleRoomChange = (room: IRoomData, mobile: boolean) => {
+    if(currRoomID !== null)
+      updateLastSeen(authUser?.email as string, currRoomID as number);
     setCurrRoomID(room.id);
     currRoomID !== room.id && setMessages([]);
     displayRoomMessages(room.id)
     setCurrRoom(room.name);
     setCurrRoomImage(room.dpUrl);
+
+    lastSeen(authUser?.email as string, room.id).then((res) => {
+      setRoomLastSeen(res);
+    });
+    updateLastSeen(authUser?.email as string, room.id)
+
     if(mobile)
       setHide(true);
     setReplyText("");
     setReplyingName("");
     setReplyingMessageID(null);
   }
-
-  const handleAnnouncementRoomChange = (mobile: boolean, room: IRoomData) => {
-    setCurrRoomID(room.id);
-    currRoomID !== room.id && setMessages([]);
-    displayRoomMessages(room.id)
-    setCurrRoom(room.name);
-    setCurrRoomImage(room.dpUrl);
-    if(mobile)
-      setHide(true);
-    setReplyText("");
-    setReplyingName("");
-    setReplyingMessageID(null);
-}
 
   return (
     <ProtectedRoute>
@@ -305,12 +300,12 @@ const Channels = () => {
               <div className="w-full">
                 <p
                   onClick={() => {
-                    handleAnnouncementRoomChange(false, announcementRoom as IRoomData);
+                    handleRoomChange(announcementRoom as IRoomData, false);
                   }}
-                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${currRoom === "Announcements" ? "bg-white" : "bg-gray-200"}`}
+                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${currRoom === announcementRoom?.name ? "bg-white" : "bg-gray-200"}`}
                   style={{
                     color: "#003d63",
-                    border: `${currRoom === "Announcements" ? "1px solid #003d63" : ""}`,
+                    border: `${currRoom === announcementRoom?.name ? "1px solid #003d63" : ""}`,
                     cursor: "pointer",
                   }}
                 >
@@ -439,12 +434,12 @@ const Channels = () => {
                 <div className={`w-4/5 mx-auto`}>
                   <p
                     onClick={() => {
-                      handleAnnouncementRoomChange(true, announcementRoom as IRoomData);
+                      handleRoomChange(announcementRoom as IRoomData, true);
                     }}
-                    className={`flex text-xl rounded-xl mb-1 py-2 pl-4 ${currRoom === "Announcements" ? "bg-white" : "bg-gray-200"}`}
+                    className={`flex text-xl rounded-xl mb-1 py-2 pl-4 ${currRoom === announcementRoom?.name ? "bg-white" : "bg-gray-200"}`}
                     style={{
                       color: "#003d63",
-                      border: `${currRoom === "Announcements" ? "1px solid #003d63" : ""}`,
+                      border: `${currRoom === announcementRoom?.name ? "1px solid #003d63" : ""}`,
                       cursor: "pointer",
                     }}
                   >
@@ -688,6 +683,10 @@ const Channels = () => {
                           </>
                         )}
                       </div>
+                      {((idx+1)<messages.length && msg.timestamp < roomLastSeen && messages[idx+1].timestamp > roomLastSeen) && 
+                      <div className="text-center text-xs">
+                          Unread messages
+                      </div>}
                     </div>
                   );
                 })}
@@ -854,6 +853,10 @@ const Channels = () => {
                           </>
                         )}
                       </div>
+                      {((idx+1)<messages.length && msg.timestamp < roomLastSeen && messages[idx+1].timestamp > roomLastSeen) && 
+                      <div className="text-center text-xs">
+                          Unread messages
+                      </div>}
                     </div>
                   );
                 })}

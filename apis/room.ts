@@ -13,6 +13,7 @@ export const announcementRoom = doc(roomsCollection, ANNOUNCEMENT_ROOM_ID);
 
 const roomURL = "/rooms";
 const memberURL = "/members";
+const userURL = "/user";
 
 export const ANNOUNCEMENT_ROOM_NEW_ID = 452;
 
@@ -95,6 +96,20 @@ export const getRoom = async (roomID: number) => {
       console.log(err);
       return undefined;
     }
+};
+
+export const getAnnouncementRoom = async () => {
+  try{
+    const response = await axios.get(roomURL + "/announcement");
+    if(response.status === 200){
+      return response.data.announcementRoom;
+    }
+    return response.status;
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
 };
 
 export const editRoom = async (data: IRoomData):  Promise<number|undefined> => {
@@ -244,3 +259,22 @@ export const fetchAllRooms = async (): Promise<IRoomData[]> => {
     return [];
   }
 }
+
+export const updateLastSeen = async (userEmail: string, roomID: number) => {
+  try {
+    await axios.put(userURL + `/${userEmail}/${roomID}/seen`);
+  } catch (error) {
+    console.error("Error updating last seen:", error);
+  }
+}
+
+export const lastSeen = async (userEmail: string, roomID: number): Promise<number> => {
+  try {
+    const response = await axios.get(userURL + `/${userEmail}/${roomID}/last-seen`);
+    return response.data.lastSeen as number;
+  } catch (error) {
+    console.error("Error fetching last seen:", error);
+    return 0;
+  }
+}
+
