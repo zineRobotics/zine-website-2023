@@ -135,7 +135,7 @@ const Workshops = () => {
       res.sort((a, b) => a.stage - b.stage)
       setRecruitments(res)
     }).catch((error) => {
-      console.log(error)
+      // console.log(error)
       toast.error("Error fetching recruitments")
     })
     getAllEvents().then((res) => {
@@ -149,9 +149,9 @@ const Workshops = () => {
       }
       res.sort((a, b) => (a.startDateTime as Date).getTime() - (b.startDateTime as Date).getTime())
       setEvents(res)
-      console.log(res)
+      // console.log(res)
     }).catch((error) => {
-      console.log(error)
+      // console.log(error)
       toast.error("Error fetching events")
     })
   }, [])

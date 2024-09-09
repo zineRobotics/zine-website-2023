@@ -66,7 +66,7 @@ const Channels = () => {
   }, [currRoomID]);
   
   const onError = (error: any) => {
-    console.log(error);
+    // console.log(error);
   };
   const connect = () => {
     const token = localStorage.getItem("token");
@@ -78,7 +78,7 @@ const Channels = () => {
           }),
         connectHeaders: { Authorization: `Bearer ${token}` },
         debug: (str: any) => {
-          console.log(str);
+          // console.log(str);
         },
         onConnect: onConnected,
         onStompError: onError,
@@ -102,15 +102,15 @@ const Channels = () => {
       fetchRoomsByUser(authUser.email)
         .then((res) => {
           setRooms(res);
-          console.log(res);
+          // console.log(res);
           
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
         getAnnouncementRoom(authUser.email).then((res) => {
           setAnnouncementRoom(res);
-          console.log(res); 
+          // console.log(res); 
           
         })
     }
@@ -240,7 +240,7 @@ const Channels = () => {
 
   const displayRoomMessages = (id: number) => {
     fetchRoomMessages(id).then((res) => {
-      console.log(res);
+      // console.log(res);
       setMessages(res);
     });
   };
@@ -251,11 +251,11 @@ const Channels = () => {
   }
 
   useEffect(() => {
-    console.log("messages", messages);
+    // console.log("messages", messages);
   }, [messages]);
 
   const handleRoomChange = (room: IRoomData, mobile: boolean) => {
-    console.log(room);
+    // console.log(room);
     
     if(currRoomID !== null)
       updateLastSeen(authUser?.email as string, currRoomID as number);

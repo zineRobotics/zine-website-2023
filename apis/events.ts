@@ -14,13 +14,13 @@ export const getAllRecruitments = async (): Promise<IRecruitmentData[]|undefined
     try{
         const response = await axios.get("/recruitment");
         if(response.status === 200){
-            console.log(response.data);
+            // console.log(response.data);
             return response.data.recruitments;
         }
         return undefined;
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return undefined;
     }
 }
@@ -34,7 +34,7 @@ export const createRecruitment = async (data: IRecruitmentCreateData): Promise<I
         return undefined;
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return undefined;
     }
 }
@@ -43,14 +43,14 @@ export const deleteRecruitments = async (ids: number[]): Promise<boolean> => {
     try{
         const data = {recruitments: ids};
         const response = await axios.delete(`/recruitment`, {data: data});
-        console.log(response);
+        // console.log(response);
         if(response.status === 200){
             return true;
         }
         return false;
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return false;
     }
 }
@@ -65,7 +65,7 @@ export const editRecruitment = async (data: IRecruitmentData): Promise<IRecruitm
         return undefined;
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return undefined;
     }
 }
@@ -100,13 +100,13 @@ export const getAllEvents = async (): Promise<IEventData[]|undefined> => {
                     type: event.type
                 }
             });
-            console.log(response.data);
+            // console.log(response.data);
             return events;
         }
         return undefined;
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return undefined;
     }
 }
@@ -130,7 +130,7 @@ export const createEvent = async (data: IEventCreateData): Promise<IEventData|un
         return undefined;
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return undefined;
     }
 }
@@ -139,14 +139,14 @@ export const deleteEvents = async (ids: number[]): Promise<boolean> => {
     try{
         const data = {eventIds: ids};
         const response = await axios.delete(`/event`, {data: data});
-        console.log(response);
+        // console.log(response);
         if(response.status === 200){
             return true;
         }
         return false;
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return false;
     }
 }
@@ -171,7 +171,7 @@ export const editEvent = async (data: IEventData): Promise<IEventData|undefined>
         return undefined;
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return undefined;
     }
 }
