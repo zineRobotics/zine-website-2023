@@ -57,7 +57,7 @@ const Stage = ({
                 : "col-start-6 col-end-9")
             }
           >
-            <h3
+            {/* <h3
               className="font-semibold sm:text-lg mb-1"
               style={{ color: "#C2FFF4" }}
             >
@@ -79,7 +79,7 @@ const Stage = ({
               style={{ color: "#C2FFF4" }}
             >
               {item.venue}
-            </h3>
+            </h3> */}
           </div>
         );
 
@@ -186,14 +186,14 @@ const Workshops = () => {
         Recruitment & Workshops
       </h1>
 
-      <Link href="/workshops/registration">
+      {/* <Link href="/workshops/registration">
         <button
           className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white"
           style={{ width: 300, color: "#0C72B0" }}
         >
           Register Now
         </button>
-      </Link>
+      </Link> */}
 
       {/* Timeline */}
       <div className="container my-24">
