@@ -327,7 +327,7 @@ useEffect(() => {
                     </div>
                   </div>
                     <div className="flex items-center">{announcementRoom?.name}</div>
-                    <div className="text-xs ml-auto pr-5 items-center">{announcementRoom?.unreadMessages!=0 ? `(`+announcementRoom?.unreadMessages!=0+`)` : <></>}</div>
+                    <div className="text-xs ml-auto pr-2 flex items-center">{announcementRoom?.unreadMessages!=0 ? announcementRoom?.unreadMessages : <></>}</div>
                 </div>
                 {rooms.filter(room => room.type == 'workshop').length != 0 &&
                   <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
@@ -382,7 +382,7 @@ useEffect(() => {
                             )}
                           </div>
                           <div className="flex items-center">{ele.name}</div>
-                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
+                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
                         </div>
                       )
                     );
@@ -431,7 +431,7 @@ useEffect(() => {
                             )}
                           </div>
                           <div className="flex items-center">{ele.name}</div>
-                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
+                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
                         </p>
                       )
                     );
@@ -489,7 +489,7 @@ useEffect(() => {
                             )}
                           </div>
                           <div className="flex items-center">{ele.name}</div>
-                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
+                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
                         </div>
                       )
                     );
@@ -523,7 +523,7 @@ useEffect(() => {
                       </div>
                     </div>
                     {announcementRoom?.name}
-                    <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages!=0 ? `(`+announcementRoom?.unreadMessages!=0+`)` : <></>}</div>
+                    <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages!=0 ? `(${announcementRoom?.unreadMessages})` : <></>}</div>
                   </div>
                   <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
                     Workshops
