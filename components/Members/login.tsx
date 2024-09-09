@@ -7,11 +7,14 @@ import { useAuth } from "../../context/authContext";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "../../api/axios";
+import { AxiosError } from "axios";
 
 const errorMessages: { [key: string]: string } = {
-  "auth/invalid-email": "Invalid email address. Please check your email format.",
-  "auth/user-not-found": "Incorrect email id or password.",
-  "auth/wrong-password": "Incorrect email id or password.",
+  "user-not-found": "No valid user found",
+  "wrong-password": "Incorrect password",
+  "error-sending-email": "Error sending verification mail",
+  "user_not_verified": "Please verify via the verification email",
+  "user_not_verified_email_resent": "Please verify via the verification email",
   default: "An error occurred. Please try again later.",
 };
 
@@ -46,20 +49,29 @@ const Login = () => {
   const onSubmit = async (data: ILoginData) => {
     const { email, password } = data;
     reset();
-
-    const promise = logIn(email, password);
-
-    toast
-      .promise(promise, {
-        pending: "Logging In",
-        success: "Login Success!",
-        error: "Login Failed",
-      })
-      .catch((error: any) => {
-        console.log(error);
-        const message = errorMessages[error.code] || errorMessages["default"];
+  
+    try {
+      await toast.promise(
+        logIn(email, password), 
+        {
+          pending: "Logging In",
+          success: "Login Success!",
+          error: "Login Failed",
+        }
+      );
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log("Auth error", error);
+        const message = errorMessages[error.response?.data?.failureReason] || "An unexpected error occurred.";
         setError("root.authError", { message });
-      });
+      } else if (error instanceof Error) {
+        console.log("Unexpected error", error);
+        setError("root.authError", { message: error.message || "An unexpected error occurred." });
+      } else {
+        console.log("An unknown error occurred", error);
+        setError("root.authError", { message: "An unknown error occurred." });
+      }
+    }
   };
 
   return (

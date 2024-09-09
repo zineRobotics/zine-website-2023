@@ -54,6 +54,9 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     try {
       const response = await axios.post("/auth/login", { email, password });
       const { jwt, success, failureReason } = response.data;
+      if(failureReason != null) {
+        throw new Error(failureReason);
+      }
       localStorage.setItem("token", jwt);
       getUserDetails().then((res) => {
         const userData = res as IUser;
