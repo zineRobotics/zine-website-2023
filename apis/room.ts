@@ -19,11 +19,15 @@ export interface IRoomCreateData {
   name: string;
   type: "project" | "group" | "workshop";
   description: string;
-  dpUrl: string;
+  // dpUrl: string;
 }
 export interface IRoomData extends IRoomCreateData {
   id: number;
   unreadMessages: number;
+  dpUrl: string;
+}
+export interface IRoomEditData extends IRoomCreateData{
+  id: number;
 }
 export interface IRoomResponseData extends IRoomData {
   timestamp: number;
@@ -116,7 +120,7 @@ export const getAnnouncementRoom = async (email: string) => {
   }
 };
 
-export const editRoom = async (data: IRoomData):  Promise<number|undefined> => {
+export const editRoom = async (data: IRoomEditData):  Promise<number|undefined> => {
   try{
     const {id, ...datatopass} = data;
     const response = await axios.post(roomURL + "/update?roomId=" + id, datatopass)

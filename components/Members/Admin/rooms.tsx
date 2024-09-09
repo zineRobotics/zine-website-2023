@@ -7,15 +7,15 @@ import SideNav from "../sidenav"
 import styles from "../../../constants/styles";
 import { useEffect, useState } from "react";
 import { Control, set, useFieldArray, useForm } from "react-hook-form";
-import { IRoomCreateData, IRoomData, IMembersList, IMembers, IRoomMember, IRoomResponseData, addUsersToRoom, createRoom, deleteRoom, editRoom, fetchAllRooms, getMembers, removeMembers, editMemberRole, /* removeUsers, addMembersToRoom,*/  } from "../../../apis/room";
+import { IRoomCreateData, IRoomData, IRoomEditData, IMembersList, IMembers, IRoomMember, IRoomResponseData, addUsersToRoom, createRoom, deleteRoom, editRoom, fetchAllRooms, getMembers, removeMembers, editMemberRole, /* removeUsers, addMembersToRoom,*/  } from "../../../apis/room";
 import Modal from "../modal";
 import { deleteImage, uploadImage } from "../../../apis/image";
 
 interface IRoomForm{
     name: string;
     type: "project" | "group" | "workshop";
-    image: any;
-    dpUrl: string;
+    // image: any;
+    // dpUrl: string;
     description: string;
 }
 
@@ -43,17 +43,18 @@ const Rooms = () => {
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<IRoomForm>();
 
     const onSubmit = async (data: IRoomForm) => {
-        console.log(data.image)
-        if (data.image[0]){
-            var imageName = new Date().getTime().toString()
-            data.dpUrl = await uploadImage(data.image[0], data.dpUrl)
-        }
-        else{
-            data.image = ""
-            data.dpUrl= ""
-        }
+        // console.log(data.image)
+        // if (data.image[0]){
+        //     var imageName = new Date().getTime().toString()
+        //     data.dpUrl = await uploadImage(data.image[0], data.dpUrl)
+        // }
+        // else{
+        //     data.image = ""
+        //     data.dpUrl= ""
+        // }
         
-        const { image, ...formData } = data
+        // const { image, ...formData } = data
+        const { ...formData } = data
         const roomcreate = async() =>{
             let roomData: IRoomCreateData = formData
             createRoom(roomData).then(room => {
@@ -77,16 +78,17 @@ const Rooms = () => {
 
     const onEdit = async (data: IRoomForm) => {
         
-        let imageexists = data.image[0]
-        data.image = ""
-        if (imageexists){
-            if(data.dpUrl) deleteImage(data.dpUrl)
-            let imageName = new Date().getTime().toString()
-            data.dpUrl = `/rooms/${imageName}`
-            let imagelink = await uploadImage(imageexists, data.dpUrl)
-            data.image = imagelink
-        }
-        const { image, ...formData } = data
+        // let imageexists = data.image[0]
+        // data.image = ""
+        // if (imageexists){
+        //     if(data.dpUrl) deleteImage(data.dpUrl)
+        //     let imageName = new Date().getTime().toString()
+        //     data.dpUrl = `/rooms/${imageName}`
+        //     let imagelink = await uploadImage(imageexists, data.dpUrl)
+        //     data.image = imagelink
+        // }
+        // const { image, ...formData } = data
+        const { ...formData } = data
 
         reset()
         editRoom({id:state.editingID, ...formData }).then(status => {
@@ -126,7 +128,7 @@ const Rooms = () => {
     const roomEdit = async (room: IRoomData) => {
         setValue("name", room.name)
         setValue("type", room.type)
-        setValue("dpUrl", room.dpUrl)
+        // setValue("dpUrl", room.dpUrl)
         setValue("description", room.description)
 
         setState({ ...state, editing: true, editingID: room.id })
@@ -247,12 +249,13 @@ const Rooms = () => {
                                     <select id="type" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('type')}>
                                         <option>project</option>
                                         <option>group</option>
+                                        <option>workshop</option>
                                     </select>
                                 </div>
-                                <div className="col-span-2">
+                                {/* <div className="col-span-2">
                                     <label className="block text-gray-600 text-sm">Image</label>
                                     <input type="file" id="image" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('image', { required: false })} />
-                                </div>
+                                </div> */}
                                 <div className="col-span-3">
                                     <label className="block text-gray-600 text-sm">Description</label>
                                     <input type="text" id="description" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('description', { required: false, maxLength: 100 })} />

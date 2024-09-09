@@ -329,9 +329,10 @@ useEffect(() => {
                     <div className="flex items-center">{announcementRoom?.name}</div>
                     <div className="text-xs ml-auto pr-5 items-center">{announcementRoom?.unreadMessages!=0 ? `(`+announcementRoom?.unreadMessages!=0+`)` : <></>}</div>
                 </div>
+                {rooms.filter(room => room.type == 'workshop').length != 0 &&
                   <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
-                  Workshops
-                </div>
+                    Workshops
+                  </div>}
                 {rooms &&
                   rooms.map((ele) => {
                     if (ele.id === null) return; //if room does not exist
@@ -386,9 +387,10 @@ useEffect(() => {
                       )
                     );
                   })}
-                <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
-                  Groups
-                </div>
+                {rooms.filter(room => room.type == 'group').length != 0 &&
+                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                    Groups
+                  </div>}
                 {rooms &&
                   rooms.map((ele) => {
                     if (ele.id === null) return; //if room does not exist
@@ -434,9 +436,10 @@ useEffect(() => {
                       )
                     );
                   })}
-                <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
-                  Rooms
-                </div>
+                {rooms.filter(room => room.type == 'project').length != 0 &&
+                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                    Projects
+                  </div>}
                 {rooms &&
                   rooms.map((ele) => {
                     if (ele.id === null) return; //if room does not exist
