@@ -327,7 +327,63 @@ const Channels = () => {
                     <div className="flex items-center">{announcementRoom?.name}</div>
                     <div className="text-xs ml-auto pr-5 items-center">{announcementRoom?.unreadMessages!=0 ? `(`+announcementRoom?.unreadMessages!=0+`)` : <></>}</div>
                   </div>
-
+                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                  Workshops
+                </div>
+                {rooms &&
+                  rooms.map((ele) => {
+                    if (ele.id === null) return; //if room does not exist
+                    return (
+                      ele.type === "workshop" && (
+                        <div
+                          key={ele.id}
+                          onClick={() => {
+                            handleRoomChange(ele, false);
+                          }}
+                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
+                          style={{
+                            color: "#003d63",
+                            border: `${currRoomID === ele.id ? "1px solid #003d63" : ""}`,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <div
+                            className="w-6 h-6 z-4 mr-2"
+                            style={{
+                              backgroundColor: "white",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {ele.dpUrl ? (
+                              <div
+                                className="h-full w-full flex flex-col justify-center rounded-full relative"
+                                style={{
+                                  overflow: "hidden",
+                                  borderRadius: "50%",
+                                }}
+                              >
+                                <Image
+                                  width={50}
+                                  height={50}
+                                  src={ele.dpUrl}
+                                  className="rounded-full"
+                                  style={{
+                                    backgroundColor: "#0C72B0",
+                                  }}
+                                />
+                              </div>
+                            ) : (
+                              <div className="h-full w-full flex flex-col justify-center relative">
+                                <Image layout="responsive" objectFit="cover" src={ChatDP} />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex items-center">{ele.name}</div>
+                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
+                        </div>
+                      )
+                    );
+                  })}
                 <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
                   Groups
                 </div>
@@ -377,7 +433,7 @@ const Channels = () => {
                     );
                   })}
                 <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
-                  Rooms
+                  Projects
                 </div>
                 {rooms &&
                   rooms.map((ele) => {
@@ -464,7 +520,58 @@ const Channels = () => {
                     {announcementRoom?.name}
                     <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages!=0 ? `(`+announcementRoom?.unreadMessages!=0+`)` : <></>}</div>
                   </div>
-
+                  <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
+                    Workshops
+                  </div>
+                  {rooms &&
+                    rooms.map((ele) => {
+                      if (ele.id === null) return; //if room does not exist
+                      return (
+                        ele.type === "workshop" && (
+                          <p
+                            key={ele.id}
+                            onClick={() => {
+                              // console.log(ele.id);
+                              handleRoomChange(ele, true);
+                            }}
+                            className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
+                            style={{
+                              color: "#003d63",
+                              border: `${currRoomID === ele.id ? "1px solid #003d63" : ""}`,
+                              cursor: "pointer",
+                            }}
+                          >
+                            <div
+                              className="w-8 h-8 mr-4"
+                              style={{
+                                backgroundColor: "#fff",
+                                borderRadius: "50%",
+                              }}
+                            >
+                              {ele.dpUrl ? (
+                                <div className="h-full w-full flex flex-col justify-center">
+                                  <Image
+                                    height={50}
+                                    width={50}
+                                    src={ele.dpUrl}
+                                    className="rounded-full"
+                                    style={{
+                                      backgroundColor: "#0C72B0",
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div className="h-full w-full flex flex-col justify-center">
+                                  <Image layout="responsive" src={ChatDP} />
+                                </div>
+                              )}
+                            </div>
+                            {ele.name}
+                            <div className="text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages !== 0 ? `(${ele?.unreadMessages})` : <></>}</div>
+                          </p>
+                        )
+                      );
+                    })}
                   <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
                     Groups
                   </div>
