@@ -9,6 +9,21 @@ module.exports = {
         hostname:
           "firebasestorage.googleapis.com",
       },
+      {
+        protocol: "https",
+        hostname:
+          "preview.redd.it",
+      },
+      {
+        protocol: "https",
+        hostname:
+          "i.redd.it",
+      },
+      {
+        protocol: "https",
+        hostname:
+          "www.reddit.com",
+      },
     ],
   },
 };

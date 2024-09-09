@@ -110,7 +110,6 @@ import meet from "../images/members/2025/meet.webp";
 import yug from "../images/members/2025/yug.png";
 import mashaal from "../images/members/2025/mashaal.webp";
 import anmol from "../images/members/2025/anmol.webp";
-import moordhan from "../images/members/2025/moordhan.webp";
 
 import aswin from "../images/members/2026/aswin.webp";
 import divyanshR from "../images/members/2026/divyansh.webp";
