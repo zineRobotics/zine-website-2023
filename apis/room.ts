@@ -2,6 +2,7 @@ import axios from "../api/axios";
 
 const roomURL = "/rooms";
 const memberURL = "/members";
+const userURL = "/user";
 
 export const ANNOUNCEMENT_ROOM_NEW_ID = 452;
 
@@ -22,6 +23,7 @@ export interface IRoomCreateData {
 }
 export interface IRoomData extends IRoomCreateData {
   id: number;
+  unreadMessages: number;
 }
 export interface IRoomResponseData extends IRoomData {
   timestamp: number;
@@ -86,6 +88,34 @@ export const getRoom = async (roomID: number) => {
     }
 };
 
+export const getAnnouncementRoom = async (email: string) => {
+  try{
+    const response = await axios.get(roomURL + "/announcement", {params: {
+      "email": email
+    }});
+    let res: any;
+    if(response.status === 200){
+      let ele = response.data.announcementRoom;
+      let body: IRoomData = {
+        description: ele.room.description,
+          dpUrl: ele.room.dpUrl,
+          id: ele.room.id,
+          name: ele.room.name,
+          type: ele.room.type,
+          unreadMessages: ele.unreadMessages,
+      }
+      console.log("info ann", body);
+      
+      return body;
+    }
+    return res;
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
+};
+
 export const editRoom = async (data: IRoomData):  Promise<number|undefined> => {
   try{
     const {id, ...datatopass} = data;
@@ -148,19 +178,35 @@ export const editMemberRole = async (roomID: number, email: string, role: string
   }
 }
 
-export const fetchRoomsByUser = async (email: string) => {
-  try{
-    const response = await axios.get(roomURL + "/user?email=" + email);
-    if(response.status === 200){
-      return response.data;
+export const fetchRoomsByUser = async (email: string): Promise<IRoomData[]> => {
+  try {
+    const response = await axios.get(`${roomURL}/user?email=${email}`);
+    
+    if (response.status === 200) {
+      const roomsInfo: any[] = response.data; 
+      console.log(roomsInfo);
+
+      const roomsList: IRoomData[] = roomsInfo.map((ele: any) => {
+        return {
+          description: ele.room.description,
+          dpUrl: ele.room.dpUrl,
+          id: ele.room.id,
+          name: ele.room.name,
+          type: ele.room.type,
+          unreadMessages: ele.unreadMessages,
+        };
+      });
+
+      return roomsList;
+    } else {
+      console.error('Failed to fetch rooms: ', response.statusText);
+      return []; 
     }
-    return response.status;
+  } catch (error) {
+    console.error('Error fetching rooms:', error);
+    return []; 
   }
-  catch(err){
-    console.log(err);
-    return undefined;
-  }
-};
+}
 
 export const addUsersToRoom = async (memList: IMembersList): Promise<string | undefined> => {
   if (!memList.members.length) return;
@@ -216,3 +262,24 @@ export const fetchAllRooms = async (): Promise<IRoomData[]> => {
     return [];
   }
 }
+
+export const updateLastSeen = async (userEmail: string, roomID: number) => {
+  try {
+    await axios.put(userURL + `/${userEmail}/${roomID}/seen`);
+  } catch (error) {
+    console.error("Error updating last seen:", error);
+  }
+}
+
+export const lastSeen = async (userEmail: string, roomID: number): Promise<number> => {
+  try {
+    const response = await axios.get(userURL + `/${userEmail}/${roomID}/last-seen`);
+    console.log(response.data.info.userLastSeen);
+    
+    return response.data.info.userLastSeen as number;
+  } catch (error) {
+    console.error("Error fetching last seen:", error);
+    return 0;
+  }
+}
+

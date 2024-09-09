@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import ProtectedRoute from "./ProtectedRoute";
 import SideNav from "../sidenav";
 import { useAuth } from "../../../context/authContext";
-import { getRoom, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData , ANNOUNCEMENT_ROOM_NEW_ID} from "../../../apis/room";
+import { getRoom, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData , updateLastSeen, lastSeen, ANNOUNCEMENT_ROOM_NEW_ID, getAnnouncementRoom} from "../../../apis/room";
 import Image from "next/image";
 import Send from "../../../images/icons/Send.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,6 +47,7 @@ const Channels = () => {
   const [hide, setHide] = useState(false);
   const [stompClient, setStompClient] = useState<any>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [roomLastSeen, setRoomLastSeen] = useState<number>(0);
 
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
@@ -61,12 +62,14 @@ const Channels = () => {
       stompClient;
     }
   }, []);
+
   useEffect(() => {
     let subscription: any; 
     if (currRoomID && stompClient !== null) {
       subscription = stompClient.subscribe("/room/" + currRoomID, (msg: any) => {
         let body = JSON.parse(msg.body) as IMessageData;
         setMessages(prev => [...prev, body]);
+        setRoomLastSeen(body.timestamp)
       });
     }
   
@@ -115,15 +118,15 @@ const Channels = () => {
         .then((res) => {
           setRooms(res);
           console.log(res);
-          
+
         })
         .catch((err) => {
           console.log(err);
         });
-        getRoom(ANNOUNCEMENT_ROOM_NEW_ID).then((res) => {
+        getAnnouncementRoom(authUser.email).then((res) => {
           setAnnouncementRoom(res);
-          console.log(res);
-          
+          console.log(res); 
+
         })
     }
   }, []);
@@ -265,32 +268,30 @@ const Channels = () => {
   useEffect(() => {
     console.log("messages", messages);
   }, [messages]);
-
+useEffect(() => {
+  console.log("curr room id", currRoomID);
+  
+}, [currRoomID])
   const handleRoomChange = (room: IRoomData, mobile: boolean) => {
+    if(currRoomID !== null)
+      updateLastSeen(authUser?.email as string, currRoomID as number);
     setCurrRoomID(room.id);
     currRoomID !== room.id && setMessages([]);
     displayRoomMessages(room.id)
     setCurrRoom(room.name);
     setCurrRoomImage(room.dpUrl);
+
+    lastSeen(authUser?.email as string, room.id).then((res) => {
+      setRoomLastSeen(res);
+    });
+    updateLastSeen(authUser?.email as string, room.id)
+
     if(mobile)
       setHide(true);
     setReplyText("");
     setReplyingName("");
     setReplyingMessageID(null);
   }
-
-  const handleAnnouncementRoomChange = (mobile: boolean, room: IRoomData) => {
-    setCurrRoomID(room.id);
-    currRoomID !== room.id && setMessages([]);
-    displayRoomMessages(room.id)
-    setCurrRoom(room.name);
-    setCurrRoomImage(room.dpUrl);
-    if(mobile)
-      setHide(true);
-    setReplyText("");
-    setReplyingName("");
-    setReplyingMessageID(null);
-}
 
   return (
     <ProtectedRoute>
@@ -303,14 +304,14 @@ const Channels = () => {
           {screenWidth >= 768 ? (
             <div className="w-60 bg-white shrink-0 px-3 pt-10 flex justify-center overflow-y-auto">
               <div className="w-full">
-                <p
+                <div
                   onClick={() => {
-                    handleAnnouncementRoomChange(false, announcementRoom as IRoomData);
+                    handleRoomChange(announcementRoom as IRoomData, false);
                   }}
-                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${currRoom === "Announcements" ? "bg-white" : "bg-gray-200"}`}
+                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${currRoom === announcementRoom?.name ? "bg-white" : "bg-gray-200"}`}
                   style={{
                     color: "#003d63",
-                    border: `${currRoom === "Announcements" ? "1px solid #003d63" : ""}`,
+                    border: `${currRoom === announcementRoom?.name ? "1px solid #003d63" : ""}`,
                     cursor: "pointer",
                   }}
                 >
@@ -325,9 +326,66 @@ const Channels = () => {
                       <Image layout="responsive" src={ChatDP} />
                     </div>
                   </div>
-                  {"Announcements"}
-                </p>
-
+                    <div className="flex items-center">{announcementRoom?.name}</div>
+                    <div className="text-xs ml-auto pr-5 items-center">{announcementRoom?.unreadMessages!=0 ? `(`+announcementRoom?.unreadMessages!=0+`)` : <></>}</div>
+                </div>
+                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                  Workshops
+                </div>
+                {rooms &&
+                  rooms.map((ele) => {
+                    if (ele.id === null) return; //if room does not exist
+                    return (
+                      ele.type === "workshop" && (
+                        <div
+                          key={ele.id}
+                          onClick={() => {
+                            handleRoomChange(ele, false);
+                          }}
+                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
+                          style={{
+                            color: "#003d63",
+                            border: `${currRoomID === ele.id ? "1px solid #003d63" : ""}`,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <div
+                            className="w-6 h-6 z-4 mr-2"
+                            style={{
+                              backgroundColor: "white",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {ele.dpUrl ? (
+                              <div
+                                className="h-full w-full flex flex-col justify-center rounded-full relative"
+                                style={{
+                                  overflow: "hidden",
+                                  borderRadius: "50%",
+                                }}
+                              >
+                                <Image
+                                  width={50}
+                                  height={50}
+                                  src={ele.dpUrl}
+                                  className="rounded-full"
+                                  style={{
+                                    backgroundColor: "#0C72B0",
+                                  }}
+                                />
+                              </div>
+                            ) : (
+                              <div className="h-full w-full flex flex-col justify-center relative">
+                                <Image layout="responsive" objectFit="cover" src={ChatDP} />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex items-center">{ele.name}</div>
+                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
+                        </div>
+                      )
+                    );
+                  })}
                 <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
                   Groups
                 </div>
@@ -370,7 +428,8 @@ const Channels = () => {
                               </div>
                             )}
                           </div>
-                          {ele.name}
+                          <div className="flex items-center">{ele.name}</div>
+                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
                         </p>
                       )
                     );
@@ -426,7 +485,8 @@ const Channels = () => {
                               </div>
                             )}
                           </div>
-                          {ele.name}
+                          <div className="flex items-center">{ele.name}</div>
+                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
                         </div>
                       )
                     );
@@ -435,16 +495,16 @@ const Channels = () => {
             </div>
           ) : (
             !hide && (
-              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3">
+              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3" style={{"display": isConnected? "": "none"}}>
                 <div className={`w-4/5 mx-auto`}>
-                  <p
+                  <div
                     onClick={() => {
-                      handleAnnouncementRoomChange(true, announcementRoom as IRoomData);
+                      handleRoomChange(announcementRoom as IRoomData, true);
                     }}
-                    className={`flex text-xl rounded-xl mb-1 py-2 pl-4 ${currRoom === "Announcements" ? "bg-white" : "bg-gray-200"}`}
+                    className={`flex text-xl rounded-xl mb-1 py-2 pl-4 ${currRoom === announcementRoom?.name ? "bg-white" : "bg-gray-200"}`}
                     style={{
                       color: "#003d63",
-                      border: `${currRoom === "Announcements" ? "1px solid #003d63" : ""}`,
+                      border: `${currRoom === announcementRoom?.name ? "1px solid #003d63" : ""}`,
                       cursor: "pointer",
                     }}
                   >
@@ -459,9 +519,61 @@ const Channels = () => {
                         <Image layout="responsive" src={ChatDP} />
                       </div>
                     </div>
-                    Announcements
-                  </p>
-
+                    {announcementRoom?.name}
+                    <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages!=0 ? `(`+announcementRoom?.unreadMessages!=0+`)` : <></>}</div>
+                  </div>
+                  <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
+                    Workshops
+                  </div>
+                  {rooms &&
+                    rooms.map((ele) => {
+                      if (ele.id === null) return; //if room does not exist
+                      return (
+                        ele.type === "workshop" && (
+                          <p
+                            key={ele.id}
+                            onClick={() => {
+                              // console.log(ele.id);
+                              handleRoomChange(ele, true);
+                            }}
+                            className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"}`}
+                            style={{
+                              color: "#003d63",
+                              border: `${currRoomID === ele.id ? "1px solid #003d63" : ""}`,
+                              cursor: "pointer",
+                            }}
+                          >
+                            <div
+                              className="w-8 h-8 mr-4"
+                              style={{
+                                backgroundColor: "#fff",
+                                borderRadius: "50%",
+                              }}
+                            >
+                              {ele.dpUrl ? (
+                                <div className="h-full w-full flex flex-col justify-center">
+                                  <Image
+                                    height={50}
+                                    width={50}
+                                    src={ele.dpUrl}
+                                    className="rounded-full"
+                                    style={{
+                                      backgroundColor: "#0C72B0",
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div className="h-full w-full flex flex-col justify-center">
+                                  <Image layout="responsive" src={ChatDP} />
+                                </div>
+                              )}
+                            </div>
+                            {ele.name}
+                            <div className="text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages !== 0 ? `(${ele?.unreadMessages})` : <></>}</div>
+                          </p>
+                        )
+                      );
+                    })}
                   <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
                     Groups
                   </div>
@@ -509,6 +621,7 @@ const Channels = () => {
                               )}
                             </div>
                             {ele.name}
+                            <div className="text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages !== 0 ? `(${ele?.unreadMessages})` : <></>}</div>
                           </p>
                         )
                       );
@@ -565,6 +678,7 @@ const Channels = () => {
                               )}
                             </div>
                             {ele.name}
+                            <div className="text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages !== 0 ? `(${ele?.unreadMessages})` : <></>}</div>
                           </p>
                         )
                       );
@@ -688,6 +802,10 @@ const Channels = () => {
                           </>
                         )}
                       </div>
+                      {((idx+1)<messages.length && msg.timestamp < roomLastSeen && messages[idx+1].timestamp > roomLastSeen) && 
+                      <div className="text-center text-xs">
+                          Unread messages
+                      </div>}
                     </div>
                   );
                 })}
@@ -780,7 +898,7 @@ const Channels = () => {
                   const user = msg.sentFrom.id === authUser?.id;
                   const reply = msg.replyTo?.id;
                   return (
-                    <div className="pl-7 mt-2 w-full" key={msg.timestamp}>
+                    <div className="pl-7 mt-2" key={msg.timestamp}>
                       {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
                         <p
                           className="text-gray-500 text-xs pl-10 w-full"
@@ -801,7 +919,7 @@ const Channels = () => {
                           </div>
                         )}
 
-                        {reply && user && <div className="flex"><GetRepliedText msgID={reply} user={user} space={!whiteRect} /></div>}
+                        {reply && user && <div className="flex w-fit"><GetRepliedText msgID={reply} user={user} space={!whiteRect} /></div>}
                         {reply && !user && (
                           <div className="flex flex-col">
                             <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
@@ -854,6 +972,10 @@ const Channels = () => {
                           </>
                         )}
                       </div>
+                      {((idx+1)<messages.length && msg.timestamp < roomLastSeen && messages[idx+1].timestamp > roomLastSeen) && 
+                      <div className="text-center text-xs">
+                          Unread messages
+                      </div>}
                     </div>
                   );
                 })}
