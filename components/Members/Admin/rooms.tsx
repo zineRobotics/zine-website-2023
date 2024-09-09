@@ -13,7 +13,7 @@ import { deleteImage, uploadImage } from "../../../apis/image";
 
 interface IRoomForm{
     name: string;
-    type: "project" | "group";
+    type: "project" | "group" | "workshop";
     image: any;
     dpUrl: string;
     description: string;
@@ -169,8 +169,8 @@ const Rooms = () => {
             members: membersList
         }
         addUsersToRoom(assignList).then(emailList => {
-            if(emailList){
-                    toast.success(emailList)
+            if(emailList!=undefined){
+                toast.success(emailList)
                 // display the emails that were not found here
             }
             else{
@@ -230,6 +230,7 @@ const Rooms = () => {
             />
 
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+                <SideNav />
                 <div className="col-span-12 px-6 md:px-12 flex flex-col overflow-y-scroll md:col-span-9">
                     <h1 className="text-4xl font-bold mt-16 md:mt-8" style={{color: "#AAAAAA"}}>Rooms</h1>
                     <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full shadow-md">
@@ -291,7 +292,7 @@ const Rooms = () => {
                                     rooms
                                         .filter(u => !state.search || u.name.toLowerCase().includes(state.search!.toLowerCase()))
                                         .map((u, index) => (
-                                            <tr key={u.name} className="text-left border-black text-sm">
+                                            <tr key={u.id} className="text-left border-black text-sm">
                                                 <td className="border p-1 text-center">{index + 1}</td>
                                                 <td className="border p-1">{u.name}</td>
                                                 <td className="border p-1">{u.type}</td>
@@ -309,7 +310,6 @@ const Rooms = () => {
                         {!rooms.length && <p className="text-center text-xl mt-4">No results found</p>}
                     </div>
                 </div>
-                <SideNav />
             </div>
 
             {/* Confirm delete modal */}

@@ -56,7 +56,9 @@ const Events = () => {
                 pauseOnHover
                 theme="light"
             />
+            
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
+            <SideNav />
                 {
                     (state === null)?
                     <RecruitmentForm
@@ -76,7 +78,6 @@ const Events = () => {
                         recruitments={recruitments}
                     />
                 }
-                <SideNav />
             </div>
         </ProtectedRoute>
       )

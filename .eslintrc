@@ -1,4 +1,0 @@
-{
-    "semi": "off",
-    "@typescript-eslint/semi": "warn"
-}

@@ -16,7 +16,7 @@ export interface IMessageCreateData {
 
 export interface IRoomCreateData {
   name: string;
-  type: "project" | "group";
+  type: "project" | "group" | "workshop";
   description: string;
   dpUrl: string;
 }
