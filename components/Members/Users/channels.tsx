@@ -62,6 +62,7 @@ const Channels = () => {
       stompClient;
     }
   }, []);
+
   useEffect(() => {
     let subscription: any; 
     if (currRoomID && stompClient !== null) {
@@ -117,13 +118,15 @@ const Channels = () => {
         .then((res) => {
           setRooms(res);
           console.log(res);
+
         })
         .catch((err) => {
           console.log(err);
         });
-        getAnnouncementRoom().then((res) => {
+        getAnnouncementRoom(authUser.email).then((res) => {
           setAnnouncementRoom(res);
           console.log(res); 
+
         })
     }
   }, []);
@@ -265,7 +268,10 @@ const Channels = () => {
   useEffect(() => {
     console.log("messages", messages);
   }, [messages]);
-
+useEffect(() => {
+  console.log("curr room id", currRoomID);
+  
+}, [currRoomID])
   const handleRoomChange = (room: IRoomData, mobile: boolean) => {
     if(currRoomID !== null)
       updateLastSeen(authUser?.email as string, currRoomID as number);
@@ -298,7 +304,7 @@ const Channels = () => {
           {screenWidth >= 768 ? (
             <div className="w-60 bg-white shrink-0 px-3 pt-10 flex justify-center overflow-y-auto">
               <div className="w-full">
-                <p
+                <div
                   onClick={() => {
                     handleRoomChange(announcementRoom as IRoomData, false);
                   }}
@@ -320,8 +326,10 @@ const Channels = () => {
                       <Image layout="responsive" src={ChatDP} />
                     </div>
                   </div>
-                  {"Announcements"}
-                </p>
+                    <div className="flex items-center">{announcementRoom?.name}</div>
+                    <div className="text-xs ml-auto pr-2 
+                    flex items-center">{announcementRoom?.unreadMessages!=0 ? announcementRoom?.unreadMessages : <></>}</div>
+                </div>
 
                 <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
                   Groups
@@ -365,7 +373,8 @@ const Channels = () => {
                               </div>
                             )}
                           </div>
-                          {ele.name}
+                          <div className="flex items-center">{ele.name}</div>
+                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
                         </p>
                       )
                     );
@@ -421,7 +430,8 @@ const Channels = () => {
                               </div>
                             )}
                           </div>
-                          {ele.name}
+                          <div className="flex items-center">{ele.name}</div>
+                          <div className="text-xs ml-auto pr-5 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
                         </div>
                       )
                     );
@@ -430,9 +440,9 @@ const Channels = () => {
             </div>
           ) : (
             !hide && (
-              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3">
+              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3" style={{"display": isConnected? "": "none"}}>
                 <div className={`w-4/5 mx-auto`}>
-                  <p
+                  <div
                     onClick={() => {
                       handleRoomChange(announcementRoom as IRoomData, true);
                     }}
@@ -454,8 +464,9 @@ const Channels = () => {
                         <Image layout="responsive" src={ChatDP} />
                       </div>
                     </div>
-                    Announcements
-                  </p>
+                    {announcementRoom?.name}
+                    <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages!=0 ? `(`+announcementRoom?.unreadMessages!=0+`)` : <></>}</div>
+                  </div>
 
                   <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
                     Groups
@@ -504,6 +515,7 @@ const Channels = () => {
                               )}
                             </div>
                             {ele.name}
+                            <div className="text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages !== 0 ? `(${ele?.unreadMessages})` : <></>}</div>
                           </p>
                         )
                       );
@@ -560,6 +572,7 @@ const Channels = () => {
                               )}
                             </div>
                             {ele.name}
+                            <div className="text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages !== 0 ? `(${ele?.unreadMessages})` : <></>}</div>
                           </p>
                         )
                       );
@@ -779,7 +792,7 @@ const Channels = () => {
                   const user = msg.sentFrom.id === authUser?.id;
                   const reply = msg.replyTo?.id;
                   return (
-                    <div className="pl-7 mt-2 w-full" key={msg.timestamp}>
+                    <div className="pl-7 mt-2" key={msg.timestamp}>
                       {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
                         <p
                           className="text-gray-500 text-xs pl-10 w-full"
@@ -800,7 +813,7 @@ const Channels = () => {
                           </div>
                         )}
 
-                        {reply && user && <div className="flex"><GetRepliedText msgID={reply} user={user} space={!whiteRect} /></div>}
+                        {reply && user && <div className="flex w-fit"><GetRepliedText msgID={reply} user={user} space={!whiteRect} /></div>}
                         {reply && !user && (
                           <div className="flex flex-col">
                             <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
