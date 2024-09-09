@@ -7,24 +7,10 @@ import Image from "next/image";
 import Send from "../../../images/icons/Send.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faLeftLong, faReply } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
 import SockJS from "sockjs-client";
 import { Stomp, Client } from "@stomp/stompjs";
 import ChatDP from "../../../images/admin/logo.png";
 
-const ImageWrap = styled.span`
-  margin-top: 5px;
-  box-sizing: content-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-
-  & > div {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-`;
 const Channels = () => {
   type KeyValueArray = Array<{
     id: string;
