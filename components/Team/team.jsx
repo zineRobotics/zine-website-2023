@@ -77,7 +77,7 @@ const Team = () => {
         ))}
         </div> }
 
-        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">SECOND YEAR</h1>
+        <h1 className="pt-12 text-center font-bold text-4xl px-12 lg:px-24">THIRD YEAR</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-16 px-12 lg:px-24">
         {year2026.map((item, index) => (
           <div key={index} className="col-span-1">

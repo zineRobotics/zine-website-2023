@@ -1,5 +1,10 @@
 export const achievements = [
-    
+    {
+        cardTitle: "IRoC-U 2024",
+        title: "July 2024",
+        cardDetailedText: "Placed top 20 all India in the IRoC-U-2024 \"Autonomous Rover Challenge\" organised by ISRO",
+        cardSubtitle:"Contributors: Batch of 2025 and 2026 "
+    },
 
     {
         cardTitle: "Research Paper",

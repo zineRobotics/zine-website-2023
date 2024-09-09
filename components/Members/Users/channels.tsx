@@ -768,13 +768,13 @@ useEffect(() => {
                                 mobile={screenWidth < 768}
                               />
                               <div
-                                className="ml-2 cursor-pointer mt-2"
+                                className={`ml-2 cursor-pointer mt-2 iconContainer`}
                                 style={{ color: "#a9a9a9" }}
                                 onClick={() => {
                                   displayReply(msg.id, msg.sentFrom.name, msg.content);
                                 }}
                               >
-                                <FontAwesomeIcon icon={faReply} />
+                                <FontAwesomeIcon className="iconInvisible" icon={faReply} />
                               </div>
                             </div>
                           </div>
@@ -793,13 +793,13 @@ useEffect(() => {
                             />
                             {!user && (
                               <div
-                                className="ml-2 cursor-pointer mt-2"
+                                className="ml-2 cursor-pointer mt-2 iconContainer"
                                 style={{ color: "#a9a9a9" }}
                                 onClick={() => {
                                   displayReply(msg.id, msg.sentFrom.name, msg.content);
                                 }}
                               >
-                                <FontAwesomeIcon icon={faReply} />
+                                <FontAwesomeIcon className="iconInvisible" icon={faReply} />
                               </div>
                             )}
                           </>
