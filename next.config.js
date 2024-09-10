@@ -24,6 +24,11 @@ module.exports = {
         hostname:
           "www.reddit.com",
       },
+      {
+        protocol: "https",
+        hostname:
+          "*",
+      },
     ],
   },
 };

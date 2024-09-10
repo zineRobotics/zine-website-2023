@@ -3,7 +3,7 @@
   "name": "zine-robotics-website",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://zine.co.in",
+  "proxy": "https://zine-backend.serveo.net/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -30,6 +30,7 @@
     "react-fast-marquee": "^1.2.1",
     "react-hook-form": "^7.43.9",
     "react-hover-video-player": "^9.4.0",
+    "react-markdown": "8.0.7",
     "react-razorpay": "^2.0.1",
     "react-simple-star-rating": "^5.1.7",
     "react-toastify": "^9.1.3",
