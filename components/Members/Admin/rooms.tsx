@@ -60,7 +60,7 @@ const Rooms = () => {
             createRoom(roomData).then(room => {
                 
                 //Can implement adding members to room here??
-                console.log(room)
+                // console.log(room)
                 if (room === undefined){ 
                     toast.error("room create failed")
                     return
@@ -69,7 +69,7 @@ const Rooms = () => {
                 toast.success("Room successfully created!")
 
             }).catch((err) => {
-                console.log(err)
+                // console.log(err)
                 toast.error("An error occurred. Contact zine team")
             })
         }
@@ -101,7 +101,7 @@ const Rooms = () => {
                 toast.error("An error occurred. Try again later.")
             }
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
             toast.error("An error occurred. Contact zine team")
         })
     }
@@ -210,7 +210,7 @@ const Rooms = () => {
 
     useEffect(() => {
         fetchAllRooms().then(rooms => {
-            console.log(rooms)
+            // console.log(rooms)
             setRooms(() => rooms)
         })
     }, [])

@@ -22,7 +22,7 @@ const Events = () => {
             }
             setRecruitments(res)
         }).catch((error) => {
-            console.log(error)
+            // console.log(error)
             toast.error("Error fetching recruitments")
         })
         getAllEvents().then((res) => {
@@ -36,9 +36,9 @@ const Events = () => {
                     event.endDateTime = new Date(event.endDateTime)
             }
             setEvents(res)
-            console.log(res)
+            // console.log(res)
         }).catch((error) => {
-            console.log(error)
+            // console.log(error)
             toast.error("Error fetching events")
         })
     }, [])

@@ -35,7 +35,7 @@ const Login = () => {
   const { authUser, logIn } = useAuth();
 
   useEffect(() => {
-    console.log("from login.tsx", authUser);
+    // console.log("from login.tsx", authUser);
     if (authUser) {
       // console.log(authUser.type);
       if (authUser.type === "admin") router.push("/admin/dashboard");
@@ -61,14 +61,14 @@ const Login = () => {
       );
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log("Auth error", error);
+        // console.log("Auth error", error);
         const message = errorMessages[error.response?.data?.failureReason] || "An unexpected error occurred.";
         setError("root.authError", { message });
       } else if (error instanceof Error) {
-        console.log("Unexpected error", error);
+        // console.log("Unexpected error", error);
         setError("root.authError", { message: error.message || "An unexpected error occurred." });
       } else {
-        console.log("An unknown error occurred", error);
+        // console.log("An unknown error occurred", error);
         setError("root.authError", { message: "An unknown error occurred." });
       }
     }

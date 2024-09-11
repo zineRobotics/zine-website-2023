@@ -39,7 +39,7 @@ const RecruitmentForm: React.FC<RecruitmentManagerProps> = ({state, setState, re
             toast.success("Event created successfully")
             setRecruitments(oldEvents => [...oldEvents, res])
         }).catch((error) => {
-            console.log(error)
+            // console.log(error)
             toast.error("Error adding document: ", error);
         })
     }
@@ -63,7 +63,7 @@ const RecruitmentForm: React.FC<RecruitmentManagerProps> = ({state, setState, re
             toast.success("Edited event successfully")
             setRecruitments(oldEvents => [...oldEvents.filter(e => e.id !== formState.editingID), res])
         }).catch((error) => {
-            console.log(error)
+            // console.log(error)
             toast.error("Error adding document: ", error);
         });
     }
