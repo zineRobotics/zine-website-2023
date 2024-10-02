@@ -31,9 +31,9 @@ const Events = () => {
                 return;
             }
             for(const event of res){
-                event.startDateTime = new Date(event.startDateTime)
+                event.startDateTime = new Date(event.startDateTime).toUTCString()
                 if(event.endDateTime !== null)
-                    event.endDateTime = new Date(event.endDateTime)
+                    event.endDateTime = new Date(event.endDateTime).toUTCString()
             }
             setEvents(res)
             // console.log(res)
