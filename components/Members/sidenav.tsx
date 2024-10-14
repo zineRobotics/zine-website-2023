@@ -156,12 +156,12 @@ const SideNav = () => {
               </div>
               <div
                 className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${
-                  page === "announcements"
+                  page === "projects"
                     ? "bg-opacity-20"
                     : "bg-opacity-5"
                 }`}
               >
-                <Link href="/users/project">
+                <Link href="/users/projects">
                   <p
                     className={`text-white text-xl cursor-pointer font-extrabold opacity-100`}
                     onClick={() => {
