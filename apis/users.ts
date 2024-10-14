@@ -38,7 +38,7 @@ export const getUserByEmailIn = async (emailList: string[]):Promise<IUser[]|unde
     });
     if(response.status === 200) return response.data;
     else{
-      console.log("Error code:", response.status);
+      // console.log("Error code:", response.status);
       return undefined;
     }
   }
@@ -93,7 +93,7 @@ interface ICreateUser {
 //   roomnames: string[],
 //   roomids: string[]
 // ) => {
-//   console.log(roomnames, roomids);
+//   // console.log(roomnames, roomids);
 //   await Promise.all(
 //     roomids.map(async (id) => {
 //       await updateDoc(doc(db, "rooms", id), {

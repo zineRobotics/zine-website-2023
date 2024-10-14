@@ -1355,7 +1355,7 @@ export const year2024: Member[] = [
   {
     name: "VINAMRA VASHISHTH",
     image: vinamra,
-    desc: "Computer Science Engineering",
+    desc: "Data Engineer at Melio",
     github: "",
     linkedin: "https://www.linkedin.com/in/vinamra-vashishth-721785201/",
     twitter: "",
@@ -1365,7 +1365,7 @@ export const year2024: Member[] = [
   {
     name: "NISHANT GARG",
     image: nishant,
-    desc: "Computer Science Engineering",
+    desc: "SWE at Procore",
     github: "",
     linkedin: "https://www.linkedin.com/in/nishant-garg-968205208/",
     twitter: "",
@@ -1375,7 +1375,7 @@ export const year2024: Member[] = [
   {
     name: "DIVYANSH GARG",
     image: divyansh,
-    desc: "Electronics and Communication Engineering",
+    desc: "SWE at Care Health",
     github: "",
     linkedin: "https://www.linkedin.com/in/dggrx/",
     twitter: "",
@@ -1385,7 +1385,7 @@ export const year2024: Member[] = [
   {
     name: "ABHINAV KUMAR",
     image: abhinavkumar,
-    desc: "Electrical Engineering",
+    desc: "AMTS at Salesforce",
     github: "",
     linkedin: "https://www.linkedin.com/in/abhinav-kumar-5b2097205/",
     twitter: "",
@@ -1405,7 +1405,7 @@ export const year2024: Member[] = [
   {
     name: "PRANJALI SRIVASTAVA",
     image: pranjali,
-    desc: "Mechanical Engineering",
+    desc: "GTE at Bajaj Auto Ltd.",
     github: "",
     linkedin: "https://www.linkedin.com/in/pranjali-srivastava-b229b8223/",
     twitter: "",
@@ -1415,7 +1415,7 @@ export const year2024: Member[] = [
   {
     name: "MAHAK GARG",
     image: mahak,
-    desc: "Electrical Engineering",
+    desc: "SDE at Flipkart",
     github: "",
     linkedin: "https://www.linkedin.com/in/mahak-garg-825213212/",
     twitter: "",
@@ -1435,7 +1435,7 @@ export const year2024: Member[] = [
   {
     name: "ASHOK KUMAR SAINI",
     image: ashok,
-    desc: "Electrical Engineering",
+    desc: "Works at Orangewood Labs",
     github: "",
     linkedin: "https://www.linkedin.com/in/ashok-kumar-saini-505b9b202/",
     twitter: "",

@@ -61,7 +61,8 @@ const Stage = ({
               className="font-semibold sm:text-lg mb-1"
               style={{ color: "#C2FFF4" }}
             >
-              {(item.startDateTime as Date).toDateString()}
+              {/* {(item.startDateTime as Date).toDateString()} */}
+              {(item.startDateTime as Date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
             </h3>
             <h3
               className="font-semibold sm:text-lg mb-1"
@@ -135,7 +136,7 @@ const Workshops = () => {
       res.sort((a, b) => a.stage - b.stage)
       setRecruitments(res)
     }).catch((error) => {
-      console.log(error)
+      // console.log(error)
       toast.error("Error fetching recruitments")
     })
     getAllEvents().then((res) => {
@@ -145,13 +146,19 @@ const Workshops = () => {
       }
       for(const event of res){
         event.startDateTime = new Date(event.startDateTime)
-        if(event.endDateTime !== null)  event.endDateTime = new Date(event.endDateTime)
+        event.startDateTime.setTime(event.startDateTime.getTime() + event.startDateTime.getTimezoneOffset() * 60 * 1000) //counters the time convertion from utc to local
+        event.startDateTime.setDate(event.startDateTime.getUTCDate())
+        if(event.endDateTime !== null){
+          event.endDateTime = new Date(event.endDateTime)
+          event.endDateTime.setTime(event.endDateTime.getTime() + event.endDateTime.getTimezoneOffset() * 60 * 1000)
+          event.endDateTime.setDate(event.endDateTime.getUTCDate())
+        }
       }
       res.sort((a, b) => (a.startDateTime as Date).getTime() - (b.startDateTime as Date).getTime())
       setEvents(res)
-      console.log(res)
+      // console.log(res)
     }).catch((error) => {
-      console.log(error)
+      // console.log(error)
       toast.error("Error fetching events")
     })
   }, [])
@@ -186,14 +193,14 @@ const Workshops = () => {
         Recruitment & Workshops
       </h1>
 
-      <Link href="/workshops/registration">
+      {/* <Link href="/workshops/registration">
         <button
           className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white"
           style={{ width: 300, color: "#0C72B0" }}
         >
           Register Now
         </button>
-      </Link>
+      </Link> */}
 
       {/* Timeline */}
       <div className="container my-24">

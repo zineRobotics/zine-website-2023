@@ -17,7 +17,8 @@ interface EventManagerProps {
 }
 
 const formatDateTime = (dateTime: Date) => {
-    const date = new Date(dateTime);
+    let date = new Date(dateTime);
+    date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000); //to counter conversion to local time
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -53,7 +54,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
         }
     })
     const onSubmit = async(data: IEventForm) => {
-        console.log("data: ",data);
+        // console.log("data: ",data);
         // if (data.image[0]){
         //     var imageName = new Date().getTime().toString()
         //     data.imagepath = `/events/${imageName}`
@@ -67,7 +68,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
         // const { date, time, ...formdata } = data
         data.recruitment = state.stage
         data.startDateTime = formatDateTimeToSQL(data.startDateTime as Date)
-        console.log("endtime", data.endDateTime)
+        // console.log("endtime", data.endDateTime)
         if(data.endDateTime==="")
             data.endDateTime = null
         if(data.endDateTime!=null)
@@ -83,7 +84,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
             if(res.endDateTime != null)    res.endDateTime = new Date(res.endDateTime)
             setEvents((oldEvents)=>[...oldEvents, res])
         }).catch((error) => {
-            console.log(error)
+            // console.log(error)
             toast.error("Error adding document: ", error);
         });
     }
@@ -138,7 +139,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
             if(res.endDateTime !== null) res.endDateTime = new Date(res.endDateTime)
             setEvents(events.map(t => t.id === formState.editingID ? eventData : t))
         }).catch((error) => {
-            console.log(error)
+            // console.log(error)
             toast.error("Error adding document: ", error);
         });
     }

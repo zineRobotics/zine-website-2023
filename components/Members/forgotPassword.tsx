@@ -28,7 +28,7 @@ const ForgotPassword = () => {
         setTimeout(() => router.push("/login"), 5000);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         if (error.code === "auth/user-not-found") toast.error("Email not found");
         else if (error.code === "auth/invalid-email") toast.error("Email not valid");
       });

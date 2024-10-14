@@ -23,7 +23,7 @@ export const sendPasswordResetEmail = async (email: string) => {
     const response = await axios.post(`/auth/forgot?email=${email}`);
     return response;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     throw err;
   }
 };
@@ -38,14 +38,14 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   const getUserDetails = async () => {
     try {
       const token = localStorage.getItem("token");
-      console.log("token", token);
+      // console.log("token", token);
       const response = await axios.get("/auth/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("inside user details", response);
+      // console.log("inside user details", response);
       return response.data;
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       throw err;
     }
   };
@@ -81,13 +81,13 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     }
   };
   useEffect(() => {
-    console.log("authcontext", authUser);
+    // console.log("authcontext", authUser);
   }, [authUser]);
   useEffect(() => {
-    console.log("loaded", loading);
+    // console.log("loaded", loading);
   });
   useEffect(() => {
-    console.log("inside use effect");
+    // console.log("inside use effect");
 
     let isMounted = true;
     // const controller = new AbortController();
@@ -101,12 +101,12 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
             headers: { Authorization: `Bearer ${token}` },
           });
           isMounted && setAuthUser(response.data);
-          console.log(response);
+          // console.log(response);
         }
 
         setLoading(false);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setLoading(false);
       }
     };

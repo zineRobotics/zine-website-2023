@@ -73,7 +73,7 @@ export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|u
     }
   }
   catch(err){
-    console.log(err);
+    // console.log(err);
     return undefined;
   }
 };
@@ -87,7 +87,7 @@ export const getRoom = async (roomID: number) => {
       return response.status;
     }
     catch(err){
-      console.log(err);
+      // console.log(err);
       return undefined;
     }
 };
@@ -108,14 +108,14 @@ export const getAnnouncementRoom = async (email: string) => {
           type: ele.room.type,
           unreadMessages: ele.unreadMessages,
       }
-      console.log("info ann", body);
+      // console.log("info ann", body);
       
       return body;
     }
     return res;
   }
   catch(err){
-    console.log(err);
+    // console.log(err);
     return undefined;
   }
 };
@@ -127,7 +127,7 @@ export const editRoom = async (data: IRoomEditData):  Promise<number|undefined> 
     return response.status;
   }
   catch(err){
-    console.log(err);
+    // console.log(err);
     return undefined;
   }
 };
@@ -138,7 +138,7 @@ export const deleteRoom = async (roomIDList: number[]): Promise<number|undefined
     return response.status;
   }
   catch(err){
-    console.log(err);
+    // console.log(err);
     return undefined;
   }
 };
@@ -152,7 +152,7 @@ export const getMembers = async (roomID: number): Promise<IRoomMember[]|undefine
     return undefined;
   }
   catch(err){
-    console.log(err);
+    // console.log(err);
     return undefined;
   }
 };
@@ -163,7 +163,7 @@ export const removeMembers = async (roomID: number, emailList: string[]): Promis
     return response.status;
   }
   catch(err){
-    console.log(err);
+    // console.log(err);
     return undefined;
   }
 }
@@ -177,7 +177,7 @@ export const editMemberRole = async (roomID: number, email: string, role: string
     return undefined;
   }
   catch(err){
-    console.log(err);
+    // console.log(err);
     return undefined;
   }
 }
@@ -188,7 +188,7 @@ export const fetchRoomsByUser = async (email: string): Promise<IRoomData[]> => {
     
     if (response.status === 200) {
       const roomsInfo: any[] = response.data; 
-      console.log(roomsInfo);
+      // console.log(roomsInfo);
 
       const roomsList: IRoomData[] = roomsInfo.map((ele: any) => {
         return {
@@ -218,7 +218,7 @@ export const addUsersToRoom = async (memList: IMembersList): Promise<string | un
     const response = await axios.post(memberURL + "/add", memList)
     if(response.status){
       if(response.status === 200){
-        console.log(response);
+        // console.log(response);
         
         return response.data;
       }
@@ -227,7 +227,7 @@ export const addUsersToRoom = async (memList: IMembersList): Promise<string | un
     }
   }
   catch(err){
-    console.log(err);
+    // console.log(err);
     return undefined;
   }
 };
@@ -239,7 +239,7 @@ export const sendMessage = async (msgBody: IMessageCreateData) => {
       return res.data;
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
 };
 
@@ -278,7 +278,7 @@ export const updateLastSeen = async (userEmail: string, roomID: number) => {
 export const lastSeen = async (userEmail: string, roomID: number): Promise<number> => {
   try {
     const response = await axios.get(userURL + `/${userEmail}/${roomID}/last-seen`);
-    console.log(response.data.info.userLastSeen);
+    // console.log(response.data.info.userLastSeen);
     
     return response.data.info.userLastSeen as number;
   } catch (error) {
