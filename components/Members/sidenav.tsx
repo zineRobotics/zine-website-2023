@@ -109,10 +109,10 @@ const SideNav = () => {
           )}
           {authUser!.type === "user" && (
             <div className="mt-18 w-full">
-              {/* <Link href="/users/projects">
+               {/* <Link href="/users/projects">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "projects" ? "font-bold" : ""}`}>Projects</p>
-                    </Link>
-                    <Link href="/users/announcements">
+                    </Link> */}
+              {/*      <Link href="/users/announcements">
                         <p className={`text-xl hover:text-gray-300 cursor-pointer ${page === "announcements" ? "font-bold" : ""}`}>Announcements</p>
                     </Link> */}
               {/* <div className={`bg-white md:w-full py-2 px-10 rounded-2xl ${page === "dashboard" ? "bg-opacity-20" : "bg-opacity-5"}`}>
@@ -151,6 +151,24 @@ const SideNav = () => {
                     }}
                   >
                     Channels
+                  </p>
+                </Link>
+              </div>
+              <div
+                className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${
+                  page === "announcements"
+                    ? "bg-opacity-20"
+                    : "bg-opacity-5"
+                }`}
+              >
+                <Link href="/users/project">
+                  <p
+                    className={`text-white text-xl cursor-pointer font-extrabold opacity-100`}
+                    onClick={() => {
+                      setHide(true);
+                    }}
+                  >
+                    Project
                   </p>
                 </Link>
               </div>

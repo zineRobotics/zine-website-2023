@@ -52,10 +52,14 @@ const Channels = () => {
   useEffect(() => {
     let subscription: any; 
     if (currRoomID && stompClient !== null) {
+      // console.log(currRoomID, "reached inside use effect");
+      
       subscription = stompClient.subscribe("/room/" + currRoomID, (msg: any) => {
         let body = JSON.parse(msg.body) as IMessageData;
         setMessages(prev => [...prev, body]);
         setRoomLastSeen(body.timestamp)
+        // console.log("revd msg", body);
+        
       });
     }
   
@@ -97,6 +101,11 @@ const Channels = () => {
     return () => window.removeEventListener("resize", updateScreenWidth);
   }, []);
 
+  useEffect(() => {
+    if(authUser?.email && currRoomID)
+      updateLastSeen(authUser?.email, currRoomID)
+  }, [roomLastSeen, currRoomID])
+
   // to fetch the rooms once the component loads
   useEffect(() => {
     if (authUser?.email) {
@@ -117,6 +126,11 @@ const Channels = () => {
     }
   }, []);
 
+  // useEffect(() => {
+  //   console.log("rooms", rooms);
+    
+  // }, [rooms])
+
   useEffect(() => {
     if (lastMessageRef.current) {
       lastMessageRef.current!.scrollIntoView();
@@ -134,7 +148,6 @@ const Channels = () => {
       contentUrl: null,
     };
     if (msgBody.sentFrom) {
-      // const res = await sendMessage(msgBody);
       stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
     }
     setCurrMsg("");
@@ -254,13 +267,10 @@ const Channels = () => {
   useEffect(() => {
     console.log("messages", messages);
   }, [messages]);
-useEffect(() => {
-  console.log("curr room id", currRoomID);
-  
-}, [currRoomID])
+
   const handleRoomChange = (room: IRoomData, mobile: boolean) => {
     if(currRoomID !== null)
-      updateLastSeen(authUser?.email as string, currRoomID as number);
+      updateLastSeen(authUser?.email as string, room.id as number);
     setCurrRoomID(room.id);
     currRoomID !== room.id && setMessages([]);
     displayRoomMessages(room.id)
