@@ -15,6 +15,7 @@ export interface ITaskCreateData{
 
 export interface ITaskData extends ITaskCreateData{
     id: number;
+    createdDate: number
 }
 
 export const getAllTasks = async (): Promise<ITaskData[]|undefined> => {

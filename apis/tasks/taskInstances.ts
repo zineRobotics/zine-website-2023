@@ -14,6 +14,8 @@ export interface ITaskInstanceData extends ITaskInstanceCreateData{
     taskId: ITaskData; //naming convention is a bit fucked but we ball
     roomId: IRoomData;
     taskInstanceId: number;
+    // title: string,
+    
 }
 
 export interface IAssignedUsers{
