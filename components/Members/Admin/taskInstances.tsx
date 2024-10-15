@@ -11,7 +11,7 @@ import Modal from "../modal";
 // import { ITaskData, fetchTasks } from "../../../apis/tasks";
 import { ToastContainer, toast } from "react-toastify";
 import { IUser } from "../../../apis/users";
-import { deleteInstances, getAllInstances, getInstancesByTask, ITaskInstanceData , updateInstance} from "../../../apis/tasks/taskInstances";
+import { deleteInstances, getAllInstances, getInstancesByTask, ITaskInstanceData , updateInstance, updateStatus} from "../../../apis/tasks/taskInstances";
 import {ITaskInstanceData as IUserInstanceData, ITaskData as IUserTaskData}  from "../../../apis/tasks"
 import { set } from "react-hook-form";
 import Comments from "../comments"
@@ -35,16 +35,16 @@ const TaskInstances = () => {
     setState(e.target.value);
   };
 
-  // const onStatusChange = (status: string) => {
-  //   if (!userInstance) return;
-  //   updateInstance({...userInstance, status: status}).then((res) => {
-  //       if(res === undefined){
-  //           toast.error("Error updating status")
-  //           return;
-  //       }
-  //       setUserInstance({ ...userInstance, status: status });
-  //   });
-  // };
+  const onStatusChange = (status: string) => {
+    if (!userInstance) return;
+    updateStatus(userInstance.task.id, userInstance.id, status).then((res) => {
+        if(res === false){
+            toast.error("Error updating status")
+            return;
+        }
+        setUserInstance({ ...userInstance, status: status });
+    });
+  };
 
   const deleteUserInstance = async () => {
     if (!userInstance) return;
@@ -95,9 +95,9 @@ const TaskInstances = () => {
 
   return (
     <ProtectedRoute>
-      <ToastContainer position="top-left" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
-
+      <ToastContainer position="top-left" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" /> 
       <div className="grid grid-cols-12 h-screen" style={{ background: "#EFEFEF" }}>
+      <SideNav />
         <div className="col-span-12 md:col-span-9 px-6 md:px-12 flex flex-col overflow-y-scroll">
           <h1 className="text-4xl font-bold mt-8" style={{ color: "#AAAAAA" }}>
             Projects
@@ -174,7 +174,7 @@ const TaskInstances = () => {
                   Delete Project
                 </button>
                 <select className="rounded-xl py-2 px-5 text-center font-bold shadow-md" value={userInstance.status} 
-                  // onChange={(e) => onStatusChange(e.target.value)} 
+                  onChange={(e) => onStatusChange(e.target.value)} 
                   style={{ background: "#0C72B0" }}>
                   <option>Assigned</option>
                   <option>Stage 1</option>
@@ -189,7 +189,6 @@ const TaskInstances = () => {
             </>
           )}
         </div>
-        <SideNav />
       </div>
 
       <Modal isOpen={confirmDelete} onClose={() => setConfirmDelete(false)}>

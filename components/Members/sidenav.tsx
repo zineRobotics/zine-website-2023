@@ -108,7 +108,7 @@ const SideNav = () => {
               <Link href="/admin/taskInstances">
                 <p
                   className={`text-xl hover:text-gray-300 cursor-pointer ${
-                    page === "tasks"
+                    page === "taskInstances"
                       ? "font-bold"
                       : ""
                   }`}
