@@ -4,7 +4,7 @@ import styles from "../../../constants/styles";
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from "../../../context/authContext";
 import Checkpoints from "../checkpoints";
-import { ITaskData, ITaskInstanceData, getAssignedTaskInstances, getRoleMappedTasks, chooseTask, ITaskInstanceCreateData } from "../../../apis/tasks";
+import { ITaskData, ITaskInstanceData, getAssignedTaskInstances, getRoleMappedTasks, chooseTask, ITaskInstanceCreateData, monthDay, hourMinute } from "../../../apis/tasks";
 import { auth } from "../../../firebase";
 
 const Projects = () => {
@@ -22,7 +22,7 @@ const Projects = () => {
         getAssignedTaskInstances(jwt)
             .then((instances) => {
                 setInstances(instances);
-                setSelectedTask(instances[0]);
+                // setSelectedTask(instances[0]);
                 if(instances.length==0) {
                     setState("selection");
                     return false
@@ -120,7 +120,7 @@ const Projects = () => {
                     <a
                       className="flex flex-1 items-center justify-center rounded-bl-xl md:rounded-bl-none md:rounded-tr-xl cursor-pointer"
                       style={{ background: "#95C5E2" }}
-                      href={task.psLink}
+                      href={(task.psLink)?task.psLink:""}
                       target="_blank"
                     >
                       VIEW PS
@@ -157,19 +157,78 @@ const Projects = () => {
               </div>
             </div>
           )}
+          { !selectedTask && (
+            <div className="grid grid-cols-1 text-center md:grid-cols-3 gap-6 mt-2">
+            {instances
+              .map((p) => (
+                <div key={p.id} className="bg-white rounded-xl flex flex-col justify-center py-2 cursor-pointer text-wrap" 
+                onClick={() => {
+                  let task: ITaskData = {
+                    id: p.task.id,
+                    createdDate: p.task.createdDate,
+                    title: p.task.title,
+                    subtitle: p.task.subtitle,
+                    description: p.task.description,
+                    dueDate: Number(p.task.dueDate.toString()),
+                    psLink: p.task.psLink,
+                    submissionLink: p.task.submissionLink,
+                    type: p.task.type,
+                    recruitment: p.task.recruitment,
+                    visible: p.task.visible
+                  }  
+                  let data: ITaskInstanceData = {
+                      id: p.id,
+                      type: p.type,
+                      name: p.name,
+                      status: p.status,
+                      completionPercentage: p.completionPercentage,
+                      task: task,
+                      roomId: p.roomId,
+                      roomName: p.roomName,
+                    }
+                    setSelectedTask(data)
+                  }}
+                  >
+                  <div className="mt-4 p-3 text-white font-extrabold text-3xl" style={{ background: "#0C72B0" }}>
+                    <p>{p.task.title}</p>
+                  </div>
+                  <div className="mt-4 flex-center">
+                    <p className="font-bold" style={styles.textPrimary}>Due </p>
+                    <p className="mb-4 text-4xl font-extrabold" style={styles.textPrimary}>
+                      {monthDay(p.task.dueDate)}
+                    </p>
+                  </div>
+                  <h3 className="my-2 text-2xl font-bold" style={{ color: "#95C5E2" }}>
+                    {p.name}
+                  </h3>
+                  <div className="mt-1 mb-4 px-2 text-lg font-bold text-center" style={styles.textGray}>
+                    <p className="truncate">{p.type==="Individual" ? authUser?.email : "Group"}</p>
+                  </div>
+                  <div className="mb-4 p-2 text-white font-bold text-xl" style={{ background: "#0C72B0" }}>
+                    <p>{p.status}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
+          )
 
-          {state === "inprogress" && (
+          }
+          { selectedTask && (
             <>
-              {selectedTask && <Checkpoints instanceData={selectedTask!} />}
+              <Checkpoints instanceData={selectedTask!} />
               <div className="my-4 flex justify-between text-white">
                 {selectedTask?.task.submissionLink && (
                   <a className="font-bold float-right px-3 py-2 rounded-xl shadow-md" style={{ background: "#0C72B0" }} href={selectedTask?.task.submissionLink} target="_blank">
                     Add Submission
                   </a>
                 )}
+                <button className="bg-white text-gray-500 border hover:bg-gray-100 py-2 px-5 rounded-xl shadow-md" onClick={() => setSelectedTask(undefined)}>
+                  Back
+                </button>
                 <p className="font-bold rounded-xl py-2 px-5 text-center shadow-md" style={{ background: "#0C72B0" }}>
                   {selectedTask?.status === null ? "In-progress" : selectedTask?.status}
                 </p>
+                
               </div>
             </>
           )}

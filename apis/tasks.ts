@@ -14,10 +14,10 @@ export interface ITaskData {
     subtitle: string,
     description: string,
     dueDate: number,
-    psLink: string,
-    submissionLink: string,
+    psLink: string|null,
+    submissionLink: string|null,
     type: string,
-    recruitment: string,
+    recruitment: number|null,
     visible: boolean    
 }
 
@@ -84,6 +84,7 @@ export interface ICommentData extends ICommentCreateData{
     senderName: string;
     timestamp: number;
 }
+
 export const getAssignedTaskInstances = async (jwt: string) => {
     try{
         const response = await axios.get(taskURL + "/user", 
@@ -224,14 +225,16 @@ export const fetchComments = async (instanceId: number) => {
         }
     } catch(error) {
         console.error("Error fetching comments", error);
-        return;;
+        return;
     }
 }
 
 export const postComment = async (instanceId: number, data: ICommentCreateData) => {
     try {
-        const response = await axios.get(commentURL, {params: {instance: instanceId}, data: data} );
+        const response = await axios.post(commentURL, data, {params: {instance: instanceId} } );
         if(response.status == 200) {
+            console.log(response);
+            
             return response.data.comment as ICommentData;
         } else {
             console.error("Error posting comments", response.statusText);
@@ -239,6 +242,16 @@ export const postComment = async (instanceId: number, data: ICommentCreateData) 
         }
     } catch(error) {
         console.error("Error posting comments", error);
-        return;;
+        return;
     }
+}
+
+export const monthDay = (timestamp: number) => {
+    let dataObj = new Date(timestamp);
+    return dataObj.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+export const hourMinute = (timestamp: number) => {
+    let dataObj = new Date(timestamp);
+    return dataObj.toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric" });
 }

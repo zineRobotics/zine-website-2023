@@ -157,7 +157,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
           {instanceData?.name}
         </h2>
         <div className="flex gap-2 justify-between md:justify-start">
-          <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{ background: "#0C72B0" }} href={instanceData?.task.psLink} target="_blank">
+          <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{ background: "#0C72B0" }} href={instanceData.task.psLink ? instanceData.task.psLink: ""} target="_blank">
             Problem Statement
           </a>
           <div className="bg-white px-2 pt-3 pb-1 rounded-xl border text-gray-500 relative shadow-md text-center">
@@ -296,14 +296,14 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
                       <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{ color: "#8D989F" }}>
                       <p className="font-bold">{monthDay(ele.timestamp)}</p>
                       <p className="font-bold text-xs">{hourMinute(ele.timestamp)}</p>
-                        {/* <p className="">{ele.user.split(" ")[0]}</p> */}
+                        <p className="">{ele.sentFrom.split(" ")[0]}</p>
                       </div>
                       <div className="text-sm md:text-normal break-words w-full md:w-10/12 md:ml-auto">
                         <p>
                           {ele.link.split(/\s+/g).map((word) =>
                             word.match(URL_REGEX) ? (
                               <>
-                                <a href={word} className="text-blue-500 underline" target="_blank">
+                                <a href={"//"+word} className="text-blue-500 underline" target="_blank">
                                   {word}
                                 </a>{" "}
                               </>
@@ -319,7 +319,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
                 <div className="flex mt-auto flex-col md:flex-row gap-4">
                   <input
                     className="rounded-xl w-11/12 p-2 focus:outline-none shadow-md"
-                    placeholder="Add link here"
+                    placeholder="For example www.github.com"
                     style={{ background: "#EFEFEF", outline: "0.5px #808080 solid" }}
                     onChange={(e) => setURL(e.target.value)}
                     value={url}

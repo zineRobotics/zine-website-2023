@@ -136,7 +136,7 @@ const Channels = () => {
     if (!currMsg) return;
     const msgBody = {
       type: "text",
-      content: currMsg,
+      content: currMsg.trim(),
       sentFrom: authUser?.id,
       roomId: currRoomID,
       replyTo: replyingMessageID,
