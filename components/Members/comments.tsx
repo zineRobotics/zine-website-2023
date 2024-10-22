@@ -18,9 +18,9 @@ const Comments = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
         senderId: authUser?.id
     }
     postComment(instanceData.id, data).then((res) => {
-        console.log(res);
-        console.log(instanceData)
-        console.log(authUser);
+        // console.log(res);
+        // console.log(instanceData)
+        // console.log(authUser);
         
         if(res) setComments([...comments, res]);
     }).finally(() => setComment(""))

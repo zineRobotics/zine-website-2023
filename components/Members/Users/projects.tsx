@@ -40,8 +40,8 @@ const Projects = () => {
   }, []);
 
   useEffect(() => {
-    console.log("tasks",tasks);
-    console.log("instances",instances);
+    // console.log("tasks",tasks);
+    // console.log("instances",instances);
     
   }, [tasks, instances])
 
@@ -70,7 +70,7 @@ const Projects = () => {
 
         };
         chooseTask(confirmTask.id, jwt, body).then((res) => {
-            console.log(body);
+            // console.log(body);
             
             setState("inprogress")
             if(res) setSelectedTask(res);

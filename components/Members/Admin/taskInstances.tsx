@@ -87,7 +87,7 @@ const TaskInstances = () => {
     //         };
 
     //         setInstances((state) => [...state, project]);
-    //         if (!project.task) console.log(project.usersData[0].email, project.id);
+    //         if (!project.task) // console.log(project.usersData[0].email, project.id);
     //       });
     //     });
     //   });

@@ -124,7 +124,7 @@ export const assignInstance = async(taskId:number, instanceId:number, userEmails
         const data = {userEmails: userEmails};
         const response = await axios.post(`/tasks/${taskId}/instance/${instanceId}/assign`, data);
         if(response.status === 200){
-            console.log(response.data)
+            // console.log(response.data)
             return response.data;
         }
         return undefined;

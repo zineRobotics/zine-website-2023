@@ -100,7 +100,7 @@ export const getAllEvents = async (): Promise<IEventData[]|undefined> => {
                     type: event.type
                 }
             });
-            console.log(response.data);
+            // console.log(response.data);
             return events;
         }
         return undefined;

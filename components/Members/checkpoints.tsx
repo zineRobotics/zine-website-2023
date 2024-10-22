@@ -56,7 +56,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
   }, [isConnected]);
 
   useEffect(() => {
-    console.log("tasks",checkpoints, links, messages);
+    // console.log("tasks",checkpoints, links, messages);
     
   }, [checkpoints, links])
 
@@ -78,7 +78,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
 
   const displayRoomMessages = (id: number) => {
     fetchRoomMessages(id).then((res) => {
-      console.log("messages",res);
+      // console.log("messages",res);
       setMessages(res);
     });
   };
@@ -93,14 +93,14 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
           }),
         connectHeaders: { Authorization: `Bearer ${token}` },
         debug: (str: any) => {
-          console.log(str);
+          // console.log(str);
         },
         onConnect: (msg: any) => {
-          console.log(msg)
+          // console.log(msg)
           setIsConnected(true);
         },
         onStompError: (err: any) => {
-          console.log(err);
+          // console.log(err);
         },
         reconnectDelay: 10000,
       });
@@ -129,7 +129,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
         link: url,
         sentFromId: authUser?.id
     }
-    console.log("link",data);
+    // console.log("link",data);
     
     addLink(instanceData.id, data).then((res) => {
         if(res)
@@ -303,7 +303,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
                           {ele.link.split(/\s+/g).map((word) =>
                             word.match(URL_REGEX) ? (
                               <>
-                                <a href={"//"+word} className="text-blue-500 underline" target="_blank">
+                                <a href={word} className="text-blue-500 underline" target="_blank">
                                   {word}
                                 </a>{" "}
                               </>
