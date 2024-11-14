@@ -137,7 +137,7 @@ const Announcements = () => {
                   <h1 className="text-2xl text-white font-extrabold">{authUser!.email?.split("@")[0].toUpperCase()}</h1>
                   <h3 className="text-lg text-white">{authUser!.name} </h3>
                   <br />
-                  <p className="text-lg text-white">Registered for Aptitude Test</p>
+                  <p className="text-lg text-white">Registered for Tank-Wars</p>
                 </div>
               </div>
             ) : (
@@ -150,7 +150,7 @@ const Announcements = () => {
                     <h1 className="text-2xl text-white font-extrabold">{authUser!.email?.split("@")[0].toUpperCase()}</h1>
                     <h3 className="text-lg text-white">{authUser!.name} </h3>
                     <br />
-                    <p className="text-lg text-white">Not Registered for Zine-Athon</p>
+                    <p className="text-lg text-white">Not Registered for Tank-Wars</p>
                   </div>
                   <button className="mt-4 bg-blue2 text-white py-2 px-4 rounded-xl hover:bg-blue1" onClick={_registerHackathon}>
                     Register
