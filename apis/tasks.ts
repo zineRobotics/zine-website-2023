@@ -233,7 +233,7 @@ export const postComment = async (instanceId: number, data: ICommentCreateData) 
     try {
         const response = await axios.post(commentURL, data, {params: {instance: instanceId} } );
         if(response.status == 200) {
-            console.log(response);
+            // console.log(response);
             
             return response.data.comment as ICommentData;
         } else {

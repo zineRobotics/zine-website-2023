@@ -127,7 +127,7 @@ const Channels = () => {
   }, []);
 
   // useEffect(() => {
-  //   console.log("rooms", rooms);
+  //   // console.log("rooms", rooms);
     
   // }, [rooms])
 

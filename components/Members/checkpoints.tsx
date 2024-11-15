@@ -56,7 +56,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
   }, [isConnected]);
 
   useEffect(() => {
-    console.log("tasks",checkpoints, links, messages);
+    // console.log("tasks",checkpoints, links, messages);
     
   }, [checkpoints, links])
 
@@ -78,7 +78,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
 
   const displayRoomMessages = (id: number) => {
     fetchRoomMessages(id).then((res) => {
-      console.log("messages",res);
+      // console.log("messages",res);
       setMessages(res);
     });
   };
@@ -93,14 +93,14 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
           }),
         connectHeaders: { Authorization: `Bearer ${token}` },
         debug: (str: any) => {
-          console.log(str);
+          // console.log(str);
         },
         onConnect: (msg: any) => {
-          console.log(msg)
+          // console.log(msg)
           setIsConnected(true);
         },
         onStompError: (err: any) => {
-          console.log(err);
+          // console.log(err);
         },
         reconnectDelay: 10000,
       });
@@ -129,7 +129,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
         link: url,
         sentFromId: authUser?.id
     }
-    console.log("link",data);
+    // console.log("link",data);
     
     addLink(instanceData.id, data).then((res) => {
         if(res)
@@ -157,7 +157,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
           {instanceData?.name}
         </h2>
         <div className="flex gap-2 justify-between md:justify-start">
-          <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{ background: "#0C72B0" }} href={instanceData.task.psLink ? instanceData.task.psLink: ""} target="_blank">
+          <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{ background: "#0C72B0" }} href={instanceData.task.psLink ? ("//"+instanceData.task.psLink) : ""} target="_blank">
             Problem Statement
           </a>
           <div className="bg-white px-2 pt-3 pb-1 rounded-xl border text-gray-500 relative shadow-md text-center">
@@ -303,7 +303,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
                           {ele.link.split(/\s+/g).map((word) =>
                             word.match(URL_REGEX) ? (
                               <>
-                                <a href={"//"+word} className="text-blue-500 underline" target="_blank">
+                                <a href={word} className="text-blue-500 underline" target="_blank">
                                   {word}
                                 </a>{" "}
                               </>

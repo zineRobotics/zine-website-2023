@@ -76,6 +76,19 @@ export const updateInstance = async(data:ITaskInstanceData): Promise<ITaskInstan
     }
 }
 
+export const updateStatus = async(taskId:number, instanceId:number, status:string): Promise<boolean> => {
+    try{
+        const response = await axios.put(`/tasks/${taskId}/instance/${instanceId}`, {status: status});
+        if(response.status === 200){
+            return true
+        }
+        return false;
+    }
+    catch(err){
+        return false;
+    }
+}
+
 export const deleteInstances = async(taskId:number, ids:number[]): Promise<boolean> => {
     try{
         const data = {instanceIds: ids};
@@ -111,7 +124,7 @@ export const assignInstance = async(taskId:number, instanceId:number, userEmails
         const data = {userEmails: userEmails};
         const response = await axios.post(`/tasks/${taskId}/instance/${instanceId}/assign`, data);
         if(response.status === 200){
-            console.log(response.data)
+            // console.log(response.data)
             return response.data;
         }
         return undefined;

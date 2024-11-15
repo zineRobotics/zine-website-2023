@@ -25,7 +25,7 @@ const Tasks = () => {
                 event.dueDate = new Date(event.dueDate).toUTCString()
             }
             setTasks(res)
-            console.log(res)
+            // console.log(res)
         }).catch((error) => {
             // console.log(error)
             toast.error("Error fetching tasks")
