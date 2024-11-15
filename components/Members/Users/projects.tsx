@@ -5,7 +5,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from "../../../context/authContext";
 import Checkpoints from "../checkpoints";
 import { ITaskData, ITaskInstanceData, getAssignedTaskInstances, getRoleMappedTasks, chooseTask, ITaskInstanceCreateData, monthDay, hourMinute } from "../../../apis/tasks";
-import { auth } from "../../../firebase";
 
 const Projects = () => {
   const { authUser } = useAuth();
@@ -18,31 +17,33 @@ const Projects = () => {
   useEffect(() => {
     if (!authUser) return;
     let jwt = localStorage.getItem("token");
-    if(jwt) {
-        getAssignedTaskInstances(jwt)
-            .then((instances) => {
-                setInstances(instances);
-                // setSelectedTask(instances[0]);
-                if(instances.length==0) {
-                    setState("selection");
-                    return false
-                }
-                setState("inprogress")
-                return true;
-            }).then((isAssigned) => {
-                if(!isAssigned) {
-                    getRoleMappedTasks(jwt).then((tasks) => {
-                        setTasks(tasks);
-                    })
-                }
+    if (jwt) {
+      getAssignedTaskInstances(jwt)
+        .then((instances) => {
+          setInstances(instances);
+          // setSelectedTask(instances[0]);
+          if (instances.length == 0) {
+            return false
+          }
+          setState("inprogress")
+          return true;
+        }).then((isAssigned) => {
+          if (!isAssigned) {
+            getRoleMappedTasks(jwt).then((tasks) => {
+              if (tasks.length) {
+                setState("selection");
+                setTasks(tasks);
+              }
             })
+          }
+        })
     }
   }, []);
 
   useEffect(() => {
     // console.log("tasks",tasks);
     // console.log("instances",instances);
-    
+
   }, [tasks, instances])
 
   const onChoose = (index: number) => {
@@ -59,22 +60,22 @@ const Projects = () => {
     if (!confirmTask) return;
 
     let jwt = localStorage.getItem("token");
-    if(jwt) {
-        let body: ITaskInstanceCreateData = {
-            name: `${authUser?.name}-${confirmTask.title}`,
-            dpUrl: "",
-            type: "",
-            description: "",
-            status: "In-progress",
-            completionPercentage: 0
+    if (jwt) {
+      let body: ITaskInstanceCreateData = {
+        name: `${authUser?.name}-${confirmTask.title}`,
+        dpUrl: "",
+        type: "",
+        description: "",
+        status: "In-progress",
+        completionPercentage: 0
 
-        };
-        chooseTask(confirmTask.id, jwt, body).then((res) => {
-            // console.log(body);
-            
-            setState("inprogress")
-            if(res) setSelectedTask(res);
-        })
+      };
+      chooseTask(confirmTask.id, jwt, body).then((res) => {
+        // console.log(body);
+
+        setState("inprogress")
+        if (res) setSelectedTask(res);
+      })
     }
   };
 
@@ -108,7 +109,7 @@ const Projects = () => {
                       {task.title}
                     </h3>
                     <div className="flex gap-2 mt-2 flex-col text-center md:flex-row text-sm md:text-normal">
-                      {task.subtitle && 
+                      {task.subtitle &&
                         <div key={task.subtitle} className="py-1 px-4 rounded-xl" style={{ background: "#C2FFF4" }}>
                           <p>{task.subtitle}</p>
                         </div>
@@ -120,7 +121,7 @@ const Projects = () => {
                     <a
                       className="flex flex-1 items-center justify-center rounded-bl-xl md:rounded-bl-none md:rounded-tr-xl cursor-pointer"
                       style={{ background: "#95C5E2" }}
-                      href={(task.psLink)?task.psLink:""}
+                      href={(task.psLink) ? task.psLink : ""}
                       target="_blank"
                     >
                       VIEW PS
@@ -157,63 +158,63 @@ const Projects = () => {
               </div>
             </div>
           )}
-          { !selectedTask && (
+          {!selectedTask && (
             <div className="grid grid-cols-1 text-center md:grid-cols-3 gap-6 mt-2">
-            {instances
-              .map((p) => (
-                <div key={p.id} className="bg-white rounded-xl flex flex-col justify-center py-2 cursor-pointer text-wrap" 
-                onClick={() => {
-                  let task: ITaskData = {
-                    id: p.task.id,
-                    createdDate: p.task.createdDate,
-                    title: p.task.title,
-                    subtitle: p.task.subtitle,
-                    description: p.task.description,
-                    dueDate: Number(p.task.dueDate.toString()),
-                    psLink: p.task.psLink,
-                    submissionLink: p.task.submissionLink,
-                    type: p.task.type,
-                    recruitment: p.task.recruitment,
-                    visible: p.task.visible
-                  }  
-                  let data: ITaskInstanceData = {
-                      id: p.id,
-                      type: p.type,
-                      name: p.name,
-                      status: p.status,
-                      completionPercentage: p.completionPercentage,
-                      task: task,
-                      roomId: p.roomId,
-                      roomName: p.roomName,
-                    }
-                    setSelectedTask(data)
-                  }}
+              {instances
+                .map((p) => (
+                  <div key={p.id} className="bg-white rounded-xl flex flex-col justify-center py-2 cursor-pointer text-wrap"
+                    onClick={() => {
+                      let task: ITaskData = {
+                        id: p.task.id,
+                        createdDate: p.task.createdDate,
+                        title: p.task.title,
+                        subtitle: p.task.subtitle,
+                        description: p.task.description,
+                        dueDate: Number(p.task.dueDate.toString()),
+                        psLink: p.task.psLink,
+                        submissionLink: p.task.submissionLink,
+                        type: p.task.type,
+                        recruitment: p.task.recruitment,
+                        visible: p.task.visible
+                      }
+                      let data: ITaskInstanceData = {
+                        id: p.id,
+                        type: p.type,
+                        name: p.name,
+                        status: p.status,
+                        completionPercentage: p.completionPercentage,
+                        task: task,
+                        roomId: p.roomId,
+                        roomName: p.roomName,
+                      }
+                      setSelectedTask(data)
+                    }}
                   >
-                  <div className="mt-4 p-3 text-white font-extrabold text-3xl" style={{ background: "#0C72B0" }}>
-                    <p>{p.task.title}</p>
+                    <div className="mt-4 p-3 text-white font-extrabold text-3xl" style={{ background: "#0C72B0" }}>
+                      <p>{p.task.title}</p>
+                    </div>
+                    <div className="mt-4 flex-center">
+                      <p className="font-bold" style={styles.textPrimary}>Due </p>
+                      <p className="mb-4 text-4xl font-extrabold" style={styles.textPrimary}>
+                        {monthDay(p.task.dueDate)}
+                      </p>
+                    </div>
+                    <h3 className="my-2 text-2xl font-bold" style={{ color: "#95C5E2" }}>
+                      {p.name}
+                    </h3>
+                    <div className="mt-1 mb-4 px-2 text-lg font-bold text-center" style={styles.textGray}>
+                      <p className="truncate">{p.type === "Individual" ? authUser?.email : "Group"}</p>
+                    </div>
+                    <div className="mb-4 p-2 text-white font-bold text-xl" style={{ background: "#0C72B0" }}>
+                      <p>{p.status}</p>
+                    </div>
                   </div>
-                  <div className="mt-4 flex-center">
-                    <p className="font-bold" style={styles.textPrimary}>Due </p>
-                    <p className="mb-4 text-4xl font-extrabold" style={styles.textPrimary}>
-                      {monthDay(p.task.dueDate)}
-                    </p>
-                  </div>
-                  <h3 className="my-2 text-2xl font-bold" style={{ color: "#95C5E2" }}>
-                    {p.name}
-                  </h3>
-                  <div className="mt-1 mb-4 px-2 text-lg font-bold text-center" style={styles.textGray}>
-                    <p className="truncate">{p.type==="Individual" ? authUser?.email : "Group"}</p>
-                  </div>
-                  <div className="mb-4 p-2 text-white font-bold text-xl" style={{ background: "#0C72B0" }}>
-                    <p>{p.status}</p>
-                  </div>
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
           )
 
           }
-          { selectedTask && (
+          {selectedTask && (
             <>
               <Checkpoints instanceData={selectedTask!} />
               <div className="my-4 flex justify-between text-white">
@@ -228,11 +229,11 @@ const Projects = () => {
                 <p className="font-bold rounded-xl py-2 px-5 text-center shadow-md" style={{ background: "#0C72B0" }}>
                   {selectedTask?.status === null ? "In-progress" : selectedTask?.status}
                 </p>
-                
+
               </div>
             </>
           )}
-        </div>  
+        </div>
       </div>
     </ProtectedRoute>
   );
