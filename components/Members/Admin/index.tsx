@@ -5,5 +5,6 @@ import Channels from "./channels"
 import Tasks from "./tasks"
 import Roles from "./roles"
 import TaskInstances from "./taskInstances"
+import HackathonRegistration from "./hackathonRegistrations"
 
-export {Dashboard, Events, Rooms, Channels, Tasks, Roles, TaskInstances }
+export {Dashboard, Events, Rooms, Channels, Tasks, Roles, TaskInstances, HackathonRegistration }
