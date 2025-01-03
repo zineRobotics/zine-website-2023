@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import ProtectedRoute from "./ProtectedRoute";
 import SideNav from "../sidenav";
 import { useAuth } from "../../../context/authContext";
-import { getRoom, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData , updateLastSeen, lastSeen, ANNOUNCEMENT_ROOM_NEW_ID, getAnnouncementRoom} from "../../../apis/room";
+import { getRoom, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData, updateLastSeen, lastSeen, getAnnouncementRoom } from "../../../apis/room";
+import { IMessage, IPollOptionBody, FileState, IPollCreateBody } from "../../../apis/interfaces/message"
 import Image from "next/image";
 import Send from "../../../images/icons/Send.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +11,10 @@ import { faXmark, faLeftLong, faReply } from "@fortawesome/free-solid-svg-icons"
 import SockJS from "sockjs-client";
 import { Stomp, Client } from "@stomp/stompjs";
 import ChatDP from "../../../images/admin/logo.png";
+import { Poll } from "../../Chat";
+import { FileLink } from "../../Chat/file";
+import { ChatInput } from "../../Chat/chatInput";
+
 
 const Channels = () => {
   type KeyValueArray = Array<{
@@ -22,7 +27,7 @@ const Channels = () => {
   const [announcementRoom, setAnnouncementRoom] = useState<IRoomData>();
   const [currRoomID, setCurrRoomID] = useState<number>();
   const [currRoom, setCurrRoom] = useState<string>("");
-  const [messages, setMessages] = useState<IMessageData[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   const [currMsg, setCurrMsg] = useState("");
   const [replyText, setReplyText] = useState<string>("");
   const [replyingName, setReplyingName] = useState<string>("");
@@ -50,26 +55,67 @@ const Channels = () => {
   }, []);
 
   useEffect(() => {
-    let subscription: any; 
+    let subscription: any;
     if (currRoomID && stompClient !== null) {
       // console.log(currRoomID, "reached inside use effect");
-      
+
       subscription = stompClient.subscribe("/room/" + currRoomID, (msg: any) => {
-        let body = JSON.parse(msg.body) as IMessageData;
-        setMessages(prev => [...prev, body]);
-        setRoomLastSeen(body.timestamp)
-        // console.log("revd msg", body);
-        
+        try {
+          let res = JSON.parse(msg.body); // Adjust based on message structure
+          let msgBody = res.body as IMessage;
+          if (res.update == "new-message") {
+            setMessages(prev => [...prev, msgBody]);
+            setRoomLastSeen(msgBody.timestamp);
+          } else if (res.update === "poll-update") {
+            "reached"
+            updatePollOptionVotes(res.pollUpdate.chatItemId, res.pollUpdate.pollOptions)
+
+          }
+          console.log("revd msg", res);
+        } catch (error) {
+          console.error("Error parsing message:", error, msg);
+        }
+
+
       });
     }
-  
+
     return () => {
       if (subscription) {
         subscription.unsubscribe();
       }
     };
   }, [currRoomID]);
-  
+
+  const votePoll = (chatId: number, optionId: number) => {
+    console.log("clicked on poll");
+
+    if (stompClient != null && authUser != null) {
+      const voteBody = {
+        chatId, optionId, voterId: authUser?.id
+      }
+      console.log("vote", voteBody);
+
+      stompClient.publish({ destination: "/app/poll-vote", headers: {}, body: JSON.stringify(voteBody) });
+    }
+  }
+
+  const updatePollOptionVotes = (messageId: number, pollOptions: IPollOptionBody[]) => {
+    setMessages((prevMessages) =>
+      prevMessages.map((message) =>
+        message.id === messageId && message.poll
+          ? {
+            ...message,
+            poll: {
+              ...message.poll,
+              options: pollOptions
+            },
+          }
+          : message // No change for this message
+      )
+    );
+  }
+
   const onError = (error: any) => {
     // console.log(error);
   };
@@ -78,12 +124,10 @@ const Channels = () => {
     if (token) {
       const client = new Client({
         webSocketFactory: () =>
-          new SockJS(process.env.NEXT_PUBLIC_API_URL+"/ws", null, {
-            withCredentionals: false,
-          }),
-        connectHeaders: { Authorization: `Bearer ${token}` },
+          new SockJS(process.env.NEXT_PUBLIC_API_URL + "/ws", null, {}),
+        connectHeaders: { stage: "test" },
         debug: (str: any) => {
-          // console.log(str);
+          console.log(str);
         },
         onConnect: onConnected,
         onStompError: onError,
@@ -102,7 +146,7 @@ const Channels = () => {
   }, []);
 
   useEffect(() => {
-    if(authUser?.email && currRoomID)
+    if (authUser?.email && currRoomID)
       updateLastSeen(authUser?.email, currRoomID)
   }, [roomLastSeen, currRoomID])
 
@@ -118,43 +162,78 @@ const Channels = () => {
         .catch((err) => {
           // console.log(err);
         });
-        getAnnouncementRoom(authUser.email).then((res) => {
-          setAnnouncementRoom(res);
-          // console.log(res); 
+      getAnnouncementRoom(authUser.email).then((res) => {
+        setAnnouncementRoom(res);
+        // console.log(res); 
 
-        })
+      })
     }
   }, []);
 
   // useEffect(() => {
   //   // console.log("rooms", rooms);
-    
+
   // }, [rooms])
 
   useEffect(() => {
     if (lastMessageRef.current) {
       lastMessageRef.current!.scrollIntoView();
     }
-  }, [messages]);
+  }, [messages.length]);
 
-  const handleSend = async () => {
-    if (!currMsg) return;
-    const msgBody = {
-      type: "text",
-      content: currMsg.trim(),
-      sentFrom: authUser?.id,
-      roomId: currRoomID,
-      replyTo: replyingMessageID,
-      contentUrl: null,
-    };
-    if (msgBody.sentFrom) {
-      stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
+  const handleSend = async (type: string, fileState: FileState | null, pollData: IPollCreateBody) => {
+    if (!authUser) return;
+    if (type === "text") {
+      if(!currMsg) return;
+      const msgBody = {
+        type: "text",
+        sentFrom: authUser?.id,
+        roomId: currRoomID,
+        replyTo: replyingMessageID,
+        text: {
+          content: currMsg.trim()
+        }
+      };
+      console.log("body", msgBody);
+      if (msgBody.sentFrom) {
+        stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
+      }
+    } else if (type == "file" && fileState != null) {
+      const msgBody = {
+        type: "file",
+        sentFrom: authUser.id,
+        roomId: currRoomID,
+        replyTo: replyingMessageID,
+        file: {
+          url: fileState.url,
+          description: currMsg,
+          name: fileState.file.name
+        }
+      };
+      if (msgBody.sentFrom) {
+        stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
+      }
+    } else if(type == "poll" && pollData != null) {
+      const msgBody = {
+        type: "poll",
+        sentFrom: authUser.id,
+        roomId: currRoomID,
+        replyTo: replyingMessageID,
+        poll: pollData
+      };
+      console.log("sent", msgBody);
+      
+      if (msgBody.sentFrom) {
+        stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
+      }
     }
     setCurrMsg("");
     setReplyText("");
     setReplyingName("");
     setReplyingMessageID(null);
   };
+
+
 
   const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
   function RenderMessageWithLinks({
@@ -225,7 +304,7 @@ const Channels = () => {
             ></div>
           )}
           <div className={`bg-white w-4/5 text-sm px-6 py-3 w-full flex-wrap ${user ? "ml-auto" : ""}`} style={{ borderRadius: `${user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"}` }}>
-            {truncateString(msg?.content || "")}
+            {truncateString(msg?.text?.content || "")}
           </div>
           {user && (
             <div
@@ -265,14 +344,14 @@ const Channels = () => {
   }
 
   useEffect(() => {
-    // console.log("messages", messages);
+    console.log("messages", messages);
   }, [messages]);
-useEffect(() => {
-  // console.log("curr room id", currRoomID);
-  
-}, [currRoomID])
+  useEffect(() => {
+    // console.log("curr room id", currRoomID);
+
+  }, [currRoomID])
   const handleRoomChange = (room: IRoomData, mobile: boolean) => {
-    if(currRoomID !== null)
+    if (currRoomID !== null)
       updateLastSeen(authUser?.email as string, room.id as number);
     setCurrRoomID(room.id);
     currRoomID !== room.id && setMessages([]);
@@ -285,12 +364,109 @@ useEffect(() => {
     });
     updateLastSeen(authUser?.email as string, room.id)
 
-    if(mobile)
+    if (mobile)
       setHide(true);
     setReplyText("");
     setReplyingName("");
     setReplyingMessageID(null);
   }
+  const renderTimestamp = (msg: IMessage, idx: number, array: IMessage[]) => {
+    const date = unixToHumanReadable(msg.timestamp);
+    const display = idx == 0 || array[idx - 1].sentFrom.id !== msg.sentFrom.id;
+    if (display) {
+      return (
+        <p
+          className="text-gray-500 text-xs pl-10 w-full"
+          style={{ textAlign: msg.sentFrom.id === authUser?.id ? "right" : "left" }}
+        >
+          {msg.sentFrom.name} | {date}
+        </p>
+      );
+
+    }
+
+    return null;
+  };
+
+  const renderAvatar = (msg: IMessage, idx: number, array: IMessage[]) => {
+    const whiteRect =
+      (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx === array.length - 1;
+    if (whiteRect && msg.sentFrom.id !== authUser?.id) {
+      return (
+        <div className="w-6 h-6 bg-white mr-2 mt-auto rounded">
+          <Image src={ChatDP} />
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const renderMessageContent = (msg: IMessage, user: any, reply: any, whiteRect: boolean) => {
+    return (
+      <div
+        className={`flex flex-col w-full ${user ? "items-end" : "items-start"}`}>
+        {reply && <GetRepliedText msgID={reply?.id} user={user} space={!whiteRect} />}
+        {msg.text?.content && (
+          <div className="flex w-full">
+            <RenderMessageWithLinks
+              message={msg.text?.content}
+              user={user}
+              space={!whiteRect}
+              name={msg.sentFrom.name}
+              id={msg.id}
+              text={msg.text?.content}
+              disableStatus={currRoom === "Announcements"}
+              mobile={screenWidth < 768}
+            />
+            {!user && (
+              <ReplyIcon
+                onClick={() =>
+                  displayReply(msg.id, msg.sentFrom.name, msg.text!.content)
+                }
+              />
+            )}
+          </div>
+        )}
+        {msg.poll != null && (
+          <div className={`flex w-full ${user ? "justify-end" : "justify-start"}`}>
+            <Poll pollBody={msg.poll} voteFunc={votePoll} chatId={msg.id} />
+          </div>
+
+        )}
+        {msg.file != null && (
+          <FileLink {...msg.file} />
+        )}
+      </div>
+
+    );
+    // }
+
+    // return (
+    //   <>
+    //     {msg.text && <RenderMessageWithLinks
+    //       message={msg.text.content}
+    //       user={user}
+    //       space={!whiteRect}
+    //       name={msg.sentFrom.name}
+    //       id={msg.id}
+    //       text={msg.text!.content}
+    //       disableStatus={currRoom === "Announcements"}
+    //       mobile={screenWidth < 768}
+    //     />}
+    //     {!user && <ReplyIcon onClick={() => displayReply(msg.id, msg.sentFrom.name, msg.text!.content)} />}
+    //   </>
+    // );
+  };
+
+  const ReplyIcon: React.FC<{ onClick: () => void }> = ({ onClick }) => (
+    <div
+      className="ml-2 cursor-pointer mt-2 iconContainer"
+      style={{ color: "#a9a9a9" }}
+      onClick={onClick}
+    >
+      <FontAwesomeIcon className="iconInvisible" icon={faReply} />
+    </div>
+  );
 
   return (
     <ProtectedRoute>
@@ -298,8 +474,8 @@ useEffect(() => {
         <SideNav />
 
         {/* rooms/ channels */}
- 
-        <div className="flex h-screen md:col-span-9" style={{"display": isConnected? "": "none"}}>
+
+        <div className="flex h-screen md:col-span-9" style={{ "display": isConnected ? "" : "none" }}>
           {screenWidth >= 768 ? (
             <div className="w-60 bg-white shrink-0 px-3 pt-10 flex justify-center overflow-y-auto">
               <div className="w-full">
@@ -325,8 +501,8 @@ useEffect(() => {
                       <Image layout="responsive" src={ChatDP} />
                     </div>
                   </div>
-                    <div className="flex items-center">{announcementRoom?.name}</div>
-                    <div className="text-xs ml-auto pr-2 flex items-center">{announcementRoom?.unreadMessages!=0 ? announcementRoom?.unreadMessages : <></>}</div>
+                  <div className="flex items-center">{announcementRoom?.name}</div>
+                  <div className="text-xs ml-auto pr-2 flex items-center">{announcementRoom?.unreadMessages != 0 ? announcementRoom?.unreadMessages : <></>}</div>
                 </div>
                 {rooms.filter(room => room.type == 'workshop').length != 0 &&
                   <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
@@ -381,7 +557,7 @@ useEffect(() => {
                             )}
                           </div>
                           <div className="flex items-center">{ele.name}</div>
-                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
+                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages != 0 ? ele?.unreadMessages : <></>}</div>
                         </div>
                       )
                     );
@@ -430,7 +606,7 @@ useEffect(() => {
                             )}
                           </div>
                           <div className="flex items-center">{ele.name}</div>
-                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
+                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages != 0 ? ele?.unreadMessages : <></>}</div>
                         </p>
                       )
                     );
@@ -488,7 +664,7 @@ useEffect(() => {
                             )}
                           </div>
                           <div className="flex items-center">{ele.name}</div>
-                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages!=0 ? ele?.unreadMessages : <></>}</div>
+                          <div className="text-xs ml-auto pr-2 text-xs ml-auto pr-5 flex items-center">{ele?.unreadMessages != 0 ? ele?.unreadMessages : <></>}</div>
                         </div>
                       )
                     );
@@ -497,7 +673,7 @@ useEffect(() => {
             </div>
           ) : (
             !hide && (
-              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3" style={{"display": isConnected? "": "none"}}>
+              <div className="fixed bg-white h-full w-screen bottom-0 z-40 pt-20 justify-center overflow-y-auto pb-3" style={{ "display": isConnected ? "" : "none" }}>
                 <div className={`w-4/5 mx-auto`}>
                   <div
                     onClick={() => {
@@ -522,7 +698,7 @@ useEffect(() => {
                       </div>
                     </div>
                     {announcementRoom?.name}
-                    <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages!=0 ? `(${announcementRoom?.unreadMessages})` : <></>}</div>
+                    <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages != 0 ? `(${announcementRoom?.unreadMessages})` : <></>}</div>
                   </div>
                   <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
                     Workshops
@@ -697,7 +873,7 @@ useEffect(() => {
                 <div className="bg-white flex w-full py-3 my-auto">
                   <div
                     className="w-8 h-8 mr-2 ml-6 py-auto object-fill rounded-xl my-auto"
-                    // style={{backgroundColor: "#0C72B0"}}
+                  // style={{backgroundColor: "#0C72B0"}}
                   >
                     {currRoomImage ? (
                       <div className="m">
@@ -727,87 +903,23 @@ useEffect(() => {
                                         </p> */}
               <div className="overflow-auto h-screen overflow-x-hidden">
                 {messages?.map((msg, idx, array) => {
-                  const date = unixToHumanReadable(msg.timestamp);
-                  const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
                   const user = msg.sentFrom.id === authUser?.id;
-                  const reply = (msg.replyTo != null) ? msg.replyTo: null;
+                  const reply = msg.replyTo || null;
+                  const whiteRect =
+                    (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx === array.length - 1;
+
                   return (
                     <div className="pl-7 mt-2" key={msg.timestamp}>
-                      {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
-                        <p
-                          className="text-gray-500 text-xs pl-10 w-full"
-                          style={{
-                            textAlign: `${user ? "right" : "left"}`,
-                          }}
-                        >
-                          {msg.sentFrom.name} | {date}
-                        </p>
-                      )}
-
+                      {renderTimestamp(msg, idx, array)}
                       <div className={`flex ${reply && user ? "flex-col" : ""}`}>
-                        {whiteRect && msg.sentFrom.id !== authUser?.id && (
-                          <div className="w-6 h-6 bg-white mr-2 mt-auto rounded">
-                            <Image src={ChatDP} />
-                          </div>
-                        )}
-
-                        {reply && user && <div className="flex w-full"><GetRepliedText msgID={reply.id} user={user} space={!whiteRect} /></div>}
-                        {reply && !user && (
-                          <div className="flex flex-col w-full">
-                            <GetRepliedText msgID={reply.id} user={user} space={!whiteRect} />
-                            <div className="flex w-full">
-                              <RenderMessageWithLinks
-                                message={msg.content}
-                                user={user}
-                                space={!whiteRect}
-                                name={msg.sentFrom.name}
-                                id={msg.id}
-                                text={msg.content}
-                                disableStatus={currRoom === "Announcements"}
-                                mobile={screenWidth < 768}
-                              />
-                              <div
-                                className={`ml-2 cursor-pointer mt-2 iconContainer`}
-                                style={{ color: "#a9a9a9" }}
-                                onClick={() => {
-                                  displayReply(msg.id, msg.sentFrom.name, msg.content);
-                                }}
-                              >
-                                <FontAwesomeIcon className="iconInvisible" icon={faReply} />
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        {(!reply || user) && (
-                          <>
-                            <RenderMessageWithLinks
-                              message={msg.content}
-                              user={user}
-                              space={!whiteRect}
-                              name={msg.sentFrom.name}
-                              id={msg.id}
-                              text={msg.content}
-                              disableStatus={currRoom === "Announcements"}
-                              mobile={screenWidth < 768}
-                            />
-                            {!user && (
-                              <div
-                                className="ml-2 cursor-pointer mt-2 iconContainer"
-                                style={{ color: "#a9a9a9" }}
-                                onClick={() => {
-                                  displayReply(msg.id, msg.sentFrom.name, msg.content);
-                                }}
-                              >
-                                <FontAwesomeIcon className="iconInvisible" icon={faReply} />
-                              </div>
-                            )}
-                          </>
-                        )}
+                        {renderAvatar(msg, idx, array)}
+                        {renderMessageContent(msg, user, reply, whiteRect)}
                       </div>
-                      {((idx+1)<messages.length && msg.timestamp < roomLastSeen && messages[idx+1].timestamp > roomLastSeen) && 
-                      <div className="text-center text-xs">
-                          Unread messages
-                      </div>}
+                      {idx + 1 < messages.length &&
+                        msg.timestamp < roomLastSeen &&
+                        messages[idx + 1].timestamp > roomLastSeen && (
+                          <div className="text-center text-xs">Unread messages</div>
+                        )}
                     </div>
                   );
                 })}
@@ -834,25 +946,26 @@ useEffect(() => {
                 {replyText && <div className="block w-fit">{truncateString(replyText)}</div>}
               </div>
               {currRoom !== "Announcements" && currRoom !== "" ? (
-                <div className="flex rounded-xl mx-2 border-2 mb-2 md:mb-2 mt-2 md:mx-4 bg-white max-h-16">
-                  <textarea
-                    className="w-full px-3 py-4 pl-5 outline-none bg-white rounded-xl"
-                    placeholder="Send message"
-                    style={{ resize: "none", overflow: "hidden" }}
-                    value={currMsg}
-                    onChange={(e) => {
-                      setCurrMsg(e.target.value);
-                    }}
-                  />
-                  <div
-                    className="bg-white cursor-pointer h-full pt-2 pb-2"
-                    onClick={() => {
-                      handleSend();
-                    }}
-                  >
-                    <Image src={Send} height={40} width={40} />
-                  </div>
-                </div>
+                // <div className="flex rounded-xl mx-2 border-2 mb-2 md:mb-2 mt-2 md:mx-4 bg-white max-h-16">
+                //   <textarea
+                //     className="w-full px-3 py-4 pl-5 outline-none bg-white rounded-xl"
+                //     placeholder="Send message"
+                //     style={{ resize: "none", overflow: "hidden" }}
+                //     value={currMsg}
+                //     onChange={(e) => {
+                //       setCurrMsg(e.target.value);
+                //     }}
+                //   />
+                //   <div
+                //     className="bg-white cursor-pointer h-full pt-2 pb-2"
+                //     onClick={() => {
+                //       handleSend();
+                //     }}
+                //   >
+                //     <Image src={Send} height={40} width={40} />
+                //   </div>
+                // </div>
+                <ChatInput onSend={handleSend} currMsg={currMsg} setCurrMsg={setCurrMsg} />
               ) : (
                 <div className="mt-2"></div>
               )}
@@ -862,7 +975,7 @@ useEffect(() => {
               <div className="border bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
                 <div
                   className="flex w-9 h-9 mr-2 ml-6 rounded-full border"
-                  // style={{backgroundColor: "#0C72B0"}}
+                // style={{backgroundColor: "#0C72B0"}}
                 >
                   {currRoomImage ? (
                     <Image
@@ -894,7 +1007,7 @@ useEffect(() => {
                 )}
               </div>
               <div className={`pt-32 overflow-x-hidden ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
-                {messages?.map((msg, idx, array) => {
+                {/* {messages?.map((msg, idx, array) => {
                   const date = unixToHumanReadable(msg.timestamp);
                   const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
                   const user = msg.sentFrom.id === authUser?.id;
@@ -911,9 +1024,6 @@ useEffect(() => {
                           {msg.sentFrom.name} | {date}
                         </p>
                       )}
-                      {/* <p className="whitespace-pre-wrap">
-                                            {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
-                                        </p> */}
                       <div className={`flex ${reply && user ? "flex-col" : ""}`}>
                         {whiteRect && msg.sentFrom.id !== authUser?.id && (
                           <div className="w-6 h-6 bg-white mr-2 mt-auto rounded">
@@ -925,14 +1035,14 @@ useEffect(() => {
                         {reply && !user && (
                           <div className="flex flex-col">
                             <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
-                            <div className="flex">
+                            {msg.text && <div className="flex">
                               <RenderMessageWithLinks
-                                message={msg.content}
+                                message={msg.text?.content}
                                 user={user}
                                 space={!whiteRect}
                                 name={msg.sentFrom.name}
                                 id={msg.id}
-                                text={msg.content}
+                                text={msg.text?.content}
                                 disableStatus={currRoom === "Announcements"}
                                 mobile={screenWidth < 768}
                               />
@@ -940,12 +1050,12 @@ useEffect(() => {
                                 className="ml-2 cursor-pointer mt-2"
                                 style={{ color: "#a9a9a9" }}
                                 onClick={() => {
-                                  displayReply(msg.id, msg.sentFrom.name, msg.content);
+                                  displayReply(msg.id, msg.sentFrom.name, msg.text?.content);
                                 }}
                               >
                                 <FontAwesomeIcon icon={faReply} />
                               </div>
-                            </div>
+                            </div>}
                           </div>
                         )}
                         {(!reply || user) && (
@@ -980,7 +1090,7 @@ useEffect(() => {
                       </div>}
                     </div>
                   );
-                })}
+                })} */}
                 <div ref={lastMessageRef}></div>
               </div>
               <div className="flex flex-col bg-white px-8 rounded-2xl mx-6 w-100">
@@ -1017,7 +1127,7 @@ useEffect(() => {
                   <div
                     className="bg-white cursor-pointer my-auto mr-2"
                     onClick={() => {
-                      handleSend();
+                      // handleSend();
                     }}
                     style={{ marginTop: "1%" }}
                   >
