@@ -3,7 +3,7 @@ import { IPollBody, IPollOptionBody } from "../../apis/interfaces/message"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-export function Poll({ pollBody, voteFunc, chatId }: { pollBody: IPollBody, voteFunc: (chatId: number, optionId: number) => void, chatId: number }) {
+export function Poll({ pollBody, voteFunc, chatId, isUser, space }: { pollBody: IPollBody, voteFunc: (chatId: number, optionId: number) => void, chatId: number, isUser: boolean, space: boolean }) {
   const [hasVoted, setHasVoted] = useState(false);
 
   useEffect(() => {
@@ -32,9 +32,9 @@ export function Poll({ pollBody, voteFunc, chatId }: { pollBody: IPollBody, vote
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-2">{pollBody.title}</h2>
-      <p className="text-gray-600 mb-6">{pollBody.description}</p>
+    <div className="rounded-2xl shadow p-6 w-64" style={{ backgroundColor:  `${isUser ? "#95C5E2" : "#0C72B0"}`, marginLeft: `${isUser ? "auto" : space ? "2rem" : "0rem"}` }}>
+      <h2 className="text-xl font-bold text-white mb-2">{pollBody.title}</h2>
+      <p className="text-white mb-6">{pollBody.description}</p>
 
       <div className="space-y-3">
         {pollBody.options.map((option) => (
@@ -42,28 +42,39 @@ export function Poll({ pollBody, voteFunc, chatId }: { pollBody: IPollBody, vote
             key={option.id}
             onClick={() => handleVote(option.id)}
             disabled={hasVoted}
-            className="w-full text-left p-3 border rounded hover:bg-gray-50 relative"
+            className="w-full text-left p-3 rounded-lg hover:bg-gray-50 relative"
+            style={{ backgroundColor: "#4b9cce" }}
           >
-            <div className="flex justify-between relative z-10">
+            <div className="flex justify-between relative z-10 text-white">
+              <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-white mr-3">
+                <div
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${
+                    pollBody.lastVoted === option.id ? 'bg-white scale-100' : 'bg-transparent scale-0'
+                  }`}
+                />
+              </div>
               <span>{option.value}</span>
               {hasVoted && (
                 <>
-                  {pollBody.lastVoted==option.id && <FontAwesomeIcon icon={faCheck} />}
-                  <span className="text-blue-600">{getPercentage(option.numVotes)}%</span>
+                  {/* {pollBody.lastVoted==option.id && <FontAwesomeIcon icon={faCheck} />} */}
+                  <span className="text-white">{getPercentage(option.numVotes)}%</span>
                 </>
               )}
             </div>
             {hasVoted && (
               <div
-                className="absolute inset-0 bg-blue-50 rounded"
-                style={{ width: `${getPercentage(option.numVotes)}%` }}
+                className="absolute inset-0 rounded-lg"
+                style={{ backgroundColor: "#26668c", 
+                  width: `${getPercentage(option.numVotes)}%` ,
+                  border: `${pollBody.lastVoted === option.id ? "1px solid #ffffff" : "none"}`
+                }}
               />
             )}
           </button>
         ))}
       </div>
 
-      <div className="mt-4 text-sm text-gray-500 text-center">
+      <div className="mt-4 text-sm text-white text-center">
         {totalVotes} votes
       </div>
     </div>

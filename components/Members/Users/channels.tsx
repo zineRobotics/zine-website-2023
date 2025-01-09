@@ -5,7 +5,7 @@ import { useAuth } from "../../../context/authContext";
 import { getRoom, fetchRoomMessages, fetchRoomsByUser, IRoomData, IMessageData, updateLastSeen, lastSeen, getAnnouncementRoom } from "../../../apis/room";
 import { IMessage, IPollOptionBody, FileState, IPollCreateBody } from "../../../apis/interfaces/message"
 import Image from "next/image";
-import Send from "../../../images/icons/Send.png";
+// import Send from "../../../images/icons/Send.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faLeftLong, faReply } from "@fortawesome/free-solid-svg-icons";
 import SockJS from "sockjs-client";
@@ -14,6 +14,8 @@ import ChatDP from "../../../images/admin/logo.png";
 import { Poll } from "../../Chat";
 import { FileLink } from "../../Chat/file";
 import { ChatInput } from "../../Chat/chatInput";
+import { ActiveUsers } from "../../Chat/activeUsers";
+import { ArrowLeft } from 'lucide-react';
 
 
 const Channels = () => {
@@ -39,7 +41,8 @@ const Channels = () => {
   const [stompClient, setStompClient] = useState<any>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [roomLastSeen, setRoomLastSeen] = useState<number>(0);
-
+  const [activeUsers, setActiveUsers] = useState<string[]>([]);
+  
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
   };
@@ -75,9 +78,35 @@ const Channels = () => {
         } catch (error) {
           console.error("Error parsing message:", error, msg);
         }
+        },
+        { roomId: currRoomID }
+      );
+    }
 
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
+  }, [currRoomID]);
 
-      });
+  useEffect(() => {
+    let subscription: any;
+    if (currRoomID && stompClient !== null) {
+      subscription = stompClient.subscribe(
+        "/room/" + currRoomID + "/active-users",
+        (msg: any) => {
+          try {
+            let res = JSON.parse(msg.body);
+
+            console.log("users", res);
+            setActiveUsers(res);
+          } catch (error) {
+            console.error("Error parsing message:", error, msg);
+          }
+        },
+        { roomId: currRoomID }
+      );
     }
 
     return () => {
@@ -125,7 +154,7 @@ const Channels = () => {
       const client = new Client({
         webSocketFactory: () =>
           new SockJS(process.env.NEXT_PUBLIC_API_URL + "/ws", null, {}),
-        connectHeaders: { stage: "test" },
+        connectHeaders: { "Authorization": token },
         debug: (str: any) => {
           console.log(str);
         },
@@ -409,7 +438,7 @@ const Channels = () => {
         {msg.text?.content && (
           <div className="flex w-full">
             <RenderMessageWithLinks
-              message={msg.text?.content}
+              message={msg.text!.content}
               user={user}
               space={!whiteRect}
               name={msg.sentFrom.name}
@@ -429,7 +458,7 @@ const Channels = () => {
         )}
         {msg.poll != null && (
           <div className={`flex w-full ${user ? "justify-end" : "justify-start"}`}>
-            <Poll pollBody={msg.poll} voteFunc={votePoll} chatId={msg.id} />
+            <Poll pollBody={msg.poll} voteFunc={votePoll} chatId={msg.id} isUser={user} space={!whiteRect} />
           </div>
 
         )}
@@ -700,9 +729,10 @@ const Channels = () => {
                     {announcementRoom?.name}
                     <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages != 0 ? `(${announcementRoom?.unreadMessages})` : <></>}</div>
                   </div>
-                  <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
+                  {rooms.filter(room => room.type == 'workshop').length != 0 &&
+                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
                     Workshops
-                  </div>
+                  </div>}
                   {rooms &&
                     rooms.map((ele) => {
                       if (ele.id === null) return; //if room does not exist
@@ -752,9 +782,10 @@ const Channels = () => {
                         )
                       );
                     })}
-                  <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
+                  {rooms.filter(room => room.type == 'group').length != 0 &&
+                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
                     Groups
-                  </div>
+                  </div>}
                   {rooms &&
                     rooms.map((ele) => {
                       if (ele.id === null) return; //if room does not exist
@@ -804,9 +835,10 @@ const Channels = () => {
                         )
                       );
                     })}
-                  <div className="font-normal w-3/5 mt-5" style={{ color: "#8D989F" }}>
-                    Rooms
-                  </div>
+                  {rooms.filter(room => room.type == 'project').length != 0 &&
+                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                    Projects
+                  </div>}
                   {rooms &&
                     rooms.map((ele) => {
                       if (ele.id === null) return; //if room does not exist
@@ -898,6 +930,7 @@ const Channels = () => {
                   </div>
                 </div>
               )}
+              {currRoom != "" ? <ActiveUsers users={activeUsers} /> : <></>}
               {/* <p className="whitespace-pre-wrap">
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
                                         </p> */}
@@ -945,26 +978,7 @@ const Channels = () => {
                 )}
                 {replyText && <div className="block w-fit">{truncateString(replyText)}</div>}
               </div>
-              {currRoom !== "Announcements" && currRoom !== "" ? (
-                // <div className="flex rounded-xl mx-2 border-2 mb-2 md:mb-2 mt-2 md:mx-4 bg-white max-h-16">
-                //   <textarea
-                //     className="w-full px-3 py-4 pl-5 outline-none bg-white rounded-xl"
-                //     placeholder="Send message"
-                //     style={{ resize: "none", overflow: "hidden" }}
-                //     value={currMsg}
-                //     onChange={(e) => {
-                //       setCurrMsg(e.target.value);
-                //     }}
-                //   />
-                //   <div
-                //     className="bg-white cursor-pointer h-full pt-2 pb-2"
-                //     onClick={() => {
-                //       handleSend();
-                //     }}
-                //   >
-                //     <Image src={Send} height={40} width={40} />
-                //   </div>
-                // </div>
+              {(currRoom && currRoom != announcementRoom?.name) ? (
                 <ChatInput onSend={handleSend} currMsg={currMsg} setCurrMsg={setCurrMsg} />
               ) : (
                 <div className="mt-2"></div>
@@ -972,7 +986,7 @@ const Channels = () => {
             </div>
           ) : (
             <div className={`bg-gray-100 w-screen flex flex-col h-dvh`}>
-              <div className="border bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
+              <div className="border bg-white flex fixed w-full top-12 z-30 items-center py-5 my-auto">
                 <div
                   className="flex w-9 h-9 mr-2 ml-6 rounded-full border"
                 // style={{backgroundColor: "#0C72B0"}}
@@ -1002,95 +1016,34 @@ const Channels = () => {
                       setHide(false);
                     }}
                   >
-                    <FontAwesomeIcon size="xl" icon={faLeftLong} />
+                    <ArrowLeft className="w-16 h-6 cursor-pointer hover:text-blue-900 transition-colors" />
                   </div>
                 )}
+                <div className="fixed top-32 right-2 left-2">
+                  <ActiveUsers users={activeUsers} />
+                </div>
               </div>
               <div className={`pt-32 overflow-x-hidden ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
-                {/* {messages?.map((msg, idx, array) => {
+                {messages?.map((msg, idx, array) => {
                   const date = unixToHumanReadable(msg.timestamp);
                   const whiteRect = (idx + 1 < array.length && array[idx + 1].sentFrom.id !== msg.sentFrom.id) || idx == array.length - 1;
                   const user = msg.sentFrom.id === authUser?.id;
                   const reply = msg.replyTo?.id;
                   return (
                     <div className="pl-7 mt-2" key={msg.timestamp}>
-                      {((idx > 0 && array[idx - 1].sentFrom.id !== msg.sentFrom.id) || idx == 0) && (
-                        <p
-                          className="text-gray-500 text-xs pl-10 w-full"
-                          style={{
-                            textAlign: `${user ? "right" : "left"}`,
-                          }}
-                        >
-                          {msg.sentFrom.name} | {date}
-                        </p>
-                      )}
+                      {renderTimestamp(msg, idx, array)}
                       <div className={`flex ${reply && user ? "flex-col" : ""}`}>
-                        {whiteRect && msg.sentFrom.id !== authUser?.id && (
-                          <div className="w-6 h-6 bg-white mr-2 mt-auto rounded">
-                            <Image src={ChatDP} />
-                          </div>
-                        )}
-
-                        {reply && user && <div className="flex w-fit"><GetRepliedText msgID={reply} user={user} space={!whiteRect} /></div>}
-                        {reply && !user && (
-                          <div className="flex flex-col">
-                            <GetRepliedText msgID={reply} user={user} space={!whiteRect} />
-                            {msg.text && <div className="flex">
-                              <RenderMessageWithLinks
-                                message={msg.text?.content}
-                                user={user}
-                                space={!whiteRect}
-                                name={msg.sentFrom.name}
-                                id={msg.id}
-                                text={msg.text?.content}
-                                disableStatus={currRoom === "Announcements"}
-                                mobile={screenWidth < 768}
-                              />
-                              <div
-                                className="ml-2 cursor-pointer mt-2"
-                                style={{ color: "#a9a9a9" }}
-                                onClick={() => {
-                                  displayReply(msg.id, msg.sentFrom.name, msg.text?.content);
-                                }}
-                              >
-                                <FontAwesomeIcon icon={faReply} />
-                              </div>
-                            </div>}
-                          </div>
-                        )}
-                        {(!reply || user) && (
-                          <>
-                            <RenderMessageWithLinks
-                              message={msg.content}
-                              user={user}
-                              space={!whiteRect}
-                              name={msg.sentFrom.name}
-                              id={msg.id}
-                              text={msg.content}
-                              disableStatus={currRoom === "Announcements"}
-                              mobile={screenWidth < 768}
-                            />
-                            {!user && (
-                              <div
-                                className="ml-2 cursor-pointer mt-2"
-                                style={{ color: "#a9a9a9" }}
-                                onClick={() => {
-                                  displayReply(msg.id, msg.sentFrom.name, msg.content);
-                                }}
-                              >
-                                <FontAwesomeIcon icon={faReply} />
-                              </div>
-                            )}
-                          </>
-                        )}
+                        {renderAvatar(msg, idx, array)}
+                        {renderMessageContent(msg, user, reply, whiteRect)}
                       </div>
-                      {((idx+1)<messages.length && msg.timestamp < roomLastSeen && messages[idx+1].timestamp > roomLastSeen) && 
-                      <div className="text-center text-xs">
-                          Unread messages
-                      </div>}
+                      {idx + 1 < messages.length &&
+                        msg.timestamp < roomLastSeen &&
+                        messages[idx + 1].timestamp > roomLastSeen && (
+                          <div className="text-center text-xs">Unread messages</div>
+                        )}
                     </div>
                   );
-                })} */}
+                })}
                 <div ref={lastMessageRef}></div>
               </div>
               <div className="flex flex-col bg-white px-8 rounded-2xl mx-6 w-100">
@@ -1113,27 +1066,8 @@ const Channels = () => {
                 )}
                 {replyText && <div className="block w-fit">{truncateString(replyText)}</div>}
               </div>
-              {currRoom !== "Announcements" && currRoom !== "" ? (
-                <div className="max-h-14 flex rounded-xl mx-2 overflow-hidden border-2 mb-2 md:mb-2 mt-2 md:mx-4 bg-white">
-                  <textarea
-                    className="w-full px-3 py-4 pl-5 outline-none bg-white rounded-xl"
-                    placeholder="Send message"
-                    style={{ resize: "none", overflow: "hidden" }}
-                    value={currMsg}
-                    onChange={(e) => {
-                      setCurrMsg(e.target.value);
-                    }}
-                  />
-                  <div
-                    className="bg-white cursor-pointer my-auto mr-2"
-                    onClick={() => {
-                      // handleSend();
-                    }}
-                    style={{ marginTop: "1%" }}
-                  >
-                    <Image src={Send} height={40} width={40} />
-                  </div>
-                </div>
+              {currRoom != announcementRoom?.name ? (
+                <ChatInput onSend={handleSend} currMsg={currMsg} setCurrMsg={setCurrMsg} />
               ) : (
                 <div className="mt-2"></div>
               )}

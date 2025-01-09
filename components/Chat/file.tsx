@@ -4,18 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 export function FileLink({ name, url, description }: IFileBody) {
+  const isImage = (url: string) => {
+    return /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(url);
+  };
+  
     return (
         <a 
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="block p-4 bg-white rounded-lg shadow hover:shadow-md transition-all hover:bg-gray-50"
+          className="block w-80 p-4 bg-white rounded-lg shadow hover:shadow-md transition-all hover:bg-gray-50"
         >
           <div className="flex items-center gap-3">
-            <FontAwesomeIcon 
+            {/* <FontAwesomeIcon 
               icon={faFileAlt} 
               className="text-blue-500 text-xl"
-            />
+            /> */}
             <div className="flex-grow">
               <div className="flex items-center gap-2">
                 <h3 className="text-lg font-semibold text-blue-600">{name}</h3>
@@ -26,6 +30,9 @@ export function FileLink({ name, url, description }: IFileBody) {
               </div>
               {description && (
                 <p className="text-gray-600 text-sm mt-1">{description}</p>
+              )}
+              {isImage(url) && (
+                <img src={url} alt={name} className="w-full h-auto mt-2 object-cover rounded" />
               )}
             </div>
           </div>
