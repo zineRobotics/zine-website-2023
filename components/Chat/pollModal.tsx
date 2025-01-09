@@ -98,6 +98,7 @@ export function PollModal({ isOpen, onClose, onSubmit }: PollModalProps) {
                   type="button"
                   onClick={() => handleRemoveOption(index)}
                   className="p-0 text-gray-400 hover:text-red-500"
+                  
                 >
                   <Trash2 className="w-5 h-5"/>
                 </button>

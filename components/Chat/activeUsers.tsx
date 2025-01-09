@@ -22,7 +22,7 @@ export function ActiveUsers({ users }: ActiveUsersProps) {
       </button>
       
       <div className={`absolute top-full left-2 right-2 mt-2 bg-white rounded-lg shadow-lg z-50 ${isOpen ? 'block' : 'hidden'}`}>
-        <div className="p-2 space-y-2">
+        <div className="p-2 space-y-2 max-h-64 overflow-y-auto">
           {users.map((user) => (
             <div
               key={user}

@@ -14,6 +14,7 @@ import ChatDP from "../../../images/admin/logo.png";
 import { Poll } from "../../Chat";
 import { FileLink } from "../../Chat/file";
 import { ChatInput } from "../../Chat/chatInput";
+import { ActiveUsers } from "../../Chat/activeUsers";
 import { ArrowLeft } from 'lucide-react';
 
 
@@ -40,7 +41,8 @@ const Channels = () => {
   const [stompClient, setStompClient] = useState<any>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [roomLastSeen, setRoomLastSeen] = useState<number>(0);
-
+  const [activeUsers, setActiveUsers] = useState<string[]>([]);
+  
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
   };
@@ -76,9 +78,35 @@ const Channels = () => {
         } catch (error) {
           console.error("Error parsing message:", error, msg);
         }
+        },
+        { roomId: currRoomID }
+      );
+    }
 
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
+  }, [currRoomID]);
 
-      }, {roomId: currRoomID});
+  useEffect(() => {
+    let subscription: any;
+    if (currRoomID && stompClient !== null) {
+      subscription = stompClient.subscribe(
+        "/room/" + currRoomID + "/active-users",
+        (msg: any) => {
+          try {
+            let res = JSON.parse(msg.body);
+
+            console.log("users", res);
+            setActiveUsers(res);
+          } catch (error) {
+            console.error("Error parsing message:", error, msg);
+          }
+        },
+        { roomId: currRoomID }
+      );
     }
 
     return () => {
@@ -126,7 +154,7 @@ const Channels = () => {
       const client = new Client({
         webSocketFactory: () =>
           new SockJS(process.env.NEXT_PUBLIC_API_URL + "/ws", null, {}),
-        connectHeaders: { stage: "test" },
+        connectHeaders: { "Authorization": token },
         debug: (str: any) => {
           console.log(str);
         },
@@ -902,6 +930,7 @@ const Channels = () => {
                   </div>
                 </div>
               )}
+              {currRoom != "" ? <ActiveUsers users={activeUsers} /> : <></>}
               {/* <p className="whitespace-pre-wrap">
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
                                         </p> */}
@@ -990,6 +1019,9 @@ const Channels = () => {
                     <ArrowLeft className="w-16 h-6 cursor-pointer hover:text-blue-900 transition-colors" />
                   </div>
                 )}
+                <div className="fixed top-32 right-2 left-2">
+                  <ActiveUsers users={activeUsers} />
+                </div>
               </div>
               <div className={`pt-32 overflow-x-hidden ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
                 {messages?.map((msg, idx, array) => {
