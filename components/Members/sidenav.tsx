@@ -139,7 +139,7 @@ const SideNav = () => {
                  Channels
                 </p>
               </Link>
-              <Link href="/admin/hackathon">
+              <Link href="/admin/forms">
                 <p
                   className={`text-xl hover:text-gray-300 cursor-pointer ${
                     page === "hackathon"
@@ -147,7 +147,7 @@ const SideNav = () => {
                       : ""
                   }`}
                 >
-                 Hackathon Registrations
+                 Forms
                 </p>
               </Link>
             </div>
@@ -196,6 +196,24 @@ const SideNav = () => {
                     }}
                   >
                     Channels
+                  </p>
+                </Link>
+              </div>
+              <div
+                className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${
+                  page === "channels"
+                    ? "bg-opacity-20"
+                    : "bg-opacity-5"
+                }`}
+              >
+                <Link href="/users/forms">
+                  <p
+                    className={`text-white text-xl cursor-pointer font-extrabold opacity-100`}
+                    onClick={() => {
+                      setHide(true);
+                    }}
+                  >
+                    Forms
                   </p>
                 </Link>
               </div>
