@@ -61,6 +61,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
       }
       console.log(response.data);
       localStorage.setItem("token", jwt);
+      // document.cookie = `token=${jwt}; path=/;`;
       getUserDetails().then((res) => {
         const userData = res as IUser;
         setAuthorizationHeader(jwt)
