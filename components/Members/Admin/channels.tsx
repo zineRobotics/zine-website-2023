@@ -14,7 +14,7 @@ import ChatDP from "../../../images/admin/logo.png";
 import { Poll } from "../../Chat";
 import { FileLink } from "../../Chat/file";
 import { ChatInput } from "../../Chat/chatInput";
-
+import { ActiveUsers } from "../../Chat/activeUsers";
 
 const Channels = () => {
   type KeyValueArray = Array<{
@@ -39,6 +39,7 @@ const Channels = () => {
   const [stompClient, setStompClient] = useState<any>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [roomLastSeen, setRoomLastSeen] = useState<number>(0);
+  const [activeUsers, setActiveUsers] = useState<string[]>([]);
 
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
@@ -87,6 +88,27 @@ const Channels = () => {
     };
   }, [currRoomID]);
 
+  useEffect(() => {
+    let subscription: any;
+    if (currRoomID && stompClient !== null) {
+      subscription = stompClient.subscribe("/room/" + currRoomID + "/active-users", (msg: any) => {
+        try {
+          let res = JSON.parse(msg.body);
+
+          console.log("users", res);
+          setActiveUsers(res);
+        } catch (error) {
+          console.error("Error parsing message:", error, msg);
+        }
+      }, { roomId: currRoomID });
+    }
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
+  }, [currRoomID]);
+
   const votePoll = (chatId: number, optionId: number) => {
     console.log("clicked on poll");
 
@@ -125,7 +147,7 @@ const Channels = () => {
       const client = new Client({
         webSocketFactory: () =>
           new SockJS(process.env.NEXT_PUBLIC_API_URL + "/ws", null, {}),
-        connectHeaders: { stage: "test" },
+        connectHeaders: { stage: "test", "Authorization": token },
         debug: (str: any) => {
           console.log(str);
         },
@@ -184,7 +206,7 @@ const Channels = () => {
   const handleSend = async (type: string, fileState: FileState | null, pollData: IPollCreateBody) => {
     if (!authUser) return;
     if (type === "text") {
-      if(!currMsg) return;
+      if (!currMsg) return;
       const msgBody = {
         type: "text",
         sentFrom: authUser?.id,
@@ -213,7 +235,7 @@ const Channels = () => {
       if (msgBody.sentFrom) {
         stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
       }
-    } else if(type == "poll" && pollData != null) {
+    } else if (type == "poll" && pollData != null) {
       const msgBody = {
         type: "poll",
         sentFrom: authUser.id,
@@ -222,7 +244,7 @@ const Channels = () => {
         poll: pollData
       };
       console.log("sent", msgBody);
-      
+
       if (msgBody.sentFrom) {
         stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
       }
@@ -333,7 +355,7 @@ const Channels = () => {
 
   const displayRoomMessages = (id: number) => {
     fetchRoomMessages(id).then((res) => {
-      // console.log(res);
+      console.log("msgs", res);
       setMessages(res);
     });
   };
@@ -439,23 +461,6 @@ const Channels = () => {
       </div>
 
     );
-    // }
-
-    // return (
-    //   <>
-    //     {msg.text && <RenderMessageWithLinks
-    //       message={msg.text.content}
-    //       user={user}
-    //       space={!whiteRect}
-    //       name={msg.sentFrom.name}
-    //       id={msg.id}
-    //       text={msg.text!.content}
-    //       disableStatus={currRoom === "Announcements"}
-    //       mobile={screenWidth < 768}
-    //     />}
-    //     {!user && <ReplyIcon onClick={() => displayReply(msg.id, msg.sentFrom.name, msg.text!.content)} />}
-    //   </>
-    // );
   };
 
   const ReplyIcon: React.FC<{ onClick: () => void }> = ({ onClick }) => (
@@ -896,13 +901,20 @@ const Channels = () => {
                   <div className="font-bold h-fit text-xl" style={{ color: "#0C72B0" }}>
                     {currRoom}
                   </div>
+
                 </div>
+
               )}
+              <ActiveUsers users={activeUsers} />
               {/* <p className="whitespace-pre-wrap">
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
                                         </p> */}
               <div className="overflow-auto h-screen overflow-x-hidden">
-                {messages?.map((msg, idx, array) => {
+                { messages?.map((msg, idx, array) => {
+                  if (msg.deleted) {
+                    return null;
+                  }
+
                   const user = msg.sentFrom.id === authUser?.id;
                   const reply = msg.replyTo || null;
                   const whiteRect =
@@ -923,6 +935,7 @@ const Channels = () => {
                     </div>
                   );
                 })}
+
                 <div ref={lastMessageRef}></div>
               </div>
               <div className="flex flex-col bg-white px-8 rounded-2xl mx-6 w-100">

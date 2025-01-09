@@ -13,6 +13,7 @@ export interface IMessage {
   replyTo: {
     id: number,
   };
+  deleted: boolean;
 }
 
 export interface ITextBody {
