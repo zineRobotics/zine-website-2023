@@ -910,7 +910,7 @@ const Channels = () => {
                                             {msg.message.split(/\s+/g).map(word => word.match(URL_REGEX) ? <><a href={word} className="text-blue-500 underline" target="_blank">{word}</a>{" "}</> : word + " ")}
                                         </p> */}
               <div className="overflow-auto h-screen overflow-x-hidden">
-                { messages?.map((msg, idx, array) => {
+                {messages?.map((msg, idx, array) => {
                   if (msg.deleted) {
                     return null;
                   }
@@ -985,39 +985,45 @@ const Channels = () => {
             </div>
           ) : (
             <div className={`bg-gray-100 w-screen flex flex-col h-dvh`}>
-              <div className="border bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
-                <div
-                  className="flex w-9 h-9 mr-2 ml-6 rounded-full border"
-                // style={{backgroundColor: "#0C72B0"}}
-                >
-                  {currRoomImage ? (
-                    <Image
-                      height={50}
-                      width={50}
-                      src={currRoomImage}
-                      className="rounded-full"
-                      style={{
-                        backgroundColor: "#0C72B0",
+              <div>
+                <div className="border bg-white flex fixed w-full top-12 z-30 align-center py-5 my-auto">
+                  <div
+                    className="flex w-9 h-9 mr-2 ml-6 rounded-full border"
+                  // style={{backgroundColor: "#0C72B0"}}
+                  >
+                    {currRoomImage ? (
+                      <Image
+                        height={50}
+                        width={50}
+                        src={currRoomImage}
+                        className="rounded-full"
+                        style={{
+                          backgroundColor: "#0C72B0",
+                        }}
+                      />
+                    ) : (
+                      <Image src={ChatDP} />
+                    )}
+                  </div>
+                  <div className="font-bold text-xl py-auto" style={{ color: "#0C72B0" }}>
+                    {currRoom}
+                  </div>
+                  {hide && (
+                    <div
+                      className="font-bold text-xl ml-auto mr-3"
+                      style={{ color: "#0C72B0" }}
+                      onClick={() => {
+                        setHide(false);
                       }}
-                    />
-                  ) : (
-                    <Image src={ChatDP} />
+                    >
+                      <FontAwesomeIcon size="xl" icon={faLeftLong} />
+                    </div>
                   )}
                 </div>
-                <div className="font-bold text-xl py-auto" style={{ color: "#0C72B0" }}>
-                  {currRoom}
+                <div className="fixed top-32 right-0 left-0">
+
+                  <ActiveUsers users={activeUsers} />
                 </div>
-                {hide && (
-                  <div
-                    className="font-bold text-xl ml-auto mr-3"
-                    style={{ color: "#0C72B0" }}
-                    onClick={() => {
-                      setHide(false);
-                    }}
-                  >
-                    <FontAwesomeIcon size="xl" icon={faLeftLong} />
-                  </div>
-                )}
               </div>
               <div className={`pt-32 overflow-x-hidden ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
                 {/* {messages?.map((msg, idx, array) => {
