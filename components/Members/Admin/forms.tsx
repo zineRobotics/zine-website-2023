@@ -5,7 +5,7 @@ import styles from "../../../constants/styles";
 import { useEffect, useState } from "react";
 import { Control, set, useFieldArray, useForm } from "react-hook-form";
 import Modal from "../modal";
-import { ICreateRegistrationForm, IRegistrationForm, TextQuestion, PollQuestion, PollBody, getAllRegistrationForms, getRegistrationForm, deleteRegistrationForms, createRegistrationForm, IFormRetrievedData } from "../../../apis/forms";
+import { ICreateRegistrationForm, IRegistrationForm, TextQuestion, PollQuestion, PollBody, getFormResponses, getAllRegistrationForms, updateRegistrationForm,getRegistrationForm, deleteRegistrationForms, createRegistrationForm, IFormRetrievedData } from "../../../apis/forms";
 import { getAllEvents, IEventData } from "../../../apis/events";
 
 interface IState {
@@ -26,6 +26,9 @@ const RegistrationForms = () => {
     const [members, setMembers] = useState<IRegistrationForm[]>([]);
     const [forms, setForms] = useState<IFormRetrievedData[]>([]);
     const [events, setEvents] = useState<IEventData[]>([]);
+    const [activeToggleForm, setActiveToggleForm] = useState<IFormRetrievedData | null>(null);
+    const [responsesForm, setResponsesForm] = useState<IFormRetrievedData | null>(null);
+    const [responseData, setResponseData] = useState<string[][]>([]);
 
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<ICreateRegistrationForm>();
     const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
@@ -50,6 +53,159 @@ const RegistrationForms = () => {
         })
     }
 
+    const parseCSV = (csvString: string) => {
+        return csvString.split('\n').map(row => row.split(',').map(cell => cell.trim()));
+      };
+    
+      // Function to fetch and display responses
+      const handleViewResponses = async (form: IFormRetrievedData) => {
+        try {
+          const csvData = await getFormResponses(form.id);
+          if (csvData) {
+            const parsedData = parseCSV(csvData);
+            setResponseData(parsedData);
+            setResponsesForm(form);
+          } else {
+            toast.error("Failed to fetch responses");
+          }
+        } catch (error) {
+          toast.error("An error occurred while fetching responses");
+        }
+      };
+    
+      // New modal component for responses
+      const ResponsesModal = () => (
+        <Modal isOpen={responsesForm !== null} onClose={() => setResponsesForm(null)}>
+          <div className="p-4 md:p-5">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-gray-900">
+                Responses for {responsesForm?.name}
+              </h3>
+              <button
+                onClick={() => setResponsesForm(null)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="max-h-[70vh] overflow-auto">
+              {responseData.length > 0 ? (
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50 sticky top-0">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        No.
+                      </th>
+                      {responseData[0]?.map((header, index) => (
+                        <th
+                          key={index}
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {responseData.slice(1).map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        <td className="px-6 py-4 whitespace-normal text-sm text-gray-900">
+                          {rowIndex + 1}
+                        </td>
+                        {row.map((cell, cellIndex) => (
+                          <td
+                            key={cellIndex}
+                            className="px-6 py-4 whitespace-normal text-sm text-gray-900"
+                          >
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                    
+                </table>
+              ) : (
+                <p className="text-center text-gray-500 py-4">No responses available</p>
+              )}
+            </div>
+          </div>
+        </Modal>
+      );
+
+    const handleActiveToggle = async (form: IFormRetrievedData) => {
+        const { questions, ...updatedForm } = { ...form, active: !form.active };
+        
+        try {
+          const result = await updateRegistrationForm(updatedForm);
+          if (result) {
+            setForms(forms.map(f => f.id === form.id ? { ...f, active: !f.active } : f));
+            toast.success(`Form ${form.name} ${!form.active ? 'activated' : 'deactivated'} successfully`);
+          } else {
+            toast.error("Failed to update form status");
+          }
+        } catch (error) {
+          toast.error("An error occurred. Contact zine team");
+        }
+        setActiveToggleForm(null);
+      };
+
+      const tableRow = (u: IFormRetrievedData, index: number) => (
+        <tr key={u.id} className="text-left border-black text-sm">
+          <td className="border p-1 text-center">{index + 1}</td>
+          <td className="border p-1">{u.name}</td>
+          <td className="border p-1">
+            <button 
+              className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-lg mr-1"
+              onClick={() => handleViewResponses(u)}
+            >
+              View Responses
+            </button>
+            <button 
+              className={`py-1 px-2 rounded-lg mr-1 text-white ${u.active ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'}`}
+              onClick={() => setActiveToggleForm(u)}
+            >
+              {u.active ? 'Active' : 'Inactive'}
+            </button>
+            <button 
+              className="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-lg"
+              onClick={() => setState({...state, deleteForm: u})}
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      );
+    
+
+
+      const ActiveToggleModal = () => (
+        <Modal isOpen={activeToggleForm !== null} onClose={() => setActiveToggleForm(null)}>
+          <div className="p-4 md:p-5 text-center">
+            <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </svg>
+            <h3 className="mb-5 text-lg font-normal text-gray-500">
+              Are you sure you want to {activeToggleForm?.active ? 'deactivate' : 'activate'} {activeToggleForm?.name} form?
+            </h3>
+            <button 
+              type="button" 
+              className={`text-white ${activeToggleForm?.active ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-green-500 hover:bg-green-600'} font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2`}
+              onClick={() => handleActiveToggle(activeToggleForm!)}
+            >
+              {activeToggleForm?.active ? 'Deactivate' : 'Activate'}
+            </button>
+            <button 
+              type="button" 
+              className="text-gray-500 bg-white hover:bg-gray-100 rounded-lg border ml-2 border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900" 
+              onClick={() => setActiveToggleForm(null)}
+            >
+              Cancel
+            </button>
+          </div>
+        </Modal>
+      );
     // const onEdit = async (data: ICreateRegistrationForm) => {
         
     //     // let imageexists = data.image[0]
@@ -278,22 +434,11 @@ const RegistrationForms = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    forms
-                                        .filter(u => !state.search || u.name.toLowerCase().includes(state.search!.toLowerCase()))
-                                        .map((u, index) => (
-                                            <tr key={u.id} className="text-left border-black text-sm">
-                                                <td className="border p-1 text-center">{index + 1}</td>
-                                                <td className="border p-1">{u.name}</td>
-                                                {/* <td className="border p-1 text-center">{ u.members?.length}</td> */} 
-                                                <td className="border p-1">
-                                                    {/* <button className="bg-yellow-500 text-white py-1 px-2 rounded-lg" onClick={() => formEdit(u)}>Edit</button> */}
-                                                    <button className="bg-red-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => setState({...state, deleteForm: u})}>Delete</button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                }
-                            </tbody>
+        {forms
+          .filter(u => !state.search || u.name.toLowerCase().includes(state.search!.toLowerCase()))
+          .map((u, index) => tableRow(u, index))
+        }
+      </tbody>
                         </table>
                         {!forms.length && <p className="text-center text-xl mt-4">No results found</p>}
                     </div>
@@ -313,6 +458,10 @@ const RegistrationForms = () => {
                     <button type="button" className="text-gray-500 bg-white hover:bg-gray-100 rounded-lg border ml-2 border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900" onClick={() => setState({...state, deleteForm: null})}>Cancel</button>
                 </div>
             </Modal>
+
+            <ActiveToggleModal />
+
+            <ResponsesModal />
 
         </ProtectedRoute>
     )

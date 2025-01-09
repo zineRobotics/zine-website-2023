@@ -84,6 +84,14 @@ export interface IPollResponse{
     pollResponse: { optionId: number }
 }
 
+export interface IFormUpdateData {
+    id: number
+    name: string;
+    description: string;
+    eventId: number;
+    active: boolean;
+}
+
 const endpoint = "/form";
 
 export const getAllRegistrationForms = async (): Promise<IFormRetrievedData[] | undefined> => {
@@ -125,18 +133,18 @@ export const createRegistrationForm = async (data: ICreateRegistrationForm): Pro
     }
 }
 
-// export const updateRegistrationForm = async (data: IRegistrationForm): Promise<IRegistrationForm | undefined> => {
-//     try {
-//       const response = await api.put(`${endpoint}/${data.id}`, data); // Replace with your actual endpoint
-//       if (response.status === 200) {
-//         return response.data.form; // Adjust based on the actual response structure
-//       }
-//       return undefined;
-//     } catch (err) {
-//       console.error(err);
-//       return undefined;
-//     }
-// }
+export const updateRegistrationForm = async (data: IFormUpdateData): Promise<IFormRetrievedData | undefined> => {
+    try {
+      const response = await api.put(`${endpoint}/${data.id}`, data); // Replace with your actual endpoint
+      if (response.status === 200) {
+        return response.data.form; // Adjust based on the actual response structure
+      }
+      return undefined;
+    } catch (err) {
+      console.error(err);
+      return undefined;
+    }
+}
 
 export const deleteRegistrationForms = async (id:number): Promise<boolean> => {
     try {
@@ -170,6 +178,20 @@ export const getUnfilledIds = async (): Promise<number[] | undefined> => {
         const response = await api.get(`${endpoint}/unfilled`);
         if (response.status === 200) {
             return response.data['form-ids'];
+        }
+        return undefined;
+    }
+    catch(err){
+        console.error(err);
+        return undefined;
+    }
+}
+
+export const getFormResponses = async(id: number): Promise<string|undefined> => {
+    try{
+        const response = await api.get(`${endpoint}/${id}/responses`);
+        if (response.status === 200) {
+            return response.data.csv;
         }
         return undefined;
     }
