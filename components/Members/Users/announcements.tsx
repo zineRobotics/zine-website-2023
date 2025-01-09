@@ -114,7 +114,7 @@ const Announcements = () => {
                   <h1 className="text-2xl text-white font-extrabold">{authUser!.email?.split("@")[0].toUpperCase()}</h1>
                   <h3 className="text-lg text-white">{authUser!.name} </h3>
                   <br />
-                  {/* <p className="text-lg text-white">Registered for Tank-Wars</p> */}
+                  <p className="text-lg text-white">Registered for Tank-Wars</p>
                 </div>
               </div>
             ) : (
@@ -134,8 +134,7 @@ const Announcements = () => {
                 >
                   Register
                 </button> */}
-              </div>
-            {/* </Link> */}
+              </div>)}
           </div>
         </div>
       </div>
