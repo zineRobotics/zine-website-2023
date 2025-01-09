@@ -1213,7 +1213,7 @@ const Channels = () => {
               <div className="border bg-white flex fixed w-full top-12 z-30 items-center py-5 my-auto">
                 <div
                   className="flex w-9 h-9 mr-2 ml-6 rounded-full border"
-                  // style={{backgroundColor: "#0C72B0"}}
+                // style={{backgroundColor: "#0C72B0"}}
                 >
                   {currRoomImage ? (
                     <Image
@@ -1229,10 +1229,7 @@ const Channels = () => {
                     <Image src={ChatDP} />
                   )}
                 </div>
-                <div
-                  className="font-bold text-xl py-auto"
-                  style={{ color: "#0C72B0" }}
-                >
+                <div className="font-bold text-xl py-auto" style={{ color: "#0C72B0" }}>
                   {currRoom}
                 </div>
                 {hide && (
@@ -1243,12 +1240,9 @@ const Channels = () => {
                       setHide(false);
                     }}
                   >
-                    <ArrowLeft className="w-16 h-6 cursor-pointer hover:text-blue-900 transition-colors" />
+                    <FontAwesomeIcon size="xl" icon={faLeftLong} />
                   </div>
                 )}
-                <div className="fixed top-32 right-2 left-2">
-                  <ActiveUsers users={activeUsers} />
-                </div>
               </div>
               <div className={`pt-32 overflow-x-hidden ${hide ? "overflow-auto" : "overflow-auto"} h-screen pr-2`}>
                 {messages?.map((msg, idx, array) => {
