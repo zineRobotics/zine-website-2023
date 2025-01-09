@@ -17,7 +17,7 @@ export interface IMessageCreateData {
 
 export interface IRoomCreateData {
   name: string;
-  type: "project" | "group" | "workshop";
+  type: "project" | "group" | "workshop" | "announcement";
   description: string;
   // dpUrl: string;
 }
@@ -302,7 +302,7 @@ export const uploadFile = async (
     formData.append('file', file);
     formData.append('description', description); 
 
-    const response = await api.post<UploadResponse>('/image/upload', formData, {
+    const response = await api.post<UploadResponse>('/file/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -317,7 +317,7 @@ export const uploadFile = async (
 
 export const deleteFile = async (publicKey: string): Promise<string> => {
   try {
-    const response = await api.post<{ message: string }>('/image/delete', null, {
+    const response = await api.post<{ message: string }>('/file/delete', null, {
       params: { publicKey },
     });
 

@@ -9,7 +9,6 @@ interface ChatInputProps {
 }
 
 
-
 export function ChatInput({onSend, currMsg, setCurrMsg}: {onSend:any, currMsg:any, setCurrMsg:any} ) {;
   const [fileState, setFileState] = useState<FileState | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -96,8 +95,8 @@ export function ChatInput({onSend, currMsg, setCurrMsg}: {onSend:any, currMsg:an
   };
 
   return (
-    <div className="space-y-2">
-      {isUploading && <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+    <div className="space-y-2 mb-3">
+      {isUploading && <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-0 z-50">
         {/* <div className="animate-spin w-12 h-12 text-blue-500"> */}
           <Loader />
         {/* </div> */}
@@ -119,31 +118,32 @@ export function ChatInput({onSend, currMsg, setCurrMsg}: {onSend:any, currMsg:an
 
       <div className="flex rounded-xl mx-2 border-2 md:mx-4 bg-white">
         <textarea
-          className="w-full px-3 py-4 pl-5 outline-none bg-white rounded-xl"
+          className="w-full px-3 py-3 pl-5 outline-none bg-white rounded-xl"
           placeholder="Send message"
           style={{ resize: "none", overflow: "hidden" }}
           value={currMsg}
           onChange={(e) => setCurrMsg(e.target.value)}
         />
         <div className="flex items-center bg-white px-2">
-        <button
-            className="p-2 hover:bg-gray-100 rounded-full"
+          <button
+            className="px-2 hover:bg-gray-100 rounded-full"
             onClick={() => setIsPollModalOpen(true)}
             aria-label="Create poll"
           >
             <BarChart2 className="w-5 h-5 text-gray-500" />
           </button>
-          <label className="cursor-pointer p-2 hover:bg-gray-100 rounded-full">
+          <label className="cursor-pointer px-2 hover:bg-gray-100 rounded-full">
             <input
               type="file"
               className="hidden"
               onChange={handleFileSelect}
               accept="image/*,.pdf,.doc,.docx"
+              title="Upload file"
             />
             <Upload className="w-5 h-5 text-gray-500" />
           </label>
           <button
-            className="p-2 hover:bg-gray-100 rounded-full"
+            className="px-2 hover:bg-gray-100 rounded-full"
             onClick={handleSend}
             aria-label="Send message"
           >
