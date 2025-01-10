@@ -3,6 +3,7 @@ module.exports = {
   // assetPrefix: "./", //uncommnet it out when running on dev
   reactStrictMode: false,
   images: {
+    domains: ["res.cloudinary.com"],
     remotePatterns: [
       {
         protocol: "https",

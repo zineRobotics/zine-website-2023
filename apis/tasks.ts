@@ -1,4 +1,4 @@
-import axios from "../api/axios";
+import api from "../api/axios";
 import {IRoomData}  from "./room"
 
 const taskURL = "/tasks"
@@ -87,7 +87,7 @@ export interface ICommentData extends ICommentCreateData{
 
 export const getAssignedTaskInstances = async (jwt: string) => {
     try{
-        const response = await axios.get(taskURL + "/user", 
+        const response = await api.get(taskURL + "/user", 
             {headers: {"Authorization": `Bearer ${jwt}`}});
         if(response.status==200) {
             let instances: ITaskInstanceData[] = response.data.instances;
@@ -104,7 +104,7 @@ export const getAssignedTaskInstances = async (jwt: string) => {
 
 export const getRoleMappedTasks = async (jwt: string) => {
     try{
-        const response = await axios.get(taskURL + "/user/mapped-tasks", 
+        const response = await api.get(taskURL + "/user/mapped-tasks", 
             {headers: {"Authorization": `Bearer ${jwt}`}});
         if(response.status==200) {
             let tasks: ITaskData[] = response.data.tasks;
@@ -121,7 +121,7 @@ export const getRoleMappedTasks = async (jwt: string) => {
 
 export const getTasksByRole = async (roleID: string) => {
     try {
-        const response = await axios.get(roleURL + `/${roleID}/task`);
+        const response = await api.get(roleURL + `/${roleID}/task`);
         if(response.status==200) {
             let tasks: ITaskData[] = response.data.tasks;
             return tasks;
@@ -137,7 +137,7 @@ export const getTasksByRole = async (roleID: string) => {
 
 export const chooseTask = async (taskId: number, jwt: string, data: ITaskInstanceCreateData) => {
     try {
-        const response = await axios.post(userURL + `/tasks/${taskId}/instance`, data, {headers: {"Authorization": `Bearer ${jwt}`}});
+        const response = await api.post(userURL + `/tasks/${taskId}/instance`, data, {headers: {"Authorization": `Bearer ${jwt}`}});
         if(response.status==200) {
             return response.data.instance as ITaskInstanceData;
         } else {
@@ -152,7 +152,7 @@ export const chooseTask = async (taskId: number, jwt: string, data: ITaskInstanc
 
 export const fetchCheckpoints = async (instanceId: number) => {
     try {
-        const response = await axios.get(instanceURL + `/${instanceId}/checkpoints`);
+        const response = await api.get(instanceURL + `/${instanceId}/checkpoints`);
         if(response.status == 200) {
             let checkpoints: ICheckpointData[] = response.data.checkpoints;
             return checkpoints;
@@ -168,7 +168,7 @@ export const fetchCheckpoints = async (instanceId: number) => {
 
 export const addCheckpoint = async (instanceId: number, data: ICheckpointCreateData) => {
     try {
-        const response = await axios.post(instanceURL + `/${instanceId}/checkpoints`, data);
+        const response = await api.post(instanceURL + `/${instanceId}/checkpoints`, data);
         if(response.status == 200) {
             let checkpoint: ICheckpointData = response.data.checkpoint;
             return checkpoint;
@@ -184,7 +184,7 @@ export const addCheckpoint = async (instanceId: number, data: ICheckpointCreateD
 
 export const fetchLinks = async (instanceId: number) => {
     try {
-        const response = await axios.get(instanceURL + `/${instanceId}/links`);
+        const response = await api.get(instanceURL + `/${instanceId}/links`);
         if(response.status == 200) {
             let links: ILinkData[] = response.data.links;
             return links;
@@ -200,7 +200,7 @@ export const fetchLinks = async (instanceId: number) => {
 
 export const addLink = async (instanceId: number, data: ILinkCreateData) => {
     try {
-        const response = await axios.post(instanceURL + `/${instanceId}/links`, data);
+        const response = await api.post(instanceURL + `/${instanceId}/links`, data);
         if(response.status == 200) {
             let link: ILinkData = response.data.link;
             return link;
@@ -216,7 +216,7 @@ export const addLink = async (instanceId: number, data: ILinkCreateData) => {
 
 export const fetchComments = async (instanceId: number) => {
     try {
-        const response = await axios.get(commentURL, {params: {instance: instanceId}} );
+        const response = await api.get(commentURL, {params: {instance: instanceId}} );
         if(response.status == 200) {
             return response.data.comments as ICommentData[];
         } else {
@@ -231,7 +231,7 @@ export const fetchComments = async (instanceId: number) => {
 
 export const postComment = async (instanceId: number, data: ICommentCreateData) => {
     try {
-        const response = await axios.post(commentURL, data, {params: {instance: instanceId} } );
+        const response = await api.post(commentURL, data, {params: {instance: instanceId} } );
         if(response.status == 200) {
             // console.log(response);
             

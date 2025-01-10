@@ -1,5 +1,5 @@
-import axios from "../api/axios";
-
+import api from "../api/axios";
+import {IMessage, UploadResponse} from "./interfaces/message"
 const roomURL = "/rooms";
 const memberURL = "/members";
 const userURL = "/user";
@@ -63,7 +63,7 @@ export interface IRoomMember{
 // Creates Room and returns as IRoomResponseData. If it fails, it returns undefined or the corersponding 
 export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|undefined>  => {
   try{
-    const response = await axios
+    const response = await api
     .post(roomURL + "/create", roomData)
     if(response.status === 200){
       return response.data as IRoomData;
@@ -80,7 +80,7 @@ export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|u
 
 export const getRoom = async (roomID: number) => {
     try{
-      const response = await axios.get(roomURL + "/get?roomId=" + roomID);
+      const response = await api.get(roomURL + "/get?roomId=" + roomID);
       if(response.status === 200){
         return response.data;
       }
@@ -94,7 +94,7 @@ export const getRoom = async (roomID: number) => {
 
 export const getAnnouncementRoom = async (email: string) => {
   try{
-    const response = await axios.get(roomURL + "/announcement", {params: {
+    const response = await api.get(roomURL + "/announcement", {params: {
       "email": email
     }});
     let res: any;
@@ -123,7 +123,7 @@ export const getAnnouncementRoom = async (email: string) => {
 export const editRoom = async (data: IRoomEditData):  Promise<number|undefined> => {
   try{
     const {id, ...datatopass} = data;
-    const response = await axios.post(roomURL + "/update?roomId=" + id, datatopass)
+    const response = await api.post(roomURL + "/update?roomId=" + id, datatopass)
     return response.status;
   }
   catch(err){
@@ -134,7 +134,7 @@ export const editRoom = async (data: IRoomEditData):  Promise<number|undefined> 
 
 export const deleteRoom = async (roomIDList: number[]): Promise<number|undefined> => {
   try{
-    const response = await axios.post(roomURL + "/delete", roomIDList);
+    const response = await api.post(roomURL + "/delete", roomIDList);
     return response.status;
   }
   catch(err){
@@ -145,7 +145,7 @@ export const deleteRoom = async (roomIDList: number[]): Promise<number|undefined
 
 export const getMembers = async (roomID: number): Promise<IRoomMember[]|undefined> => {
   try{
-    const response = await axios.get(memberURL + "/get?roomId=" + roomID);
+    const response = await api.get(memberURL + "/get?roomId=" + roomID);
     if(response.status === 200){
       return response.data as IRoomMember[];
     }
@@ -159,7 +159,7 @@ export const getMembers = async (roomID: number): Promise<IRoomMember[]|undefine
 
 export const removeMembers = async (roomID: number, emailList: string[]): Promise<number|undefined> => {
   try{
-    const response = await axios.post(memberURL + "/remove", {room: roomID, members: emailList});
+    const response = await api.post(memberURL + "/remove", {room: roomID, members: emailList});
     return response.status;
   }
   catch(err){
@@ -170,7 +170,7 @@ export const removeMembers = async (roomID: number, emailList: string[]): Promis
 
 export const editMemberRole = async (roomID: number, email: string, role: string): Promise<IRoomMember|undefined> => {
   try{
-    const response = await axios.post(memberURL + "/update", {room: roomID, memberEmail: email, role: role});
+    const response = await api.post(memberURL + "/update", {room: roomID, memberEmail: email, role: role});
     if(response.status === 200){
       return response.data as IRoomMember;
     }
@@ -184,7 +184,7 @@ export const editMemberRole = async (roomID: number, email: string, role: string
 
 export const fetchRoomsByUser = async (email: string): Promise<IRoomData[]> => {
   try {
-    const response = await axios.get(`${roomURL}/user?email=${email}`);
+    const response = await api.get(`${roomURL}/user?email=${email}`);
     
     if (response.status === 200) {
       const roomsInfo: any[] = response.data; 
@@ -215,7 +215,7 @@ export const fetchRoomsByUser = async (email: string): Promise<IRoomData[]> => {
 export const addUsersToRoom = async (memList: IMembersList): Promise<string | undefined> => {
   if (!memList.members.length) return;
   try{
-    const response = await axios.post(memberURL + "/add", memList)
+    const response = await api.post(memberURL + "/add", memList)
     if(response.status){
       if(response.status === 200){
         // console.log(response);
@@ -233,7 +233,7 @@ export const addUsersToRoom = async (memList: IMembersList): Promise<string | un
 };
 
 export const sendMessage = async (msgBody: IMessageCreateData) => {
-  axios
+  api
     .post("/messages/http-msg", msgBody)
     .then((res) => {
       return res.data;
@@ -243,14 +243,19 @@ export const sendMessage = async (msgBody: IMessageCreateData) => {
     });
 };
 
-export const fetchRoomMessages = async (roomID: number): Promise<IMessageData[]> => {
+export const fetchRoomMessages = async (roomID: number): Promise<IMessage[]> => {
   try {
-    const response = await axios.get("/messages/roomMsg", {
+    let jwt = localStorage.getItem("token")
+    const response = await api.get("/messages/roomMsg", {
       params: {
         roomId: roomID,
       },
-    });
-    return response.data as IMessageData[];
+      headers: {
+        "Authorization": `Bearer ${jwt}`,
+      },
+    }
+  );
+    return response.data as IMessage[];
   } catch (error) {
     console.error("Error fetching room messages:", error);
     return [];
@@ -259,7 +264,8 @@ export const fetchRoomMessages = async (roomID: number): Promise<IMessageData[]>
 
 export const fetchAllRooms = async (): Promise<IRoomData[]> => {
   try {
-    const response = await axios.get(roomURL + "/get-all");
+    let token = localStorage.getItem("token")
+    const response = await api.get(roomURL + "/get-all");
     return response.data as IRoomData[];
   } catch (error) {
     console.error("Error fetching all rooms:", error);
@@ -269,7 +275,7 @@ export const fetchAllRooms = async (): Promise<IRoomData[]> => {
 
 export const updateLastSeen = async (userEmail: string, roomID: number) => {
   try {
-    await axios.put(userURL + `/${userEmail}/${roomID}/seen`);
+    await api.put(userURL + `/${userEmail}/${roomID}/seen`);
   } catch (error) {
     console.error("Error updating last seen:", error);
   }
@@ -277,7 +283,7 @@ export const updateLastSeen = async (userEmail: string, roomID: number) => {
 
 export const lastSeen = async (userEmail: string, roomID: number): Promise<number> => {
   try {
-    const response = await axios.get(userURL + `/${userEmail}/${roomID}/last-seen`);
+    const response = await api.get(userURL + `/${userEmail}/${roomID}/last-seen`);
     // console.log(response.data.info.userLastSeen);
     
     return response.data.info.userLastSeen as number;
@@ -287,3 +293,37 @@ export const lastSeen = async (userEmail: string, roomID: number): Promise<numbe
   }
 }
 
+export const uploadFile = async (
+  file: File,
+  description: string
+): Promise<UploadResponse> => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('description', description); 
+
+    const response = await api.post<UploadResponse>('/file/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data; 
+  } catch (error: any) {
+    console.error('Error uploading file:', error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || 'Failed to upload file');
+  }
+};
+
+export const deleteFile = async (publicKey: string): Promise<string> => {
+  try {
+    const response = await api.post<{ message: string }>('/file/delete', null, {
+      params: { publicKey },
+    });
+
+    return response.data.message; 
+  } catch (error: any) {
+    console.error('Error deleting file:', error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || 'Failed to delete file');
+  }
+};

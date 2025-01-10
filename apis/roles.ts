@@ -1,4 +1,4 @@
-import axios from "../api/axios";
+import api from "../api/axios";
 
 export interface IRoleCreateData{
     roleName: string;
@@ -10,7 +10,7 @@ export interface IRoleData extends IRoleCreateData{
 
 export const getAllRoles = async (): Promise<IRoleData[]|undefined> => {
     try{
-        const response = await axios.get("/role");
+        const response = await api.get("/role");
         if(response.status === 200){
             return response.data.roles;
         }
@@ -23,7 +23,7 @@ export const getAllRoles = async (): Promise<IRoleData[]|undefined> => {
 
 export const getRole = async (id: number): Promise<IRoleData|undefined> => {
     try{
-        const response = await axios.get(`/role/${id}`);
+        const response = await api.get(`/role/${id}`);
         if(response.status === 200){
             return response.data.role;
         }
@@ -36,7 +36,7 @@ export const getRole = async (id: number): Promise<IRoleData|undefined> => {
 
 export const createRole = async (data: IRoleCreateData): Promise<IRoleData|undefined> => {
     try{
-        const response = await axios.post("/role", data);
+        const response = await api.post("/role", data);
         if(response.status === 200){
             return response.data.role;
         }
@@ -49,7 +49,7 @@ export const createRole = async (data: IRoleCreateData): Promise<IRoleData|undef
 
 export const updateRole = async (id: number, data: IRoleCreateData): Promise<IRoleData|undefined> => {
     try{
-        const response = await axios.put(`/role/${id}`, data);
+        const response = await api.put(`/role/${id}`, data);
         if(response.status === 200){
             return response.data.role;
         }
@@ -63,7 +63,7 @@ export const updateRole = async (id: number, data: IRoleCreateData): Promise<IRo
 export const deleteRoles = async (ids: number[]): Promise<boolean> => {
     try{
         const data = {roleIds: ids};
-        const response = await axios.delete(`/role`, {data: data});
+        const response = await api.delete(`/role`, {data: data});
         if(response.status === 200){
             return true;
         }
@@ -93,7 +93,7 @@ export interface IRoleMemberList{
 export const assignUsersToRole = async (roleId: number, userEmails: string[]): Promise<IRoleAssignData|undefined> => {
     try{
         const data = {roleId: roleId, userEmails: userEmails};
-        const response = await axios.post(`/role/assign`, data);
+        const response = await api.post(`/role/assign`, data);
         if(response.status === 200){
             return response.data;
         }
@@ -106,7 +106,7 @@ export const assignUsersToRole = async (roleId: number, userEmails: string[]): P
 
 export const getRoleMembers = async (id: number): Promise<IRoleMember[]|undefined> => {
     try{
-        const response = await axios.get(`/role/${id}/users`);
+        const response = await api.get(`/role/${id}/users`);
         if(response.status === 200){
             return response.data.users;
         }
@@ -119,7 +119,7 @@ export const getRoleMembers = async (id: number): Promise<IRoleMember[]|undefine
 
 export const removeRoleMembers = async (roleId: number, userEmail:string): Promise<boolean> => {
     try{
-        const response = await axios.delete(`/role/${roleId}/user/${userEmail}`);
+        const response = await api.delete(`/role/${roleId}/user/${userEmail}`);
         if(response.status === 200){
             return true;
         }

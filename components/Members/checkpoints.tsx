@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { ICheckpointData, ILinkData, ITaskInstanceData, fetchCheckpoints, fetchLinks, addCheckpoint, addLink, ILinkCreateData, ICheckpointCreateData } from "../../apis/tasks"; 
 import {IMessageData, fetchRoomMessages, sendMessage, updateLastSeen} from "../../apis/room"
+import {IMessage} from "../../apis/interfaces/message"
 import SockJS from "sockjs-client";
 import { Stomp, Client } from "@stomp/stompjs";
 import { auth } from "../../firebase";
@@ -13,7 +14,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
   const { authUser } = useAuth();
   const [checkpointMessage, setCheckpointMessage] = useState("");
   const [panel, setPanel] = useState("checkpoints");
-  const [messages, setMessages] = useState<IMessageData[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   const [inputMessage, setInputMessage] = useState("");
   
   const [url, setURL] = useState("");
@@ -42,7 +43,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
     let subscription: any; 
     if (isConnected && stompClient !== null) {
       subscription = stompClient.subscribe("/room/" + instanceData.roomId, (msg: any) => {
-        let body = JSON.parse(msg.body) as IMessageData;
+        let body = JSON.parse(msg.body) as IMessage;
         setMessages(prev => [...prev, body]);
         if(authUser) updateLastSeen(authUser?.email ,instanceData.roomId)
       });
@@ -78,6 +79,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
 
   const displayRoomMessages = (id: number) => {
     fetchRoomMessages(id).then((res) => {
+      res = res.filter((ele) => ele.type=="text")
       // console.log("messages",res);
       setMessages(res);
     });
@@ -238,7 +240,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
                 </div>
                 <div className="text-sm md:text-normal break-words w-full md:w-10/12 md:ml-auto">
                   <p>
-                    {message.content.split(/\s+/g).map((word) =>
+                    {message.text?.content.split(/\s+/g).map((word) =>
                       word.match(URL_REGEX) ? (
                         <>
                           <a href={word} className="text-blue-500 underline" target="_blank">

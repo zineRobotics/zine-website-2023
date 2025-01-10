@@ -1,4 +1,4 @@
-import axios from "../../api/axios";
+import api from "../../api/axios";
 import { IRoleData } from "../roles";
 
 export interface ITaskCreateData{
@@ -20,7 +20,7 @@ export interface ITaskData extends ITaskCreateData{
 
 export const getAllTasks = async (): Promise<ITaskData[]|undefined> => {
     try{
-        const response = await axios.get("/tasks");
+        const response = await api.get("/tasks");
         if(response.status === 200){
             return response.data.tasks;
         }
@@ -33,7 +33,7 @@ export const getAllTasks = async (): Promise<ITaskData[]|undefined> => {
 
 export const getTask = async (id: number): Promise<ITaskData|undefined> => {
     try{
-        const response = await axios.get(`/tasks/${id}`);
+        const response = await api.get(`/tasks/${id}`);
         if(response.status === 200){
             return response.data.task;
         }
@@ -46,7 +46,7 @@ export const getTask = async (id: number): Promise<ITaskData|undefined> => {
 
 export const createTask = async (data: ITaskCreateData): Promise<ITaskData|undefined> => {
     try{
-        const response = await axios.post("/tasks", data);
+        const response = await api.post("/tasks", data);
         if(response.status === 200){
             return response.data.task;
         }
@@ -59,7 +59,7 @@ export const createTask = async (data: ITaskCreateData): Promise<ITaskData|undef
 
 export const updateTask = async (id: number, data: ITaskCreateData): Promise<ITaskData|undefined> => {
     try{
-        const response = await axios.put(`/tasks/${id}`, data);
+        const response = await api.put(`/tasks/${id}`, data);
         if(response.status === 200){
             return response.data.task;
         }
@@ -73,7 +73,7 @@ export const updateTask = async (id: number, data: ITaskCreateData): Promise<ITa
 export const deleteTasks = async (ids: number[]): Promise<boolean> => {
     try{
         const data = {taskIds: ids};
-        const response = await axios.delete(`/tasks`, {data: data});
+        const response = await api.delete(`/tasks`, {data: data});
         if(response.status === 200){
             return true;
         }
@@ -86,7 +86,7 @@ export const deleteTasks = async (ids: number[]): Promise<boolean> => {
 
 export const assignRoleToTask = async (taskId: number, roleId: number): Promise<boolean> => { //could also be called assign task to role
     try{
-        const response = await axios.post(`/tasks/${taskId}/role/${roleId}`);
+        const response = await api.post(`/tasks/${taskId}/role/${roleId}`);
         if(response.status === 200){
             return true;
         }
@@ -99,7 +99,7 @@ export const assignRoleToTask = async (taskId: number, roleId: number): Promise<
 
 export const getTasksByRole = async (id: number): Promise<ITaskData[]|undefined> => {
     try{
-        const response = await axios.get(`/role/${id}/task`);
+        const response = await api.get(`/role/${id}/task`);
         if(response.status === 200){
             return response.data.tasks;
         }
@@ -112,7 +112,7 @@ export const getTasksByRole = async (id: number): Promise<ITaskData[]|undefined>
 
 export const getRolesAssignedToTask = async (id: number): Promise<IRoleData[]|undefined> => {
     try{
-        const response = await axios.get(`/tasks/${id}/assigned-roles`);
+        const response = await api.get(`/tasks/${id}/assigned-roles`);
         if(response.status === 200){
             return response.data.roles;
         }
@@ -125,7 +125,7 @@ export const getRolesAssignedToTask = async (id: number): Promise<IRoleData[]|un
 
 export const removeRoleFromTask = async (taskId: number, roleId: number): Promise<boolean> => {
     try{
-        const response = await axios.delete(`/tasks/${taskId}/role/${roleId}`);
+        const response = await api.delete(`/tasks/${taskId}/role/${roleId}`);
         if(response.status === 200){
             return true;
         }

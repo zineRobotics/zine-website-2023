@@ -1,4 +1,5 @@
 import Chat from "./chat";
 import ChatButton from "./chatbutton";
-
-export { Chat, ChatButton }
+import { Poll } from "./poll"
+import { FileLink } from "./file"
+export { Chat, ChatButton, Poll }

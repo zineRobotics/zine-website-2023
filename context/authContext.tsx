@@ -5,6 +5,7 @@ import { getDoc, doc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { getUser, IUser } from "../apis/users";
 import { log } from "console";
+import {setAuthorizationHeader} from "../api/axios"
 
 interface UserType {
   email: string | null;
@@ -42,6 +43,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
       const response = await axios.get("/auth/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
+      if(token) setAuthorizationHeader(token)
       // console.log("inside user details", response);
       return response.data;
     } catch (err) {
@@ -57,10 +59,12 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
       if(failureReason != null) {
         throw new Error(failureReason);
       }
-      console.log(response.data)
+      console.log(response.data);
       localStorage.setItem("token", jwt);
+      // document.cookie = `token=${jwt}; path=/;`;
       getUserDetails().then((res) => {
         const userData = res as IUser;
+        setAuthorizationHeader(jwt)
         setAuthUser(userData);
         setUser({ uid: userData.id, email: userData.email });
       });
