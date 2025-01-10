@@ -108,17 +108,8 @@ const Announcements = () => {
                 <Image src={ZineBlog} />
               </div>
             </Link>
-            {isRegistered ? (
-              <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8 shadow-xl" style={{ background: "linear-gradient(to right, #003D63, #0C72B0)" }}>
-                <div className="mt-24">
-                  <h1 className="text-2xl text-white font-extrabold">{authUser!.email?.split("@")[0].toUpperCase()}</h1>
-                  <h3 className="text-lg text-white">{authUser!.name} </h3>
-                  <br />
-                  <p className="text-lg text-white">Registered for Tank-Wars</p>
-                </div>
-              </div>
-            ) : (
-              // <Link href="/aptitudeForm">
+            
+            {/* <Link href="/forms"> */}
               <div
                 className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8 shadow-xl hover:border-blue-400 cursor-pointer shadow-md"
                 style={{ background: "linear-gradient(135deg, #9B9C9C 0%, #D4D4D4 100%)" }}
@@ -127,14 +118,14 @@ const Announcements = () => {
                   <h1 className="text-2xl text-white font-extrabold">{authUser!.email?.split("@")[0].toUpperCase()}</h1>
                   <h3 className="text-lg text-white">{authUser!.name} </h3>
                   <br />
-                  {/* <p className="text-lg text-white">Not Registered for Tank-Wars</p> */}
                 </div>
-                {/* <button className="mt-4 bg-blue2 text-white py-2 px-4 rounded-xl hover:bg-blue1"
-                  onClick={() => setIsOpen(true)}
+                <button className="mt-4 bg-blue2 text-white py-2 px-4 rounded-xl hover:bg-blue1"
+                  onClick={() => handleClick()}
                 >
-                  Register
-                </button> */}
-              </div>)}
+                  Forms
+                </button>
+              </div>
+            {/* </Link> */}
           </div>
         </div>
       </div>
