@@ -3,17 +3,20 @@ import {IFileBody} from "../../apis/interfaces/message"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
-export function FileLink({ name, url, description }: IFileBody) {
+export function FileLink({ fileBody, isUser, space } : { fileBody: IFileBody, isUser: boolean, space: boolean }) {
   const isImage = (url: string) => {
     return /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(url);
   };
+
+  console.log("url", fileBody);
   
     return (
         <a 
-          href={url}
+          href={fileBody.url}
           target="_blank"
           rel="noopener noreferrer"
           className="block w-80 p-4 bg-white rounded-lg shadow hover:shadow-md transition-all hover:bg-gray-50"
+          style={{ marginLeft: `${isUser ? "auto" : space ? "2rem" : "0rem"}` }}
         >
           <div className="flex items-center gap-3">
             {/* <FontAwesomeIcon 
@@ -22,17 +25,17 @@ export function FileLink({ name, url, description }: IFileBody) {
             /> */}
             <div className="flex-grow">
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-semibold text-blue-600">{name}</h3>
+                <h3 className="text-lg font-semibold text-blue-600">{fileBody.name}</h3>
                 <FontAwesomeIcon 
                   icon={faExternalLinkAlt} 
                   className="text-gray-400 text-sm"
                 />
               </div>
-              {description && (
-                <p className="text-gray-600 text-sm mt-1">{description}</p>
+              {fileBody.description && (
+                <p className="text-gray-600 text-sm mt-1">{fileBody.description}</p>
               )}
-              {isImage(url) && (
-                <img src={url} alt={name} className="w-full h-auto mt-2 object-cover rounded" />
+              {isImage(fileBody.url) && (
+                <img src={fileBody.url} alt={fileBody.name} className="w-full h-auto mt-2 object-cover rounded" />
               )}
             </div>
           </div>
