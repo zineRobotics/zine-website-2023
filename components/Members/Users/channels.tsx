@@ -463,7 +463,7 @@ const Channels = () => {
 
         )}
         {msg.file != null && (
-          <FileLink {...msg.file} />
+          <FileLink fileBody={msg.file} isUser={user} space={!whiteRect} />
         )}
       </div>
 
