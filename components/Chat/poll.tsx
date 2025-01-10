@@ -15,7 +15,7 @@ export function Poll({ pollBody, voteFunc, chatId, isUser, space }: { pollBody: 
   const totalVotes = pollBody.options.reduce((sum, option) => sum + option.numVotes, 0);
 
   const handleVote = (optionId: number) => {
-    if (hasVoted) return;
+    // if (hasVoted) return;
     // setOptions(options.map(option =>
     //   option.id === optionId
     //     ? { ...option, votes: option.numVotes + 1 }
@@ -41,7 +41,7 @@ export function Poll({ pollBody, voteFunc, chatId, isUser, space }: { pollBody: 
           <button
             key={option.id}
             onClick={() => handleVote(option.id)}
-            disabled={hasVoted}
+            // disabled={hasVoted}
             className="w-full text-left p-3 rounded-lg hover:bg-gray-50 relative"
             style={{ backgroundColor: "#4b9cce" }}
           >
