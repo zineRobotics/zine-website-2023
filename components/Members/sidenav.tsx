@@ -142,7 +142,7 @@ const SideNav = () => {
               <Link href="/admin/forms">
                 <p
                   className={`text-xl hover:text-gray-300 cursor-pointer ${
-                    page === "hackathon"
+                    page === "forms"
                       ? "font-bold"
                       : ""
                   }`}
@@ -201,7 +201,7 @@ const SideNav = () => {
               </div>
               <div
                 className={`bg-white md:w-full py-2 px-10 rounded-2xl mt-2 ${
-                  page === "channels"
+                  page === "forms"
                     ? "bg-opacity-20"
                     : "bg-opacity-5"
                 }`}
