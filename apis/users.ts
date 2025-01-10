@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import axios from "../api/axios";
+import api from "../api/axios";
 import { QueryFilterConstraint, and, arrayUnion, collection, doc, getDocs, or, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 const usersCollection = collection(db, "users");
@@ -31,7 +31,7 @@ export const getUser = async (email: string) => {
 
 export const getUserByEmailIn = async (emailList: string[]):Promise<IUser[]|undefined> => {
   try {
-    const response = await axios.get(`/user/emailList`, {
+    const response = await api.get(`/user/emailList`, {
       params: {
         emailList: emailList
       }
@@ -75,7 +75,7 @@ export const checkHackathonRegistration = async () => {
   try {
     const token = localStorage.getItem("token");
     if(!token) return;
-    const response = await axios.get("/user/register/hackathon", {
+    const response = await api.get("/user/register/hackathon", {
       headers: { Authorization: `Bearer ${token}` },
     });
     if(response.status === 200) return response.data;
@@ -93,7 +93,7 @@ export const registerHackathon = async () => {
   try {
     const token = localStorage.getItem("token");
     if(!token) return false;
-    const response = await axios.post("/user/register/hackathon", {}, {
+    const response = await api.post("/user/register/hackathon", {}, {
       headers: { Authorization: `Bearer ${token}` },
     })
     // .then((res) => {

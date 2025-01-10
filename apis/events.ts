@@ -1,4 +1,4 @@
-import axios from "../api/axios";
+import api from "../api/axios";
 
 interface IRecruitmentCreateData{
     title: string;
@@ -12,7 +12,7 @@ export interface IRecruitmentData extends IRecruitmentCreateData{
 
 export const getAllRecruitments = async (): Promise<IRecruitmentData[]|undefined> => {
     try{
-        const response = await axios.get("/recruitment");
+        const response = await api.get("/recruitment");
         if(response.status === 200){
             // console.log(response.data);
             return response.data.recruitments;
@@ -27,7 +27,7 @@ export const getAllRecruitments = async (): Promise<IRecruitmentData[]|undefined
 
 export const createRecruitment = async (data: IRecruitmentCreateData): Promise<IRecruitmentData|undefined> => {
     try{
-        const response = await axios.post("/recruitment", data);
+        const response = await api.post("/recruitment", data);
         if(response.status === 200){
             return response.data.recruitment;
         }
@@ -42,7 +42,7 @@ export const createRecruitment = async (data: IRecruitmentCreateData): Promise<I
 export const deleteRecruitments = async (ids: number[]): Promise<boolean> => {
     try{
         const data = {recruitments: ids};
-        const response = await axios.delete(`/recruitment`, {data: data});
+        const response = await api.delete(`/recruitment`, {data: data});
         // console.log(response);
         if(response.status === 200){
             return true;
@@ -58,7 +58,7 @@ export const deleteRecruitments = async (ids: number[]): Promise<boolean> => {
 export const editRecruitment = async (data: IRecruitmentData): Promise<IRecruitmentData|undefined> => {
     try{
         const {id, ...rest} = data;
-        const response = await axios.put(`/recruitment/${id}`, rest);
+        const response = await api.put(`/recruitment/${id}`, rest);
         if(response.status === 200){
             return response.data.recruitment;
         }
@@ -95,8 +95,10 @@ export interface IHackathonRegistrationInfo {
 
 export const getAllEvents = async (): Promise<IEventData[]|undefined> => {
     try{
-        const response = await axios.get("/event");
+        const response = await api.get("/event");
         if(response.status === 200){
+            console.log(response.data);
+
             const events = response.data.events.map((event:any) => {
                 return {
                     id: event.id,
@@ -122,7 +124,7 @@ export const getAllEvents = async (): Promise<IEventData[]|undefined> => {
 
 export const createEvent = async (data: IEventCreateData): Promise<IEventData|undefined> => {
     try{
-        const response = await axios.post("/event", data);
+        const response = await api.post("/event", data);
         if(response.status === 200){
             const event = response.data.event;
             return {
@@ -147,7 +149,7 @@ export const createEvent = async (data: IEventCreateData): Promise<IEventData|un
 export const deleteEvents = async (ids: number[]): Promise<boolean> => {
     try{
         const data = {eventIds: ids};
-        const response = await axios.delete(`/event`, {data: data});
+        const response = await api.delete(`/event`, {data: data});
         // console.log(response);
         if(response.status === 200){
             return true;
@@ -163,7 +165,7 @@ export const deleteEvents = async (ids: number[]): Promise<boolean> => {
 export const editEvent = async (data: IEventData): Promise<IEventData|undefined> => {
     try{
         const {id, ...rest} = data;
-        const response = await axios.put(`/event/${id}`, rest);
+        const response = await api.put(`/event/${id}`, rest);
         if(response.status === 200){
             const event = response.data.event;
             return {
@@ -187,7 +189,7 @@ export const editEvent = async (data: IEventData): Promise<IEventData|undefined>
 
 export const fetchHackathonRegistrationInfo = async () => {
     try {
-        const response = await axios.get('event/hackathon/registration-info');
+        const response = await api.get('event/hackathon/registration-info');
         return response.data as IHackathonRegistrationInfo;
     } catch(err) {
         return {list: [], numRegistrations: 0} as IHackathonRegistrationInfo;

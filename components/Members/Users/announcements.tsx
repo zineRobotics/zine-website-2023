@@ -61,7 +61,6 @@ const Announcements = () => {
   const [announcements, setAnnouncements] = useState<IMessageData[]>([]);
   const { authUser } = useAuth();
   const [isRegistered, setIsRegistered] = useState<boolean>();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const date = new Date();
   const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -78,33 +77,9 @@ const Announcements = () => {
     suffix = suffixes[lastDigit] || "th";
   }
 
-  useEffect(() => {
-    //   registerHackathon().then((res) => {
-    //     console.log("ann", res); 
-    // }) .catch((err) => {
-    //   console.log("ann err", err);
-
-    // })
-    checkHackathonRegistration().then((res) => {
-      console.log("ann", res);
-      if (res.status === "registered") setIsRegistered(true);
-      else setIsRegistered(false);
-    }).catch((err) => {
-      console.log("ann err", err);
-    })
-  }, []);
-
-  const _registerHackathon = async () => {
-    try {
-      registerHackathon().then((res) => {
-        console.log("ann", res);
-        if (res === true) setIsRegistered(true);
-        else setIsRegistered(false);
-      })
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  }
+  const handleClick = () => {
+    window.location.href = "/users/forms";
+  };
 
   return (
     <ProtectedRoute>
@@ -133,17 +108,8 @@ const Announcements = () => {
                 <Image src={ZineBlog} />
               </div>
             </Link>
-            {isRegistered ? (
-              <div className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8 shadow-xl" style={{ background: "linear-gradient(to right, #003D63, #0C72B0)" }}>
-                <div className="mt-24">
-                  <h1 className="text-2xl text-white font-extrabold">{authUser!.email?.split("@")[0].toUpperCase()}</h1>
-                  <h3 className="text-lg text-white">{authUser!.name} </h3>
-                  <br />
-                  {/* <p className="text-lg text-white">Registered for Tank-Wars</p> */}
-                </div>
-              </div>
-            ) : (
-              // <Link href="/aptitudeForm">
+            
+            {/* <Link href="/forms"> */}
               <div
                 className="flex flex-col col-span-9 md:col-span-3 row-span-4 rounded-3xl px-8 py-8 shadow-xl hover:border-blue-400 cursor-pointer shadow-md"
                 style={{ background: "linear-gradient(135deg, #9B9C9C 0%, #D4D4D4 100%)" }}
@@ -152,61 +118,15 @@ const Announcements = () => {
                   <h1 className="text-2xl text-white font-extrabold">{authUser!.email?.split("@")[0].toUpperCase()}</h1>
                   <h3 className="text-lg text-white">{authUser!.name} </h3>
                   <br />
-                  {/* <p className="text-lg text-white">Not Registered for Tank-Wars</p> */}
                 </div>
-                {/* <button className="mt-4 bg-blue2 text-white py-2 px-4 rounded-xl hover:bg-blue1"
-                  onClick={() => setIsOpen(true)}
+                <button className="mt-4 bg-blue2 text-white py-2 px-4 rounded-xl hover:bg-blue1"
+                  onClick={() => handleClick()}
                 >
-                  Register
-                </button> */}
+                  Forms
+                </button>
               </div>
-              // </Link>
-            )}
+            {/* </Link> */}
           </div>
-
-          {/* <h1 className="text-2xl md:text-4xl font-bold mt-8" style={{ color: "#AAAAAA" }}>
-            Announcements
-          </h1>
-          <div className="flex flex-col my-4 gap-4">
-            {announcements.map((msg) => {
-              const date = timestampToHuman(msg.timeStamp);
-              return (
-                <div className="bg-white rounded-xl py-4 px-6 w-full shadow-md" key={msg.timeStamp.seconds}>
-                  <p className="text-gray-500 text-sm">
-                    {msg.from} | {date.time} {date.date}
-                  </p>
-                  //{" "}
-                  <p className="whitespace-pre-wrap">
-                    //{" "}
-                    {msg.message.split(/\s+/g).map((word) =>
-                      word.match(URL_REGEX) ? (
-                        <>
-                          <a href={word} className="text-blue-500 underline" target="_blank">
-                            {word}
-                          </a>{" "}
-                        </>
-                      ) : (
-                        word + " "
-                      )
-                    )}
-                    //{" "}
-                  </p>
-                  <RenderMessageWithLinks message={msg.message}></RenderMessageWithLinks>
-                </div>
-              );
-            })}
-          </div> */}
-          <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <div className="p-4 md:p-5 text-center">
-              <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
-              <h3 className="mb-5 text-lg font-normal text-gray-500">Do you wish to register for Tank-Wars?</h3>
-              <button type="button" className="text-white bg-blue2 hover:bg-blue1 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2" onClick={() => { _registerHackathon().then(() => { setIsOpen(false) }) }}>
-                Yes
-              </button>
-            </div>
-          </Modal>
         </div>
       </div>
     </ProtectedRoute>
