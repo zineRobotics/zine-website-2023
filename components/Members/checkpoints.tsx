@@ -1,9 +1,9 @@
 import styles from "../../constants/styles";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
-import { ICheckpointData, ILinkData, ITaskInstanceData, fetchCheckpoints, fetchLinks, addCheckpoint, addLink, ILinkCreateData, ICheckpointCreateData } from "../../apis/tasks"; 
-import {IMessageData, fetchRoomMessages, sendMessage, updateLastSeen} from "../../apis/room"
-import {IMessage} from "../../apis/interfaces/message"
+import { ICheckpointData, ILinkData, ITaskInstanceData, fetchCheckpoints, fetchLinks, addCheckpoint, addLink, ILinkCreateData, ICheckpointCreateData } from "../../apis/tasks";
+import { IMessageData, fetchRoomMessages, sendMessage, updateLastSeen } from "../../apis/room"
+import { IMessage } from "../../apis/interfaces/message"
 import SockJS from "sockjs-client";
 import { Stomp, Client } from "@stomp/stompjs";
 import { auth } from "../../firebase";
@@ -16,39 +16,43 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
   const [panel, setPanel] = useState("checkpoints");
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [inputMessage, setInputMessage] = useState("");
-  
+
   const [url, setURL] = useState("");
   const [urlType, setURLType] = useState("GitHub");
-  
+
   const [checkpoints, setCheckpoints] = useState<ICheckpointData[]>([]);
   const [links, setLinks] = useState<ILinkData[]>([]);
 
   const [stompClient, setStompClient] = useState<any>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
-//   const roomName = `${projectData.taskData.title.split(" ")[0]}-${project.usersData[0].email.slice(4).split("@")[0]}`;
+  //   const roomName = `${projectData.taskData.title.split(" ")[0]}-${project.usersData[0].email.slice(4).split("@")[0]}`;
   useEffect(() => {
     connect()
     displayRoomMessages(instanceData.roomId);
     fetchCheckpoints(instanceData.id).then((res) => {
-        setCheckpoints(res);
+      setCheckpoints(res);
     })
     fetchLinks(instanceData.id).then((res) => {
-        setLinks(res);
+      setLinks(res);
     })
 
   }, []);
 
   useEffect(() => {
-    let subscription: any; 
+    let subscription: any;
     if (isConnected && stompClient !== null) {
       subscription = stompClient.subscribe("/room/" + instanceData.roomId, (msg: any) => {
-        let body = JSON.parse(msg.body) as IMessage;
-        setMessages(prev => [...prev, body]);
-        if(authUser) updateLastSeen(authUser?.email ,instanceData.roomId)
+        let res = JSON.parse(msg.body); // Adjust based on message structure
+        let msgBody = res.body as IMessage;
+        if (res.update == "new-message") {
+          setMessages(prev => [...prev, msgBody]);
+          if (authUser) updateLastSeen(authUser?.email, instanceData.roomId)
+        }
+
       });
     }
-  
+
     return () => {
       if (subscription) {
         subscription.unsubscribe();
@@ -58,18 +62,19 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
 
   useEffect(() => {
     // console.log("tasks",checkpoints, links, messages);
-    
+
   }, [checkpoints, links])
 
   const onSubmit = () => {
     if (!inputMessage) return;
     const msgBody = {
       type: "text",
-      content: inputMessage,
+      text: {
+        content: inputMessage,
+      },
       sentFrom: authUser?.id,
       roomId: instanceData.roomId,
       replyTo: null,
-      contentUrl: null,
     };
     if (msgBody.sentFrom) {
       stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
@@ -79,18 +84,18 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
 
   const displayRoomMessages = (id: number) => {
     fetchRoomMessages(id).then((res) => {
-      res = res.filter((ele) => ele.type=="text")
+      res = res.filter((ele) => ele.type == "text")
       // console.log("messages",res);
       setMessages(res);
     });
   };
-  
+
   const connect = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const client = new Client({
         webSocketFactory: () =>
-          new SockJS(process.env.NEXT_PUBLIC_API_URL+"/ws", null, {
+          new SockJS(process.env.NEXT_PUBLIC_API_URL + "/ws", null, {
             withCredentionals: false,
           }),
         connectHeaders: { Authorization: `Bearer ${token}` },
@@ -113,29 +118,29 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
 
   const handleAddCheckpoint = () => {
     let data: ICheckpointCreateData = {
-        remark: authUser?.type=="admin",
-        content: checkpointMessage,
-        sentFromId: authUser?.id as number
+      remark: authUser?.type == "admin",
+      content: checkpointMessage,
+      sentFromId: authUser?.id as number
     }
     addCheckpoint(instanceData.id, data).then((res) => {
-        if(res)
-            setCheckpoints((prev) => [...prev, res]);
+      if (res)
+        setCheckpoints((prev) => [...prev, res]);
     })
     setCheckpointMessage("")
   };
 
   const handleAddLink = () => {
-    if(!authUser) return;
+    if (!authUser) return;
     let data: ILinkCreateData = {
-        type: urlType,
-        link: url,
-        sentFromId: authUser?.id
+      type: urlType,
+      link: url,
+      sentFromId: authUser?.id
     }
     // console.log("link",data);
-    
+
     addLink(instanceData.id, data).then((res) => {
-        if(res)
-            setLinks((prev) => [...prev, res]);
+      if (res)
+        setLinks((prev) => [...prev, res]);
     })
     setURL("")
   };
@@ -159,7 +164,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
           {instanceData?.name}
         </h2>
         <div className="flex gap-2 justify-between md:justify-start">
-          <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{ background: "#0C72B0" }} href={instanceData.task.psLink ? ("//"+instanceData.task.psLink) : ""} target="_blank">
+          <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{ background: "#0C72B0" }} href={instanceData.task.psLink ? ("//" + instanceData.task.psLink) : ""} target="_blank">
             Problem Statement
           </a>
           <div className="bg-white px-2 pt-3 pb-1 rounded-xl border text-gray-500 relative shadow-md text-center">
@@ -234,8 +239,8 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
             messages.map((message) => (
               <div key={message.timestamp} className="flex flex-1 flex-wrap flex-col md:flex-row my-2">
                 <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{ color: "#8D989F" }}>
-                <p className="font-bold">{monthDay(message.timestamp)}</p>
-                <p className="font-bold text-xs">{hourMinute(message.timestamp)}</p>
+                  <p className="font-bold">{monthDay(message.timestamp)}</p>
+                  <p className="font-bold text-xs">{hourMinute(message.timestamp)}</p>
                   <p className="">{message.sentFrom.name}</p>
                 </div>
                 <div className="text-sm md:text-normal break-words w-full md:w-10/12 md:ml-auto">
@@ -296,8 +301,8 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
                   return (
                     <div key={ele.timestamp} className="flex flex-1 flex-wrap flex-col md:flex-row my-2">
                       <div className="text-xs md:text-sm md:w-2/12 flex gap-4 md:gap-0 md:flex-col" style={{ color: "#8D989F" }}>
-                      <p className="font-bold">{monthDay(ele.timestamp)}</p>
-                      <p className="font-bold text-xs">{hourMinute(ele.timestamp)}</p>
+                        <p className="font-bold">{monthDay(ele.timestamp)}</p>
+                        <p className="font-bold text-xs">{hourMinute(ele.timestamp)}</p>
                         <p className="">{ele.sentFrom.split(" ")[0]}</p>
                       </div>
                       <div className="text-sm md:text-normal break-words w-full md:w-10/12 md:ml-auto">
