@@ -120,7 +120,17 @@ import krishna from "../images/members/2026/krishna.webp";
 import nitin from "../images/members/2026/nitin.webp";
 import kushal from "../images/members/2026/kushal.webp";
 import adityaW from "../images/members/2026/adityaW.webp";
-import herschelle from "../images/members/2026/herschelle.webp"
+import herschelle from "../images/members/2026/herschelle.webp";
+
+import abhinavg from "../images/members/2027/abhinavG.webp";
+import abhinavt from "../images/members/2027/abhinavT.webp";
+import aditi from "../images/members/2027/aditi.webp";
+import aviral from "../images/members/2027/aviral.jpg";
+import mayank from "../images/members/2027/mayank.jpg";
+import omkesh from "../images/members/2027/omkesh.webp";
+import roshan from "../images/members/2027/roshan.jpg";
+import vedika from "../images/members/2027/vedika.webp";
+import yuga from "../images/members/2027/yugA.jpg";
 
 interface Member {
   name: string;
@@ -1649,3 +1659,96 @@ export const year2026: Member[] = [
     facebook: "",
   }
 ];
+
+export const year2027: Member[] = [
+  {
+    name: "Abhinav Garg",
+    image: abhinavg,
+    desc: "Computer Science and Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/abhinav-garg-94b63a346/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Abhinav Thapliyal",
+    image: abhinavt,
+    desc: "Chemical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/arvi7/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Aditi Srivastava",
+    image: aditi,
+    desc: "Architecture and Planning",
+    github: "",
+    linkedin: "http://www.linkedin.com/in/aditisrivastava23484",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Aviral Jain",
+    image: aviral,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin .com/in/aviral-jain-328479276/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Mayank Garg",
+    image: mayank,
+    desc: "Artificial Intelligence and Data Science Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/mayank-garg-500023234/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Omkesh Dwivedi",
+    image: omkesh,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/omkesh-dwivedi-810430285/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Roshan Nama",
+    image: roshan,
+    desc: "Mechanical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/roshan-nama-2769a6287/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Vedika Malpani",
+    image: vedika,
+    desc: "Electronics and Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/vedikamalpani04",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Yug Agarwal",
+    image: yuga,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/yug-agarwal-8a6631205/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  }
+]
