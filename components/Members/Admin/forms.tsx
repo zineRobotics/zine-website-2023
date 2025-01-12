@@ -62,6 +62,15 @@ const RegistrationForms = () => {
         try {
           const csvData = await getFormResponses(form.id);
           if (csvData) {
+            const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `${form.name}_responses.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             const parsedData = parseCSV(csvData);
             setResponseData(parsedData);
             setResponsesForm(form);
@@ -72,67 +81,6 @@ const RegistrationForms = () => {
           toast.error("An error occurred while fetching responses");
         }
       };
-    
-      // New modal component for responses
-      const ResponsesModal = () => (
-        <Modal isOpen={responsesForm !== null} onClose={() => setResponsesForm(null)}>
-          <div className="p-4 md:p-5">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold text-gray-900">
-                Responses for {responsesForm?.name}
-              </h3>
-              <button
-                onClick={() => setResponsesForm(null)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                ×
-              </button>
-            </div>
-            
-            <div className="max-h-[70vh] overflow-auto">
-              {responseData.length > 0 ? (
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50 sticky top-0">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        No.
-                      </th>
-                      {responseData[0]?.map((header, index) => (
-                        <th
-                          key={index}
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          {header}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {responseData.slice(1).map((row, rowIndex) => (
-                      <tr key={rowIndex}>
-                        <td className="px-6 py-4 whitespace-normal text-sm text-gray-900">
-                          {rowIndex + 1}
-                        </td>
-                        {row.map((cell, cellIndex) => (
-                          <td
-                            key={cellIndex}
-                            className="px-6 py-4 whitespace-normal text-sm text-gray-900"
-                          >
-                            {cell}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                    
-                </table>
-              ) : (
-                <p className="text-center text-gray-500 py-4">No responses available</p>
-              )}
-            </div>
-          </div>
-        </Modal>
-      );
 
     const handleActiveToggle = async (form: IFormRetrievedData) => {
         const { questions, ...updatedForm } = { ...form, active: !form.active };
@@ -160,7 +108,7 @@ const RegistrationForms = () => {
               className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-lg mr-1"
               onClick={() => handleViewResponses(u)}
             >
-              View Responses
+              Download Responses
             </button>
             <button 
               className={`py-1 px-2 rounded-lg mr-1 text-white ${u.active ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'}`}
@@ -417,13 +365,6 @@ const RegistrationForms = () => {
                     </div>
 
                     <div className="bg-white py-4 px-6 mb-8 rounded-xl shadow-md">
-                        {/* <div className="grid grid-cols-6 gap-4">
-                            <div className="col-span-4 flex flex-col">
-                                <label className="text-gray-500">Search</label>
-                                <input id="search" type="text" className="pt-2 bottom-border focus:outline-none" onChange={onSearchChange} placeholder="Search email ID or name" value={state?.search} autoComplete="off" />
-                            </div>
-                        </div> */}
-
                         <table className="table-auto w-full mt-8 text-center">
                             <thead>
                                 <tr className="text-left">
@@ -434,11 +375,11 @@ const RegistrationForms = () => {
                                 </tr>
                             </thead>
                             <tbody>
-        {forms
-          .filter(u => !state.search || u.name.toLowerCase().includes(state.search!.toLowerCase()))
-          .map((u, index) => tableRow(u, index))
-        }
-      </tbody>
+                              {forms
+                                .filter(u => !state.search || u.name.toLowerCase().includes(state.search!.toLowerCase()))
+                                .map((u, index) => tableRow(u, index))
+                              }
+                            </tbody>
                         </table>
                         {!forms.length && <p className="text-center text-xl mt-4">No results found</p>}
                     </div>
@@ -460,8 +401,9 @@ const RegistrationForms = () => {
             </Modal>
 
             <ActiveToggleModal />
-
-            <ResponsesModal />
+            {/* <div className="w-3/4 mx-auto overflow-hidden overflow-auto">
+              <ResponsesModal />
+            </div> */}
 
         </ProtectedRoute>
     )
