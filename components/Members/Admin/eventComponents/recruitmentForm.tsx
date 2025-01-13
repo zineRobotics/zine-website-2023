@@ -12,8 +12,8 @@ import { deleteImage, uploadImage } from "../../../../apis/image";
 import { IRecruitmentForm } from "./types";
 
 interface RecruitmentManagerProps {
-    state: null;
-    setState: React.Dispatch<React.SetStateAction<IRecruitmentData|null>>;
+    state: -1;
+    setState: React.Dispatch<React.SetStateAction<IRecruitmentData|null|-1>>;
     recruitments: IRecruitmentData[];
     setRecruitments: React.Dispatch<React.SetStateAction<IRecruitmentData[]>>;
     events: IEventData[];
@@ -54,12 +54,12 @@ const RecruitmentForm: React.FC<RecruitmentManagerProps> = ({state, setState, re
         //     var imagelink = await uploadImage(imageexists, data.imagepath)
         //     data.image = imagelink
         // }
-        reset()
         editRecruitment({...data, id: formState.editingID}).then((res) => {
             if(res === undefined){
                 toast.error(`Error editing recruitment stage: ${data.title}`);
                 return;
             }
+            reset()
             toast.success("Edited event successfully")
             setRecruitments(oldEvents => [...oldEvents.filter(e => e.id !== formState.editingID), res])
         }).catch((error) => {
@@ -181,6 +181,9 @@ const RecruitmentForm: React.FC<RecruitmentManagerProps> = ({state, setState, re
                     </tbody>
                 </table>
                 { !recruitments.length && <p className="text-center text-xl mt-4">No results found</p>}
+                <div className="flex justify-center mt-4">
+                    <button className="bg-green-500 text-white py-2 px-4 rounded-lg" onClick={() => setState(null)}>Events Without Parent Recruitment</button>
+                </div>
             </div>
         </div>
       )

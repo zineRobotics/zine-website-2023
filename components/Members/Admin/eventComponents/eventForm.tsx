@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import SideNav from "../../sidenav";
 import styles from "../../../../constants/styles";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import ProtectedRoute from "../ProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
 import { IEventData, IRecruitmentData, createEvent, deleteEvents, editEvent, getAllEvents } from "../../../../apis/events";
 import { deleteImage, uploadImage } from "../../../../apis/image";
 import { IEventForm } from "./types";
+import { uploadFile, deleteFile } from "../../../../apis/room";
 
 interface EventManagerProps {
-    state: IRecruitmentData;
-    setState: React.Dispatch<React.SetStateAction<IRecruitmentData|null>>;
+    state: IRecruitmentData|null;
+    setState: React.Dispatch<React.SetStateAction<IRecruitmentData|null|-1>>;
     events: IEventData[];
     setEvents: React.Dispatch<React.SetStateAction<IEventData[]>>;
     recruitments: IRecruitmentData[];
@@ -41,6 +42,8 @@ const formatDateTimeToSQL = (dateTime: Date) => {
 const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEvents, recruitments}) => {
     // const [events, setEvents] = useState<IEventData[]>([])
     const [formState, setFormState] = useState({ search: "", editing: false, editingID: -1 })
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [changedImage, setChangedImage] = useState<boolean>(false);
 
     const { register, setValue, reset, formState: {errors}, handleSubmit } = useForm<IEventForm>({
         defaultValues: {
@@ -49,10 +52,37 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
             venue: "",
             startDateTime: new Date(),
             endDateTime: null,
-            recruitment: state.stage,
+            recruitment: state ? state.stage : null,
             type: "workshop"
         }
     })
+
+    const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        setChangedImage(true);
+        const file = event.target.files?.[0];
+        if (file) {
+            try {
+                const response = await uploadFile(file, "event image");
+                setImageUrl(response.url);
+                setValue("dpUrl", response.url);
+                console.log("Uploaded file:", response.url);
+            } catch (error) {
+                console.error("Error uploading file:", error);
+            }
+        }
+    };
+    
+    const handleImageDelete = async () => {
+        if (imageUrl) {
+            try {
+                await deleteFile("", imageUrl);
+                setImageUrl(null);
+            } catch (error) {
+                console.error("Error deleting file:", error);
+            }
+        }
+    };
+
     const onSubmit = async(data: IEventForm) => {
         // console.log("data: ",data);
         // if (data.image[0]){
@@ -66,13 +96,14 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
         //     data.imagepath= ""
         // }
         // const { date, time, ...formdata } = data
-        data.recruitment = state.stage
+        data.recruitment = (state)?state.id:null
         data.startDateTime = formatDateTimeToSQL(data.startDateTime as Date)
         // console.log("endtime", data.endDateTime)
         if(data.endDateTime==="")
             data.endDateTime = null
         if(data.endDateTime!=null)
             data.endDateTime = formatDateTimeToSQL(data.endDateTime as Date)
+        setImageUrl(null)
         reset()
         createEvent(data).then((res) => {
             if(res === undefined){
@@ -107,22 +138,14 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
         setValue("endDateTime", formatDateTime(event.endDateTime))
         setValue("venue", event.venue)
         setValue("type", event.type)
-        setValue("recruitment", state.stage)
+        setValue("recruitment", (state)?state.stage:null)
+        setValue("dpUrl", event.dpUrl)
+        setImageUrl(event.dpUrl)
 
         setFormState({ ...formState, editing: true, editingID: event.id })
     }
 
     const onEdit = async (data: IEventForm) => {
-        // var imageexists = data.image[0]
-        // data.image = ""
-        // if (imageexists){
-        //     if(data.imagepath) deleteImage(data.imagepath)
-        //     var imageName = new Date().getTime().toString()
-        //     data.imagepath = `/events/${imageName}`
-        //     var imagelink = await uploadImage(imageexists, data.imagepath)
-        //     data.image = imagelink
-        // }
-        reset()
         data.startDateTime = formatDateTimeToSQL(data.startDateTime as Date)
         if(data.endDateTime=="")
             data.endDateTime = null
@@ -134,6 +157,8 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
                 toast.error("Error editing event");
                 return;
             }
+            setImageUrl(null)
+            reset()
             toast.success("Edited event successfully")
             res.startDateTime = new Date(res.startDateTime)
             if(res.endDateTime !== null) res.endDateTime = new Date(res.endDateTime)
@@ -146,6 +171,8 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
 
     const onCancel = () => {
         setFormState({ ...formState, editing: false, editingID: -1 })
+        if (changedImage) handleImageDelete()
+        setImageUrl(null)
         reset()
     }
 
@@ -157,7 +184,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
 
         <div className="col-span-12 px-6 md:px-12 flex flex-col overflow-y-scroll md:col-span-9">
             <h1 className="text-4xl font-bold mt-16 md:mt-8" style={{color: "#AAAAAA"}}>Events</h1>
-            <button className="p-3 block w-40 rounded-3xl bg-red-500 justify-end" onClick={() => setState(null)}>Back</button>
+            <button className="p-3 block w-40 rounded-3xl bg-red-500 justify-end" onClick={() => setState(-1)}>Back</button>
             <div className="row-span-5 bg-white rounded-xl py-4 px-6 my-8 w-full">
             <h1 className="text-2xl font-bold" style={styles.textPrimary}>{formState.editing ? "Edit Event" : "Create Event"}</h1>
             <div className="grid grid-cols-5 gap-6 mt-4">
@@ -192,6 +219,16 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
                 <div className="col-span-2">
                     <label className="block text-gray-600 text-sm">Event End Date</label>
                     <input type="datetime-local" id="endDate" className="block w-full focus:outline-none bottom-border pt-2" {...register("endDateTime", {required: false, valueAsDate: true})} />
+                </div>
+                <div className="col-span-5">
+                    <label className="block text-gray-600 text-sm">Event Image</label>
+                    <input type="file" id="eventImage" className="block w-full focus:outline-none bottom-border pt-2" onChange={handleImageUpload} />
+                    {imageUrl && (
+                        <div className="mt-2">
+                            <img src={imageUrl} alt="Event" className="w-full h-auto" />
+                            <button type="button" className="text-red-500 text-sm mt-2" onClick={handleImageDelete}>Delete Image</button>
+                        </div>
+                    )}
                 </div>
                 {/* <div className="col-span-1">
                     <label className="block text-gray-600 text-sm">Recruitment</label>
@@ -241,7 +278,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
                         {
                             events
                             .filter(u => !formState.search || u.name.toLowerCase().includes(formState.search!.toLowerCase()) || u.venue?.toLowerCase().includes(formState.search!.toLowerCase()))
-                            .filter(u => u.recruitment === state.stage)
+                            .filter(u => u.recruitment === (state ? state.stage : null))
                             // .sort((a, b) => a.startDateTime.getTime() - b.startDateTime.getTime())
                             .map((u,index) => (
                                 <tr key={u.id} className="text-left border-black">
