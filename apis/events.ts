@@ -109,7 +109,8 @@ export const getAllEvents = async (): Promise<IEventData[]|undefined> => {
                     startDateTime: event.startDateTime,
                     endDateTime: event.endDateTime,
                     recruitment: (event.recruitment)?event.recruitment.stage:null,
-                    type: event.type
+                    type: event.type,
+                    dpUrl: event.dpUrl
                 }
             });
             // console.log(response.data);
