@@ -96,7 +96,7 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
         //     data.imagepath= ""
         // }
         // const { date, time, ...formdata } = data
-        data.recruitment = (state)?state.id:null
+        data.recruitment = (state)?state.stage:null
         data.startDateTime = formatDateTimeToSQL(data.startDateTime as Date)
         // console.log("endtime", data.endDateTime)
         if(data.endDateTime==="")
