@@ -10,6 +10,7 @@ export interface IEventForm{
     venue: string;
     startDateTime: Date|string;
     endDateTime: Date|string|null;
-    recruitment: number;
+    recruitment: number|null;
     type: string;
+    dpUrl: string;
 }

@@ -10,7 +10,7 @@ import EventForm from "./eventComponents/eventForm";
 import { getAllEvents, getAllRecruitments, IEventData, IRecruitmentData } from "../../../apis/events";
 
 const Events = () => {
-    const [state, setState] = useState<IRecruitmentData|null>(null)
+    const [state, setState] = useState<IRecruitmentData|null|-1>(-1)
     const [recruitments, setRecruitments] = useState<IRecruitmentData[]>([])
     const [events, setEvents] = useState<IEventData[]>([])
 
@@ -60,7 +60,7 @@ const Events = () => {
             <div className="grid grid-cols-12 h-screen" style={{background: "#EFEFEF"}}>
             <SideNav />
                 {
-                    (state === null)?
+                    (state === -1)?
                     <RecruitmentForm
                         state={state}
                         setState={setState}

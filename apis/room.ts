@@ -315,10 +315,10 @@ export const uploadFile = async (
   }
 };
 
-export const deleteFile = async (publicKey: string): Promise<string> => {
+export const deleteFile = async (publicKey: string = "", url: string = ""): Promise<string> => {
   try {
     const response = await api.post<{ message: string }>('/file/delete', null, {
-      params: { publicKey },
+      params: { publicKey, url },
     });
 
     return response.data.message; 
