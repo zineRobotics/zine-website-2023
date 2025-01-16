@@ -36,12 +36,23 @@ const Forms = () => {
 
   useEffect(() => {
     if (!authUser) return;
+    // let forms: IFormRetrievedData[] = []
     getAllRegistrationForms().then((res) => {
       if (res) {
         res = res.filter((form) => form.active == true);
         setForms(res);
-        console.log(res);
+        // forms = res
+        return res
       }
+    }).then((res) => {
+      console.log(res)
+      if (res === undefined) return
+      const urlParams = new URLSearchParams(window.location.search);
+      const param = urlParams.get("register");
+      console.log(param)
+      if (param === "workshop" && res.length > 0) {
+        setSelectedForm(res[0]);
+    }
     });
   }, []);
 
@@ -108,11 +119,6 @@ const Forms = () => {
       }
     }
   };
-
-  //   const closeConfirmation = () => {
-  //     setState("selection");
-  //     setConfirmTask(undefined);
-  //   };
 
   return (
     <ProtectedRoute>
@@ -188,113 +194,10 @@ const Forms = () => {
                     Already filled
                   </div>
                 </div>
-                // <div key={form.id} className="row-span-5 bg-white rounded-xl mb-8 w-full grid grid-cols-7 md:grid-cols-8">
-                //   <div className="col-span-7 p-4 md:p-8">
-                //     <h3 className="md:text-3xl font-extrabold text-2xl" style={styles.textPrimary}>
-                //       {form.name}
-                //     </h3>
-                //     {/* <div className="flex gap-2 mt-2 flex-col text-center md:flex-row text-sm md:text-normal">
-                //       {form.description &&
-                //         <div className="py-1 px-4 rounded-xl" style={{ background: "#C2FFF4" }}>
-                //           <p>{form.description}</p>
-                //         </div>
-                //       }
-                //     </div> */}
-                //     <p className="mt-4">{form.description}</p>
-                //   </div>
-                //   <div className="flex md:flex-col text-white font-bold text-lg col-span-7 md:col-span-1">
-                //     <div className="text-center flex-1 md:flex-none py-4 px-2 rounded-br-xl" style={{ background: "#CCCCCC", color: "#666666" }}>
-                //       Already filled
-                //     </div>
-                //   </div>
-                // </div>
               ))}
             </div>
           )}
           {selectedForm != null && (
-            //   <div className="my-8">
-            //     <h2 className="text-2xl font-bold mb-4">{selectedForm.name}</h2>
-            //     <button
-            //         className="bg-gray-500 text-white font-bold py-2 px-4 rounded mb-4"
-            //         onClick={() => setSelectedForm(null)}
-            //     >
-            //         Back
-            //     </button>
-            //     <form
-            //       onSubmit={(e) => {
-            //         e.preventDefault();
-            //         // Handle form submission
-            //       }}
-            //     >
-            //       {selectedForm.questions.map((field, index) => (
-            //         <div key={index} className="mb-4">
-            //           {/* <label className="block text-lg font-medium mb-2">{field.id}</label> */}
-            //           {field.type === "text" && (
-            //             <>
-            //                 <label className="block text-lg font-medium mb-2">{(index+1)+'. '+field.text.content}</label>
-            //                 <input
-            //                 type="text"
-            //                 className="w-full p-2 border border-gray-300 rounded"
-            //                 onChange={(e) => {
-            //                     // Handle text input change
-            //                     for (let res of response) {
-            //                         if (res.questionId === field.id && 'textResponse' in res) {
-            //                             res.textResponse.content = e.target.value;
-            //                         }
-            //                     }
-            //                     //&& 'textResponse' in res
-            //                 }}
-            //                 />
-            //             </>
-            //           )}
-            //           {field.type === "poll" && (
-            //             <>
-            //                 <label className="block text-lg font-medium mb-2">{(index+1)+'. '+field.poll.title}</label>
-            //                 <select
-            //                 className="w-full p-2 border border-gray-300 rounded"
-            //                 onChange={(e) => {
-            //                     // Handle poll selection change
-            //                     for (let res of response) {
-            //                         if (res.questionId === field.id && 'pollResponse' in res) {
-            //                             res.pollResponse.optionId = Number(e.target.value);
-            //                         }
-            //                     }
-            //                 }}
-            //                 >
-            //                 {field.poll.pollOptions.map((option, idx) => (
-            //                     <option key={option.id} value={option.id}>
-            //                     {option.value}
-            //                     </option>
-            //                 ))}
-            //                 </select>
-            //             </>
-            //           )}
-            //         </div>
-            //       ))}
-            //       <button
-            //         type="submit"
-            //         className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-            //         onClick={() => {
-            //             if (response.some(res => 'textResponse' in res && res.textResponse.content === "")) {
-            //                 alert("Please fill all the text fields before submitting.");
-            //                 return;
-            //             }
-            //           // Handle form submission
-            //         //   console.log(response);
-            //           addResponse(selectedForm.id, response).then((res) => {
-            //             if(res){
-            //                 alert("Form submitted successfully");
-            //                 unfilledForms.splice(unfilledForms.indexOf(selectedForm), 1);
-            //                 filledForms.push(selectedForm);
-            //                 setSelectedForm(null);
-            //             }
-            //           })
-            //         }}
-            //       >
-            //         Submit
-            //       </button>
-            //     </form>
-            //   </div>
             <div className="max-w-3xl mx-auto my-8 bg-white rounded-2xl shadow-sm p-6 md:p-8">
               <div className="flex items-center gap-4 mb-6">
                 <button
