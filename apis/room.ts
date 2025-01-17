@@ -212,7 +212,7 @@ export const fetchRoomsByUser = async (email: string): Promise<IRoomData[]> => {
   }
 }
 
-export const addUsersToRoom = async (memList: IMembersList): Promise<string | undefined> => {
+export const addUsersToRoom = async (memList: IMembersList): Promise<{status: string; unassignedEmails:string[]; alreadyAssignedEmails:string[]}|undefined> => {
   if (!memList.members.length) return;
   try{
     const response = await api.post(memberURL + "/add", memList)
