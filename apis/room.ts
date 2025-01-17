@@ -212,7 +212,7 @@ export const fetchRoomsByUser = async (email: string): Promise<IRoomData[]> => {
   }
 }
 
-export const addUsersToRoom = async (memList: IMembersList): Promise<string | undefined> => {
+export const addUsersToRoom = async (memList: IMembersList): Promise<{status: string; unassignedEmails:string[]; alreadyAssignedEmails:string[]}|undefined> => {
   if (!memList.members.length) return;
   try{
     const response = await api.post(memberURL + "/add", memList)
@@ -315,10 +315,10 @@ export const uploadFile = async (
   }
 };
 
-export const deleteFile = async (publicKey: string): Promise<string> => {
+export const deleteFile = async (publicKey: string = "", url: string = ""): Promise<string> => {
   try {
     const response = await api.post<{ message: string }>('/file/delete', null, {
-      params: { publicKey },
+      params: { publicKey, url },
     });
 
     return response.data.message; 

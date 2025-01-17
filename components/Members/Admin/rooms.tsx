@@ -10,6 +10,8 @@ import { Control, set, useFieldArray, useForm } from "react-hook-form";
 import { IRoomCreateData, IRoomData, IRoomEditData, IMembersList, IMembers, IRoomMember, IRoomResponseData, addUsersToRoom, createRoom, deleteRoom, editRoom, fetchAllRooms, getMembers, removeMembers, editMemberRole, /* removeUsers, addMembersToRoom,*/  } from "../../../apis/room";
 import Modal from "../modal";
 import { deleteImage, uploadImage } from "../../../apis/image";
+import { getAllRoles, getRoleMembers, IRoleData, IRoleMember } from "../../../apis/roles";
+import { get } from "http";
 
 interface IRoomForm{
     name: string;
@@ -38,29 +40,18 @@ const Rooms = () => {
     const [state, setState] = useState<IState>({ search: "", editing: false, editingID: -1, assignRoom: null, deleteRoom: null });
     const [members, setMembers] = useState<IRoomMember[]>([]);
     const [rooms, setRooms] = useState<IRoomData[]>([]);
+    const [roles, setRoles] = useState<IRoleData[]>([]);
     const [assignState, setAssignState] = useState<IAssignState>({ role: "user", input: "" , emailList: []});
 
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<IRoomForm>();
 
     const onSubmit = async (data: IRoomForm) => {
-        // console.log(data.image)
-        // if (data.image[0]){
-        //     var imageName = new Date().getTime().toString()
-        //     data.dpUrl = await uploadImage(data.image[0], data.dpUrl)
-        // }
-        // else{
-        //     data.image = ""
-        //     data.dpUrl= ""
-        // }
-        
-        // const { image, ...formData } = data
         const { ...formData } = data
         const roomcreate = async() =>{
             let roomData: IRoomCreateData = formData
             createRoom(roomData).then(room => {
                 
                 //Can implement adding members to room here??
-                // console.log(room)
                 if (room === undefined){ 
                     toast.error("room create failed")
                     return
@@ -69,7 +60,6 @@ const Rooms = () => {
                 toast.success("Room successfully created!")
 
             }).catch((err) => {
-                // console.log(err)
                 toast.error("An error occurred. Contact zine team")
             })
         }
@@ -101,7 +91,6 @@ const Rooms = () => {
                 toast.error("An error occurred. Try again later.")
             }
         }).catch((err) => {
-            // console.log(err)
             toast.error("An error occurred. Contact zine team")
         })
     }
@@ -161,25 +150,71 @@ const Rooms = () => {
         if (!state.assignRoom) return
         const room = state.assignRoom
         if (assignState.emailList.length === 0) return toast.error('No users added!')
-
+    
         setState({...state, assignRoom: null})
-        const membersList: IMembers[] = assignState.emailList.map(e=>{
-            return {userEmail: e, role: assignState.role}
+        let membersList: (IMembers|null)[] = []
+        let rolePromises: Promise<void>[] = []
+    
+        assignState.emailList.forEach((e) => {
+            if(e.startsWith('$')){
+                let name = e.slice(1).trim() //role name
+                let roleId = roles.find(r => (r.roleName).trim() === name)?.id
+                if(roleId === undefined){
+                    toast.error(`Role ${name} not found`)
+                    return
+                }
+                
+                const rolePromise = getRoleMembers(roleId).then(users => {
+                    if(users){
+                        users.forEach(user => {
+                            if(!assignState.emailList.includes(user.email)){
+                                membersList.push({userEmail: user.email, role: assignState.role})
+                            }
+                        })
+                    }
+                    else{
+                        toast.error(`Error getting members of role ${name}.`)
+                    }
+                })
+                rolePromises.push(rolePromise)
+            }
+            else {
+                if(membersList.some(m => m?.userEmail === e)) return
+                membersList.push({userEmail: e, role: assignState.role})
+            }
         })
+    
+        // Wait for all rolePromises to resolve
+        await Promise.all(rolePromises)
+    
+        let newMembersList = membersList.filter(m => m !== null)
+        newMembersList = newMembersList.filter(m => !members.some(member => member.email === m?.userEmail));
         const assignList: IMembersList = {
             room: room.id,
-            members: membersList
+            members: newMembersList
         }
-        addUsersToRoom(assignList).then(emailList => {
-            if(emailList!=undefined){
-                toast.success(emailList)
-                // display the emails that were not found here
+        
+        addUsersToRoom(assignList).then(res => {
+            if(res != undefined){
+                if(res.status === "success"){
+                    toast.success("Successfully assigned users to room")
+                }
+                else if(res.status === "fail"){
+                    toast.error("Failed to add users.")
+                }
+                if(res.unassignedEmails && res.unassignedEmails.length > 0){
+                    toast.error(`The following emails are not registered: ${res.unassignedEmails.join(", ")}`)
+                }
+                if(res.alreadyAssignedEmails && res.alreadyAssignedEmails.length > 0){
+                    toast.error(`The following emails are already assigned to the room: ${res.alreadyAssignedEmails.join(", ")}`)
+                }
             }
             else{
                 toast.error("An error occurred. Try again later.")
             }
         })
     }
+    
 
     //could be written for multiple emails?
     const _removeUser = async (member: IRoomMember) => {
@@ -210,8 +245,11 @@ const Rooms = () => {
 
     useEffect(() => {
         fetchAllRooms().then(rooms => {
-            // console.log(rooms)
             setRooms(() => rooms)
+        })
+        getAllRoles().then(roles => {
+            if(roles) setRoles(roles)
+            else toast.error("Error fetching roles")
         })
     }, [])
 

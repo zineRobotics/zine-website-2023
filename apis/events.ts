@@ -76,8 +76,9 @@ interface IEventCreateData{
     venue: string;
     startDateTime: Date|string;
     endDateTime: Date|string|null;
-    recruitment: number;
+    recruitment: number|null;
     type: string;
+    dpUrl: string
 }
 
 export interface IEventData extends IEventCreateData{
@@ -107,8 +108,9 @@ export const getAllEvents = async (): Promise<IEventData[]|undefined> => {
                     venue: event.venue,
                     startDateTime: event.startDateTime,
                     endDateTime: event.endDateTime,
-                    recruitment: event.recruitment.stage,
-                    type: event.type
+                    recruitment: (event.recruitment)?event.recruitment.stage:null,
+                    type: event.type,
+                    dpUrl: event.dpUrl
                 }
             });
             // console.log(response.data);
@@ -134,8 +136,9 @@ export const createEvent = async (data: IEventCreateData): Promise<IEventData|un
                 venue: event.venue,
                 startDateTime: event.startDateTime,
                 endDateTime: event.endDateTime,
-                recruitment: event.recruitment.stage,
-                type: event.type
+                recruitment: (event.recruitment)?event.recruitment.stage:null,
+                type: event.type,
+                dpUrl: event.dp_url
             }
         }
         return undefined;
@@ -175,8 +178,9 @@ export const editEvent = async (data: IEventData): Promise<IEventData|undefined>
                 venue: event.venue,
                 startDateTime: event.startDateTime,
                 endDateTime: event.endDateTime,
-                recruitment: event.recruitment.stage,
-                type: event.type
+                recruitment: (event.recruitment)?event.recruitment.stage:null,
+                type: event.type,
+                dpUrl: event.dp_url
             }
         }
         return undefined;
