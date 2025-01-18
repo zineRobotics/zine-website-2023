@@ -84,18 +84,6 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
     };
 
     const onSubmit = async(data: IEventForm) => {
-        // console.log("data: ",data);
-        // if (data.image[0]){
-        //     var imageName = new Date().getTime().toString()
-        //     data.imagepath = `/events/${imageName}`
-        //     var imagelink = await uploadImage(data.image[0], data.imagepath)
-        //     data.image = imagelink
-        // }
-        // else{
-        //     data.image = ""
-        //     data.imagepath= ""
-        // }
-        // const { date, time, ...formdata } = data
         data.recruitment = (state)?state.stage:null
         data.startDateTime = formatDateTimeToSQL(data.startDateTime as Date)
         // console.log("endtime", data.endDateTime)
@@ -103,8 +91,6 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
             data.endDateTime = null
         if(data.endDateTime!=null)
             data.endDateTime = formatDateTimeToSQL(data.endDateTime as Date)
-        setImageUrl(null)
-        reset()
         createEvent(data).then((res) => {
             if(res === undefined){
                 toast.error("Error creating event");
@@ -114,6 +100,8 @@ const EventForm: React.FC<EventManagerProps> = ({state, setState, events, setEve
             res.startDateTime = new Date(res.startDateTime)
             if(res.endDateTime != null)    res.endDateTime = new Date(res.endDateTime)
             setEvents((oldEvents)=>[...oldEvents, res])
+            setImageUrl(null)
+            reset()
         }).catch((error) => {
             // console.log(error)
             toast.error("Error adding document: ", error);
