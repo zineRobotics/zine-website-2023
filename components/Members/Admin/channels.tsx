@@ -598,16 +598,27 @@ const Channels = () => {
                   }}
                 >
                   <div
-                    className="w-6 h-6 mr-2"
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: "50%",
-                    }}
-                  >
-                    <div className="h-full w-full flex flex-col justify-center">
-                      <Image layout="responsive" src={ChatDP} />
+                      className="w-6 h-6 mr-2 rounded-full"
+                      style={{
+                        backgroundColor: "white",
+                      }}
+                    >
+                      {announcementRoom?.dpUrl ? (
+                        <Image
+                          width={50}
+                          height={50}
+                          src={announcementRoom.dpUrl}
+                          className="rounded-full"
+                          style={{
+                            backgroundColor: "#0C72B0",
+                          }}
+                        />
+                      ) : (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image layout="responsive" src={ChatDP} />
+                        </div>
+                      )}
                     </div>
-                  </div>
                   <div className="flex items-center">
                     {announcementRoom?.name}
                   </div>
@@ -862,9 +873,23 @@ const Channels = () => {
                         borderRadius: "50%",
                       }}
                     >
-                      <div className="h-full w-full flex flex-col justify-center">
-                        <Image layout="responsive" src={ChatDP} />
-                      </div>
+                      {announcementRoom?.dpUrl ? (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image
+                            height={50}
+                            width={50}
+                            src={announcementRoom.dpUrl}
+                            className="rounded-full"
+                            style={{
+                              backgroundColor: "#0C72B0",
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image layout="responsive" src={ChatDP} />
+                        </div>
+                      )}
                     </div>
                     {announcementRoom?.name}
                     <div className="text-xs ml-auto pr-5 flex items-center">
