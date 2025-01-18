@@ -12,12 +12,13 @@ import Modal from "../modal";
 import { deleteImage, uploadImage } from "../../../apis/image";
 import { getAllRoles, getRoleMembers, IRoleData, IRoleMember } from "../../../apis/roles";
 import { get } from "http";
+import { uploadFile, deleteFile } from "../../../apis/room";
 
 interface IRoomForm{
     name: string;
     type: "project" | "group" | "workshop";
     // image: any;
-    // dpUrl: string;
+    dpUrl: string;
     description: string;
 }
 
@@ -42,11 +43,40 @@ const Rooms = () => {
     const [rooms, setRooms] = useState<IRoomData[]>([]);
     const [roles, setRoles] = useState<IRoleData[]>([]);
     const [assignState, setAssignState] = useState<IAssignState>({ role: "user", input: "" , emailList: []});
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [changedImage, setChangedImage] = useState<boolean>(false);
 
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<IRoomForm>();
 
+    const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        setChangedImage(true);
+        const file = event.target.files?.[0];
+        if (file) {
+            try {
+                const response = await uploadFile(file, "event image");
+                setImageUrl(response.url);
+                setValue("dpUrl", response.url);
+                console.log("Uploaded file:", response.url);
+            } catch (error) {
+                console.error("Error uploading file:", error);
+            }
+        }
+    };
+
+    const handleImageDelete = async () => {
+        if (imageUrl) {
+            try {
+                await deleteFile("", imageUrl);
+                setImageUrl(null);
+            } catch (error) {
+                console.error("Error deleting file:", error);
+            }
+        }
+    };
+
     const onSubmit = async (data: IRoomForm) => {
         const { ...formData } = data
+        setImageUrl(null)
         const roomcreate = async() =>{
             let roomData: IRoomCreateData = formData
             createRoom(roomData).then(room => {
@@ -58,7 +88,8 @@ const Rooms = () => {
                 }
                 setRooms([...rooms, room])
                 toast.success("Room successfully created!")
-
+                setImageUrl(null)
+                reset()
             }).catch((err) => {
                 toast.error("An error occurred. Contact zine team")
             })
@@ -67,17 +98,6 @@ const Rooms = () => {
     }
 
     const onEdit = async (data: IRoomForm) => {
-        
-        // let imageexists = data.image[0]
-        // data.image = ""
-        // if (imageexists){
-        //     if(data.dpUrl) deleteImage(data.dpUrl)
-        //     let imageName = new Date().getTime().toString()
-        //     data.dpUrl = `/rooms/${imageName}`
-        //     let imagelink = await uploadImage(imageexists, data.dpUrl)
-        //     data.image = imagelink
-        // }
-        // const { image, ...formData } = data
         const { ...formData } = data
 
         reset()
@@ -86,6 +106,8 @@ const Rooms = () => {
                 toast.success("Room successfully edited!")
                 setRooms(rooms.map(r => r.id === state.editingID ? {...r, ...formData} : r)) //changes the room that was edited
                 setState({ ...state, editing: false, editingID:-1 })
+                setImageUrl(null)
+                reset()
             }
             else{
                 toast.error("An error occurred. Try again later.")
@@ -97,6 +119,8 @@ const Rooms = () => {
 
     const onCancel = () => {
         setState({ ...state, editing: false, editingID:-1 })
+        if (changedImage) handleImageDelete()
+        setImageUrl(null)
         reset()
     }
 
@@ -105,6 +129,7 @@ const Rooms = () => {
     }
 
     const roomDelete = async (room: IRoomData) => {
+        deleteFile("", room.dpUrl)
         toast.promise(deleteRoom([room.id]), {
             pending: 'Deleting Room',
             success: `Room ${room.name} deleted successfully`,
@@ -117,8 +142,9 @@ const Rooms = () => {
     const roomEdit = async (room: IRoomData) => {
         setValue("name", room.name)
         setValue("type", room.type)
-        // setValue("dpUrl", room.dpUrl)
+        setValue("dpUrl", room.dpUrl)
         setValue("description", room.description)
+        setImageUrl(room.dpUrl)
 
         setState({ ...state, editing: true, editingID: room.id })
     }
@@ -297,6 +323,16 @@ const Rooms = () => {
                                 <div className="col-span-3">
                                     <label className="block text-gray-600 text-sm">Description</label>
                                     <input type="text" id="description" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('description', { required: false, maxLength: 100 })} />
+                                </div>
+                                <div className="col-span-5">
+                                    <label className="block text-gray-600 text-sm">Room Image</label>
+                                    <input type="file" id="eventImage" className="block w-full focus:outline-none bottom-border pt-2" onChange={handleImageUpload} />
+                                    {imageUrl && (
+                                        <div className="mt-2">
+                                            <img src={imageUrl} alt="Event" className="w-full h-auto" />
+                                            <button type="button" className="text-red-500 text-sm mt-2" onClick={handleImageDelete}>Delete Image</button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             {
