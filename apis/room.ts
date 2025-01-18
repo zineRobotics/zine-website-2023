@@ -19,12 +19,11 @@ export interface IRoomCreateData {
   name: string;
   type: "project" | "group" | "workshop";
   description: string;
-  // dpUrl: string;
+  dpUrl: string;
 }
 export interface IRoomData extends IRoomCreateData {
   id: number;
   unreadMessages: number;
-  dpUrl: string;
 }
 export interface IRoomEditData extends IRoomCreateData{
   id: number;
@@ -78,13 +77,13 @@ export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|u
   }
 };
 
-export const getRoom = async (roomID: number) => {
+export const getRoom = async (roomID: number):Promise<IRoomData|undefined> => {
     try{
       const response = await api.get(roomURL + "/get?roomId=" + roomID);
       if(response.status === 200){
         return response.data;
       }
-      return response.status;
+      return undefined
     }
     catch(err){
       // console.log(err);
