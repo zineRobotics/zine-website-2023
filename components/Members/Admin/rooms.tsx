@@ -184,7 +184,7 @@ const Rooms = () => {
         assignState.emailList.forEach((e) => {
             if(e.startsWith('$')){
                 let name = e.slice(1).trim() //role name
-                let roleId = roles.find(r => (r.roleName).trim() === name)?.id
+                let roleId = roles.find(r => (r.roleName && r.roleName).trim() === name)?.id
                 if(roleId === undefined){
                     toast.error(`Role ${name} not found`)
                     return
@@ -406,68 +406,68 @@ const Rooms = () => {
             {/* Assign Room Modal */}
             <Modal isOpen={state.assignRoom !== null} onClose={() => setState({...state, assignRoom: null})}>
                 <div className="fixed inset-0 flex items-center justify-center overflow-y-auto">
-                <div className="p-4 md:p-5 text-center relative bg-white rounded-lg w-3/4 h-3/4"  >
-                    <h3 className="mb-2 text-lg font-bold text-gray-500">Manage Users {state.assignRoom?.name}</h3>
-                    <div className="flex text-sm">
-                        <input type='text' className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.input} placeholder="2021ucp1011@mnit.ac.in, $2023, $admin" onChange={(e) => setAssignState({...assignState, input: e.target.value})} />
-                        <select className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.role} onChange={(e) => setAssignState({...assignState, role: e.target.value as Role})}>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                        <button type="button" className="text-white rounded-md ml-2 px-2 py-1" style={{ background: "#0C72B0" }} onClick={addAssignEmail}>Add</button>
-                    </div>
+                    <div className="p-4 md:p-5 text-center relative bg-white rounded-lg w-3/4 h-3/4"  >
+                        <h3 className="mb-2 text-lg font-bold text-gray-500">Manage Users {state.assignRoom?.name}</h3>
+                        <div className="flex text-sm">
+                            <input type='text' className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.input} placeholder="2021ucp1011@mnit.ac.in, $2023, $admin" onChange={(e) => setAssignState({...assignState, input: e.target.value})} />
+                            <select className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.role} onChange={(e) => setAssignState({...assignState, role: e.target.value as Role})}>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <button type="button" className="text-white rounded-md ml-2 px-2 py-1" style={{ background: "#0C72B0" }} onClick={addAssignEmail}>Add</button>
+                        </div>
 
-                    <div className="grid grid-cols-2 text-sm font-medium mt-2 gap-1">
-                        {assignState.emailList.map((email, index) => (
-                            <div key={email} className="flex py-1 px-2 rounded-3xl" style={{background: "#C2FFF48A", color: "#0C72B0F2"}}>
-                                <input className="font-medium" disabled value={email} />
-                                <button className="ml-1" type="button" onClick={() => setAssignState({...assignState, emailList: assignState.emailList.filter(t => t !== email)})}>✕</button>
-                            </div>
-                        ))}
-                    </div>
+                        <div className="grid grid-cols-2 text-sm font-medium mt-2 gap-1">
+                            {assignState.emailList.map((email, index) => (
+                                <div key={email} className="flex py-1 px-2 rounded-3xl" style={{background: "#C2FFF48A", color: "#0C72B0F2"}}>
+                                    <input className="font-medium" disabled value={email} />
+                                    <button className="ml-1" type="button" onClick={() => setAssignState({...assignState, emailList: assignState.emailList.filter(t => t !== email)})}>✕</button>
+                                </div>
+                            ))}
+                        </div>
 
-                    <div className="flex mt-4 justify-center text-white text-sm gap-2">
-                        <button type="button" className="p-2 block w-40 rounded-3xl" style={{ background: "#0C72B0" }} onClick={() => _assignRoom()}>
-                            Assign Room
-                        </button>
-                        <button type="button" className="p-2 block w-40 rounded-3xl text-red-500 border" onClick={() => {
-                            setState({...state, assignRoom: null})
-                            setMembers([])
-                        }}>
-                            Cancel
-                        </button>
-                    </div>
-                    
-                    <div className=" max-h-full overflow-y-auto h-3/4">
-                        <table className="table-auto w-full mt-8 text-center ">
-                            <thead>
-                                <tr className="text-left">
-                                    <th className="border p-1">S.No</th>
-                                    <th className="border p-1">Email</th>
-                                    <th className="border p-1">Role</th>
-                                    <th className="border p-1">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    members
-                                        .map((m, index) => (
-                                            <tr key={m.email} className="text-left border-black text-sm">
-                                                <td className="border p-1 text-center">{index + 1}</td>
-                                                <td className="border p-1">{m.email}</td>
-                                                <td className="border p-1">{m.role}</td>
-                                                <td className="border p-1">
-                                                    {/* <button className="bg-green-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => _removeUser(m)}>Change Role</button> */}
-                                                    <button className="bg-red-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => _removeUser(m)}>Remove</button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                        <div className="flex mt-4 justify-center text-white text-sm gap-2">
+                            <button type="button" className="p-2 block w-40 rounded-3xl" style={{ background: "#0C72B0" }} onClick={() => _assignRoom()}>
+                                Assign Room
+                            </button>
+                            <button type="button" className="p-2 block w-40 rounded-3xl text-red-500 border" onClick={() => {
+                                setState({...state, assignRoom: null})
+                                setMembers([])
+                            }}>
+                                Cancel
+                            </button>
+                        </div>
+                        
+                        <div className=" max-h-full overflow-y-auto h-3/4">
+                            <table className="table-auto w-full mt-8 text-center ">
+                                <thead>
+                                    <tr className="text-left">
+                                        <th className="border p-1">S.No</th>
+                                        <th className="border p-1">Email</th>
+                                        <th className="border p-1">Role</th>
+                                        <th className="border p-1">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        members
+                                            .map((m, index) => (
+                                                <tr key={m.email} className="text-left border-black text-sm">
+                                                    <td className="border p-1 text-center">{index + 1}</td>
+                                                    <td className="border p-1">{m.email}</td>
+                                                    <td className="border p-1">{m.role}</td>
+                                                    <td className="border p-1">
+                                                        {/* <button className="bg-green-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => _removeUser(m)}>Change Role</button> */}
+                                                        <button className="bg-red-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => _removeUser(m)}>Remove</button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
 
-                </div>
+                    </div>
                 </div>
             </Modal>
         </ProtectedRoute>

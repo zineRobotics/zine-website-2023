@@ -128,6 +128,17 @@ const SideNav = () => {
                   Rooms
                 </p>
               </Link>
+              <Link href="/admin/usersAndChannels">
+                <p
+                  className={`text-xl hover:text-gray-300 cursor-pointer ${
+                    page === "usersAndChannels"
+                      ? "font-bold"
+                      : ""
+                  }`}
+                >
+                  Users and Channels
+                </p>
+              </Link>
               <Link href="/admin/channels">
                 <p
                   className={`text-xl hover:text-gray-300 cursor-pointer ${
