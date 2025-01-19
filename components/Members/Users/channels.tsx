@@ -42,7 +42,7 @@ const Channels = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [roomLastSeen, setRoomLastSeen] = useState<number>(0);
   const [activeUsers, setActiveUsers] = useState<string[]>([]);
-  
+
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
   };
@@ -78,7 +78,7 @@ const Channels = () => {
         } catch (error) {
           console.error("Error parsing message:", error, msg);
         }
-        },
+      },
         { roomId: currRoomID }
       );
     }
@@ -213,7 +213,7 @@ const Channels = () => {
   const handleSend = async (type: string, fileState: FileState | null, pollData: IPollCreateBody) => {
     if (!authUser) return;
     if (type === "text") {
-      if(!currMsg) return;
+      if (!currMsg) return;
       const msgBody = {
         type: "text",
         sentFrom: authUser?.id,
@@ -242,7 +242,7 @@ const Channels = () => {
       if (msgBody.sentFrom) {
         stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
       }
-    } else if(type == "poll" && pollData != null) {
+    } else if (type == "poll" && pollData != null) {
       const msgBody = {
         type: "poll",
         sentFrom: authUser.id,
@@ -251,7 +251,7 @@ const Channels = () => {
         poll: pollData
       };
       console.log("sent", msgBody);
-      
+
       if (msgBody.sentFrom) {
         stompClient.publish({ destination: "/app/message", headers: {}, body: JSON.stringify(msgBody) });
       }
@@ -526,8 +526,27 @@ const Channels = () => {
                       borderRadius: "50%",
                     }}
                   >
-                    <div className="h-full w-full flex flex-col justify-center">
-                      <Image layout="responsive" src={ChatDP} />
+                    <div
+                      className="w-6 h-6 mr-2 rounded-full"
+                      style={{
+                        backgroundColor: "white",
+                      }}
+                    >
+                      {announcementRoom?.dpUrl ? (
+                        <Image
+                          width={50}
+                          height={50}
+                          src={announcementRoom.dpUrl}
+                          className="rounded-full"
+                          style={{
+                            backgroundColor: "#0C72B0",
+                          }}
+                        />
+                      ) : (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image layout="responsive" src={ChatDP} />
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex items-center">{announcementRoom?.name}</div>
@@ -722,17 +741,31 @@ const Channels = () => {
                         borderRadius: "50%",
                       }}
                     >
-                      <div className="h-full w-full flex flex-col justify-center">
-                        <Image layout="responsive" src={ChatDP} />
-                      </div>
+                      {announcementRoom?.dpUrl ? (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image
+                            height={50}
+                            width={50}
+                            src={announcementRoom.dpUrl}
+                            className="rounded-full"
+                            style={{
+                              backgroundColor: "#0C72B0",
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image layout="responsive" src={ChatDP} />
+                        </div>
+                      )}
                     </div>
                     {announcementRoom?.name}
                     <div className="text-xs ml-auto pr-5 flex items-center">{announcementRoom?.unreadMessages != 0 ? `(${announcementRoom?.unreadMessages})` : <></>}</div>
                   </div>
                   {rooms.filter(room => room.type == 'workshop').length != 0 &&
-                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
-                    Workshops
-                  </div>}
+                    <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                      Workshops
+                    </div>}
                   {rooms &&
                     rooms.map((ele) => {
                       if (ele.id === null) return; //if room does not exist
@@ -783,9 +816,9 @@ const Channels = () => {
                       );
                     })}
                   {rooms.filter(room => room.type == 'group').length != 0 &&
-                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
-                    Groups
-                  </div>}
+                    <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                      Groups
+                    </div>}
                   {rooms &&
                     rooms.map((ele) => {
                       if (ele.id === null) return; //if room does not exist
@@ -836,9 +869,9 @@ const Channels = () => {
                       );
                     })}
                   {rooms.filter(room => room.type == 'project').length != 0 &&
-                  <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
-                    Projects
-                  </div>}
+                    <div className="font-normal ml-2 mt-5" style={{ color: "#8D989F" }}>
+                      Projects
+                    </div>}
                   {rooms &&
                     rooms.map((ele) => {
                       if (ele.id === null) return; //if room does not exist
