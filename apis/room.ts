@@ -59,6 +59,11 @@ export interface IRoomMember{
   role: string;
 }
 
+export interface IAddToRooms{
+  roomIds: number[];
+  members: IMembers[];
+}
+
 // Creates Room and returns as IRoomResponseData. If it fails, it returns undefined or the corersponding 
 export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|undefined>  => {
   try{
@@ -326,3 +331,21 @@ export const deleteFile = async (publicKey: string = "", url: string = ""): Prom
     throw new Error(error.response?.data?.message || 'Failed to delete file');
   }
 };
+
+export const addMembersToRooms = async (data: IAddToRooms): Promise<{status: string; invalidEmails:string[]; alreadyAssignedEmails:{[key: number]:string[]}}|undefined> => {
+  if (!data.members.length || !data.roomIds.length) return;
+  try{
+    const response = await api.post(memberURL + "/add-to-rooms", data)
+    if(response.status){
+      if(response.status === 200){
+        console.log(response);
+        return response.data;
+      }
+      return undefined;
+    }
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
+}
