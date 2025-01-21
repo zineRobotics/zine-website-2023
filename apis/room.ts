@@ -19,12 +19,11 @@ export interface IRoomCreateData {
   name: string;
   type: "project" | "group" | "workshop";
   description: string;
-  // dpUrl: string;
+  dpUrl: string;
 }
 export interface IRoomData extends IRoomCreateData {
   id: number;
   unreadMessages: number;
-  dpUrl: string;
 }
 export interface IRoomEditData extends IRoomCreateData{
   id: number;
@@ -60,6 +59,11 @@ export interface IRoomMember{
   role: string;
 }
 
+export interface IAddToRooms{
+  roomIds: number[];
+  members: IMembers[];
+}
+
 // Creates Room and returns as IRoomResponseData. If it fails, it returns undefined or the corersponding 
 export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|undefined>  => {
   try{
@@ -78,13 +82,13 @@ export const createRoom = async (roomData: IRoomCreateData): Promise<IRoomData|u
   }
 };
 
-export const getRoom = async (roomID: number) => {
+export const getRoom = async (roomID: number):Promise<IRoomData|undefined> => {
     try{
       const response = await api.get(roomURL + "/get?roomId=" + roomID);
       if(response.status === 200){
         return response.data;
       }
-      return response.status;
+      return undefined
     }
     catch(err){
       // console.log(err);
@@ -327,3 +331,21 @@ export const deleteFile = async (publicKey: string = "", url: string = ""): Prom
     throw new Error(error.response?.data?.message || 'Failed to delete file');
   }
 };
+
+export const addMembersToRooms = async (data: IAddToRooms): Promise<{status: string; invalidEmails:string[]; alreadyAssignedEmails:{[key: number]:string[]}}|undefined> => {
+  if (!data.members.length || !data.roomIds.length) return;
+  try{
+    const response = await api.post(memberURL + "/add-to-rooms", data)
+    if(response.status){
+      if(response.status === 200){
+        console.log(response);
+        return response.data;
+      }
+      return undefined;
+    }
+  }
+  catch(err){
+    console.log(err);
+    return undefined;
+  }
+}

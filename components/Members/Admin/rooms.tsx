@@ -12,12 +12,13 @@ import Modal from "../modal";
 import { deleteImage, uploadImage } from "../../../apis/image";
 import { getAllRoles, getRoleMembers, IRoleData, IRoleMember } from "../../../apis/roles";
 import { get } from "http";
+import { uploadFile, deleteFile } from "../../../apis/room";
 
 interface IRoomForm{
     name: string;
     type: "project" | "group" | "workshop";
     // image: any;
-    // dpUrl: string;
+    dpUrl: string;
     description: string;
 }
 
@@ -42,11 +43,40 @@ const Rooms = () => {
     const [rooms, setRooms] = useState<IRoomData[]>([]);
     const [roles, setRoles] = useState<IRoleData[]>([]);
     const [assignState, setAssignState] = useState<IAssignState>({ role: "user", input: "" , emailList: []});
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [changedImage, setChangedImage] = useState<boolean>(false);
 
     const { register, watch, handleSubmit, setValue, reset, control, formState: { errors } } = useForm<IRoomForm>();
 
+    const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        setChangedImage(true);
+        const file = event.target.files?.[0];
+        if (file) {
+            try {
+                const response = await uploadFile(file, "event image");
+                setImageUrl(response.url);
+                setValue("dpUrl", response.url);
+                console.log("Uploaded file:", response.url);
+            } catch (error) {
+                console.error("Error uploading file:", error);
+            }
+        }
+    };
+
+    const handleImageDelete = async () => {
+        if (imageUrl) {
+            try {
+                await deleteFile("", imageUrl);
+                setImageUrl(null);
+            } catch (error) {
+                console.error("Error deleting file:", error);
+            }
+        }
+    };
+
     const onSubmit = async (data: IRoomForm) => {
         const { ...formData } = data
+        setImageUrl(null)
         const roomcreate = async() =>{
             let roomData: IRoomCreateData = formData
             createRoom(roomData).then(room => {
@@ -58,7 +88,8 @@ const Rooms = () => {
                 }
                 setRooms([...rooms, room])
                 toast.success("Room successfully created!")
-
+                setImageUrl(null)
+                reset()
             }).catch((err) => {
                 toast.error("An error occurred. Contact zine team")
             })
@@ -67,17 +98,6 @@ const Rooms = () => {
     }
 
     const onEdit = async (data: IRoomForm) => {
-        
-        // let imageexists = data.image[0]
-        // data.image = ""
-        // if (imageexists){
-        //     if(data.dpUrl) deleteImage(data.dpUrl)
-        //     let imageName = new Date().getTime().toString()
-        //     data.dpUrl = `/rooms/${imageName}`
-        //     let imagelink = await uploadImage(imageexists, data.dpUrl)
-        //     data.image = imagelink
-        // }
-        // const { image, ...formData } = data
         const { ...formData } = data
 
         reset()
@@ -86,6 +106,8 @@ const Rooms = () => {
                 toast.success("Room successfully edited!")
                 setRooms(rooms.map(r => r.id === state.editingID ? {...r, ...formData} : r)) //changes the room that was edited
                 setState({ ...state, editing: false, editingID:-1 })
+                setImageUrl(null)
+                reset()
             }
             else{
                 toast.error("An error occurred. Try again later.")
@@ -97,6 +119,8 @@ const Rooms = () => {
 
     const onCancel = () => {
         setState({ ...state, editing: false, editingID:-1 })
+        if (changedImage) handleImageDelete()
+        setImageUrl(null)
         reset()
     }
 
@@ -105,6 +129,7 @@ const Rooms = () => {
     }
 
     const roomDelete = async (room: IRoomData) => {
+        deleteFile("", room.dpUrl)
         toast.promise(deleteRoom([room.id]), {
             pending: 'Deleting Room',
             success: `Room ${room.name} deleted successfully`,
@@ -117,8 +142,9 @@ const Rooms = () => {
     const roomEdit = async (room: IRoomData) => {
         setValue("name", room.name)
         setValue("type", room.type)
-        // setValue("dpUrl", room.dpUrl)
+        setValue("dpUrl", room.dpUrl)
         setValue("description", room.description)
+        setImageUrl(room.dpUrl)
 
         setState({ ...state, editing: true, editingID: room.id })
     }
@@ -158,7 +184,7 @@ const Rooms = () => {
         assignState.emailList.forEach((e) => {
             if(e.startsWith('$')){
                 let name = e.slice(1).trim() //role name
-                let roleId = roles.find(r => (r.roleName).trim() === name)?.id
+                let roleId = roles.find(r => (r.roleName && r.roleName).trim() === name)?.id
                 if(roleId === undefined){
                     toast.error(`Role ${name} not found`)
                     return
@@ -298,6 +324,16 @@ const Rooms = () => {
                                     <label className="block text-gray-600 text-sm">Description</label>
                                     <input type="text" id="description" className="block w-full focus:outline-none bottom-border pt-2 px-1" {...register('description', { required: false, maxLength: 100 })} />
                                 </div>
+                                <div className="col-span-5">
+                                    <label className="block text-gray-600 text-sm">Room Image</label>
+                                    <input type="file" id="eventImage" className="block w-full focus:outline-none bottom-border pt-2" onChange={handleImageUpload} />
+                                    {imageUrl && (
+                                        <div className="mt-2">
+                                            <img src={imageUrl} alt="Event" className="w-full h-auto" />
+                                            <button type="button" className="text-red-500 text-sm mt-2" onClick={handleImageDelete}>Delete Image</button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                             {
                                 !state.editing ?
@@ -370,68 +406,68 @@ const Rooms = () => {
             {/* Assign Room Modal */}
             <Modal isOpen={state.assignRoom !== null} onClose={() => setState({...state, assignRoom: null})}>
                 <div className="fixed inset-0 flex items-center justify-center overflow-y-auto">
-                <div className="p-4 md:p-5 text-center relative bg-white rounded-lg w-3/4 h-3/4"  >
-                    <h3 className="mb-2 text-lg font-bold text-gray-500">Manage Users {state.assignRoom?.name}</h3>
-                    <div className="flex text-sm">
-                        <input type='text' className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.input} placeholder="2021ucp1011@mnit.ac.in, $2023, $admin" onChange={(e) => setAssignState({...assignState, input: e.target.value})} />
-                        <select className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.role} onChange={(e) => setAssignState({...assignState, role: e.target.value as Role})}>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                        <button type="button" className="text-white rounded-md ml-2 px-2 py-1" style={{ background: "#0C72B0" }} onClick={addAssignEmail}>Add</button>
-                    </div>
+                    <div className="p-4 md:p-5 text-center relative bg-white rounded-lg w-3/4 h-3/4"  >
+                        <h3 className="mb-2 text-lg font-bold text-gray-500">Manage Users {state.assignRoom?.name}</h3>
+                        <div className="flex text-sm">
+                            <input type='text' className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.input} placeholder="2021ucp1011@mnit.ac.in, $2023, $admin" onChange={(e) => setAssignState({...assignState, input: e.target.value})} />
+                            <select className="block w-full focus:outline-none bottom-border pt-2 px-1" value={assignState.role} onChange={(e) => setAssignState({...assignState, role: e.target.value as Role})}>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <button type="button" className="text-white rounded-md ml-2 px-2 py-1" style={{ background: "#0C72B0" }} onClick={addAssignEmail}>Add</button>
+                        </div>
 
-                    <div className="grid grid-cols-2 text-sm font-medium mt-2 gap-1">
-                        {assignState.emailList.map((email, index) => (
-                            <div key={email} className="flex py-1 px-2 rounded-3xl" style={{background: "#C2FFF48A", color: "#0C72B0F2"}}>
-                                <input className="font-medium" disabled value={email} />
-                                <button className="ml-1" type="button" onClick={() => setAssignState({...assignState, emailList: assignState.emailList.filter(t => t !== email)})}>✕</button>
-                            </div>
-                        ))}
-                    </div>
+                        <div className="grid grid-cols-2 text-sm font-medium mt-2 gap-1">
+                            {assignState.emailList.map((email, index) => (
+                                <div key={email} className="flex py-1 px-2 rounded-3xl" style={{background: "#C2FFF48A", color: "#0C72B0F2"}}>
+                                    <input className="font-medium" disabled value={email} />
+                                    <button className="ml-1" type="button" onClick={() => setAssignState({...assignState, emailList: assignState.emailList.filter(t => t !== email)})}>✕</button>
+                                </div>
+                            ))}
+                        </div>
 
-                    <div className="flex mt-4 justify-center text-white text-sm gap-2">
-                        <button type="button" className="p-2 block w-40 rounded-3xl" style={{ background: "#0C72B0" }} onClick={() => _assignRoom()}>
-                            Assign Room
-                        </button>
-                        <button type="button" className="p-2 block w-40 rounded-3xl text-red-500 border" onClick={() => {
-                            setState({...state, assignRoom: null})
-                            setMembers([])
-                        }}>
-                            Cancel
-                        </button>
-                    </div>
-                    
-                    <div className=" max-h-full overflow-y-auto h-3/4">
-                        <table className="table-auto w-full mt-8 text-center ">
-                            <thead>
-                                <tr className="text-left">
-                                    <th className="border p-1">S.No</th>
-                                    <th className="border p-1">Email</th>
-                                    <th className="border p-1">Role</th>
-                                    <th className="border p-1">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    members
-                                        .map((m, index) => (
-                                            <tr key={m.email} className="text-left border-black text-sm">
-                                                <td className="border p-1 text-center">{index + 1}</td>
-                                                <td className="border p-1">{m.email}</td>
-                                                <td className="border p-1">{m.role}</td>
-                                                <td className="border p-1">
-                                                    {/* <button className="bg-green-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => _removeUser(m)}>Change Role</button> */}
-                                                    <button className="bg-red-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => _removeUser(m)}>Remove</button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                        <div className="flex mt-4 justify-center text-white text-sm gap-2">
+                            <button type="button" className="p-2 block w-40 rounded-3xl" style={{ background: "#0C72B0" }} onClick={() => _assignRoom()}>
+                                Assign Room
+                            </button>
+                            <button type="button" className="p-2 block w-40 rounded-3xl text-red-500 border" onClick={() => {
+                                setState({...state, assignRoom: null})
+                                setMembers([])
+                            }}>
+                                Cancel
+                            </button>
+                        </div>
+                        
+                        <div className=" max-h-full overflow-y-auto h-3/4">
+                            <table className="table-auto w-full mt-8 text-center ">
+                                <thead>
+                                    <tr className="text-left">
+                                        <th className="border p-1">S.No</th>
+                                        <th className="border p-1">Email</th>
+                                        <th className="border p-1">Role</th>
+                                        <th className="border p-1">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        members
+                                            .map((m, index) => (
+                                                <tr key={m.email} className="text-left border-black text-sm">
+                                                    <td className="border p-1 text-center">{index + 1}</td>
+                                                    <td className="border p-1">{m.email}</td>
+                                                    <td className="border p-1">{m.role}</td>
+                                                    <td className="border p-1">
+                                                        {/* <button className="bg-green-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => _removeUser(m)}>Change Role</button> */}
+                                                        <button className="bg-red-500 text-white py-1 px-2 rounded-lg ml-1" onClick={() => _removeUser(m)}>Remove</button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
 
-                </div>
+                    </div>
                 </div>
             </Modal>
         </ProtectedRoute>

@@ -166,12 +166,12 @@ const Channels = () => {
         (message) =>
           message.id === messageId && message.poll
             ? {
-                ...message,
-                poll: {
-                  ...message.poll,
-                  options: pollOptions,
-                },
-              }
+              ...message,
+              poll: {
+                ...message.poll,
+                options: pollOptions,
+              },
+            }
             : message // No change for this message
       )
     );
@@ -186,7 +186,7 @@ const Channels = () => {
       const client = new Client({
         webSocketFactory: () =>
           new SockJS(process.env.NEXT_PUBLIC_API_URL + "/ws", null, {}),
-        connectHeaders: {"Authorization": token },
+        connectHeaders: { "Authorization": token },
         debug: (str: any) => {
           console.log(str);
         },
@@ -334,11 +334,10 @@ const Channels = () => {
         className={`bg-blue-600 py-3 px-1 pr-3`}
         style={{
           backgroundColor: `${user ? "#95C5E2" : "#0C72B0"}`,
-          borderRadius: `${
-            user
-              ? "1.5rem 1.5rem 0.75rem 1.5rem"
-              : "1.5rem 1.5rem 1.5rem 0.75rem"
-          }`,
+          borderRadius: `${user
+            ? "1.5rem 1.5rem 0.75rem 1.5rem"
+            : "1.5rem 1.5rem 1.5rem 0.75rem"
+            }`,
           marginLeft: `${user ? "auto" : space ? "2rem" : "0rem"}`,
           maxWidth: `${mobile ? "calc(95% - 2.5rem)" : "calc(60% - 2.5rem)"}`,
         }}
@@ -351,9 +350,8 @@ const Channels = () => {
                   <a
                     key={wordIndex}
                     href={word}
-                    className={`${
-                      user ? "text-blue-500" : "text-blue-100"
-                    } underline`}
+                    className={`${user ? "text-blue-500" : "text-blue-100"
+                      } underline`}
                     target="_blank"
                   >
                     {word}{" "}
@@ -400,13 +398,11 @@ const Channels = () => {
             ></div>
           )}
           <div
-            className={`bg-white w-4/5 text-sm px-6 py-3 w-full flex-wrap ${
-              user ? "ml-auto" : ""
-            }`}
+            className={`bg-white w-4/5 text-sm px-6 py-3 w-full flex-wrap ${user ? "ml-auto" : ""
+              }`}
             style={{
-              borderRadius: `${
-                user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"
-              }`,
+              borderRadius: `${user ? "20px 10px 10px 20px" : "10px 20px 20px 10px"
+                }`,
             }}
           >
             {truncateString(msg?.text?.content || "")}
@@ -588,32 +584,41 @@ const Channels = () => {
                   onClick={() => {
                     handleRoomChange(announcementRoom as IRoomData, false);
                   }}
-                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${
-                    currRoom === announcementRoom?.name
-                      ? "bg-white"
-                      : "bg-gray-200"
-                  }`}
+                  className={`w-11/12 flex font-extrabold text-sm rounded-2xl mb-1 py-2 pl-4 ${currRoom === announcementRoom?.name
+                    ? "bg-white"
+                    : "bg-gray-200"
+                    }`}
                   style={{
                     color: "#003d63",
-                    border: `${
-                      currRoom === announcementRoom?.name
-                        ? "1px solid #003d63"
-                        : ""
-                    }`,
+                    border: `${currRoom === announcementRoom?.name
+                      ? "1px solid #003d63"
+                      : ""
+                      }`,
                     cursor: "pointer",
                   }}
                 >
                   <div
-                    className="w-6 h-6 mr-2"
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: "50%",
-                    }}
-                  >
-                    <div className="h-full w-full flex flex-col justify-center">
-                      <Image layout="responsive" src={ChatDP} />
+                      className="w-6 h-6 mr-2 rounded-full"
+                      style={{
+                        backgroundColor: "white",
+                      }}
+                    >
+                      {announcementRoom?.dpUrl ? (
+                        <Image
+                          width={50}
+                          height={50}
+                          src={announcementRoom.dpUrl}
+                          className="rounded-full"
+                          style={{
+                            backgroundColor: "#0C72B0",
+                          }}
+                        />
+                      ) : (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image layout="responsive" src={ChatDP} />
+                        </div>
+                      )}
                     </div>
-                  </div>
                   <div className="flex items-center">
                     {announcementRoom?.name}
                   </div>
@@ -627,13 +632,13 @@ const Channels = () => {
                 </div>
                 {rooms.filter((room) => room.type == "workshop").length !=
                   0 && (
-                  <div
-                    className="font-normal ml-2 mt-5"
-                    style={{ color: "#8D989F" }}
-                  >
-                    Workshops
-                  </div>
-                )}
+                    <div
+                      className="font-normal ml-2 mt-5"
+                      style={{ color: "#8D989F" }}
+                    >
+                      Workshops
+                    </div>
+                  )}
                 {rooms &&
                   rooms.map((ele) => {
                     if (ele.id === null) return; //if room does not exist
@@ -644,14 +649,12 @@ const Channels = () => {
                           onClick={() => {
                             handleRoomChange(ele, false);
                           }}
-                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${
-                            currRoom === ele.name ? "bg-white" : "bg-gray-200"
-                          }`}
+                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"
+                            }`}
                           style={{
                             color: "#003d63",
-                            border: `${
-                              currRoomID === ele.id ? "1px solid #003d63" : ""
-                            }`,
+                            border: `${currRoomID === ele.id ? "1px solid #003d63" : ""
+                              }`,
                             cursor: "pointer",
                           }}
                         >
@@ -720,14 +723,12 @@ const Channels = () => {
                             handleRoomChange(ele, false);
                           }}
                           key={ele.name}
-                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${
-                            currRoom === ele.name ? "bg-white" : "bg-gray-200"
-                          }`}
+                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"
+                            }`}
                           style={{
                             color: "#003d63",
-                            border: `${
-                              currRoomID === ele.id ? "1px solid #003d63" : ""
-                            }`,
+                            border: `${currRoomID === ele.id ? "1px solid #003d63" : ""
+                              }`,
                             cursor: "pointer",
                           }}
                         >
@@ -783,14 +784,12 @@ const Channels = () => {
                           onClick={() => {
                             handleRoomChange(ele, false);
                           }}
-                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${
-                            currRoom === ele.name ? "bg-white" : "bg-gray-200"
-                          }`}
+                          className={`w-11/12 flex font-extrabold rounded-2xl mb-1 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"
+                            }`}
                           style={{
                             color: "#003d63",
-                            border: `${
-                              currRoomID === ele.id ? "1px solid #003d63" : ""
-                            }`,
+                            border: `${currRoomID === ele.id ? "1px solid #003d63" : ""
+                              }`,
                             cursor: "pointer",
                           }}
                         >
@@ -854,18 +853,16 @@ const Channels = () => {
                     onClick={() => {
                       handleRoomChange(announcementRoom as IRoomData, true);
                     }}
-                    className={`flex text-xl rounded-xl mb-1 py-2 pl-4 ${
-                      currRoom === announcementRoom?.name
-                        ? "bg-white"
-                        : "bg-gray-200"
-                    }`}
+                    className={`flex text-xl rounded-xl mb-1 py-2 pl-4 ${currRoom === announcementRoom?.name
+                      ? "bg-white"
+                      : "bg-gray-200"
+                      }`}
                     style={{
                       color: "#003d63",
-                      border: `${
-                        currRoom === announcementRoom?.name
-                          ? "1px solid #003d63"
-                          : ""
-                      }`,
+                      border: `${currRoom === announcementRoom?.name
+                        ? "1px solid #003d63"
+                        : ""
+                        }`,
                       cursor: "pointer",
                     }}
                   >
@@ -876,9 +873,23 @@ const Channels = () => {
                         borderRadius: "50%",
                       }}
                     >
-                      <div className="h-full w-full flex flex-col justify-center">
-                        <Image layout="responsive" src={ChatDP} />
-                      </div>
+                      {announcementRoom?.dpUrl ? (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image
+                            height={50}
+                            width={50}
+                            src={announcementRoom.dpUrl}
+                            className="rounded-full"
+                            style={{
+                              backgroundColor: "#0C72B0",
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="h-full w-full flex flex-col justify-center">
+                          <Image layout="responsive" src={ChatDP} />
+                        </div>
+                      )}
                     </div>
                     {announcementRoom?.name}
                     <div className="text-xs ml-auto pr-5 flex items-center">
@@ -891,13 +902,13 @@ const Channels = () => {
                   </div>
                   {rooms.filter((room) => room.type == "workshop").length !=
                     0 && (
-                    <div
-                      className="font-normal ml-2 mt-5"
-                      style={{ color: "#8D989F" }}
-                    >
-                      Workshops
-                    </div>
-                  )}
+                      <div
+                        className="font-normal ml-2 mt-5"
+                        style={{ color: "#8D989F" }}
+                      >
+                        Workshops
+                      </div>
+                    )}
                   {rooms &&
                     rooms.map((ele) => {
                       if (ele.id === null) return; //if room does not exist
@@ -909,14 +920,12 @@ const Channels = () => {
                               // console.log(ele.id);
                               handleRoomChange(ele, true);
                             }}
-                            className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${
-                              currRoom === ele.name ? "bg-white" : "bg-gray-200"
-                            }`}
+                            className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"
+                              }`}
                             style={{
                               color: "#003d63",
-                              border: `${
-                                currRoomID === ele.id ? "1px solid #003d63" : ""
-                              }`,
+                              border: `${currRoomID === ele.id ? "1px solid #003d63" : ""
+                                }`,
                               cursor: "pointer",
                             }}
                           >
@@ -976,14 +985,12 @@ const Channels = () => {
                               // console.log(ele.id);
                               handleRoomChange(ele, true);
                             }}
-                            className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${
-                              currRoom === ele.name ? "bg-white" : "bg-gray-200"
-                            }`}
+                            className={`flex rounded-xl text-xl mb-2 py-2 pl-4 text-sm ${currRoom === ele.name ? "bg-white" : "bg-gray-200"
+                              }`}
                             style={{
                               color: "#003d63",
-                              border: `${
-                                currRoomID === ele.id ? "1px solid #003d63" : ""
-                              }`,
+                              border: `${currRoomID === ele.id ? "1px solid #003d63" : ""
+                                }`,
                               cursor: "pointer",
                             }}
                           >
@@ -1026,13 +1033,13 @@ const Channels = () => {
                     })}
                   {rooms.filter((room) => room.type == "project").length !=
                     0 && (
-                    <div
-                      className="font-normal ml-2 mt-5"
-                      style={{ color: "#8D989F" }}
-                    >
-                      Projects
-                    </div>
-                  )}
+                      <div
+                        className="font-normal ml-2 mt-5"
+                        style={{ color: "#8D989F" }}
+                      >
+                        Projects
+                      </div>
+                    )}
                   {rooms &&
                     rooms.map((ele) => {
                       if (ele.id === null) return; //if room does not exist
@@ -1043,14 +1050,12 @@ const Channels = () => {
                             onClick={() => {
                               handleRoomChange(ele, true);
                             }}
-                            className={`flex rounded-2xl mb-2 py-2 pl-4 text-xl ${
-                              currRoom === ele.name ? "bg-white" : "bg-gray-200"
-                            }`}
+                            className={`flex rounded-2xl mb-2 py-2 pl-4 text-xl ${currRoom === ele.name ? "bg-white" : "bg-gray-200"
+                              }`}
                             style={{
                               color: "#003d63",
-                              border: `${
-                                currRoomID === ele.id ? "1px solid #003d63" : ""
-                              }`,
+                              border: `${currRoomID === ele.id ? "1px solid #003d63" : ""
+                                }`,
                               cursor: "pointer",
                             }}
                           >
@@ -1109,7 +1114,7 @@ const Channels = () => {
                 <div className="bg-white flex w-full py-3 my-auto">
                   <div
                     className="w-8 h-8 mr-2 ml-6 py-auto object-fill rounded-xl my-auto"
-                    // style={{backgroundColor: "#0C72B0"}}
+                  // style={{backgroundColor: "#0C72B0"}}
                   >
                     {currRoomImage ? (
                       <div className="m">
@@ -1198,15 +1203,12 @@ const Channels = () => {
                   <div className="block w-fit">{truncateString(replyText)}</div>
                 )}
               </div>
-              {currRoom !== "Announcements" && currRoom !== "" ? (
+              {currRoomID &&
                 <ChatInput
                   onSend={handleSend}
                   currMsg={currMsg}
                   setCurrMsg={setCurrMsg}
-                />
-              ) : (
-                <div className="mt-2"></div>
-              )}
+                />}
             </div>
           ) : (
             <div className={`bg-gray-100 w-screen flex flex-col h-dvh`}>
@@ -1296,15 +1298,12 @@ const Channels = () => {
                   <div className="block w-fit">{truncateString(replyText)}</div>
                 )}
               </div>
-              {currRoom !== "Announcements" && currRoom !== "" ? (
+              {currRoomID &&
                 <ChatInput
                   onSend={handleSend}
                   currMsg={currMsg}
                   setCurrMsg={setCurrMsg}
-                />
-              ) : (
-                <div className="mt-2"></div>
-              )}
+                />}
             </div>
           )}
         </div>

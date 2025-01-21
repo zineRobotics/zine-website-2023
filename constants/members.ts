@@ -1385,7 +1385,7 @@ export const year2024: Member[] = [
   {
     name: "DIVYANSH GARG",
     image: divyansh,
-    desc: "SWE at Care Health",
+    desc: "SDE at Cred",
     github: "",
     linkedin: "https://www.linkedin.com/in/dggrx/",
     twitter: "",
