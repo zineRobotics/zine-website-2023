@@ -9,7 +9,7 @@ export function ActiveUsers({ users }: ActiveUsersProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white p-2 relative">
+    <div className="bg-white p-2 relative hidden md:block">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
