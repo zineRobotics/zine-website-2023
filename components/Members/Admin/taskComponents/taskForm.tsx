@@ -43,6 +43,7 @@ interface IFormState{
     editing: boolean;
     editingID: number;
     assignTask: null| ITaskData;
+    deleteTask: null| ITaskData;
 }
 
 interface IAssignState {
@@ -52,7 +53,7 @@ interface IAssignState {
 }
 
 const TaskForm: React.FC<TaskManagerProps> = ({state, setState, tasks, setTasks, instances, setInstances}) => {
-    const [formState, setFormState] = useState<IFormState>({ search: "", editing: false, editingID: -1, assignTask: null })
+    const [formState, setFormState] = useState<IFormState>({ search: "", editing: false, editingID: -1, assignTask: null, deleteTask: null })
     const [assignState, setAssignState] = useState<IAssignState>({ input: "",  roleList: [], taskId: -1 })
     const [roles, setRoles] = useState<IRoleData[]>([]) // for mapping roles to task
     const [allRoles, setAllRoles] = useState<IRoleData[]>([]) // stores all roles
@@ -123,6 +124,7 @@ const TaskForm: React.FC<TaskManagerProps> = ({state, setState, tasks, setTasks,
     }
 
     const taskRemove = async (task: ITaskData) => {
+        setFormState({ ...formState, deleteTask: null })
         toast.promise(deleteTasks([task.id]), {
             pending: 'Deleting Event',
             success: `Event ${task.title} deleted successfully`,
@@ -294,7 +296,7 @@ const TaskForm: React.FC<TaskManagerProps> = ({state, setState, tasks, setTasks,
                                     <td className="border p-1">{u.visible? 'Yes' : 'No'}</td>
                                     <td className="border p-1">
                                         <button className="bg-yellow-500 text-white py-1 px-4 rounded-lg" onClick={() => taskEdit(u)}>Edit</button>
-                                        <button className="bg-red-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => taskRemove(u)}>Delete</button>
+                                        <button className="bg-red-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => setFormState({...formState, deleteTask: u})}>Delete</button>
                                         <button className="bg-blue-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() =>{
                                             setState(u)
                                         }}>Manage Instances</button>
@@ -376,6 +378,19 @@ const TaskForm: React.FC<TaskManagerProps> = ({state, setState, tasks, setTasks,
                     </div>
 
                 </div>
+                </div>
+            </Modal>
+
+            <Modal isOpen={formState.deleteTask !== null} onClose={() => setFormState({...formState, deleteTask: null})}>
+                <div className="p-4 md:p-5 text-center">
+                    <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    <h3 className="mb-5 text-lg font-normal text-gray-500">Are you sure you want to delete {formState.deleteTask?.title} task?</h3>
+                    <button type="button" className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2" onClick={() => taskRemove(formState.deleteTask!)}>
+                        Delete
+                    </button>
+                    <button type="button" className="text-gray-500 bg-white hover:bg-gray-100 rounded-lg border ml-2 border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900" onClick={() => setFormState({...formState, deleteTask: null})}>Cancel</button>
                 </div>
             </Modal>
         </div>

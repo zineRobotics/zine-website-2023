@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideNav from "../../sidenav";
 import styles from "../../../../constants/styles";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import ProtectedRoute from "../ProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
 import { ITaskInstanceCreateData, ITaskInstanceData, createInstance, updateInstance, deleteInstances, getInstancesByTask, getAssigned, assignInstance, IInstanceMember } from "../../../../apis/tasks/taskInstances";
@@ -23,6 +23,7 @@ interface formState {
     editing: boolean;
     editingInstance: ITaskInstanceData|null;
     assignInstance: ITaskInstanceData|null;
+    deleteTaskInstance: ITaskInstanceData|null;
 }
 
 interface IAssignState {
@@ -32,7 +33,7 @@ interface IAssignState {
 }
 
 const InstanceForm: React.FC<TaskManagerProps> = ({state, setState, instances, setInstances}) => {
-    const [formState, setFormState] = useState<formState>({search: "", editing: false, editingInstance: null, assignInstance: null})
+    const [formState, setFormState] = useState<formState>({search: "", editing: false, editingInstance: null, assignInstance: null, deleteTaskInstance: null});
     const [members, setMembers] = useState<IRoleMember[]>([]);
     const [assignState, setAssignState] = useState<IAssignState>({ instanceId: -1, input: "" , emailList: []});
 
@@ -95,6 +96,7 @@ const InstanceForm: React.FC<TaskManagerProps> = ({state, setState, instances, s
     }
 
     const instanceRemove = async (instance: ITaskInstanceData) => {
+        setFormState({...formState, deleteTaskInstance: null})
         toast.promise(deleteInstances(state.id, [instance.taskInstanceId]), {
             pending: 'Deleting Instance',
             success: `Instance ${instance.name} deleted successfully`,
@@ -268,7 +270,7 @@ const InstanceForm: React.FC<TaskManagerProps> = ({state, setState, instances, s
                                 <td className="border p-1">{u.completionPercentage}</td>
                                 <td className="border p-1">
                                     <button className="bg-yellow-500 text-white py-1 px-4 rounded-lg" onClick={() => instanceEdit(u)}>Edit</button>
-                                    <button className="bg-red-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => instanceRemove(u)}>Delete</button>
+                                    <button className="bg-red-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => setFormState({...formState, deleteTaskInstance: u})}>Delete</button>
                                     {/* <button className="bg-blue-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => setState(u)}>Assign Members</button> */}
                                     <button className="bg-blue-500 text-white py-1 px-4 rounded-lg ml-2" onClick={() => instanceAssign(u)}>Assign Members</button>
                                 </td>
@@ -338,6 +340,18 @@ const InstanceForm: React.FC<TaskManagerProps> = ({state, setState, instances, s
                 </div>
 
             </div>
+            </div>
+        </Modal>
+        <Modal isOpen={formState.deleteTaskInstance !== null} onClose={() => setFormState({...formState, deleteTaskInstance: null})}>
+            <div className="p-4 md:p-5 text-center">
+                <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 className="mb-5 text-lg font-normal text-gray-500">Are you sure you want to delete {formState.deleteTaskInstance?.name} room?</h3>
+                <button type="button" className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2" onClick={() => instanceRemove(formState.deleteTaskInstance!)}>
+                    Delete
+                </button>
+                <button type="button" className="text-gray-500 bg-white hover:bg-gray-100 rounded-lg border ml-2 border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900" onClick={() => setFormState({...formState, deleteTaskInstance: null})}>Cancel</button>
             </div>
         </Modal>
     </div>
