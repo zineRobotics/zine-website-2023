@@ -164,7 +164,7 @@ const Checkpoints = ({ instanceData }: { instanceData: ITaskInstanceData }) => {
           {instanceData?.name}
         </h2>
         <div className="flex gap-2 justify-between md:justify-start">
-          <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{ background: "#0C72B0" }} href={instanceData.task.psLink ? ("//" + instanceData.task.psLink) : ""} target="_blank">
+          <a className="text-white rounded-xl px-3 py-2 font-bold text-center cursor-pointer shadow-md" style={{ background: "#0C72B0" }} href={instanceData.task.psLink ? ( instanceData.task.psLink) : ""} target="_blank">
             Problem Statement
           </a>
           <div className="bg-white px-2 pt-3 pb-1 rounded-xl border text-gray-500 relative shadow-md text-center">
