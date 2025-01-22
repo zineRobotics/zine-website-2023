@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideNav from "../../sidenav";
 import styles from "../../../../constants/styles";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import ProtectedRoute from "../ProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
 import { ITaskInstanceCreateData, ITaskInstanceData, createInstance, updateInstance, deleteInstances, getInstancesByTask, getAssigned, assignInstance, IInstanceMember } from "../../../../apis/tasks/taskInstances";
@@ -96,6 +96,7 @@ const InstanceForm: React.FC<TaskManagerProps> = ({state, setState, instances, s
     }
 
     const instanceRemove = async (instance: ITaskInstanceData) => {
+        setFormState({...formState, deleteTaskInstance: null})
         toast.promise(deleteInstances(state.id, [instance.taskInstanceId]), {
             pending: 'Deleting Instance',
             success: `Instance ${instance.name} deleted successfully`,
