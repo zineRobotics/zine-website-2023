@@ -130,7 +130,6 @@ import mayank from "../images/members/2027/mayank.jpg";
 import omkesh from "../images/members/2027/omkesh.webp";
 import roshan from "../images/members/2027/roshan.jpg";
 import vedika from "../images/members/2027/vedika.webp";
-import yuga from "../images/members/2027/yugA.jpg";
 
 interface Member {
   name: string;
@@ -1365,7 +1364,7 @@ export const year2024: Member[] = [
   {
     name: "VINAMRA VASHISHTH",
     image: vinamra,
-    desc: "Data Engineer at Melio",
+    desc: "M.S. Computer Science at Columbia University",
     github: "",
     linkedin: "https://www.linkedin.com/in/vinamra-vashishth-721785201/",
     twitter: "",
@@ -1737,16 +1736,6 @@ export const year2027: Member[] = [
     desc: "Electronics and Communication Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/vedikamalpani04",
-    twitter: "",
-    instagram: "",
-    facebook: "",
-  },
-  {
-    name: "Yug Agarwal",
-    image: yuga,
-    desc: "Electrical Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/yug-agarwal-8a6631205/",
     twitter: "",
     instagram: "",
     facebook: "",
