@@ -130,7 +130,6 @@ import mayank from "../images/members/2027/mayank.jpg";
 import omkesh from "../images/members/2027/omkesh.webp";
 import roshan from "../images/members/2027/roshan.jpg";
 import vedika from "../images/members/2027/vedika.webp";
-import yuga from "../images/members/2027/yugA.jpg";
 
 interface Member {
   name: string;
@@ -1365,7 +1364,7 @@ export const year2024: Member[] = [
   {
     name: "VINAMRA VASHISHTH",
     image: vinamra,
-    desc: "Data Engineer at Melio",
+    desc: "M.S. Computer Science at Columbia University",
     github: "",
     linkedin: "https://www.linkedin.com/in/vinamra-vashishth-721785201/",
     twitter: "",
@@ -1385,7 +1384,7 @@ export const year2024: Member[] = [
   {
     name: "DIVYANSH GARG",
     image: divyansh,
-    desc: "SDE at Cred",
+    desc: "Flutter Developer at CRED",
     github: "",
     linkedin: "https://www.linkedin.com/in/dggrx/",
     twitter: "",
@@ -1445,7 +1444,7 @@ export const year2024: Member[] = [
   {
     name: "ASHOK KUMAR SAINI",
     image: ashok,
-    desc: "Works at Orangewood Labs",
+    desc: "Research Associate at MBZUAI",
     github: "",
     linkedin: "https://www.linkedin.com/in/ashok-kumar-saini-505b9b202/",
     twitter: "",
@@ -1458,7 +1457,7 @@ export const year2025: Member[] = [
   {
     name: "Priyansh Kothari",
     image: priyansh,
-    desc: "Computer Science Engineering",
+    desc: "SDE at Amazon",
     github: "",
     linkedin: "https://www.linkedin.com/in/aswin-arunkumar-7b3796273",
     twitter: "",
@@ -1478,7 +1477,7 @@ export const year2025: Member[] = [
   {
     name: "Harshit Sandilya",
     image: harshitS,
-    desc: "Computer Science Engineering",
+    desc: "Machine Learning Engineer at Shodh AI",
     github: "",
     linkedin: "https://www.linkedin.com/in/harshit-sandilya-625a47230/",
     twitter: "",
@@ -1488,7 +1487,7 @@ export const year2025: Member[] = [
   {
     name: "Rupesh Yadav",
     image: rupesh,
-    desc: "Electronics and Communication Engineering",
+    desc: "Field Application Engineer at Texas Instruments",
     github: "",
     linkedin: "https://www.linkedin.com/in/rupesh-yadav-634879229/",
     twitter: "",
@@ -1529,7 +1528,7 @@ export const year2025: Member[] = [
     name: "Mashaal Sayeed",
     image: mashaal,
     github: "",
-    desc: "Computer Science Engineering",
+    desc: "Software Engineer at Wells Fargo",
     linkedin: "https://www.linkedin.com/in/mashaal-sayeed-a28b10232/",
     twitter: "",
     instagram: "",
@@ -1538,7 +1537,7 @@ export const year2025: Member[] = [
   {
     name: "Anmol Bansal",
     image: anmol,
-    desc: "Electrical Engineering",
+    desc: "Digital Design Engineer at Texas Instruments",
     github: "",
     linkedin: "http://www.linkedin.com/in/bansalanmol1606",
     twitter: "",
@@ -1737,16 +1736,6 @@ export const year2027: Member[] = [
     desc: "Electronics and Communication Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/vedikamalpani04",
-    twitter: "",
-    instagram: "",
-    facebook: "",
-  },
-  {
-    name: "Yug Agarwal",
-    image: yuga,
-    desc: "Electrical Engineering",
-    github: "",
-    linkedin: "https://www.linkedin.com/in/yug-agarwal-8a6631205/",
     twitter: "",
     instagram: "",
     facebook: "",
