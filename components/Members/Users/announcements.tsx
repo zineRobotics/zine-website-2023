@@ -91,16 +91,16 @@ const Announcements = () => {
             Dashboard
           </h1>
           <div className="grid grid-cols-9 my-4 gap-8">
-          <div className="md:flex flex-col col-span-9 row-span-4 bg-blue2 rounded-3xl py-4 px-16 justify-center items-center shadow-md">
-            <h5 className="text-xl text-center font-bold text-white">
-              Register for the Recruitment and Workshop!
-            </h5>
-            <Link href={{ pathname: '/users/forms', query: { register: 'workshop' } }}>
-              <button className="mt-4 bg-white text-blue2 text-center py-2 px-4 rounded-xl hover:bg-gray-300 font-bold w-full ">
-                Forms
+            {/* <div className="hidden md:flex flex-col col-span-9 row-span-4 bg-blue2 rounded-3xl py-4 px-16 justify-center shadow-md">
+              <h5 className="text-xl text-center font-bold text-white" >
+                Register for the Recruitment and Workshop!
+              </h5>
+              <button className="mt-4 bg-white text-blue2 py-2 px-4 rounded-xl hover:bg-gray-300 font-bold"
+                  onClick={() => handleClick()}
+                >
+                  Forms
               </button>
-            </Link>
-          </div>
+            </div> */}
             <div className="hidden md:flex flex-col col-span-3 row-span-4 bg-white rounded-3xl py-4 px-16 justify-center shadow-md">
               <h5 className="text-xl text-right font-bold" style={styles.textPrimary}>
                 {suffix}
