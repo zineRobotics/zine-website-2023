@@ -91,7 +91,7 @@ const Announcements = () => {
             Dashboard
           </h1>
           <div className="grid grid-cols-9 my-4 gap-8">
-            <div className="hidden md:flex flex-col col-span-9 row-span-4 bg-blue2 rounded-3xl py-4 px-16 justify-center shadow-md">
+            {/* <div className="hidden md:flex flex-col col-span-9 row-span-4 bg-blue2 rounded-3xl py-4 px-16 justify-center shadow-md">
               <h5 className="text-xl text-center font-bold text-white" >
                 Register for the Recruitment and Workshop!
               </h5>
@@ -100,7 +100,7 @@ const Announcements = () => {
                 >
                   Forms
               </button>
-            </div>
+            </div> */}
             <div className="hidden md:flex flex-col col-span-3 row-span-4 bg-white rounded-3xl py-4 px-16 justify-center shadow-md">
               <h5 className="text-xl text-right font-bold" style={styles.textPrimary}>
                 {suffix}
