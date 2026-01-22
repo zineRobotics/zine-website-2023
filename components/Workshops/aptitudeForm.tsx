@@ -48,7 +48,7 @@ const AptitudeForm = () => {
 
   const addRegistration = async (data: IRegistrationData) => {
     // console.log(data);
-    // if (!data.email.startsWith("2023")) return toast.error("Registration is open for first years only")
+    // if (!data.email.startsWith("2025")) return toast.error("Registration is open for first years only")
 
     const regRef = collection(db, "aptitudeRegs");
 
@@ -111,7 +111,7 @@ const AptitudeForm = () => {
           className="font-poppins text-2xl font-bold text-center"
           style={{ color: "#0C72B0" }}
         >
-          Workshop Registration 2024
+          Workshop Registration 2026
         </div>
           <div className="mt-8">
               <label className="block text-gray-600">
@@ -127,7 +127,7 @@ const AptitudeForm = () => {
                 College Email Address
                 <span className="text-red-500">*</span>
               </label>
-              <input type="email" id="email" className="block w-full focus:outline-none bottom-border pt-2" placeholder="2023abc1234@mnit.ac.in" {...register("email", { required: true, validate: validateEmail })} />
+              <input type="email" id="email" className="block w-full focus:outline-none bottom-border pt-2" placeholder="2025abc1234@mnit.ac.in" {...register("email", { required: true, validate: validateEmail })} />
               
               {errors.email?.type === "required" && <p className="text-red-500 text-sm" role="alert">Email is required</p>}
           </div>

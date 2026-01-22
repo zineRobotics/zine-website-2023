@@ -36,7 +36,7 @@ const Registration = () => {
     const usersCollection = collection(db, "users");
 
     const onSubmit = async (data: IRegistrationData) => {
-        if (!data.email.startsWith("2022")) return setError("root.firstYear", { message: "" })
+        if (!data.email.startsWith("2025")) return setError("root.firstYear", { message: "" })
         // console.log(data)
         
         const q = query(regCollection, where("email", "==", data.email))
@@ -77,7 +77,7 @@ const Registration = () => {
                         <label className="block text-gray-600">College Name</label>
                         <select id="college" className="block w-full focus:outline-none bottom-border text-lg pt-2 indent-0" {...register("college")} >
                             <option>MNIT Jaipur</option>
-                            <option>IIIT Kota</option>
+                            {/* <option>IIIT Kota</option> */}
                         </select>
                     </div>
                     <div className="mt-6">
