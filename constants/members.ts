@@ -131,6 +131,9 @@ import omkesh from "../images/members/2027/omkesh.webp";
 import roshan from "../images/members/2027/roshan.jpg";
 import vedika from "../images/members/2027/vedika.webp";
 
+import paarthA from "../images/members/2028/paarthA.jpeg";
+import vikas from "../images/members/2028/vikas.jpeg";
+
 interface Member {
   name: string;
   image: StaticImageData;
@@ -1736,6 +1739,29 @@ export const year2027: Member[] = [
     desc: "Electronics and Communication Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/vedikamalpani04",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  }
+]
+
+export const year2028: Member[] = [
+  {
+    name: "Paarth Agnihotri",
+    image: paarthA,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/paarth-agnihotri-299481247/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  {
+    name: "Vikas Prajapat",
+    image: vikas,
+    desc: "Metallurgical and Materials Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/vikas-prajapat-5300ba327/",
     twitter: "",
     instagram: "",
     facebook: "",
