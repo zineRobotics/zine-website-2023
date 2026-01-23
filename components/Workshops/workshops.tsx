@@ -202,6 +202,16 @@ const Workshops = () => {
         </button>
       </Link> */}
 
+      <a
+        href="https://forms.gle/5FzuAQ3akpK1R6HP8"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-8 p-4 block rounded-3xl font-semibold text-lg bg-white text-center"
+        style={{ width: 300, color: "#0C72B0", borderRadius: "1.5rem" }}
+      >
+        Register Now
+      </a>
+
       {/* Timeline */}
       <div className="container my-24">
         <div
